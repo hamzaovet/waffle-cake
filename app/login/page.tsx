@@ -107,7 +107,7 @@ export default function LoginPage() {
           alignItems: "center",
           justifyContent: "center",
         }}>
-          <img src="/logo.jpg" alt="Waffle & Cake Logo" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          <img src="/app-icon.png" alt="Waffle & Cake Logo" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
         </div>
         <h1 style={{
           fontSize: "26px",
