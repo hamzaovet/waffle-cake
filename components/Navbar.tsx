@@ -588,9 +588,9 @@ export default function Navbar() {
 
       <header style={{
         position: "sticky", top: 0, zIndex: 100, width: "100%",
-        background: "#120a04",
-        borderBottom: `1px solid ${C.border}`,
-        boxShadow: "0 2px 20px rgba(0,0,0,0.5)",
+        background: "#FAF6EE",
+        borderBottom: "1px solid #E8DAC8",
+        boxShadow: "0 2px 14px rgba(78, 44, 21, 0.04)",
       }}>
         <div style={{
           maxWidth: "1400px", margin: "0 auto",
@@ -606,7 +606,7 @@ export default function Navbar() {
           }}>
             <div style={{
               width: "36px", height: "36px", borderRadius: "50%",
-              background: "#FAF6EE",
+              background: "#FFFFFF",
               border: "1.5px solid #E8DAC8",
               display: "flex", alignItems: "center", justifyContent: "center",
               flexShrink: 0,
@@ -616,16 +616,16 @@ export default function Navbar() {
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "7px" }}>
                 <span style={{
-                  fontSize: "15px", fontWeight: 800, color: "#FAF6EE",
+                  fontSize: "15px", fontWeight: 800, color: "#2B170E",
                   fontFamily: "var(--font-playfair), Georgia, serif",
                   fontStyle: "normal",
                 }}>
                   Waffle &amp; Cake
                 </span>
                 <span style={{
-                  fontSize: "10px", background: "rgba(217,155,86,0.18)",
-                  color: "#d99b56", padding: "2px 7px", borderRadius: "100px",
-                  fontWeight: 700, border: "1px solid rgba(217,155,86,0.3)",
+                  fontSize: "10px", background: "rgba(212, 149, 78, 0.15)",
+                  color: "#C6873E", padding: "2px 7px", borderRadius: "100px",
+                  fontWeight: 700, border: "1px solid rgba(212, 149, 78, 0.3)",
                   fontStyle: "normal", fontFamily: "system-ui, sans-serif",
                 }}>
                   {currentUser?.role === "owner" ? "Owner"
@@ -641,8 +641,8 @@ export default function Navbar() {
           {/* ERP Nav links */}
           <nav className="erp-desktop" style={{
             alignItems: "center", gap: "1px",
-            background: "rgba(0,0,0,0.3)",
-            border: "1px solid rgba(255,255,255,0.06)",
+            background: "#FFFFFF",
+            border: "1px solid #E8DAC8",
             borderRadius: "14px", padding: "4px",
             overflowX: "auto",
           }}>
@@ -658,8 +658,8 @@ export default function Navbar() {
                     padding: "6px 11px", borderRadius: "10px",
                     fontSize: "12px", fontWeight: 700,
                     textDecoration: "none", whiteSpace: "nowrap",
-                    background: active ? "#d99b56" : "transparent",
-                    color: active ? "#0d0805" : "#c0a080",
+                    background: active ? "linear-gradient(135deg, #D4954E, #C6873E)" : "transparent",
+                    color: active ? "#FFFFFF" : "#7E5E49",
                   }}
                 >
                   <Icon size={12} />
@@ -676,14 +676,14 @@ export default function Navbar() {
               style={{
                 display: "flex",
                 alignItems: "center", gap: "5px",
-                background: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.09)",
-                color: "#a0907a", borderRadius: "9px",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
+                color: "#7E5E49", borderRadius: "9px",
                 padding: "6px 11px", fontSize: "12px", fontWeight: 700,
                 textDecoration: "none",
               }}
             >
-              <Store size={12} style={{ color: "#d99b56" }} />
+              <Store size={12} style={{ color: "#D4954E" }} />
               المتجر
             </Link>
 
@@ -691,40 +691,40 @@ export default function Navbar() {
               <div style={{ position: "relative" }}>
                 <button onClick={() => setShowUserDropdown(!showUserDropdown)} style={{
                   display: "flex", alignItems: "center", gap: "7px",
-                  background: "rgba(255,255,255,0.07)",
-                  border: "1px solid rgba(255,255,255,0.1)",
+                  background: "#FFFFFF",
+                  border: "1px solid #E8DAC8",
                   borderRadius: "12px", padding: "5px 10px",
-                  cursor: "pointer", color: "#ffffff",
+                  cursor: "pointer", color: "#2B170E",
                 }}>
                   <div style={{
                     width: "26px", height: "26px", borderRadius: "50%",
-                    background: "#d99b56",
+                    background: "linear-gradient(135deg, #D4954E, #C6873E)",
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "#0d0805", fontWeight: 900, fontSize: "12px",
+                    color: "#FFFFFF", fontWeight: 900, fontSize: "12px",
                     fontFamily: "var(--font-playfair), Georgia, serif",
                   }}>
                     {currentUser.name[0]}
                   </div>
                   <span style={{ fontWeight: 700, fontSize: "12px" }}>{currentUser.name.split(" ")[0]}</span>
-                  <ChevronDown size={12} style={{ color: "#7a6a5a" }} />
+                  <ChevronDown size={12} style={{ color: "#7E5E49" }} />
                 </button>
 
                 {showUserDropdown && (
                   <div style={{
                     position: "absolute", left: 0, top: "calc(100% + 8px)",
-                    width: "210px", background: C.card,
-                    border: "1px solid rgba(200,134,10,0.3)",
+                    width: "210px", background: "#FFFFFF",
+                    border: "1px solid #E8DAC8",
                     borderRadius: "16px",
-                    boxShadow: "0 12px 40px rgba(0,0,0,0.5)",
+                    boxShadow: "0 12px 40px rgba(0,0,0,0.1)",
                     padding: "8px", zIndex: 50, direction: "rtl",
                   }}>
-                    <div style={{ padding: "10px 12px", borderBottom: "1px solid rgba(255,255,255,0.07)", marginBottom: "5px" }}>
-                      <p style={{ fontWeight: 900, fontSize: "13px", color: "#fff", margin: 0 }}>{currentUser.name}</p>
+                    <div style={{ padding: "10px 12px", borderBottom: "1px solid #E8DAC8", marginBottom: "5px" }}>
+                      <p style={{ fontWeight: 900, fontSize: "13px", color: "#2B170E", margin: 0 }}>{currentUser.name}</p>
                       <span style={{
                         display: "inline-block", marginTop: "3px",
                         fontSize: "10px", padding: "2px 7px", borderRadius: "100px",
-                        background: "rgba(217,155,86,0.18)", color: "#d99b56",
-                        fontWeight: 700, border: "1px solid rgba(217,155,86,0.28)",
+                        background: "rgba(212, 149, 78, 0.15)", color: "#C6873E",
+                        fontWeight: 700, border: "1px solid rgba(212, 149, 78, 0.3)",
                       }}>
                         {permissions.label}
                       </span>
@@ -733,15 +733,15 @@ export default function Navbar() {
                       <Link href="/users" onClick={() => { setShowUserDropdown(false); playSound("click"); }} style={{
                         display: "flex", alignItems: "center", gap: "7px",
                         padding: "8px 10px", borderRadius: "8px",
-                        fontSize: "12px", fontWeight: 700, color: "#d99b56",
+                        fontSize: "12px", fontWeight: 700, color: "#C6873E",
                         textDecoration: "none", marginBottom: "6px",
-                        background: "rgba(217,155,86,0.1)",
+                        background: "rgba(212, 149, 78, 0.08)",
                       }}>
                         <Users size={13} /> إدارة الفريق
                       </Link>
                     )}
 
-                    <p style={{ fontSize: "10px", fontWeight: 700, color: "#7a6a5a", padding: "3px 10px", margin: 0, display: "flex", alignItems: "center", gap: "4px" }}>
+                    <p style={{ fontSize: "10px", fontWeight: 700, color: "#7E5E49", padding: "3px 10px", margin: 0, display: "flex", alignItems: "center", gap: "4px" }}>
                       <Shield size={10} /> تبديل:
                     </p>
                     <div style={{ maxHeight: "120px", overflowY: "auto" }}>
@@ -755,22 +755,22 @@ export default function Navbar() {
                             padding: "7px 10px", borderRadius: "8px",
                             fontSize: "12px", cursor: "pointer", border: "none",
                             display: "flex", alignItems: "center", justifyContent: "space-between",
-                            background: u.name === currentUser.name ? "rgba(217,155,86,0.13)" : "transparent",
-                            color: u.name === currentUser.name ? "#d99b56" : "#c0a080",
+                            background: u.name === currentUser.name ? "rgba(212, 149, 78, 0.12)" : "transparent",
+                            color: u.name === currentUser.name ? "#C6873E" : "#7E5E49",
                             fontWeight: u.name === currentUser.name ? 900 : 600,
                           }}
                         >
                           <span>{u.name}</span>
-                          <span style={{ fontSize: "10px", color: "#7a6a5a", fontFamily: "monospace" }}>{u.role}</span>
+                          <span style={{ fontSize: "10px", color: "#A88B77", fontFamily: "monospace" }}>{u.role}</span>
                         </button>
                       ))}
                     </div>
-                    <div style={{ paddingTop: "6px", borderTop: "1px solid rgba(255,255,255,0.07)", marginTop: "5px" }}>
+                    <div style={{ paddingTop: "6px", borderTop: "1px solid #E8DAC8", marginTop: "5px" }}>
                       <button onClick={() => { logout(); setShowUserDropdown(false); window.location.href = "/"; }}
                         style={{
                           display: "flex", alignItems: "center", gap: "7px",
                           padding: "7px 10px", borderRadius: "8px",
-                          fontSize: "12px", fontWeight: 700, color: "#f87171",
+                          fontSize: "12px", fontWeight: 700, color: "#dc2626",
                           background: "transparent", border: "none",
                           cursor: "pointer", width: "100%", textAlign: "right",
                         }}
@@ -784,7 +784,7 @@ export default function Navbar() {
             ) : (
               <Link href="/login" onClick={() => playSound("click")} style={{
                 display: "inline-flex", alignItems: "center", gap: "5px",
-                background: "#d99b56", color: "#0d0805",
+                background: "linear-gradient(135deg, #D4954E, #C6873E)", color: "#FFFFFF",
                 padding: "7px 13px", borderRadius: "9px",
                 fontSize: "12px", fontWeight: 900, textDecoration: "none",
               }}>
@@ -797,9 +797,9 @@ export default function Navbar() {
               style={{
                 alignItems: "center", justifyContent: "center",
                 padding: "7px", borderRadius: "9px",
-                background: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.09)",
-                color: "#fff", cursor: "pointer",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
+                color: "#2B170E", cursor: "pointer",
               }}
             >
               {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -809,8 +809,8 @@ export default function Navbar() {
 
         {mobileMenuOpen && (
           <div style={{
-            borderTop: `1px solid ${C.border}`,
-            background: "#120a04", padding: "10px 14px",
+            borderTop: "1px solid #E8DAC8",
+            background: "#FAF6EE", padding: "10px 14px",
             display: "flex", flexDirection: "column", gap: "3px",
             direction: "rtl",
           }}>
@@ -820,9 +820,9 @@ export default function Navbar() {
                 style={{
                   display: "block", padding: "9px 12px",
                   borderRadius: "9px", fontWeight: 700,
-                  fontSize: "13px", color: "#c0a080",
+                  fontSize: "13px", color: "#7E5E49",
                   textDecoration: "none",
-                  background: pathname === l.href ? "rgba(217,155,86,0.13)" : "transparent",
+                  background: pathname === l.href ? "rgba(212, 149, 78, 0.15)" : "transparent",
                 }}
               >
                 {l.label}

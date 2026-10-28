@@ -81,7 +81,7 @@ export async function POST(req: Request) {
 
     const msg = await prisma.chatMessage.create({
       data: {
-        senderName: senderName?.trim() || (isStaff ? "فريق Choco House" : "عميل"),
+        senderName: senderName?.trim() || (isStaff ? "فريق Waffle & Cake 🧇🍰" : "عميل"),
         text: text.trim(),
         senderId: cleanToken,
         customerPhone: cleanPhone,

@@ -95,8 +95,8 @@ export default function KitchenPage() {
   }
 
   if (authLoading || loading) return (
-    <div className="min-h-screen bg-[#0d0805] flex items-center justify-center">
-      <Loader2 className="animate-spin text-[#c8860a]" size={40} />
+    <div className="min-h-screen bg-[#F8F4EC] flex items-center justify-center">
+      <Loader2 className="animate-spin text-[#C6873E]" size={40} />
     </div>
   );
 
@@ -104,16 +104,16 @@ export default function KitchenPage() {
   const preparingOrders = orders.filter((o) => o.status === "preparing");
 
   return (
-    <div dir={dir} className="min-h-screen bg-[#0d0805] p-4 sm:p-6" style={{ fontFamily: "var(--font-cairo), system-ui, sans-serif" }}>
+    <div dir={dir} className="min-h-screen bg-[#F8F4EC] p-4 sm:p-6 text-[#2B170E]" style={{ fontFamily: "var(--font-cairo), system-ui, sans-serif" }}>
       {/* Header */}
       <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-2xl bg-[#1a0f07] border border-[#c8860a] flex items-center justify-center">
-            <ChefHat className="text-[#c8860a]" size={22} />
+          <div className="h-10 w-10 rounded-2xl bg-[#FFFFFF] border border-[#E8DAC8] flex items-center justify-center shadow-sm">
+            <ChefHat className="text-[#C6873E]" size={22} />
           </div>
           <div>
-            <h1 className="text-xl font-black text-white">{t("شاشة المطبخ (KDS)", "Kitchen Display System (KDS)")}</h1>
-            <p className="text-xs text-[#9c7a5e]">{newOrders.length} {t("جديد", "New")} • {preparingOrders.length} {t("يُحضَّر", "Preparing")}</p>
+            <h1 className="text-xl font-black text-[#2B170E]">{t("شاشة المطبخ (KDS)", "Kitchen Display System (KDS)")}</h1>
+            <p className="text-xs text-[#7E5E49]">{newOrders.length} {t("جديد", "New")} • {preparingOrders.length} {t("يُحضَّر", "Preparing")}</p>
           </div>
         </div>
 
@@ -121,25 +121,25 @@ export default function KitchenPage() {
           {/* Language Toggle Button */}
           <button
             onClick={() => { playSound("click"); toggleLang(); }}
-            className="px-3.5 py-2 rounded-xl bg-[#1a0f07] border border-[#3d1f0a] text-[#d99b56] font-bold text-xs hover:border-[#d99b56] transition-colors flex items-center gap-1.5"
+            className="px-3.5 py-2 rounded-xl bg-[#FFFFFF] border border-[#E8DAC8] text-[#7E5E49] font-bold text-xs hover:border-[#C6873E] transition-colors flex items-center gap-1.5 shadow-sm"
           >
             <span>{lang === "ar" ? "EN 🌐" : "ع 🌐"}</span>
           </button>
 
-          <button onClick={fetchOrders} className="p-2.5 rounded-xl bg-[#1a0f07] border border-[#3d1f0a] text-[#c8860a] hover:border-[#c8860a] transition-colors" title={t("تحديث الطلبات", "Refresh Orders")}>
+          <button onClick={fetchOrders} className="p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E8DAC8] text-[#C6873E] hover:border-[#C6873E] transition-colors shadow-sm" title={t("تحديث الطلبات", "Refresh Orders")}>
             <RefreshCw size={18} />
           </button>
 
-          <Link href="/dashboard" className="px-3 py-2 rounded-xl bg-[#1a0f07] border border-[#3d1f0a] text-[#b0957e] hover:text-white text-xs font-bold transition-colors">
+          <Link href="/dashboard" className="px-3 py-2 rounded-xl bg-[#FFFFFF] border border-[#E8DAC8] text-[#7E5E49] hover:text-[#2B170E] text-xs font-bold transition-colors shadow-sm">
             {t("الداشبورد", "Dashboard")}
           </Link>
         </div>
       </div>
 
       {orders.length === 0 ? (
-        <div className="text-center py-24 text-[#9c7a5e]">
-          <ChefHat size={48} className="mx-auto mb-3 opacity-50" />
-          <p className="text-lg font-bold">{t("لا توجد طلبات حالياً 🎉", "No active orders right now 🎉")}</p>
+        <div className="text-center py-24 text-[#7E5E49]">
+          <ChefHat size={48} className="mx-auto mb-3 opacity-50 text-[#C6873E]" />
+          <p className="text-lg font-bold text-[#2B170E]">{t("لا توجد طلبات حالياً 🎉", "No active orders right now 🎉")}</p>
           <p className="text-sm mt-1">{t("بيجيلك طلب هيرن هنا تلقائياً", "Incoming orders will chime and appear here automatically")}</p>
         </div>
       ) : (
@@ -152,31 +152,31 @@ export default function KitchenPage() {
             const nextStatus = STATUS_FLOW[STATUS_FLOW.indexOf(order.status) + 1];
 
             return (
-              <div key={order.id} className={`rounded-2xl border p-4 flex flex-col gap-3 transition-all ${
-                isUrgent ? "border-red-500/60 bg-red-950/20 animate-pulse-glow" : `${colorCfg.bg} bg-[#1a0f07]`
+              <div key={order.id} className={`rounded-2xl border p-4 flex flex-col gap-3 transition-all shadow-sm ${
+                isUrgent ? "border-red-500 bg-red-50" : `border-[#E8DAC8] bg-[#FFFFFF]`
               }`}>
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs text-[#c8860a] font-bold">{order.orderNumber}</span>
+                  <span className="font-mono text-xs text-[#C6873E] font-bold">{order.orderNumber}</span>
                   <div className="flex items-center gap-1.5">
-                    {isUrgent && <AlertCircle size={14} className="text-red-400" />}
-                    <Clock size={12} className={isUrgent ? "text-red-400" : "text-[#9c7a5e]"} />
-                    <span className={`text-xs font-bold ${isUrgent ? "text-red-400" : "text-[#9c7a5e]"}`}>{elapsed} {t("د", "m")}</span>
+                    {isUrgent && <AlertCircle size={14} className="text-red-600" />}
+                    <Clock size={12} className={isUrgent ? "text-red-600" : "text-[#7E5E49]"} />
+                    <span className={`text-xs font-bold ${isUrgent ? "text-red-600" : "text-[#7E5E49]"}`}>{elapsed} {t("د", "m")}</span>
                   </div>
                 </div>
 
                 <div>
-                  <p className="font-bold text-white">{order.customerName}</p>
-                  <p className="text-xs text-[#9c7a5e]">{order.zone}</p>
+                  <p className="font-bold text-[#2B170E]">{order.customerName}</p>
+                  <p className="text-xs text-[#7E5E49]">{order.zone}</p>
                 </div>
 
-                <div className="bg-[#0d0805] rounded-xl p-2.5 space-y-1.5">
+                <div className="bg-[#FAF6EE] border border-[#E8DAC8] rounded-xl p-2.5 space-y-1.5">
                   {items.map((item: { nameAr?: string; nameEn?: string; qty: number; extras: string[] }, i: number) => {
                     const itemName = (lang === "en" && item.nameEn) ? item.nameEn : (item.nameAr || item.nameEn || "");
                     return (
                       <div key={i} className="text-sm">
-                        <span className="font-bold text-white">× {item.qty} {itemName}</span>
+                        <span className="font-bold text-[#2B170E]">× {item.qty} {itemName}</span>
                         {item.extras?.length > 0 && (
-                          <p className="text-[11px] text-[#c8860a]">+ {item.extras.join(" + ")}</p>
+                          <p className="text-[11px] text-[#C6873E]">+ {item.extras.join(" + ")}</p>
                         )}
                       </div>
                     );
@@ -184,7 +184,7 @@ export default function KitchenPage() {
                 </div>
 
                 {order.notes && (
-                  <p className="text-xs text-amber-300 bg-amber-500/10 rounded-xl p-2 border border-amber-500/20">
+                  <p className="text-xs text-amber-900 bg-amber-50 rounded-xl p-2 border border-amber-200">
                     📝 {order.notes}
                   </p>
                 )}
@@ -196,7 +196,7 @@ export default function KitchenPage() {
                 {nextStatus && nextStatus !== "delivered" && (
                   <button onClick={() => updateStatus(order, nextStatus)}
                     disabled={updating === order.id}
-                    className="w-full btn-gold py-2.5 rounded-xl font-black text-sm flex items-center justify-center gap-2 disabled:opacity-50">
+                    className="w-full btn-gold py-2.5 rounded-xl font-black text-sm flex items-center justify-center gap-2 disabled:opacity-50 text-white shadow-md">
                     {updating === order.id ? <Loader2 size={15} className="animate-spin" /> : <CheckCircle2 size={15} />}
                     {nextStatus === "preparing" ? t("بدأ التحضير 🔥", "Start Preparing 🔥") : t("جاهز للتوصيل ✅", "Ready for Delivery ✅")}
                   </button>

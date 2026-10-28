@@ -70,11 +70,11 @@ const DEFAULT_OFFERS: OfferData = {
 const inputStyle: React.CSSProperties = {
   width: "100%",
   height: "44px",
-  backgroundColor: "#0d0805",
-  border: "1px solid rgba(217, 155, 86, 0.25)",
+  backgroundColor: "#FAF6EE",
+  border: "1px solid #E8DAC8",
   borderRadius: "12px",
   padding: "0 14px",
-  color: "#ffffff",
+  color: "#2B170E",
   fontSize: "13.5px",
   fontWeight: 600,
   outline: "none",
@@ -85,7 +85,7 @@ const labelStyle: React.CSSProperties = {
   display: "block",
   fontSize: "12px",
   fontWeight: 800,
-  color: "#b0957e",
+  color: "#7E5E49",
   marginBottom: "6px",
 };
 
@@ -148,8 +148,8 @@ export default function OffersAdminPage() {
 
   if (authLoading || loading) {
     return (
-      <div style={{ minHeight: "100vh", backgroundColor: "#0d0805", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <Loader2 className="animate-spin" size={40} color="#d99b56" />
+      <div style={{ minHeight: "100vh", backgroundColor: "#F8F4EC", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <Loader2 className="animate-spin" size={40} color="#C6873E" />
       </div>
     );
   }
@@ -272,21 +272,22 @@ export default function OffersAdminPage() {
 
             {/* Box 1: Section Header Texts */}
             <div style={{
-              background: "#160d05",
-              border: "1px solid rgba(217, 155, 86, 0.2)",
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
               borderRadius: "18px",
               padding: "22px",
+              boxShadow: "0 2px 8px rgba(43,23,14,0.04)",
             }}>
               <h2 style={{
                 margin: "0 0 16px 0",
                 fontSize: "15px",
                 fontWeight: 900,
-                color: "#d99b56",
+                color: "#2B170E",
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
               }}>
-                <Sparkles size={17} /> {t("نصوص عنوان سكشن العروض", "Offers Section Header & Titles")}
+                <Sparkles size={17} color="#C6873E" /> {t("نصوص عنوان سكشن العروض", "Offers Section Header & Titles")}
               </h2>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
@@ -324,21 +325,22 @@ export default function OffersAdminPage() {
 
             {/* Box 2: The 3 Offer Cards */}
             <div style={{
-              background: "#160d05",
-              border: "1px solid rgba(217, 155, 86, 0.2)",
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
               borderRadius: "18px",
               padding: "22px",
+              boxShadow: "0 2px 8px rgba(43,23,14,0.04)",
             }}>
               <h2 style={{
                 margin: "0 0 16px 0",
                 fontSize: "15px",
                 fontWeight: 900,
-                color: "#d99b56",
+                color: "#2B170E",
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
               }}>
-                <Gift size={17} /> {t("كروت العروض الثلاثة", "The 3 Special Offer Cards")}
+                <Gift size={17} color="#C6873E" /> {t("كروت العروض الثلاثة", "The 3 Special Offer Cards")}
               </h2>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -346,8 +348,8 @@ export default function OffersAdminPage() {
                   <div
                     key={card.id || idx}
                     style={{
-                      background: "#0d0805",
-                      border: "1px solid rgba(217, 155, 86, 0.18)",
+                      background: "#FAF6EE",
+                      border: "1px solid #E8DAC8",
                       borderRadius: "14px",
                       padding: "16px",
                       display: "flex",
@@ -356,20 +358,20 @@ export default function OffersAdminPage() {
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                      <span style={{ fontSize: "13px", fontWeight: 900, color: "#d99b56" }}>
+                      <span style={{ fontSize: "13px", fontWeight: 900, color: "#C6873E" }}>
                         {t(`عرض رقم ${idx + 1}`, `Offer Card #${idx + 1}`)}
                       </span>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        <span style={{ fontSize: "11px", color: "#8a7565" }}>{t("الأيقونة:", "Icon:")}</span>
+                        <span style={{ fontSize: "11px", color: "#7E5E49" }}>{t("الأيقونة:", "Icon:")}</span>
                         <select
                           value={card.icon}
                           onChange={(e) => updateCard(idx, "icon", e.target.value)}
                           style={{
-                            background: "#160d05",
-                            border: "1px solid rgba(217, 155, 86, 0.25)",
+                            background: "#FFFFFF",
+                            border: "1px solid #E8DAC8",
                             borderRadius: "8px",
                             padding: "4px 8px",
-                            color: "#ffffff",
+                            color: "#2B170E",
                             fontSize: "12px",
                             outline: "none",
                           }}
@@ -415,10 +417,11 @@ export default function OffersAdminPage() {
 
             {/* Box 3: Most Popular Banner */}
             <div style={{
-              background: "#160d05",
-              border: "1px solid rgba(217, 155, 86, 0.2)",
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
               borderRadius: "18px",
               padding: "22px",
+              boxShadow: "0 2px 8px rgba(43,23,14,0.04)",
             }}>
               <h2 style={{
                 margin: "0 0 16px 0",
@@ -490,11 +493,11 @@ export default function OffersAdminPage() {
           {/* Live Preview Column (Sticky Left) */}
           <div style={{ position: "sticky", top: "24px", display: "flex", flexDirection: "column", gap: "16px" }}>
             <div style={{
-              background: "#160d05",
-              border: "1px solid rgba(217, 155, 86, 0.35)",
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
               borderRadius: "20px",
               padding: "20px",
-              boxShadow: "0 12px 32px rgba(0,0,0,0.5)",
+              boxShadow: "0 4px 16px rgba(43,23,14,0.06)",
             }}>
               <div style={{
                 display: "flex",
@@ -502,9 +505,9 @@ export default function OffersAdminPage() {
                 justifyContent: "space-between",
                 marginBottom: "16px",
                 paddingBottom: "10px",
-                borderBottom: "1px solid rgba(217, 155, 86, 0.15)",
+                borderBottom: "1px solid #E8DAC8",
               }}>
-                <span style={{ fontSize: "13px", fontWeight: 900, color: "#d99b56" }}>
+                <span style={{ fontSize: "13px", fontWeight: 900, color: "#2B170E" }}>
                   {t("معاينة حية لشكل العروض على الموقع", "Live Storefront Preview")}
                 </span>
                 <span style={{
@@ -515,13 +518,13 @@ export default function OffersAdminPage() {
 
               {/* Header Preview */}
               <div style={{ marginBottom: "16px", textAlign: dir === "rtl" ? "right" : "left" }}>
-                <span style={{ fontSize: "11px", fontWeight: 800, color: "#d99b56", display: "block", marginBottom: "2px" }}>
+                <span style={{ fontSize: "11px", fontWeight: 800, color: "#C6873E", display: "block", marginBottom: "2px" }}>
                   {offers.badge}
                 </span>
-                <h3 style={{ margin: "0 0 4px 0", fontSize: "18px", fontWeight: 900, color: "#ffffff" }}>
+                <h3 style={{ margin: "0 0 4px 0", fontSize: "18px", fontWeight: 900, color: "#2B170E" }}>
                   {offers.title}
                 </h3>
-                <p style={{ margin: 0, fontSize: "11px", color: "#8a7565" }}>
+                <p style={{ margin: 0, fontSize: "11px", color: "#7E5E49" }}>
                   {offers.subtitle}
                 </p>
               </div>
@@ -532,8 +535,8 @@ export default function OffersAdminPage() {
                   <div
                     key={i}
                     style={{
-                      background: "#0d0805",
-                      border: "1px solid rgba(217, 155, 86, 0.2)",
+                      background: "#FAF6EE",
+                      border: "1px solid #E8DAC8",
                       borderRadius: "14px",
                       padding: "12px 14px",
                       display: "flex",
@@ -542,10 +545,10 @@ export default function OffersAdminPage() {
                     }}
                   >
                     <div>
-                      <div style={{ fontSize: "13px", fontWeight: 900, color: "#d99b56" }}>
+                      <div style={{ fontSize: "13px", fontWeight: 900, color: "#2B170E" }}>
                         {c.title}
                       </div>
-                      <div style={{ fontSize: "11px", color: "#a8927e", marginTop: "2px" }}>
+                      <div style={{ fontSize: "11px", color: "#7E5E49", marginTop: "2px" }}>
                         {c.desc}
                       </div>
                     </div>

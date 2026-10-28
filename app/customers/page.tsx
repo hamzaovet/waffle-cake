@@ -207,9 +207,9 @@ export default function CustomersPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: "6px",
-                background: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                color: "#d99b56",
+                background: "#FAF6EE",
+                border: "1px solid #E8DAC8",
+                color: "#7E5E49",
                 padding: "10px 14px",
                 borderRadius: "12px",
                 fontWeight: 700,
@@ -235,39 +235,41 @@ export default function CustomersPage() {
           {/* Card 1 */}
           <div
             style={{
-              background: "#160d05",
-              border: "1px solid rgba(217, 155, 86, 0.2)",
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
               borderRadius: "18px",
               padding: "18px 20px",
+              boxShadow: "0 2px 8px rgba(43,23,14,0.04)",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
-              <span style={{ fontSize: "13px", color: "#8a7565", fontWeight: 700 }}>
+              <span style={{ fontSize: "13px", color: "#7E5E49", fontWeight: 700 }}>
                 {t("إجمالي العملاء", "Total Customers")}
               </span>
-              <Users size={18} color="#d99b56" />
+              <Users size={18} color="#C6873E" />
             </div>
-            <div style={{ fontSize: "28px", fontWeight: 900, color: "#ffffff" }}>{totalCount}</div>
-            <div style={{ fontSize: "11.5px", color: "#d99b56", marginTop: "4px" }}>عميل مسجل في قاعدة البيانات</div>
+            <div style={{ fontSize: "28px", fontWeight: 900, color: "#2B170E" }}>{totalCount}</div>
+            <div style={{ fontSize: "11.5px", color: "#C6873E", marginTop: "4px", fontWeight: 700 }}>عميل مسجل في قاعدة البيانات</div>
           </div>
 
           {/* Card 2 */}
           <div
             style={{
-              background: "#160d05",
-              border: "1px solid rgba(217, 155, 86, 0.2)",
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
               borderRadius: "18px",
               padding: "18px 20px",
+              boxShadow: "0 2px 8px rgba(43,23,14,0.04)",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
-              <span style={{ fontSize: "13px", color: "#8a7565", fontWeight: 700 }}>
+              <span style={{ fontSize: "13px", color: "#7E5E49", fontWeight: 700 }}>
                 {t("موثقين بالجيميل", "Verified via Gmail")}
               </span>
-              <CheckCircle2 size={18} color="#22c55e" />
+              <CheckCircle2 size={18} color="#15803D" />
             </div>
-            <div style={{ fontSize: "28px", fontWeight: 900, color: "#22c55e" }}>{verifiedCount}</div>
-            <div style={{ fontSize: "11.5px", color: "#8a7565", marginTop: "4px" }}>
+            <div style={{ fontSize: "28px", fontWeight: 900, color: "#15803D" }}>{verifiedCount}</div>
+            <div style={{ fontSize: "11.5px", color: "#7E5E49", marginTop: "4px" }}>
               {totalCount > 0 ? `${Math.round((verifiedCount / totalCount) * 100)}% من إجمالي العملاء` : "0%"}
             </div>
           </div>
@@ -275,47 +277,49 @@ export default function CustomersPage() {
           {/* Card 3 */}
           <div
             style={{
-              background: "#160d05",
-              border: "1px solid rgba(217, 155, 86, 0.2)",
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
               borderRadius: "18px",
               padding: "18px 20px",
+              boxShadow: "0 2px 8px rgba(43,23,14,0.04)",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
-              <span style={{ fontSize: "13px", color: "#8a7565", fontWeight: 700 }}>
+              <span style={{ fontSize: "13px", color: "#7E5E49", fontWeight: 700 }}>
                 {t("إجمالي الطلبات", "Total Customer Orders")}
               </span>
-              <Package size={18} color="#60a5fa" />
+              <Package size={18} color="#2563EB" />
             </div>
-            <div style={{ fontSize: "28px", fontWeight: 900, color: "#60a5fa" }}>{totalOrdersCount}</div>
-            <div style={{ fontSize: "11.5px", color: "#8a7565", marginTop: "4px" }}>طلب تم تنفيذه عبر الموقع</div>
+            <div style={{ fontSize: "28px", fontWeight: 900, color: "#2563EB" }}>{totalOrdersCount}</div>
+            <div style={{ fontSize: "11.5px", color: "#7E5E49", marginTop: "4px" }}>طلب تم تنفيذه عبر المتجر</div>
           </div>
 
           {/* Card 4 */}
           <div
             style={{
-              background: "#160d05",
-              border: "1px solid rgba(217, 155, 86, 0.2)",
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
               borderRadius: "18px",
               padding: "18px 20px",
+              boxShadow: "0 2px 8px rgba(43,23,14,0.04)",
             }}
           >
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
-              <span style={{ fontSize: "13px", color: "#8a7565", fontWeight: 700 }}>
+              <span style={{ fontSize: "13px", color: "#7E5E49", fontWeight: 700 }}>
                 {t("إجمالي مشتريات العملاء", "Total Customer Revenue")}
               </span>
-              <span style={{ fontSize: "16px", color: "#d99b56", fontWeight: 900 }}>EGP</span>
+              <span style={{ fontSize: "15px", color: "#C6873E", fontWeight: 900 }}>EGP</span>
             </div>
-            <div style={{ fontSize: "28px", fontWeight: 900, color: "#d99b56" }}>{totalRevenue.toLocaleString()} ج</div>
-            <div style={{ fontSize: "11.5px", color: "#8a7565", marginTop: "4px" }}>قيمة المبيعات المحققة</div>
+            <div style={{ fontSize: "28px", fontWeight: 900, color: "#C6873E" }}>{totalRevenue.toLocaleString()} ج</div>
+            <div style={{ fontSize: "11.5px", color: "#7E5E49", marginTop: "4px" }}>قيمة المبيعات المحققة</div>
           </div>
         </div>
 
         {/* ── Search & Filter Controls ── */}
         <div
           style={{
-            background: "#160d05",
-            border: "1px solid rgba(217, 155, 86, 0.2)",
+            background: "#FFFFFF",
+            border: "1px solid #E8DAC8",
             borderRadius: "16px",
             padding: "14px 18px",
             marginBottom: "20px",
@@ -324,13 +328,14 @@ export default function CustomersPage() {
             justifyContent: "space-between",
             flexWrap: "wrap",
             gap: "14px",
+            boxShadow: "0 2px 8px rgba(43,23,14,0.03)",
           }}
         >
           {/* Search Input */}
           <div style={{ position: "relative", flex: 1, minWidth: "260px" }}>
             <Search
               size={16}
-              color="#8a7565"
+              color="#7E5E49"
               style={{ position: "absolute", right: "12px", top: "50%", transform: "translateY(-50%)" }}
             />
             <input
@@ -341,11 +346,11 @@ export default function CustomersPage() {
               style={{
                 width: "100%",
                 height: "40px",
-                background: "#0d0805",
-                border: "1px solid rgba(217, 155, 86, 0.25)",
+                background: "#FAF6EE",
+                border: "1px solid #E8DAC8",
                 borderRadius: "10px",
                 padding: "0 38px 0 14px",
-                color: "#ffffff",
+                color: "#2B170E",
                 fontSize: "13px",
                 outline: "none",
                 boxSizing: "border-box",
@@ -366,9 +371,9 @@ export default function CustomersPage() {
                 style={{
                   padding: "8px 14px",
                   borderRadius: "100px",
-                  border: filterType === f.id ? "none" : "1px solid rgba(255,255,255,0.08)",
-                  background: filterType === f.id ? "#d99b56" : "rgba(255,255,255,0.03)",
-                  color: filterType === f.id ? "#180e06" : "#b0957e",
+                  border: filterType === f.id ? "none" : "1px solid #E8DAC8",
+                  background: filterType === f.id ? "linear-gradient(135deg, #D4954E, #C6873E)" : "#FAF6EE",
+                  color: filterType === f.id ? "#FFFFFF" : "#7E5E49",
                   fontSize: "12.5px",
                   fontWeight: 800,
                   cursor: "pointer",
@@ -382,43 +387,44 @@ export default function CustomersPage() {
 
         {/* ── Customers Table / List ── */}
         {loading ? (
-          <div style={{ textAlign: "center", padding: "60px 0", color: "#d99b56" }}>
-            جاري تحميل قاعدة بيانات العملاء... 🍫
+          <div style={{ textAlign: "center", padding: "60px 0", color: "#C6873E" }}>
+            جاري تحميل قاعدة بيانات العملاء... 🧇🍰
           </div>
         ) : filteredCustomers.length === 0 ? (
           <div
             style={{
-              background: "#160d05",
-              border: "1px solid rgba(217, 155, 86, 0.15)",
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
               borderRadius: "20px",
               padding: "50px 20px",
               textAlign: "center",
             }}
           >
-            <Users size={44} color="#d99b56" style={{ margin: "0 auto 12px" }} />
-            <h3 style={{ margin: 0, fontSize: "17px", color: "#ffffff", fontWeight: 800 }}>لا يوجد عملاء يطابقون البحث</h3>
-            <p style={{ margin: "6px 0 0 0", color: "#8a7565", fontSize: "13px" }}>
+            <Users size={44} color="#C6873E" style={{ margin: "0 auto 12px" }} />
+            <h3 style={{ margin: 0, fontSize: "17px", color: "#2B170E", fontWeight: 800 }}>لا يوجد عملاء يطابقون البحث</h3>
+            <p style={{ margin: "6px 0 0 0", color: "#7E5E49", fontSize: "13px" }}>
               يمكنك إضافة عميل جديد يدوي أو انتظار طلبات العملاء عبر الموقع
             </p>
           </div>
         ) : (
           <div
             style={{
-              background: "#160d05",
-              border: "1px solid rgba(217, 155, 86, 0.2)",
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
               borderRadius: "20px",
               overflowX: "auto",
+              boxShadow: "0 2px 10px rgba(43,23,14,0.04)",
             }}
           >
             <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "right", fontSize: "13px" }}>
               <thead>
-                <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.08)", background: "#1a0f07" }}>
-                  <th style={{ padding: "14px 18px", color: "#8a7565", fontWeight: 800 }}>العميل</th>
-                  <th style={{ padding: "14px 18px", color: "#8a7565", fontWeight: 800 }}>الموبايل والتواصل</th>
-                  <th style={{ padding: "14px 18px", color: "#8a7565", fontWeight: 800 }}>العنوان والمنطقة</th>
-                  <th style={{ padding: "14px 18px", color: "#8a7565", fontWeight: 800 }}>الطلبات والمشتريات</th>
-                  <th style={{ padding: "14px 18px", color: "#8a7565", fontWeight: 800 }}>تاريخ التسجيل</th>
-                  <th style={{ padding: "14px 18px", color: "#8a7565", fontWeight: 800, textAlign: "center" }}>الإجراءات</th>
+                <tr style={{ borderBottom: "1px solid #E8DAC8", background: "#FAF6EE" }}>
+                  <th style={{ padding: "14px 18px", color: "#7E5E49", fontWeight: 800 }}>العميل</th>
+                  <th style={{ padding: "14px 18px", color: "#7E5E49", fontWeight: 800 }}>الموبايل والتواصل</th>
+                  <th style={{ padding: "14px 18px", color: "#7E5E49", fontWeight: 800 }}>العنوان والمنطقة</th>
+                  <th style={{ padding: "14px 18px", color: "#7E5E49", fontWeight: 800 }}>الطلبات والمشتريات</th>
+                  <th style={{ padding: "14px 18px", color: "#7E5E49", fontWeight: 800 }}>تاريخ التسجيل</th>
+                  <th style={{ padding: "14px 18px", color: "#7E5E49", fontWeight: 800, textAlign: "center" }}>الإجراءات</th>
                 </tr>
               </thead>
               <tbody>
@@ -429,8 +435,8 @@ export default function CustomersPage() {
                   return (
                     <tr
                       key={cust.id}
-                      style={{ borderBottom: "1px solid rgba(255,255,255,0.04)", transition: "background 0.15s ease" }}
-                      onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.02)"; }}
+                      style={{ borderBottom: "1px solid #FAF6EE", transition: "background 0.15s ease", color: "#2B170E" }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = "#FAF6EE"; }}
                       onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
                     >
                       {/* Name & Verification */}
@@ -481,11 +487,11 @@ export default function CustomersPage() {
                       {/* Phone & Instant Contact */}
                       <td style={{ padding: "14px 18px" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                          <span style={{ fontFamily: "monospace", fontWeight: 700, color: "#f5ede4" }} dir="ltr">
+                          <span style={{ fontFamily: "monospace", fontWeight: 700, color: "#2B170E" }} dir="ltr">
                             {cust.phone}
                           </span>
                           <a
-                            href={`https://wa.me/${waPhone}?text=${encodeURIComponent(`أهلاً بك يا ${cust.name} من بيت الشوكولاتة Choco House 🍫`)}`}
+                            href={`https://wa.me/${waPhone}?text=${encodeURIComponent(`أهلاً بك يا ${cust.name} من Waffle & Cake Desserts 🧇🍰`)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             title="مراسلة واتساب فورية"
@@ -619,13 +625,14 @@ export default function CustomersPage() {
               alignItems: "center",
               justifyContent: "center",
               padding: "20px",
-              background: "rgba(0,0,0,0.85)",
+              background: "rgba(43, 23, 14, 0.55)",
+              backdropFilter: "blur(5px)",
             }}
           >
             <div
               style={{
-                background: "#160d05",
-                border: "1px solid rgba(217, 155, 86, 0.4)",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
                 borderRadius: "24px",
                 padding: "24px",
                 maxWidth: "540px",
@@ -633,38 +640,49 @@ export default function CustomersPage() {
                 maxHeight: "85vh",
                 display: "flex",
                 flexDirection: "column",
-                boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
+                boxShadow: "0 20px 60px rgba(43,23,14,0.2)",
+                color: "#2B170E",
               }}
             >
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px" }}>
                 <div>
-                  <h3 style={{ margin: 0, fontSize: "17px", fontWeight: 900, color: "#ffffff" }}>
+                  <h3 style={{ margin: 0, fontSize: "17px", fontWeight: 900, color: "#2B170E" }}>
                     سجل طلبات العميل: {selectedCustomer.name}
                   </h3>
-                  <p style={{ margin: "2px 0 0 0", fontSize: "12px", color: "#d99b56" }}>
+                  <p style={{ margin: "2px 0 0 0", fontSize: "12px", color: "#C6873E", fontWeight: 700 }}>
                     موبايل: {selectedCustomer.phone} • {selectedCustomer.zone || "6 أكتوبر"}
                   </p>
                 </div>
                 <button
                   onClick={() => setSelectedCustomer(null)}
-                  style={{ background: "transparent", border: "none", color: "#8a7565", cursor: "pointer" }}
+                  style={{
+                    background: "#FAF6EE",
+                    border: "1px solid #E8DAC8",
+                    color: "#7E5E49",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    padding: "4px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                 >
-                  <X size={20} />
+                  <X size={18} />
                 </button>
               </div>
 
               <div style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", gap: "10px" }}>
                 {loadingOrders ? (
-                  <div style={{ textAlign: "center", padding: "40px", color: "#d99b56" }}>جاري تحميل الطلبات...</div>
+                  <div style={{ textAlign: "center", padding: "40px", color: "#C6873E" }}>جاري تحميل الطلبات...</div>
                 ) : customerOrders.length === 0 ? (
-                  <div style={{ textAlign: "center", padding: "40px", color: "#8a7565" }}>لم يتم العثور على طلبات لهذا العميل</div>
+                  <div style={{ textAlign: "center", padding: "40px", color: "#7E5E49" }}>لم يتم العثور على طلبات لهذا العميل</div>
                 ) : (
                   customerOrders.map((ord) => (
                     <div
                       key={ord.id}
                       style={{
-                        background: "rgba(255,255,255,0.03)",
-                        border: "1px solid rgba(217, 155, 86, 0.2)",
+                        background: "#FAF6EE",
+                        border: "1px solid #E8DAC8",
                         borderRadius: "14px",
                         padding: "12px 16px",
                         display: "flex",
@@ -673,21 +691,21 @@ export default function CustomersPage() {
                       }}
                     >
                       <div>
-                        <div style={{ fontFamily: "monospace", fontWeight: 900, color: "#d99b56", fontSize: "14px" }}>
+                        <div style={{ fontFamily: "monospace", fontWeight: 900, color: "#C6873E", fontSize: "14px" }}>
                           {ord.orderNumber}
                         </div>
-                        <div style={{ fontSize: "11px", color: "#8a7565" }}>
+                        <div style={{ fontSize: "11px", color: "#7E5E49" }}>
                           {new Date(ord.createdAt).toLocaleDateString("ar-EG", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
                         </div>
                         {ord.captainName && (
-                          <div style={{ fontSize: "11px", color: "#c084fc", marginTop: "2px" }}>
+                          <div style={{ fontSize: "11px", color: "#7E22CE", marginTop: "2px", fontWeight: 700 }}>
                             كابتن التوصيل: {ord.captainName}
                           </div>
                         )}
                       </div>
 
                       <div style={{ textAlign: "left" }}>
-                        <div style={{ fontSize: "15px", fontWeight: 900, color: "#ffffff" }}>
+                        <div style={{ fontSize: "15px", fontWeight: 900, color: "#2B170E" }}>
                           {ord.total} ج.م
                         </div>
                         <span
@@ -696,8 +714,9 @@ export default function CustomersPage() {
                             fontWeight: 800,
                             padding: "2px 8px",
                             borderRadius: "100px",
-                            background: ord.status === "delivered" ? "rgba(34, 197, 94, 0.2)" : "rgba(217, 155, 86, 0.2)",
-                            color: ord.status === "delivered" ? "#4ade80" : "#d99b56",
+                            background: ord.status === "delivered" ? "#DCFCE7" : "#FAF5FF",
+                            color: ord.status === "delivered" ? "#15803D" : "#7E22CE",
+                            border: ord.status === "delivered" ? "1px solid #86EFAC" : "1px solid #E9D5FF",
                           }}
                         >
                           {ord.status === "delivered" ? "تم التسليم" : ord.status}
@@ -708,10 +727,18 @@ export default function CustomersPage() {
                 )}
               </div>
 
-              <div style={{ marginTop: "16px", paddingTop: "12px", borderTop: "1px solid rgba(255,255,255,0.08)", textAlign: "left" }}>
+              <div style={{ marginTop: "16px", paddingTop: "12px", borderTop: "1px solid #E8DAC8", textAlign: "left" }}>
                 <button
                   onClick={() => setSelectedCustomer(null)}
-                  style={{ background: "#d99b56", color: "#180e06", border: "none", padding: "8px 20px", borderRadius: "10px", fontWeight: 800, cursor: "pointer" }}
+                  style={{
+                    background: "linear-gradient(135deg, #D4954E, #C6873E)",
+                    color: "#FFFFFF",
+                    border: "none",
+                    padding: "8px 20px",
+                    borderRadius: "10px",
+                    fontWeight: 800,
+                    cursor: "pointer",
+                  }}
                 >
                   إغلاق
                 </button>
@@ -733,37 +760,49 @@ export default function CustomersPage() {
               alignItems: "center",
               justifyContent: "center",
               padding: "20px",
-              background: "rgba(0,0,0,0.85)",
+              background: "rgba(43, 23, 14, 0.55)",
+              backdropFilter: "blur(5px)",
             }}
           >
             <form
               onSubmit={handleSaveCustomer}
               style={{
-                background: "#160d05",
-                border: "1px solid rgba(217, 155, 86, 0.4)",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
                 borderRadius: "24px",
                 padding: "26px",
                 maxWidth: "460px",
                 width: "100%",
-                boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
+                boxShadow: "0 20px 60px rgba(43,23,14,0.2)",
+                color: "#2B170E",
               }}
             >
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "18px" }}>
-                <h3 style={{ margin: 0, fontSize: "17px", fontWeight: 900, color: "#ffffff" }}>
+                <h3 style={{ margin: 0, fontSize: "17px", fontWeight: 900, color: "#2B170E" }}>
                   بيانات العميل 👤
                 </h3>
                 <button
                   type="button"
                   onClick={() => setEditModalOpen(false)}
-                  style={{ background: "transparent", border: "none", color: "#8a7565", cursor: "pointer" }}
+                  style={{
+                    background: "#FAF6EE",
+                    border: "1px solid #E8DAC8",
+                    color: "#7E5E49",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    padding: "4px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                 >
-                  <X size={20} />
+                  <X size={18} />
                 </button>
               </div>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 <div>
-                  <label style={{ fontSize: "12px", color: "#b0957e", display: "block", marginBottom: "4px" }}>
+                  <label style={{ fontSize: "12px", color: "#7E5E49", display: "block", marginBottom: "4px", fontWeight: 700 }}>
                     اسم العميل بالكامل: *
                   </label>
                   <input
@@ -771,12 +810,12 @@ export default function CustomersPage() {
                     required
                     value={customerForm.name}
                     onChange={(e) => setCustomerForm({ ...customerForm, name: e.target.value })}
-                    style={{ width: "100%", height: "40px", background: "#0d0805", border: "1px solid rgba(217, 155, 86, 0.3)", borderRadius: "10px", padding: "0 12px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
+                    style={{ width: "100%", height: "40px", background: "#FAF6EE", border: "1px solid #E8DAC8", borderRadius: "10px", padding: "0 12px", color: "#2B170E", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: "12px", color: "#b0957e", display: "block", marginBottom: "4px" }}>
+                  <label style={{ fontSize: "12px", color: "#7E5E49", display: "block", marginBottom: "4px", fontWeight: 700 }}>
                     رقم الموبايل: *
                   </label>
                   <input
@@ -784,45 +823,45 @@ export default function CustomersPage() {
                     required
                     value={customerForm.phone}
                     onChange={(e) => setCustomerForm({ ...customerForm, phone: e.target.value })}
-                    style={{ width: "100%", height: "40px", background: "#0d0805", border: "1px solid rgba(217, 155, 86, 0.3)", borderRadius: "10px", padding: "0 12px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
+                    style={{ width: "100%", height: "40px", background: "#FAF6EE", border: "1px solid #E8DAC8", borderRadius: "10px", padding: "0 12px", color: "#2B170E", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
                     dir="ltr"
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: "12px", color: "#b0957e", display: "block", marginBottom: "4px" }}>
+                  <label style={{ fontSize: "12px", color: "#7E5E49", display: "block", marginBottom: "4px", fontWeight: 700 }}>
                     البريد الإلكتروني (Gmail):
                   </label>
                   <input
                     type="email"
                     value={customerForm.email}
                     onChange={(e) => setCustomerForm({ ...customerForm, email: e.target.value })}
-                    style={{ width: "100%", height: "40px", background: "#0d0805", border: "1px solid rgba(217, 155, 86, 0.3)", borderRadius: "10px", padding: "0 12px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
+                    style={{ width: "100%", height: "40px", background: "#FAF6EE", border: "1px solid #E8DAC8", borderRadius: "10px", padding: "0 12px", color: "#2B170E", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
                     dir="ltr"
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: "12px", color: "#b0957e", display: "block", marginBottom: "4px" }}>
+                  <label style={{ fontSize: "12px", color: "#7E5E49", display: "block", marginBottom: "4px", fontWeight: 700 }}>
                     منطقة التوصيل:
                   </label>
                   <input
                     type="text"
                     value={customerForm.zone}
                     onChange={(e) => setCustomerForm({ ...customerForm, zone: e.target.value })}
-                    style={{ width: "100%", height: "40px", background: "#0d0805", border: "1px solid rgba(217, 155, 86, 0.3)", borderRadius: "10px", padding: "0 12px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
+                    style={{ width: "100%", height: "40px", background: "#FAF6EE", border: "1px solid #E8DAC8", borderRadius: "10px", padding: "0 12px", color: "#2B170E", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ fontSize: "12px", color: "#b0957e", display: "block", marginBottom: "4px" }}>
+                  <label style={{ fontSize: "12px", color: "#7E5E49", display: "block", marginBottom: "4px", fontWeight: 700 }}>
                     العنوان بالتفصيل:
                   </label>
                   <input
                     type="text"
                     value={customerForm.address}
                     onChange={(e) => setCustomerForm({ ...customerForm, address: e.target.value })}
-                    style={{ width: "100%", height: "40px", background: "#0d0805", border: "1px solid rgba(217, 155, 86, 0.3)", borderRadius: "10px", padding: "0 12px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
+                    style={{ width: "100%", height: "40px", background: "#FAF6EE", border: "1px solid #E8DAC8", borderRadius: "10px", padding: "0 12px", color: "#2B170E", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
                   />
                 </div>
               </div>
@@ -834,13 +873,14 @@ export default function CustomersPage() {
                   style={{
                     flex: 1,
                     height: "44px",
-                    background: "linear-gradient(135deg, #d99b56, #e8a020)",
-                    color: "#180e06",
+                    background: "linear-gradient(135deg, #D4954E, #C6873E)",
+                    color: "#FFFFFF",
                     fontWeight: 900,
                     fontSize: "14px",
                     borderRadius: "12px",
                     border: "none",
                     cursor: "pointer",
+                    boxShadow: "0 2px 8px rgba(198,135,62,0.25)",
                   }}
                 >
                   {savingCustomer ? "جاري الحفظ..." : "حفظ بيانات العميل 💾"}
@@ -851,12 +891,12 @@ export default function CustomersPage() {
                   style={{
                     height: "44px",
                     padding: "0 16px",
-                    background: "rgba(255,255,255,0.06)",
-                    color: "#b0957e",
+                    background: "#FAF6EE",
+                    color: "#7E5E49",
                     fontWeight: 700,
                     fontSize: "13px",
                     borderRadius: "12px",
-                    border: "none",
+                    border: "1px solid #E8DAC8",
                     cursor: "pointer",
                   }}
                 >

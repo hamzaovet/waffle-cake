@@ -19,7 +19,7 @@ export async function POST(req: Request) {
       const expires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
       const cleanPhone = phone ? String(phone).trim() : `temp_${Date.now()}`;
-      const customerName = name?.trim() || "عميل Choco House";
+      const customerName = name?.trim() || "عميل Waffle & Cake 🧇🍰";
 
       // Upsert customer record
       await prisma.$executeRawUnsafe(`

@@ -13,7 +13,8 @@ import {
   RefreshCw, ChefHat, Bike, XCircle, AlertCircle, Printer,
   Volume2, VolumeX, MessageSquare, Send, UserCheck, Eye,
   ExternalLink, User, MessageCircle, DollarSign, QrCode, Copy, Check,
-  Edit3, ArrowRight, ArrowLeft
+  Edit3, ArrowRight, ArrowLeft, Plus, Trash2, Power, Navigation, Compass,
+  Smartphone, CheckCircle
 } from "lucide-react";
 
 interface OrderItem {
@@ -52,6 +53,8 @@ interface Captain {
   name: string;
   phone: string;
   vehicle?: string;
+  isActive?: boolean;
+  createdAt?: string;
 }
 
 interface ChatMsg {
@@ -92,6 +95,20 @@ export default function DashboardOrdersPage() {
   const [newCaptainName, setNewCaptainName] = useState("");
   const [newCaptainPhone, setNewCaptainPhone] = useState("");
   const [savingCaptain, setSavingCaptain] = useState(false);
+
+  // Dynamic Fleet Operations Command Center Modal
+  const [fleetModalOpen, setFleetModalOpen] = useState(false);
+  const [fleetCaptainName, setFleetCaptainName] = useState("");
+  const [fleetCaptainPhone, setFleetCaptainPhone] = useState("");
+  const [fleetCaptainVehicle, setFleetCaptainVehicle] = useState("سكوتر");
+  const [savingFleetCaptain, setSavingFleetCaptain] = useState(false);
+
+  // Instant WhatsApp Dispatch Banner after assignment
+  const [assignedDispatch, setAssignedDispatch] = useState<{
+    order: Order;
+    captainName: string;
+    captainPhone: string;
+  } | null>(null);
 
   // Live Customer Inquiries / Chat Drawer
   const [chatDrawerOpen, setChatDrawerOpen] = useState(false);
@@ -235,6 +252,82 @@ export default function DashboardOrdersPage() {
     }
   }
 
+  // Check URL parameters on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("fleet") === "1" || params.get("view") === "captains") {
+        setFleetModalOpen(true);
+      }
+    }
+  }, []);
+
+  // Calculate active orders currently with a specific captain
+  const getCaptainActiveOrders = useCallback((phone: string) => {
+    return orders.filter((o) => o.status === "delivering" && o.captainPhone === phone);
+  }, [orders]);
+
+  // Toggle captain on/off duty
+  async function handleToggleCaptainActive(cpt: Captain) {
+    playSound("click");
+    const nextActive = cpt.isActive === false ? true : false;
+    try {
+      const res = await fetch("/api/captains", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: cpt.id, isActive: nextActive }),
+      });
+      if (res.ok) {
+        setCaptains((prev) =>
+          prev.map((c) => (c.id === cpt.id ? { ...c, isActive: nextActive } : c))
+        );
+      }
+    } catch {}
+  }
+
+  // Delete captain from fleet
+  async function handleDeleteCaptain(cpt: Captain) {
+    if (!confirm(`هل أنت متأكد من حذف الكابتن (${cpt.name}) نهائياً من الأسطول؟`)) return;
+    playSound("click");
+    try {
+      const res = await fetch(`/api/captains?id=${cpt.id}`, { method: "DELETE" });
+      if (res.ok) {
+        setCaptains((prev) => prev.filter((c) => c.id !== cpt.id));
+        playSound("success");
+      }
+    } catch {}
+  }
+
+  // Add new captain to fleet via Command Center
+  async function handleAddFleetCaptain(e: React.FormEvent) {
+    e.preventDefault();
+    if (!fleetCaptainName.trim() || !fleetCaptainPhone.trim()) {
+      alert("برجاء إدخال اسم ورقم هاتف الكابتن");
+      return;
+    }
+    setSavingFleetCaptain(true);
+    try {
+      const res = await fetch("/api/captains", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: fleetCaptainName.trim(),
+          phone: fleetCaptainPhone.trim(),
+          vehicle: fleetCaptainVehicle,
+          isActive: true,
+        }),
+      });
+      if (res.ok) {
+        playSound("success");
+        setFleetCaptainName("");
+        setFleetCaptainPhone("");
+        fetchCaptains();
+      }
+    } finally {
+      setSavingFleetCaptain(false);
+    }
+  }
+
   // Assign Captain and change status to 'delivering'
   async function assignCaptainToOrder() {
     if (!captainModalOrder) return;
@@ -255,7 +348,7 @@ export default function DashboardOrdersPage() {
         await fetch("/api/captains", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: captainName, phone: captainPhone }),
+          body: JSON.stringify({ name: captainName, phone: captainPhone, vehicle: "سكوتر دليفري" }),
         });
         fetchCaptains();
       } else {
@@ -276,6 +369,13 @@ export default function DashboardOrdersPage() {
       });
 
       playSound("success");
+      // Set assigned dispatch banner for 1-click WhatsApp sending
+      setAssignedDispatch({
+        order: captainModalOrder,
+        captainName,
+        captainPhone,
+      });
+
       setCaptainModalOrder(null);
       setSelectedCaptainPhone("");
       setNewCaptainName("");
@@ -297,7 +397,7 @@ export default function DashboardOrdersPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          senderName: currentUser?.name || "فريق Choco House",
+          senderName: currentUser?.name || "فريق Waffle & Cake",
           senderRole: currentUser?.role || "staff",
           text: chatReplyText.trim(),
           isStaff: true,
@@ -354,24 +454,158 @@ export default function DashboardOrdersPage() {
   const getCustomerWhatsAppUrl = (order: Order) => {
     const cleanPhone = order.phone.replace(/[^0-9]/g, "");
     const egyptianPhone = cleanPhone.startsWith("0") ? "2" + cleanPhone : cleanPhone;
-    const msg = `مرحباً ${order.customerName} من Choco House 🍫\nأوردر رقم: #${order.orderNumber}\nالحالة الحالية: ${
-      order.status === "delivering" ? `مع الكابتن ${order.captainName || ""} 🛵` : "قيد التجهيز 👨‍🍳"
-    }\nالإجمالي المطلوب: ${order.total} ج.م\nلأي استفسار تواصل معنا!`;
+    const statusLabel =
+      order.status === "delivering"
+        ? `مع الكابتن ${order.captainName || ""} 🛵 وفي الطريق إليك`
+        : order.status === "ready"
+        ? "جاهز للتسليم 🛵"
+        : order.status === "preparing"
+        ? "قيد التحضير في المطبخ 👨‍🍳"
+        : "تم استلامه وجاري تنفيذه 📋";
+
+    const msg =
+      `مرحباً ${order.customerName} من Waffle & Cake 🧇🍰\n` +
+      `بخصوص أوردر رقم: #${order.orderNumber}\n` +
+      `الحالة الحالية: ${statusLabel}\n` +
+      `الإجمالي المطلوب: ${order.total} ج.م ${order.paymentMethod === "cash" ? "(كاش 💵)" : "(مدفوع إلكترونياً 💳)"}\n` +
+      `سعداء بخدمتك دائماً! ❤️`;
     return `https://wa.me/${egyptianPhone}?text=${encodeURIComponent(msg)}`;
   };
 
-  // Helper WhatsApp link for captain
-  const getCaptainWhatsAppUrl = (order: Order) => {
-    if (!order.captainPhone) return "#";
-    const cleanPhone = order.captainPhone.replace(/[^0-9]/g, "");
-    const egyptianPhone = cleanPhone.startsWith("0") ? "2" + cleanPhone : cleanPhone;
-    const msg = `أهلاً كابتن ${order.captainName} 🛵\nتفاصيل الأوردر للتسليم:\nرقم الأوردر: #${order.orderNumber}\nالعميل: ${order.customerName}\nالهاتف: ${order.phone}\nالعنوان: ${order.address || "غير محدد"} (${order.zone || ""})\nالمطلوب تحصيله: ${order.total} ج.م\nطريقة الدفع: ${order.paymentMethod === "cash" ? "كاش 💵" : "مدفوع إلكترونياً 💳"}`;
-    return `https://wa.me/${egyptianPhone}?text=${encodeURIComponent(msg)}`;
+  // Smart WhatsApp Dispatch Generator with Google Maps & Full Items Breakdown
+  const getCaptainDispatchUrl = (order: Order, captainPhoneOverride?: string, captainNameOverride?: string) => {
+    const captPhone = captainPhoneOverride || order.captainPhone || "";
+    if (!captPhone) return "#";
+    const cleanCaptPhone = captPhone.replace(/[^0-9]/g, "");
+    const captIntl = cleanCaptPhone.startsWith("0") ? "2" + cleanCaptPhone : cleanCaptPhone;
+    const captName = captainNameOverride || order.captainName || "الكابتن";
+
+    const itemsList = parseItems(order.items)
+      .map(
+        (it) =>
+          `• ${it.qty} × ${lang === "en" ? it.nameEn || it.nameAr : it.nameAr || it.nameEn} ${
+            it.extras && it.extras.length ? `(${it.extras.join(" + ")})` : ""
+          } [${it.unitPrice * it.qty} ج]`
+      )
+      .join("\n");
+
+    const addressQuery = encodeURIComponent(
+      `${order.address || ""} ${order.zone || "السادس من أكتوبر"}`
+    );
+    const mapsUrl = `https://maps.google.com/?q=${addressQuery}`;
+
+    const msg =
+      `🛵 *بيان توصيل أوردر جديد — Waffle & Cake 🧇🍰*\n\n` +
+      `أهلاً كابتن ${captName}، تفاصيل الطلب للتوصيل الفوري:\n` +
+      `━━━━━━━━━━━━━━━━━━━\n` +
+      `🏷️ *أوردر رقم:* #${order.orderNumber}\n` +
+      `👤 *اسم العميل:* ${order.customerName}\n` +
+      `📞 *هاتف العميل:* ${order.phone}\n` +
+      `📍 *العنوان:* ${order.address || "غير محدد"} (${order.zone || "الحي الثاني"})\n` +
+      `🗺️ *لوكيشن الخريطة المباشر:*\n${mapsUrl}\n\n` +
+      `🍰 *الأصناف المطلوبة:*\n${itemsList || "أصناف متنوعة"}\n\n` +
+      `💰 *المطلوب تحصيله كاش:* ${order.total} ج.م ${
+        order.paymentMethod === "cash"
+          ? "(💵 كاش عند الاستلام)"
+          : "(💳 مدفوع إلكترونياً بالكامل - لا تحصل مبالغ)"
+      }\n` +
+      (order.notes ? `⚠️ *ملاحظات خاصة:* ${order.notes}\n\n` : `\n`) +
+      `بالتوفيق يا بطل! 🚀`;
+
+    return `https://wa.me/${captIntl}?text=${encodeURIComponent(msg)}`;
   };
 
   return (
     <ErpLayout activeItem="orders">
       <div>
+        {/* ── Assigned Dispatch Success Notification (1-Click WhatsApp Send) ── */}
+        {assignedDispatch && (
+          <div
+            style={{
+              background: "#FFFFFF",
+              border: "2px solid #7E22CE",
+              borderRadius: "16px",
+              padding: "14px 20px",
+              marginBottom: "20px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              boxShadow: "0 8px 30px rgba(126, 34, 206, 0.18)",
+              gap: "12px",
+              flexWrap: "wrap",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "12px",
+                  background: "#FAF5FF",
+                  border: "1px solid #E9D5FF",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#7E22CE",
+                  flexShrink: 0,
+                }}
+              >
+                <Bike size={22} />
+              </div>
+              <div>
+                <h4 style={{ margin: 0, fontSize: "14.5px", fontWeight: 900, color: "#2B170E" }}>
+                  🎉 تم إسناد الأوردر #{assignedDispatch.order.orderNumber} للكابتن ({assignedDispatch.captainName}) بنجاح!
+                </h4>
+                <p style={{ margin: "2px 0 0 0", fontSize: "12px", color: "#7E5E49" }}>
+                  يمكنك إرسال بيان الأوردر ورابط موقع العميل على الخريطة إلى واتساب الكابتن بضغطة زر واحدة الآن
+                </p>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <a
+                href={getCaptainDispatchUrl(
+                  assignedDispatch.order,
+                  assignedDispatch.captainPhone,
+                  assignedDispatch.captainName
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => playSound("click")}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  background: "linear-gradient(135deg, #A855F7, #7E22CE)",
+                  color: "#FFFFFF",
+                  padding: "9px 16px",
+                  borderRadius: "12px",
+                  fontWeight: 900,
+                  fontSize: "13px",
+                  textDecoration: "none",
+                  boxShadow: "0 4px 14px rgba(126, 34, 206, 0.3)",
+                }}
+              >
+                <Navigation size={16} />
+                <span>إرسال بيان التوصيل واللوكيشن واتساب 📲</span>
+              </a>
+
+              <button
+                onClick={() => setAssignedDispatch(null)}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: "#7E5E49",
+                  cursor: "pointer",
+                  padding: "6px",
+                }}
+              >
+                <XCircle size={22} />
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* ── Persistent Alarm Flashing Banner ── */}
         {newOrdersCount > 0 && (
           <div
@@ -469,7 +703,7 @@ export default function DashboardOrdersPage() {
               style={{
                 fontSize: "26px",
                 fontWeight: 900,
-                color: "#ffffff",
+                color: "#2B170E",
                 margin: "0 0 6px 0",
                 lineHeight: 1.2,
               }}
@@ -479,7 +713,7 @@ export default function DashboardOrdersPage() {
             <p
               style={{
                 fontSize: "13.5px",
-                color: "#8a7565",
+                color: "#7E5E49",
                 margin: 0,
                 fontWeight: 600,
               }}
@@ -492,7 +726,46 @@ export default function DashboardOrdersPage() {
           </div>
 
           {/* Quick Actions Header */}
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+            {/* Dynamic Fleet Command Center Button */}
+            <button
+              onClick={() => {
+                setFleetModalOpen(true);
+                playSound("click");
+              }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
+                color: "#7E22CE",
+                padding: "9px 16px",
+                borderRadius: "12px",
+                fontWeight: 900,
+                fontSize: "13px",
+                cursor: "pointer",
+                boxShadow: "0 2px 8px rgba(126, 34, 206, 0.08)",
+                transition: "all 0.15s ease",
+              }}
+            >
+              <Bike size={17} color="#7E22CE" />
+              <span>{t("أسطول الطيارين 🛵", "Delivery Fleet 🛵")}</span>
+              <span
+                style={{
+                  background: "#FAF5FF",
+                  border: "1px solid #E9D5FF",
+                  color: "#7E22CE",
+                  fontSize: "11px",
+                  fontWeight: 900,
+                  padding: "1px 7px",
+                  borderRadius: "100px",
+                }}
+              >
+                {captains.filter((c) => c.isActive !== false).length} متاح
+              </span>
+            </button>
+
             <button
               onClick={() => {
                 setChatDrawerOpen(true);
@@ -502,14 +775,15 @@ export default function DashboardOrdersPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
-                background: "rgba(217, 155, 86, 0.12)",
-                border: "1px solid rgba(217, 155, 86, 0.35)",
-                color: "#d99b56",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
+                color: "#C6873E",
                 padding: "9px 16px",
                 borderRadius: "12px",
                 fontWeight: 800,
                 fontSize: "13px",
                 cursor: "pointer",
+                boxShadow: "0 2px 8px rgba(198, 135, 62, 0.08)",
                 transition: "all 0.15s ease",
               }}
             >
@@ -518,8 +792,8 @@ export default function DashboardOrdersPage() {
               {chatMessages.length > 0 && (
                 <span
                   style={{
-                    background: "#d99b56",
-                    color: "#180e06",
+                    background: "linear-gradient(135deg, #D4954E, #C6873E)",
+                    color: "#FFFFFF",
                     fontSize: "11px",
                     fontWeight: 900,
                     padding: "1px 7px",
@@ -541,14 +815,15 @@ export default function DashboardOrdersPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: "6px",
-                background: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                color: "#e8a020",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
+                color: "#C6873E",
                 padding: "9px 14px",
                 borderRadius: "12px",
                 fontWeight: 700,
                 fontSize: "13px",
                 cursor: "pointer",
+                boxShadow: "0 2px 8px rgba(198, 135, 62, 0.08)",
               }}
             >
               <RefreshCw size={15} />
@@ -584,25 +859,31 @@ export default function DashboardOrdersPage() {
                   gap: "7px",
                   padding: "8px 16px",
                   borderRadius: "100px",
-                  border: isSelected ? "none" : "1px solid rgba(255, 255, 255, 0.08)",
-                  background: isSelected ? "#d99b56" : "rgba(255, 255, 255, 0.04)",
-                  color: isSelected ? "#180e06" : "#b0957e",
+                  border: isSelected ? "none" : "1px solid #E8DAC8",
+                  background: isSelected
+                    ? "linear-gradient(135deg, #D4954E, #C6873E)"
+                    : "#FFFFFF",
+                  color: isSelected ? "#FFFFFF" : "#6B4F3B",
                   fontSize: "13px",
                   fontWeight: isSelected ? 900 : 700,
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                   transition: "all 0.15s ease",
-                  boxShadow: isSelected ? "0 2px 10px rgba(217, 155, 86, 0.3)" : "none",
+                  boxShadow: isSelected
+                    ? "0 4px 14px rgba(198, 135, 62, 0.28)"
+                    : "0 2px 6px rgba(43,23,14,0.04)",
                 }}
               >
                 <span>{tab.label}</span>
                 <span
                   style={{
                     fontSize: "11px",
-                    opacity: 0.85,
-                    background: isSelected ? "rgba(0,0,0,0.15)" : "rgba(255,255,255,0.06)",
+                    opacity: 0.9,
+                    background: isSelected ? "rgba(0,0,0,0.18)" : "#FAF6EE",
+                    color: isSelected ? "#FFFFFF" : "#C6873E",
                     padding: "1px 7px",
                     borderRadius: "100px",
+                    fontWeight: 800,
                   }}
                 >
                   {count}
@@ -616,8 +897,8 @@ export default function DashboardOrdersPage() {
         {filteredOrders.length === 0 ? (
           <div
             style={{
-              background: "rgba(24, 13, 7, 0.65)",
-              border: "1px solid rgba(217, 155, 86, 0.14)",
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
               borderRadius: "24px",
               minHeight: "360px",
               display: "flex",
@@ -626,30 +907,31 @@ export default function DashboardOrdersPage() {
               justifyContent: "center",
               padding: "40px 20px",
               textAlign: "center",
+              boxShadow: "0 6px 20px rgba(43,23,14,0.04)",
             }}
           >
             <div
               style={{
-                width: "60px",
-                height: "60px",
-                borderRadius: "18px",
-                background: "rgba(217, 155, 86, 0.12)",
-                border: "1px solid rgba(217, 155, 86, 0.25)",
+                width: "64px",
+                height: "64px",
+                borderRadius: "20px",
+                background: "#FAF6EE",
+                border: "1px solid #E8DAC8",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 marginBottom: "18px",
-                color: "#d99b56",
+                color: "#C6873E",
               }}
             >
-              <ClipboardList size={30} strokeWidth={2} />
+              <ClipboardList size={32} strokeWidth={2} />
             </div>
 
             <h3
               style={{
                 fontSize: "18px",
                 fontWeight: 900,
-                color: "#f5ede4",
+                color: "#2B170E",
                 margin: "0 0 6px 0",
               }}
             >
@@ -658,7 +940,7 @@ export default function DashboardOrdersPage() {
             <p
               style={{
                 fontSize: "13px",
-                color: "#8a7565",
+                color: "#7E5E49",
                 margin: 0,
                 maxWidth: "380px",
                 lineHeight: 1.6,
@@ -686,19 +968,19 @@ export default function DashboardOrdersPage() {
                 <div
                   key={order.id}
                   style={{
-                    background: "rgba(24, 13, 7, 0.9)",
+                    background: "#FFFFFF",
                     border:
                       order.status === "new"
-                        ? "1.5px solid #eab308"
+                        ? "2px solid #F59E0B"
                         : order.status === "delivering"
-                        ? "1.5px solid #a855f7"
-                        : "1px solid rgba(217, 155, 86, 0.25)",
+                        ? "2px solid #A855F7"
+                        : "1px solid #E8DAC8",
                     borderRadius: "20px",
                     padding: "20px",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
-                    boxShadow: "0 8px 24px rgba(0,0,0,0.45)",
+                    boxShadow: "0 6px 20px rgba(43,23,14,0.06)",
                     position: "relative",
                   }}
                 >
@@ -716,7 +998,7 @@ export default function DashboardOrdersPage() {
                         <span
                           style={{
                             fontFamily: "monospace",
-                            color: "#d99b56",
+                            color: "#C6873E",
                             fontWeight: 900,
                             fontSize: "16px",
                           }}
@@ -732,11 +1014,11 @@ export default function DashboardOrdersPage() {
                             display: "inline-flex",
                             alignItems: "center",
                             gap: "4px",
-                            background: "rgba(217, 155, 86, 0.15)",
-                            border: "1px solid rgba(217, 155, 86, 0.35)",
-                            color: "#d99b56",
+                            background: "rgba(198, 135, 62, 0.12)",
+                            border: "1px solid #E8DAC8",
+                            color: "#C6873E",
                             borderRadius: "8px",
-                            padding: "3px 8px",
+                            padding: "4px 9px",
                             fontSize: "11px",
                             fontWeight: 800,
                             cursor: "pointer",
@@ -757,11 +1039,11 @@ export default function DashboardOrdersPage() {
                             display: "inline-flex",
                             alignItems: "center",
                             gap: "4px",
-                            background: "rgba(168, 85, 247, 0.15)",
-                            border: "1px solid rgba(168, 85, 247, 0.35)",
-                            color: "#c084fc",
+                            background: "#FAF5FF",
+                            border: "1px solid #E9D5FF",
+                            color: "#7E22CE",
                             borderRadius: "8px",
-                            padding: "3px 8px",
+                            padding: "4px 9px",
                             fontSize: "11px",
                             fontWeight: 800,
                             cursor: "pointer",
@@ -783,11 +1065,11 @@ export default function DashboardOrdersPage() {
                               display: "inline-flex",
                               alignItems: "center",
                               gap: "4px",
-                              background: "rgba(59, 130, 246, 0.15)",
-                              border: "1px solid rgba(59, 130, 246, 0.35)",
-                              color: "#60a5fa",
+                              background: "#EFF6FF",
+                              border: "1px solid #BFDBFE",
+                              color: "#1D4ED8",
                               borderRadius: "8px",
-                              padding: "3px 8px",
+                              padding: "4px 9px",
                               fontSize: "11px",
                               fontWeight: 800,
                               cursor: "pointer",
@@ -804,7 +1086,7 @@ export default function DashboardOrdersPage() {
                           style={{
                             background: "transparent",
                             border: "none",
-                            color: "#9c7a5e",
+                            color: "#7E5E49",
                             cursor: "pointer",
                             padding: "2px",
                           }}
@@ -822,9 +1104,9 @@ export default function DashboardOrdersPage() {
                               fontWeight: 900,
                               padding: "3px 8px",
                               borderRadius: "6px",
-                              background: "rgba(249, 115, 22, 0.2)",
-                              border: "1px solid rgba(249, 115, 22, 0.4)",
-                              color: "#fb923c",
+                              background: "#FFF7ED",
+                              border: "1px solid #FDBA74",
+                              color: "#C2410C",
                             }}
                             title={t("تم تعديل أصناف هذا الطلب", "Order has been edited")}
                           >
@@ -833,59 +1115,71 @@ export default function DashboardOrdersPage() {
                         )}
                         <span
                           style={{
-                          fontSize: "11.5px",
-                          fontWeight: 800,
-                          padding: "4px 10px",
-                          borderRadius: "100px",
-                          background:
-                            order.status === "new"
-                              ? "rgba(234, 179, 8, 0.2)"
-                              : order.status === "preparing"
-                              ? "rgba(249, 115, 22, 0.2)"
-                              : order.status === "ready"
-                              ? "rgba(16, 185, 129, 0.2)"
-                              : order.status === "delivering"
-                              ? "rgba(168, 85, 247, 0.2)"
-                              : order.status === "delivered"
-                              ? "rgba(34, 197, 94, 0.2)"
-                              : "rgba(239, 68, 68, 0.2)",
-                          color:
-                            order.status === "new"
-                              ? "#facc15"
-                              : order.status === "preparing"
-                              ? "#fb923c"
-                              : order.status === "ready"
-                              ? "#34d399"
-                              : order.status === "delivering"
-                              ? "#c084fc"
-                              : order.status === "delivered"
-                              ? "#4ade80"
-                              : "#f87171",
-                        }}
-                      >
-                        {order.status === "new"
-                          ? t("جديد 📋", "New 📋")
-                          : order.status === "preparing"
-                          ? t("قيد التحضير 👨‍🍳", "Preparing 👨‍🍳")
-                          : order.status === "ready"
-                          ? t("جاهز للتسليم 🛵", "Ready 🛵")
-                          : order.status === "delivering"
-                          ? t("مع الكابتن 🚴", "With Captain 🚴")
-                          : order.status === "delivered"
-                          ? t("تم التسليم والتحصيل 🎉", "Delivered 🎉")
-                          : t("ملغي ❌", "Cancelled ❌")}
-                      </span>
+                            fontSize: "11.5px",
+                            fontWeight: 800,
+                            padding: "4px 11px",
+                            borderRadius: "100px",
+                            background:
+                              order.status === "new"
+                                ? "#FEF3C7"
+                                : order.status === "preparing"
+                                ? "#DBEAFE"
+                                : order.status === "ready"
+                                ? "#D1FAE5"
+                                : order.status === "delivering"
+                                ? "#F3E8FF"
+                                : order.status === "delivered"
+                                ? "#DCFCE7"
+                                : "#FEE2E2",
+                            color:
+                              order.status === "new"
+                                ? "#92400E"
+                                : order.status === "preparing"
+                                ? "#1E40AF"
+                                : order.status === "ready"
+                                ? "#065F46"
+                                : order.status === "delivering"
+                                ? "#6B21A8"
+                                : order.status === "delivered"
+                                ? "#15803D"
+                                : "#991B1B",
+                            border:
+                              order.status === "new"
+                                ? "1px solid #FCD34D"
+                                : order.status === "preparing"
+                                ? "1px solid #93C5FD"
+                                : order.status === "ready"
+                                ? "1px solid #6EE7B7"
+                                : order.status === "delivering"
+                                ? "1px solid #D8B4FE"
+                                : order.status === "delivered"
+                                ? "1px solid #86EFAC"
+                                : "1px solid #FCA5A5",
+                          }}
+                        >
+                          {order.status === "new"
+                            ? t("جديد 📋", "New 📋")
+                            : order.status === "preparing"
+                            ? t("قيد التحضير 👨‍🍳", "Preparing 👨‍🍳")
+                            : order.status === "ready"
+                            ? t("جاهز للتسليم 🛵", "Ready 🛵")
+                            : order.status === "delivering"
+                            ? t("مع الكابتن 🚴", "With Captain 🚴")
+                            : order.status === "delivered"
+                            ? t("تم التسليم والتحصيل 🎉", "Delivered 🎉")
+                            : t("ملغي ❌", "Cancelled ❌")}
+                        </span>
+                      </div>
                     </div>
-                  </div>
 
                     {/* Customer Info Card */}
                     <div
                       style={{
                         marginBottom: "14px",
-                        background: "rgba(0, 0, 0, 0.25)",
-                        padding: "12px",
+                        background: "#FAF6EE",
+                        padding: "12px 14px",
                         borderRadius: "14px",
-                        border: "1px solid rgba(255,255,255,0.05)",
+                        border: "1px solid #E8DAC8",
                       }}
                     >
                       <div
@@ -900,7 +1194,7 @@ export default function DashboardOrdersPage() {
                           style={{
                             fontSize: "15px",
                             fontWeight: 900,
-                            color: "#ffffff",
+                            color: "#2B170E",
                             margin: 0,
                           }}
                         >
@@ -918,9 +1212,9 @@ export default function DashboardOrdersPage() {
                             display: "inline-flex",
                             alignItems: "center",
                             gap: "4px",
-                            background: "rgba(34, 197, 94, 0.15)",
-                            border: "1px solid rgba(34, 197, 94, 0.35)",
-                            color: "#4ade80",
+                            background: "#DCFCE7",
+                            border: "1px solid #86EFAC",
+                            color: "#15803D",
                             borderRadius: "8px",
                             padding: "3px 8px",
                             fontSize: "11px",
@@ -939,14 +1233,14 @@ export default function DashboardOrdersPage() {
                           alignItems: "center",
                           gap: "6px",
                           fontSize: "12.5px",
-                          color: "#b0957e",
+                          color: "#6B4F3B",
                           marginBottom: "4px",
                         }}
                       >
-                        <Phone size={13} color="#d99b56" />
+                        <Phone size={13} color="#C6873E" />
                         <a
                           href={`tel:${order.phone}`}
-                          style={{ color: "#f5ede4", textDecoration: "none" }}
+                          style={{ color: "#2B170E", textDecoration: "none", fontWeight: 700 }}
                           dir="ltr"
                         >
                           {order.phone}
@@ -960,10 +1254,10 @@ export default function DashboardOrdersPage() {
                             alignItems: "center",
                             gap: "6px",
                             fontSize: "12px",
-                            color: "#8a7565",
+                            color: "#7E5E49",
                           }}
                         >
-                          <MapPin size={13} color="#d99b56" />
+                          <MapPin size={13} color="#C6873E" />
                           <span>
                             {order.address} ({order.zone || "6 أكتوبر"})
                           </span>
@@ -975,10 +1269,12 @@ export default function DashboardOrdersPage() {
                           style={{
                             marginTop: "6px",
                             fontSize: "11.5px",
-                            color: "#f59e0b",
-                            background: "rgba(245, 158, 11, 0.1)",
+                            color: "#B45309",
+                            background: "#FEF3C7",
+                            border: "1px solid #FDE68A",
                             padding: "4px 8px",
                             borderRadius: "6px",
+                            fontWeight: 700,
                           }}
                         >
                           ⚠️ {order.notes}
@@ -990,56 +1286,94 @@ export default function DashboardOrdersPage() {
                     {order.captainName && (
                       <div
                         style={{
-                          background: "rgba(168, 85, 247, 0.12)",
-                          border: "1px solid rgba(168, 85, 247, 0.3)",
-                          borderRadius: "12px",
-                          padding: "10px 12px",
+                          background: "#FAF5FF",
+                          border: "1px solid #E9D5FF",
+                          borderRadius: "14px",
+                          padding: "12px",
                           marginBottom: "14px",
                           display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
+                          flexDirection: "column",
+                          gap: "8px",
                         }}
                       >
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                          <Bike size={18} color="#c084fc" />
-                          <div>
-                            <div style={{ fontSize: "11px", color: "#c084fc", fontWeight: 700 }}>
-                              {t("طيار التوصيل المسؤول:", "Assigned Captain:")}
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "8px" }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                            <div
+                              style={{
+                                width: "34px",
+                                height: "34px",
+                                borderRadius: "10px",
+                                background: "#F3E8FF",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                color: "#7E22CE",
+                              }}
+                            >
+                              <Bike size={18} />
                             </div>
-                            <div style={{ fontSize: "13.5px", fontWeight: 900, color: "#ffffff" }}>
-                              {order.captainName}
-                            </div>
-                            {order.captainPhone && (
-                              <div style={{ fontSize: "11.5px", color: "#d8b4fe" }} dir="ltr">
-                                {order.captainPhone}
+                            <div>
+                              <div style={{ fontSize: "11px", color: "#7E22CE", fontWeight: 700 }}>
+                                {t("طيار التوصيل المسؤول:", "Assigned Captain:")}
                               </div>
-                            )}
+                              <div style={{ fontSize: "14px", fontWeight: 900, color: "#2B170E" }}>
+                                {order.captainName}
+                              </div>
+                              {order.captainPhone && (
+                                <div style={{ fontSize: "11.5px", color: "#6B21A8", fontWeight: 700 }} dir="ltr">
+                                  {order.captainPhone}
+                                </div>
+                              )}
+                            </div>
                           </div>
-                        </div>
 
-                        {order.captainPhone && (
-                          <a
-                            href={getCaptainWhatsAppUrl(order)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                              background: "rgba(168, 85, 247, 0.25)",
-                              color: "#e9d5ff",
-                              border: "none",
-                              borderRadius: "8px",
-                              padding: "6px 10px",
-                              fontSize: "11px",
-                              fontWeight: 800,
-                              textDecoration: "none",
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "4px",
-                            }}
-                          >
-                            <Send size={11} />
-                            <span>بياناته 📱</span>
-                          </a>
-                        )}
+                          {order.captainPhone && (
+                            <div style={{ display: "flex", gap: "6px" }}>
+                              <a
+                                href={getCaptainDispatchUrl(order)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="إرسال بيان الطلب ورابط اللوكيشن للطيار عبر واتساب"
+                                style={{
+                                  background: "linear-gradient(135deg, #A855F7, #7E22CE)",
+                                  color: "#FFFFFF",
+                                  border: "none",
+                                  borderRadius: "8px",
+                                  padding: "6px 11px",
+                                  fontSize: "11px",
+                                  fontWeight: 800,
+                                  textDecoration: "none",
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: "5px",
+                                  boxShadow: "0 2px 8px rgba(126, 34, 206, 0.25)",
+                                }}
+                              >
+                                <Navigation size={12} />
+                                <span>واتساب الأوردر 📲</span>
+                              </a>
+
+                              <a
+                                href={`tel:${order.captainPhone}`}
+                                title="اتصال مباشر بالطيار"
+                                style={{
+                                  background: "#FFFFFF",
+                                  color: "#7E22CE",
+                                  border: "1px solid #D8B4FE",
+                                  borderRadius: "8px",
+                                  padding: "6px 9px",
+                                  fontSize: "11px",
+                                  fontWeight: 800,
+                                  textDecoration: "none",
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                }}
+                              >
+                                <Phone size={12} />
+                              </a>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     )}
 
@@ -1052,6 +1386,10 @@ export default function DashboardOrdersPage() {
                         marginBottom: "16px",
                         maxHeight: "180px",
                         overflowY: "auto",
+                        background: "#FAF6EE",
+                        border: "1px solid #E8DAC8",
+                        borderRadius: "12px",
+                        padding: "10px 12px",
                       }}
                     >
                       {items.map((it, idx) => (
@@ -1061,24 +1399,24 @@ export default function DashboardOrdersPage() {
                             display: "flex",
                             justifyContent: "space-between",
                             fontSize: "13px",
-                            borderBottom: "1px dashed rgba(255,255,255,0.06)",
+                            borderBottom: idx === items.length - 1 ? "none" : "1px dashed #E8DAC8",
                             paddingBottom: "4px",
                           }}
                         >
                           <div>
-                            <span style={{ color: "#ffffff", fontWeight: 700 }}>
+                            <span style={{ color: "#2B170E", fontWeight: 800 }}>
                               {it.qty} ×{" "}
                               {lang === "en"
                                 ? it.nameEn || it.nameAr
                                 : it.nameAr || it.nameEn}
                             </span>
                             {it.extras && it.extras.length > 0 && (
-                              <div style={{ fontSize: "11px", color: "#d99b56", marginTop: "2px" }}>
+                              <div style={{ fontSize: "11px", color: "#C6873E", marginTop: "2px", fontWeight: 700 }}>
                                 + {it.extras.join(" + ")}
                               </div>
                             )}
                           </div>
-                          <span style={{ color: "#d99b56", fontWeight: 800 }}>
+                          <span style={{ color: "#C6873E", fontWeight: 900 }}>
                             {it.unitPrice * it.qty} {t("ج", "EGP")}
                           </span>
                         </div>
@@ -1094,20 +1432,20 @@ export default function DashboardOrdersPage() {
                         alignItems: "center",
                         justifyContent: "space-between",
                         padding: "10px 0",
-                        borderTop: "1px solid rgba(255,255,255,0.08)",
+                        borderTop: "1px solid #E8DAC8",
                         marginBottom: "12px",
                       }}
                     >
                       <div>
-                        <span style={{ fontSize: "12px", color: "#8a7565", display: "block" }}>
+                        <span style={{ fontSize: "12px", color: "#7E5E49", display: "block" }}>
                           {t("المطلوب تحصيله", "To Collect")}{" "}
                           {order.paymentMethod === "cash" ? "(كاش 💵)" : "(مدفوع 💳)"}
                         </span>
-                        <span style={{ fontSize: "11px", color: "#d99b56" }}>
+                        <span style={{ fontSize: "11px", color: "#C6873E", fontWeight: 700 }}>
                           + توصيل {order.deliveryFee} ج
                         </span>
                       </div>
-                      <span style={{ fontSize: "20px", color: "#d99b56", fontWeight: 900 }}>
+                      <span style={{ fontSize: "20px", color: "#C6873E", fontWeight: 900 }}>
                         {order.total} {t("ج", "EGP")}
                       </span>
                     </div>
@@ -1123,8 +1461,8 @@ export default function DashboardOrdersPage() {
                             flex: 1,
                             height: "42px",
                             borderRadius: "12px",
-                            background: "#d99b56",
-                            color: "#180e06",
+                            background: "linear-gradient(135deg, #D4954E, #C6873E)",
+                            color: "#FFFFFF",
                             fontWeight: 900,
                             fontSize: "13px",
                             border: "none",
@@ -1133,6 +1471,7 @@ export default function DashboardOrdersPage() {
                             alignItems: "center",
                             justifyContent: "center",
                             gap: "6px",
+                            boxShadow: "0 4px 12px rgba(198, 135, 62, 0.25)",
                           }}
                         >
                           <ChefHat size={16} />
@@ -1149,8 +1488,8 @@ export default function DashboardOrdersPage() {
                             flex: 1,
                             height: "42px",
                             borderRadius: "12px",
-                            background: "#10b981",
-                            color: "#ffffff",
+                            background: "linear-gradient(135deg, #10B981, #059669)",
+                            color: "#FFFFFF",
                             fontWeight: 900,
                             fontSize: "13px",
                             border: "none",
@@ -1159,6 +1498,7 @@ export default function DashboardOrdersPage() {
                             alignItems: "center",
                             justifyContent: "center",
                             gap: "6px",
+                            boxShadow: "0 4px 12px rgba(16, 185, 129, 0.25)",
                           }}
                         >
                           <CheckCircle2 size={16} />
@@ -1171,7 +1511,10 @@ export default function DashboardOrdersPage() {
                         <button
                           onClick={() => {
                             setCaptainModalOrder(order);
-                            setSelectedCaptainPhone(captains[0]?.phone || "custom");
+                            const firstAvailable = captains.find(
+                              (c) => c.isActive !== false && getCaptainActiveOrders(c.phone).length === 0
+                            );
+                            setSelectedCaptainPhone(firstAvailable?.phone || captains[0]?.phone || "custom");
                             playSound("click");
                           }}
                           disabled={isUpdating}
@@ -1179,8 +1522,8 @@ export default function DashboardOrdersPage() {
                             flex: 1,
                             height: "42px",
                             borderRadius: "12px",
-                            background: "#9333ea",
-                            color: "#ffffff",
+                            background: "linear-gradient(135deg, #A855F7, #7E22CE)",
+                            color: "#FFFFFF",
                             fontWeight: 900,
                             fontSize: "13px",
                             border: "none",
@@ -1189,7 +1532,7 @@ export default function DashboardOrdersPage() {
                             alignItems: "center",
                             justifyContent: "center",
                             gap: "6px",
-                            boxShadow: "0 4px 14px rgba(147, 51, 234, 0.35)",
+                            boxShadow: "0 4px 14px rgba(126, 34, 206, 0.28)",
                           }}
                         >
                           <Bike size={16} />
@@ -1206,8 +1549,8 @@ export default function DashboardOrdersPage() {
                             flex: 1,
                             height: "42px",
                             borderRadius: "12px",
-                            background: "#22c55e",
-                            color: "#ffffff",
+                            background: "linear-gradient(135deg, #22C55E, #16A34A)",
+                            color: "#FFFFFF",
                             fontWeight: 900,
                             fontSize: "13px",
                             border: "none",
@@ -1216,7 +1559,7 @@ export default function DashboardOrdersPage() {
                             alignItems: "center",
                             justifyContent: "center",
                             gap: "6px",
-                            boxShadow: "0 4px 14px rgba(34, 197, 94, 0.35)",
+                            boxShadow: "0 4px 14px rgba(34, 197, 94, 0.28)",
                           }}
                         >
                           <DollarSign size={16} />
@@ -1233,11 +1576,11 @@ export default function DashboardOrdersPage() {
                             padding: "0 12px",
                             height: "42px",
                             borderRadius: "12px",
-                            background: "rgba(239, 68, 68, 0.15)",
-                            border: "1px solid rgba(239, 68, 68, 0.3)",
-                            color: "#f87171",
+                            background: "#FEE2E2",
+                            border: "1px solid #FCA5A5",
+                            color: "#DC2626",
                             fontSize: "12px",
-                            fontWeight: 700,
+                            fontWeight: 800,
                             cursor: "pointer",
                           }}
                           title={t("إلغاء الطلب", "Cancel Order")}
@@ -1254,7 +1597,7 @@ export default function DashboardOrdersPage() {
         )}
 
         {/* ═══════════════════════════════════════════════════════
-            MODAL 1: ASSIGN CAPTAIN TO ORDER
+            MODAL 1: SMART CAPTAIN ASSIGNMENT MODAL (INNOVATIVE LOAD TRACKER)
         ══════════════════════════════════════════════════════════ */}
         {captainModalOrder && (
           <div
@@ -1266,19 +1609,20 @@ export default function DashboardOrdersPage() {
               alignItems: "center",
               justifyContent: "center",
               padding: "20px",
-              background: "rgba(0,0,0,0.85)",
+              background: "rgba(43, 23, 14, 0.5)",
+              backdropFilter: "blur(4px)",
             }}
           >
             <div
               style={{
-                background: "#180d06",
-                border: "1px solid rgba(217, 155, 86, 0.4)",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
                 borderRadius: "24px",
                 padding: "26px",
-                maxWidth: "460px",
+                maxWidth: "520px",
                 width: "100%",
-                boxShadow: "0 16px 48px rgba(0,0,0,0.7)",
-                color: "#f5ede4",
+                boxShadow: "0 24px 64px rgba(43,23,14,0.22)",
+                color: "#2B170E",
               }}
             >
               <div
@@ -1286,30 +1630,33 @@ export default function DashboardOrdersPage() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
-                  marginBottom: "16px",
+                  marginBottom: "18px",
+                  paddingBottom: "14px",
+                  borderBottom: "1px solid #E8DAC8",
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                   <div
                     style={{
-                      width: "40px",
-                      height: "40px",
+                      width: "42px",
+                      height: "42px",
                       borderRadius: "12px",
-                      background: "rgba(168, 85, 247, 0.2)",
+                      background: "#FAF5FF",
+                      border: "1px solid #E9D5FF",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#c084fc",
+                      color: "#7E22CE",
                     }}
                   >
-                    <Bike size={22} />
+                    <Bike size={24} />
                   </div>
                   <div>
-                    <h3 style={{ margin: 0, fontSize: "17px", fontWeight: 900 }}>
-                      {t("ربط الطيار بالأوردر", "Assign Delivery Captain")}
+                    <h3 style={{ margin: 0, fontSize: "17.5px", fontWeight: 900, color: "#2B170E" }}>
+                      {t("إسناد الأوردر لطيار الدليفري 🛵", "Assign Delivery Captain")}
                     </h3>
-                    <p style={{ margin: "2px 0 0 0", fontSize: "12px", color: "#d99b56" }}>
-                      أوردر رقم {captainModalOrder.orderNumber} — المطلوب: {captainModalOrder.total} ج
+                    <p style={{ margin: "2px 0 0 0", fontSize: "12px", color: "#C6873E", fontWeight: 700 }}>
+                      أوردر #{captainModalOrder.orderNumber} • المطلوب تحصيله: {captainModalOrder.total} ج.م ({captainModalOrder.zone || "الحي الثاني"})
                     </p>
                   </div>
                 </div>
@@ -1319,84 +1666,147 @@ export default function DashboardOrdersPage() {
                   style={{
                     background: "transparent",
                     border: "none",
-                    color: "#8a7565",
+                    color: "#7E5E49",
                     cursor: "pointer",
+                    padding: "4px",
                   }}
                 >
                   <XCircle size={22} />
                 </button>
               </div>
 
-              {/* Captain Selection List */}
+              {/* Captain Selection List with Live Workload Indicator */}
               <div style={{ marginBottom: "18px" }}>
-                <label
-                  style={{
-                    fontSize: "13px",
-                    fontWeight: 700,
-                    color: "#b0957e",
-                    display: "block",
-                    marginBottom: "8px",
-                  }}
-                >
-                  {t("اختر الطيار من القائمة المسجلة:", "Select Captain from Registered Staff:")}
-                </label>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
+                  <label
+                    style={{
+                      fontSize: "13px",
+                      fontWeight: 800,
+                      color: "#2B170E",
+                    }}
+                  >
+                    {t("اختر الطيار من الأسطول (مرتب بالحمل والجاهزية):", "Select Captain (Live Load Ranked):")}
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCaptainModalOrder(null);
+                      setFleetModalOpen(true);
+                      playSound("click");
+                    }}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "#7E22CE",
+                      fontSize: "11.5px",
+                      fontWeight: 800,
+                      cursor: "pointer",
+                      textDecoration: "underline",
+                    }}
+                  >
+                    {t("إدارة الأسطول ⚙️", "Manage Fleet ⚙️")}
+                  </button>
+                </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                  {captains.map((cpt) => (
-                    <label
-                      key={cpt.id}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "10px",
-                        padding: "10px 14px",
-                        borderRadius: "12px",
-                        background:
-                          selectedCaptainPhone === cpt.phone
-                            ? "rgba(217, 155, 86, 0.15)"
-                            : "rgba(255,255,255,0.03)",
-                        border:
-                          selectedCaptainPhone === cpt.phone
-                            ? "1.5px solid #d99b56"
-                            : "1px solid rgba(255,255,255,0.08)",
-                        cursor: "pointer",
-                      }}
-                    >
-                      <input
-                        type="radio"
-                        name="captain"
-                        value={cpt.phone}
-                        checked={selectedCaptainPhone === cpt.phone}
-                        onChange={() => setSelectedCaptainPhone(cpt.phone)}
-                      />
-                      <div style={{ flex: 1 }}>
-                        <div style={{ fontWeight: 800, fontSize: "13.5px", color: "#ffffff" }}>
-                          {cpt.name}
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px", maxHeight: "260px", overflowY: "auto" }}>
+                  {captains.map((cpt) => {
+                    const activeLoad = getCaptainActiveOrders(cpt.phone);
+                    const isSelected = selectedCaptainPhone === cpt.phone;
+                    const isOffline = cpt.isActive === false;
+
+                    return (
+                      <label
+                        key={cpt.id}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "12px",
+                          padding: "12px 14px",
+                          borderRadius: "14px",
+                          background: isSelected
+                            ? "rgba(198, 135, 62, 0.1)"
+                            : isOffline
+                            ? "#F5F5F4"
+                            : "#FAF6EE",
+                          border: isSelected
+                            ? "2px solid #C6873E"
+                            : "1px solid #E8DAC8",
+                          cursor: "pointer",
+                          opacity: isOffline ? 0.65 : 1,
+                          transition: "all 0.15s ease",
+                        }}
+                      >
+                        <input
+                          type="radio"
+                          name="captain"
+                          value={cpt.phone}
+                          checked={selectedCaptainPhone === cpt.phone}
+                          onChange={() => setSelectedCaptainPhone(cpt.phone)}
+                          style={{ accentColor: "#C6873E" }}
+                        />
+                        <div style={{ flex: 1 }}>
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "2px" }}>
+                            <span style={{ fontWeight: 900, fontSize: "14px", color: "#2B170E" }}>
+                              {cpt.name}
+                            </span>
+                            {/* Live Load Badge */}
+                            <span
+                              style={{
+                                fontSize: "11px",
+                                fontWeight: 800,
+                                padding: "2px 8px",
+                                borderRadius: "100px",
+                                background: isOffline
+                                  ? "#E7E5E4"
+                                  : activeLoad.length === 0
+                                  ? "#DCFCE7"
+                                  : activeLoad.length === 1
+                                  ? "#FEF3C7"
+                                  : "#FEE2E2",
+                                color: isOffline
+                                  ? "#78716C"
+                                  : activeLoad.length === 0
+                                  ? "#15803D"
+                                  : activeLoad.length === 1
+                                  ? "#B45309"
+                                  : "#B91C1C",
+                              }}
+                            >
+                              {isOffline
+                                ? "⚪ غير متاح (استراحة)"
+                                : activeLoad.length === 0
+                                ? "🟢 متاح وجاهز (0 أوردرات) ⭐"
+                                : activeLoad.length === 1
+                                ? `🟡 في الطريق (أوردر #${activeLoad[0].orderNumber})`
+                                : `🔴 حمولة (${activeLoad.length} أوردرات)`}
+                            </span>
+                          </div>
+                          <div style={{ fontSize: "11.5px", color: "#7E5E49" }} dir="ltr">
+                            {cpt.phone} • {cpt.vehicle || "سكوتر دليفري"}
+                          </div>
                         </div>
-                        <div style={{ fontSize: "11.5px", color: "#8a7565" }} dir="ltr">
-                          {cpt.phone} • {cpt.vehicle || "سكوتر دليفري"}
-                        </div>
-                      </div>
-                    </label>
-                  ))}
+                      </label>
+                    );
+                  })}
 
                   {/* Option for New / External Captain */}
                   <label
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "10px",
-                      padding: "10px 14px",
-                      borderRadius: "12px",
+                      gap: "12px",
+                      padding: "11px 14px",
+                      borderRadius: "14px",
                       background:
                         selectedCaptainPhone === "custom"
-                          ? "rgba(217, 155, 86, 0.15)"
-                          : "rgba(255,255,255,0.03)",
+                          ? "rgba(198, 135, 62, 0.1)"
+                          : "#FAF6EE",
                       border:
                         selectedCaptainPhone === "custom"
-                          ? "1.5px solid #d99b56"
-                          : "1px solid rgba(255,255,255,0.08)",
+                          ? "2px solid #C6873E"
+                          : "1px solid #E8DAC8",
                       cursor: "pointer",
+                      transition: "all 0.15s ease",
                     }}
                   >
                     <input
@@ -1405,9 +1815,10 @@ export default function DashboardOrdersPage() {
                       value="custom"
                       checked={selectedCaptainPhone === "custom"}
                       onChange={() => setSelectedCaptainPhone("custom")}
+                      style={{ accentColor: "#C6873E" }}
                     />
-                    <div style={{ fontWeight: 800, fontSize: "13.5px", color: "#ffffff" }}>
-                      {t("طيار جديد / خارجي ➕", "Add New / External Captain ➕")}
+                    <div style={{ fontWeight: 800, fontSize: "13.5px", color: "#2B170E" }}>
+                      {t("طيار جديد / خارجي مؤقت ➕", "Add New / External Courier ➕")}
                     </div>
                   </label>
                 </div>
@@ -1417,10 +1828,10 @@ export default function DashboardOrdersPage() {
               {selectedCaptainPhone === "custom" && (
                 <div
                   style={{
-                    background: "rgba(0,0,0,0.3)",
+                    background: "#FAF6EE",
                     padding: "14px",
                     borderRadius: "14px",
-                    border: "1px solid rgba(217, 155, 86, 0.2)",
+                    border: "1px solid #E8DAC8",
                     marginBottom: "18px",
                     display: "flex",
                     flexDirection: "column",
@@ -1428,7 +1839,7 @@ export default function DashboardOrdersPage() {
                   }}
                 >
                   <div>
-                    <label style={{ fontSize: "12px", color: "#b0957e", display: "block", marginBottom: "4px" }}>
+                    <label style={{ fontSize: "12px", color: "#7E5E49", display: "block", marginBottom: "4px", fontWeight: 700 }}>
                       اسم الكابتن:
                     </label>
                     <input
@@ -1439,18 +1850,19 @@ export default function DashboardOrdersPage() {
                       style={{
                         width: "100%",
                         height: "40px",
-                        background: "#0d0805",
-                        border: "1px solid rgba(217, 155, 86, 0.3)",
+                        background: "#FFFFFF",
+                        border: "1px solid #E8DAC8",
                         borderRadius: "10px",
                         padding: "0 12px",
-                        color: "#ffffff",
+                        color: "#2B170E",
                         fontSize: "13px",
                         boxSizing: "border-box",
+                        outline: "none",
                       }}
                     />
                   </div>
                   <div>
-                    <label style={{ fontSize: "12px", color: "#b0957e", display: "block", marginBottom: "4px" }}>
+                    <label style={{ fontSize: "12px", color: "#7E5E49", display: "block", marginBottom: "4px", fontWeight: 700 }}>
                       رقم موبايل الكابتن:
                     </label>
                     <input
@@ -1461,13 +1873,14 @@ export default function DashboardOrdersPage() {
                       style={{
                         width: "100%",
                         height: "40px",
-                        background: "#0d0805",
-                        border: "1px solid rgba(217, 155, 86, 0.3)",
+                        background: "#FFFFFF",
+                        border: "1px solid #E8DAC8",
                         borderRadius: "10px",
                         padding: "0 12px",
-                        color: "#ffffff",
+                        color: "#2B170E",
                         fontSize: "13px",
                         boxSizing: "border-box",
+                        outline: "none",
                       }}
                       dir="ltr"
                     />
@@ -1483,13 +1896,14 @@ export default function DashboardOrdersPage() {
                   style={{
                     flex: 1,
                     height: "44px",
-                    background: "#9333ea",
-                    color: "#ffffff",
+                    background: "linear-gradient(135deg, #A855F7, #7E22CE)",
+                    color: "#FFFFFF",
                     fontWeight: 900,
                     fontSize: "14px",
                     borderRadius: "12px",
                     border: "none",
                     cursor: "pointer",
+                    boxShadow: "0 4px 14px rgba(126, 34, 206, 0.28)",
                   }}
                 >
                   {savingCaptain
@@ -1500,17 +1914,591 @@ export default function DashboardOrdersPage() {
                   onClick={() => setCaptainModalOrder(null)}
                   style={{
                     height: "44px",
-                    padding: "0 16px",
-                    background: "rgba(255,255,255,0.06)",
-                    color: "#b0957e",
+                    padding: "0 18px",
+                    background: "#FAF6EE",
+                    border: "1px solid #E8DAC8",
+                    color: "#7E5E49",
                     fontWeight: 700,
                     fontSize: "13px",
                     borderRadius: "12px",
-                    border: "none",
                     cursor: "pointer",
                   }}
                 >
                   {t("إلغاء", "Cancel")}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ═══════════════════════════════════════════════════════
+            NEW MODAL: FLEET OPERATIONS COMMAND CENTER (غرفة عمليات وإدارة أسطول الطيارين 🛵)
+        ══════════════════════════════════════════════════════════ */}
+        {fleetModalOpen && (
+          <div
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 1000,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "18px",
+              background: "rgba(43, 23, 14, 0.55)",
+              backdropFilter: "blur(5px)",
+            }}
+          >
+            <div
+              style={{
+                width: "100%",
+                maxWidth: "720px",
+                maxHeight: "92vh",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
+                borderRadius: "24px",
+                display: "flex",
+                flexDirection: "column",
+                overflow: "hidden",
+                boxShadow: "0 24px 64px rgba(43,23,14,0.25)",
+                color: "#2B170E",
+              }}
+            >
+              {/* Fleet Modal Header */}
+              <div
+                style={{
+                  padding: "18px 24px",
+                  borderBottom: "1px solid #E8DAC8",
+                  background: "#FAF6EE",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <div
+                    style={{
+                      width: "42px",
+                      height: "42px",
+                      borderRadius: "12px",
+                      background: "#FAF5FF",
+                      border: "1px solid #E9D5FF",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#7E22CE",
+                    }}
+                  >
+                    <Bike size={24} />
+                  </div>
+                  <div>
+                    <h2 style={{ margin: 0, fontSize: "18px", fontWeight: 900, color: "#2B170E" }}>
+                      {t("غرفة عمليات وإدارة أسطول التوصيل والطيارين 🛵", "Delivery Fleet Operations Center")}
+                    </h2>
+                    <p style={{ margin: "2px 0 0 0", fontSize: "12px", color: "#7E5E49" }}>
+                      {t(
+                        "متابعة حية لحمولة كل طيار، إرسال بيانات اللوكيشن، التبديل بين متاح واستراحة، وإضافة طيارين",
+                        "Live courier workload tracking, WhatsApp GPS dispatch, active toggles & fleet CRUD"
+                      )}
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => setFleetModalOpen(false)}
+                  style={{
+                    background: "#FAF6EE",
+                    border: "1px solid #E8DAC8",
+                    color: "#7E5E49",
+                    borderRadius: "10px",
+                    padding: "6px",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <XCircle size={20} />
+                </button>
+              </div>
+
+              {/* Fleet Modal Body */}
+              <div style={{ padding: "20px 24px", overflowY: "auto", display: "flex", flexDirection: "column", gap: "20px" }}>
+                {/* 4 Fleet Overview Stats */}
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+                    gap: "10px",
+                  }}
+                >
+                  <div
+                    style={{
+                      background: "#FAF6EE",
+                      border: "1px solid #E8DAC8",
+                      borderRadius: "14px",
+                      padding: "12px 14px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <div style={{ fontSize: "11px", color: "#7E5E49", fontWeight: 700 }}>
+                      إجمالي الأسطول
+                    </div>
+                    <div style={{ fontSize: "22px", fontWeight: 900, color: "#2B170E", marginTop: "2px" }}>
+                      {captains.length} 🛵
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      background: "#DCFCE7",
+                      border: "1px solid #86EFAC",
+                      borderRadius: "14px",
+                      padding: "12px 14px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <div style={{ fontSize: "11px", color: "#15803D", fontWeight: 700 }}>
+                      متاحون للطلب الآن
+                    </div>
+                    <div style={{ fontSize: "22px", fontWeight: 900, color: "#15803D", marginTop: "2px" }}>
+                      {captains.filter((c) => c.isActive !== false).length} 🟢
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      background: "#FAF5FF",
+                      border: "1px solid #E9D5FF",
+                      borderRadius: "14px",
+                      padding: "12px 14px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <div style={{ fontSize: "11px", color: "#7E22CE", fontWeight: 700 }}>
+                      أوردرات في الطريق حالياً
+                    </div>
+                    <div style={{ fontSize: "22px", fontWeight: 900, color: "#7E22CE", marginTop: "2px" }}>
+                      {orders.filter((o) => o.status === "delivering").length} ⚡
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      background: "#FEF3C7",
+                      border: "1px solid #FDE68A",
+                      borderRadius: "14px",
+                      padding: "12px 14px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <div style={{ fontSize: "11px", color: "#92400E", fontWeight: 700 }}>
+                      طلبات سُلمت بالكامل
+                    </div>
+                    <div style={{ fontSize: "22px", fontWeight: 900, color: "#92400E", marginTop: "2px" }}>
+                      {orders.filter((o) => o.status === "delivered").length} ✅
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section 1: Quick Add Captain to Fleet */}
+                <form
+                  onSubmit={handleAddFleetCaptain}
+                  style={{
+                    background: "#FAF6EE",
+                    border: "1px solid #E8DAC8",
+                    borderRadius: "16px",
+                    padding: "16px",
+                  }}
+                >
+                  <div style={{ fontSize: "13.5px", fontWeight: 900, color: "#2B170E", marginBottom: "10px" }}>
+                    {t("إضافة طيار جديد لأسطول وافل آند كيك ➕", "Add New Courier to Fleet ➕")}
+                  </div>
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+                      gap: "10px",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="اسم الكابتن (مثال: كابتن أحمد حسن)"
+                        value={fleetCaptainName}
+                        onChange={(e) => setFleetCaptainName(e.target.value)}
+                        style={{
+                          width: "100%",
+                          height: "40px",
+                          background: "#FFFFFF",
+                          border: "1px solid #E8DAC8",
+                          borderRadius: "10px",
+                          padding: "0 12px",
+                          fontSize: "13px",
+                          color: "#2B170E",
+                          boxSizing: "border-box",
+                          outline: "none",
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="tel"
+                        placeholder="رقم الموبايل (مثال: 010XXXXXXXX)"
+                        value={fleetCaptainPhone}
+                        onChange={(e) => setFleetCaptainPhone(e.target.value)}
+                        dir="ltr"
+                        style={{
+                          width: "100%",
+                          height: "40px",
+                          background: "#FFFFFF",
+                          border: "1px solid #E8DAC8",
+                          borderRadius: "10px",
+                          padding: "0 12px",
+                          fontSize: "13px",
+                          color: "#2B170E",
+                          boxSizing: "border-box",
+                          outline: "none",
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <select
+                        value={fleetCaptainVehicle}
+                        onChange={(e) => setFleetCaptainVehicle(e.target.value)}
+                        style={{
+                          width: "100%",
+                          height: "40px",
+                          background: "#FFFFFF",
+                          border: "1px solid #E8DAC8",
+                          borderRadius: "10px",
+                          padding: "0 10px",
+                          fontSize: "13px",
+                          color: "#2B170E",
+                          boxSizing: "border-box",
+                          outline: "none",
+                        }}
+                      >
+                        <option value="سكوتر">🛵 سكوتر دليفري</option>
+                        <option value="موتوسيكل">🏍️ موتوسيكل</option>
+                        <option value="عجلة">🚲 دراجة / عجلة</option>
+                        <option value="سيارة">🚗 سيارة خاصة</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={savingFleetCaptain || !fleetCaptainName.trim() || !fleetCaptainPhone.trim()}
+                    style={{
+                      height: "40px",
+                      padding: "0 20px",
+                      background: "linear-gradient(135deg, #D4954E, #C6873E)",
+                      color: "#FFFFFF",
+                      borderRadius: "10px",
+                      border: "none",
+                      fontWeight: 900,
+                      fontSize: "13px",
+                      cursor: "pointer",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      boxShadow: "0 2px 8px rgba(198, 135, 62, 0.25)",
+                    }}
+                  >
+                    <Plus size={16} />
+                    <span>{savingFleetCaptain ? t("جاري الحفظ...", "Saving...") : t("حفظ وإضافة للأسطول 🚀", "Save Courier 🚀")}</span>
+                  </button>
+                </form>
+
+                {/* Section 2: Fleet Directory & Live Operations List */}
+                <div>
+                  <div style={{ fontSize: "14px", fontWeight: 900, color: "#2B170E", marginBottom: "12px" }}>
+                    {t("قائمة الطيارين والتشغيل المباشر:", "Active Fleet Couriers & Real-Time Status:")}
+                  </div>
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                    {captains.length === 0 ? (
+                      <div style={{ textAlign: "center", padding: "30px 20px", color: "#7E5E49" }}>
+                        لا يوجد طيارين مسجلين بعد. أضف أول طيار من النموذج أعلاه.
+                      </div>
+                    ) : (
+                      captains.map((cpt) => {
+                        const activeOrders = getCaptainActiveOrders(cpt.phone);
+                        const isOffline = cpt.isActive === false;
+
+                        return (
+                          <div
+                            key={cpt.id}
+                            style={{
+                              background: "#FFFFFF",
+                              border: "1px solid #E8DAC8",
+                              borderRadius: "16px",
+                              padding: "16px",
+                              boxShadow: "0 2px 8px rgba(43,23,14,0.04)",
+                            }}
+                          >
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                flexWrap: "wrap",
+                                gap: "10px",
+                              }}
+                            >
+                              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                                <div
+                                  style={{
+                                    width: "42px",
+                                    height: "42px",
+                                    borderRadius: "12px",
+                                    background: isOffline ? "#F5F5F4" : "#FAF5FF",
+                                    border: isOffline ? "1px solid #E7E5E4" : "1px solid #E9D5FF",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    color: isOffline ? "#78716C" : "#7E22CE",
+                                    fontSize: "20px",
+                                  }}
+                                >
+                                  {cpt.vehicle?.includes("موتوسيكل")
+                                    ? "🏍️"
+                                    : cpt.vehicle?.includes("عجلة")
+                                    ? "🚲"
+                                    : cpt.vehicle?.includes("سيارة")
+                                    ? "🚗"
+                                    : "🛵"}
+                                </div>
+                                <div>
+                                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                    <h4 style={{ margin: 0, fontSize: "15px", fontWeight: 900, color: "#2B170E" }}>
+                                      {cpt.name}
+                                    </h4>
+                                    <span
+                                      style={{
+                                        fontSize: "11px",
+                                        fontWeight: 800,
+                                        padding: "2px 8px",
+                                        borderRadius: "100px",
+                                        background: isOffline ? "#F5F5F4" : "#DCFCE7",
+                                        color: isOffline ? "#78716C" : "#15803D",
+                                        border: isOffline ? "1px solid #E7E5E4" : "1px solid #86EFAC",
+                                      }}
+                                    >
+                                      {isOffline ? "⚪ خارج الخدمة (إجازة)" : "🟢 نشط بالخدمة"}
+                                    </span>
+                                  </div>
+                                  <div style={{ fontSize: "12px", color: "#7E5E49", marginTop: "2px" }} dir="ltr">
+                                    {cpt.phone} • {cpt.vehicle || "سكوتر دليفري"}
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Controls: Active Toggle, Direct WhatsApp, Direct Call, Delete */}
+                              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                <button
+                                  type="button"
+                                  onClick={() => handleToggleCaptainActive(cpt)}
+                                  title={isOffline ? "تفعيل الكابتن للخدمة" : "تعطيل الكابتن مؤقتاً"}
+                                  style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: "5px",
+                                    height: "34px",
+                                    padding: "0 10px",
+                                    borderRadius: "8px",
+                                    background: isOffline ? "#FAF6EE" : "#F0FDF4",
+                                    border: isOffline ? "1px solid #E8DAC8" : "1px solid #BBF7D0",
+                                    color: isOffline ? "#7E5E49" : "#15803D",
+                                    fontSize: "11.5px",
+                                    fontWeight: 800,
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  <Power size={13} />
+                                  <span>{isOffline ? "تفعيل 🟢" : "استراحة ⚪"}</span>
+                                </button>
+
+                                <a
+                                  href={`https://wa.me/${
+                                    cpt.phone.replace(/[^0-9]/g, "").startsWith("0")
+                                      ? "2" + cpt.phone.replace(/[^0-9]/g, "")
+                                      : cpt.phone.replace(/[^0-9]/g, "")
+                                  }?text=${encodeURIComponent("مرحباً كابتن " + cpt.name + " من إدارة Waffle & Cake 🧇🍰")}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  title="مراسلة الكابتن عبر واتساب"
+                                  style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    width: "34px",
+                                    height: "34px",
+                                    borderRadius: "8px",
+                                    background: "#DCFCE7",
+                                    border: "1px solid #86EFAC",
+                                    color: "#15803D",
+                                    textDecoration: "none",
+                                  }}
+                                >
+                                  <MessageCircle size={15} />
+                                </a>
+
+                                <a
+                                  href={`tel:${cpt.phone}`}
+                                  title="اتصال هاتفي بالكابتن"
+                                  style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    width: "34px",
+                                    height: "34px",
+                                    borderRadius: "8px",
+                                    background: "#FAF6EE",
+                                    border: "1px solid #E8DAC8",
+                                    color: "#2B170E",
+                                    textDecoration: "none",
+                                  }}
+                                >
+                                  <Phone size={14} />
+                                </a>
+
+                                <button
+                                  type="button"
+                                  onClick={() => handleDeleteCaptain(cpt)}
+                                  title="حذف الكابتن من الأسطول"
+                                  style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    width: "34px",
+                                    height: "34px",
+                                    borderRadius: "8px",
+                                    background: "#FEE2E2",
+                                    border: "1px solid #FCA5A5",
+                                    color: "#DC2626",
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  <Trash2 size={14} />
+                                </button>
+                              </div>
+                            </div>
+
+                            {/* Active Orders List with this Captain */}
+                            {activeOrders.length > 0 ? (
+                              <div
+                                style={{
+                                  marginTop: "12px",
+                                  paddingTop: "12px",
+                                  borderTop: "1px dashed #E8DAC8",
+                                }}
+                              >
+                                <div style={{ fontSize: "11.5px", fontWeight: 800, color: "#7E22CE", marginBottom: "6px" }}>
+                                  ⚡ أوردرات في الطريق حالياً مع هذا الكابتن ({activeOrders.length}):
+                                </div>
+                                <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                                  {activeOrders.map((ord) => (
+                                    <div
+                                      key={ord.id}
+                                      style={{
+                                        background: "#FAF5FF",
+                                        border: "1px solid #E9D5FF",
+                                        borderRadius: "10px",
+                                        padding: "8px 12px",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        flexWrap: "wrap",
+                                        gap: "8px",
+                                        fontSize: "12px",
+                                      }}
+                                    >
+                                      <div>
+                                        <strong style={{ color: "#7E22CE" }}>#{ord.orderNumber}</strong> •{" "}
+                                        <span style={{ fontWeight: 800, color: "#2B170E" }}>{ord.customerName}</span> •{" "}
+                                        <span style={{ color: "#7E5E49" }}>{ord.address || ord.zone || "الحي الثاني"}</span>
+                                      </div>
+                                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                        <span style={{ fontWeight: 900, color: "#C6873E" }}>
+                                          تحصيل: {ord.total} ج
+                                        </span>
+                                        <a
+                                          href={getCaptainDispatchUrl(ord, cpt.phone, cpt.name)}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          style={{
+                                            background: "linear-gradient(135deg, #A855F7, #7E22CE)",
+                                            color: "#FFFFFF",
+                                            borderRadius: "6px",
+                                            padding: "3px 8px",
+                                            fontSize: "11px",
+                                            fontWeight: 800,
+                                            textDecoration: "none",
+                                            display: "inline-flex",
+                                            alignItems: "center",
+                                            gap: "3px",
+                                          }}
+                                        >
+                                          <Navigation size={11} />
+                                          <span>واتساب الأوردر واللوكيشن</span>
+                                        </a>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : (
+                              <div
+                                style={{
+                                  marginTop: "8px",
+                                  fontSize: "11.5px",
+                                  color: isOffline ? "#78716C" : "#15803D",
+                                  fontWeight: 700,
+                                }}
+                              >
+                                {isOffline ? "• خارج الوردية حالياً" : "• متاح ولا يحمل أي طلبات حالياً (جاهز للتحميل)"}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Fleet Modal Footer */}
+              <div
+                style={{
+                  padding: "14px 24px",
+                  borderTop: "1px solid #E8DAC8",
+                  background: "#FAF6EE",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <span style={{ fontSize: "12px", color: "#7E5E49", fontWeight: 700 }}>
+                  Waffle &amp; Cake Fleet Intelligence Engine 🛵
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setFleetModalOpen(false)}
+                  style={{
+                    height: "36px",
+                    padding: "0 18px",
+                    background: "#FFFFFF",
+                    border: "1px solid #E8DAC8",
+                    color: "#2B170E",
+                    fontWeight: 800,
+                    fontSize: "13px",
+                    borderRadius: "10px",
+                    cursor: "pointer",
+                  }}
+                >
+                  {t("إغلاق", "Close")}
                 </button>
               </div>
             </div>
@@ -1528,7 +2516,7 @@ export default function DashboardOrdersPage() {
               zIndex: 1000,
               display: "flex",
               justifyContent: dir === "rtl" ? "flex-start" : "flex-end",
-              background: "rgba(0,0,0,0.75)",
+              background: "rgba(43, 23, 14, 0.55)",
               backdropFilter: "blur(4px)",
             }}
             onClick={(e) => {
@@ -1540,23 +2528,24 @@ export default function DashboardOrdersPage() {
                 width: "100%",
                 maxWidth: "460px",
                 height: "100%",
-                background: "#160d05",
-                borderRight: dir === "rtl" ? "1px solid rgba(217, 155, 86, 0.3)" : "none",
-                borderLeft: dir === "ltr" ? "1px solid rgba(217, 155, 86, 0.3)" : "none",
+                background: "#FFFFFF",
+                borderRight: dir === "rtl" ? "1px solid #E8DAC8" : "none",
+                borderLeft: dir === "ltr" ? "1px solid #E8DAC8" : "none",
                 display: "flex",
                 flexDirection: "column",
-                boxShadow: dir === "rtl" ? "10px 0 35px rgba(0,0,0,0.8)" : "-10px 0 35px rgba(0,0,0,0.8)",
+                boxShadow: dir === "rtl" ? "10px 0 35px rgba(43,23,14,0.18)" : "-10px 0 35px rgba(43,23,14,0.18)",
+                color: "#2B170E",
               }}
             >
               {/* Drawer Header */}
               <div
                 style={{
                   padding: "16px 20px",
-                  borderBottom: "1px solid rgba(255,255,255,0.08)",
+                  borderBottom: "1px solid #E8DAC8",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
-                  background: "#1a0f07",
+                  background: "#FAF6EE",
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -1567,9 +2556,9 @@ export default function DashboardOrdersPage() {
                         playSound("click");
                       }}
                       style={{
-                        background: "rgba(217, 155, 86, 0.15)",
-                        border: "1px solid rgba(217, 155, 86, 0.3)",
-                        color: "#d99b56",
+                        background: "#FFFFFF",
+                        border: "1px solid #E8DAC8",
+                        color: "#7E5E49",
                         borderRadius: "8px",
                         padding: "6px 10px",
                         cursor: "pointer",
@@ -1586,14 +2575,27 @@ export default function DashboardOrdersPage() {
                   )}
 
                   <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <MessageSquare size={18} color="#d99b56" />
+                    <div
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        borderRadius: "8px",
+                        background: "rgba(198, 135, 62, 0.12)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "#C6873E",
+                      }}
+                    >
+                      <MessageSquare size={17} />
+                    </div>
                     <div>
-                      <h3 style={{ margin: 0, fontSize: "15px", fontWeight: 900, color: "#ffffff" }}>
+                      <h3 style={{ margin: 0, fontSize: "15px", fontWeight: 900, color: "#2B170E" }}>
                         {chatView === "thread" && selectedChatPhone
                           ? chatCustomers.find((c) => c.id === selectedChatPhone)?.name || "محادثة عميل"
                           : t("شات واستفسارات العملاء", "Customer Inquiries Chat")}
                       </h3>
-                      <p style={{ margin: 0, fontSize: "11px", color: "#8a7565" }}>
+                      <p style={{ margin: 0, fontSize: "11px", color: "#7E5E49" }}>
                         {chatView === "thread" && selectedChatPhone
                           ? (chatCustomers.find((c) => c.id === selectedChatPhone)?.phone || "عميل عبر المتجر")
                           : `${chatCustomers.length} ${t("محادثة نشطة", "active chats")}`}
@@ -1609,14 +2611,14 @@ export default function DashboardOrdersPage() {
                         selectedChatPhone.replace(/[^0-9]/g, "").startsWith("0")
                           ? "2" + selectedChatPhone.replace(/[^0-9]/g, "")
                           : selectedChatPhone.replace(/[^0-9]/g, "")
-                      }?text=${encodeURIComponent("مرحباً من فريق Choco House 🍫")}`}
+                      }?text=${encodeURIComponent("مرحباً من فريق Waffle & Cake 🧇🍰")}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       title="مراسلة العميل عبر واتساب مباشرة"
                       style={{
-                        background: "rgba(34, 197, 94, 0.15)",
-                        border: "1px solid rgba(34, 197, 94, 0.35)",
-                        color: "#4ade80",
+                        background: "#DCFCE7",
+                        border: "1px solid #86EFAC",
+                        color: "#15803D",
                         padding: "6px 10px",
                         borderRadius: "8px",
                         textDecoration: "none",
@@ -1634,9 +2636,19 @@ export default function DashboardOrdersPage() {
 
                   <button
                     onClick={() => setChatDrawerOpen(false)}
-                    style={{ background: "transparent", border: "none", color: "#8a7565", cursor: "pointer", padding: "4px" }}
+                    style={{
+                      background: "#FFFFFF",
+                      border: "1px solid #E8DAC8",
+                      color: "#7E5E49",
+                      borderRadius: "8px",
+                      cursor: "pointer",
+                      padding: "4px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
                   >
-                    <XCircle size={22} />
+                    <XCircle size={18} />
                   </button>
                 </div>
               </div>
@@ -1653,8 +2665,8 @@ export default function DashboardOrdersPage() {
                       playSound("click");
                     }}
                     style={{
-                      background: "rgba(217, 155, 86, 0.08)",
-                      border: "1px dashed rgba(217, 155, 86, 0.35)",
+                      background: "#FAF6EE",
+                      border: "1px dashed #C6873E",
                       borderRadius: "14px",
                       padding: "12px 14px",
                       cursor: "pointer",
@@ -1665,38 +2677,40 @@ export default function DashboardOrdersPage() {
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                      <div style={{
-                        width: "38px",
-                        height: "38px",
-                        borderRadius: "50%",
-                        background: "#d99b56",
-                        color: "#180e06",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontWeight: 900,
-                        fontSize: "14px",
-                      }}>
+                      <div
+                        style={{
+                          width: "38px",
+                          height: "38px",
+                          borderRadius: "50%",
+                          background: "linear-gradient(135deg, #D4954E, #C6873E)",
+                          color: "#FFFFFF",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontWeight: 900,
+                          fontSize: "14px",
+                        }}
+                      >
                         📢
                       </div>
                       <div>
-                        <div style={{ fontSize: "13px", fontWeight: 800, color: "#f5ede4" }}>
+                        <div style={{ fontSize: "13px", fontWeight: 800, color: "#2B170E" }}>
                           {t("بث رسالة عامة للجميع", "Broadcast Message to All")}
                         </div>
-                        <div style={{ fontSize: "11px", color: "#8a7565" }}>
+                        <div style={{ fontSize: "11px", color: "#7E5E49" }}>
                           إرسال تنبيه أو إشعار لجميع زوار المتجر
                         </div>
                       </div>
                     </div>
-                    <span style={{ fontSize: "11px", color: "#d99b56", fontWeight: 700 }}>
+                    <span style={{ fontSize: "11px", color: "#C6873E", fontWeight: 800 }}>
                       {chatMessages.length} رسالة
                     </span>
                   </div>
 
                   {chatCustomers.length === 0 ? (
-                    <div style={{ textAlign: "center", padding: "60px 20px", color: "#8a7565" }}>
-                      <MessageSquare size={36} color="#7a5c3e" style={{ margin: "0 auto 12px", opacity: 0.5 }} />
-                      <div style={{ fontSize: "14px", fontWeight: 700, color: "#f5ede4", marginBottom: "4px" }}>
+                    <div style={{ textAlign: "center", padding: "60px 20px", color: "#7E5E49" }}>
+                      <MessageSquare size={36} color="#C6873E" style={{ margin: "0 auto 12px", opacity: 0.5 }} />
+                      <div style={{ fontSize: "14px", fontWeight: 700, color: "#2B170E", marginBottom: "4px" }}>
                         لا توجد محادثات عملاء حتى الآن
                       </div>
                       <div style={{ fontSize: "12px" }}>
@@ -1716,8 +2730,8 @@ export default function DashboardOrdersPage() {
                             playSound("click");
                           }}
                           style={{
-                            background: isSelected ? "rgba(217, 155, 86, 0.15)" : "rgba(255, 255, 255, 0.03)",
-                            border: isSelected ? "1px solid rgba(217, 155, 86, 0.4)" : "1px solid rgba(255, 255, 255, 0.06)",
+                            background: isSelected ? "#FAF6EE" : "#FFFFFF",
+                            border: isSelected ? "1.5px solid #C6873E" : "1px solid #E8DAC8",
                             borderRadius: "14px",
                             padding: "12px 14px",
                             cursor: "pointer",
@@ -1725,58 +2739,65 @@ export default function DashboardOrdersPage() {
                             alignItems: "center",
                             gap: "12px",
                             transition: "all 0.15s ease",
+                            boxShadow: "0 1px 4px rgba(43,23,14,0.03)",
                           }}
                         >
                           {/* Avatar */}
-                          <div style={{
-                            width: "42px",
-                            height: "42px",
-                            borderRadius: "50%",
-                            background: "rgba(217, 155, 86, 0.2)",
-                            border: "1px solid rgba(217, 155, 86, 0.4)",
-                            color: "#d99b56",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            fontWeight: 900,
-                            fontSize: "15px",
-                            flexShrink: 0,
-                          }}>
+                          <div
+                            style={{
+                              width: "42px",
+                              height: "42px",
+                              borderRadius: "50%",
+                              background: isSelected ? "linear-gradient(135deg, #D4954E, #C6873E)" : "#FAF6EE",
+                              border: isSelected ? "none" : "1px solid #E8DAC8",
+                              color: isSelected ? "#FFFFFF" : "#C6873E",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              fontWeight: 900,
+                              fontSize: "15px",
+                              flexShrink: 0,
+                            }}
+                          >
                             {cust.name.slice(0, 1) || "ع"}
                           </div>
 
                           {/* Info & Last Message */}
                           <div style={{ flex: 1, minWidth: 0 }}>
                             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "3px" }}>
-                              <h4 style={{ margin: 0, fontSize: "13.5px", fontWeight: 800, color: "#ffffff", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                              <h4 style={{ margin: 0, fontSize: "13.5px", fontWeight: 800, color: "#2B170E", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                                 {cust.name}
                               </h4>
                               {cust.lastTime && (
-                                <span style={{ fontSize: "10.5px", color: "#8a7565" }}>
+                                <span style={{ fontSize: "10.5px", color: "#7E5E49" }}>
                                   {new Date(cust.lastTime).toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit" })}
                                 </span>
                               )}
                             </div>
                             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
-                              <p style={{
-                                margin: 0,
-                                fontSize: "12px",
-                                color: "#b0957e",
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                                whiteSpace: "nowrap",
-                              }}>
+                              <p
+                                style={{
+                                  margin: 0,
+                                  fontSize: "12px",
+                                  color: "#7E5E49",
+                                  overflow: "hidden",
+                                  textOverflow: "ellipsis",
+                                  whiteSpace: "nowrap",
+                                }}
+                              >
                                 {cust.lastMessage || (cust.phone ? `هاتف: ${cust.phone}` : "محادثة نشطة")}
                               </p>
-                              <span style={{
-                                background: "#d99b56",
-                                color: "#180e06",
-                                fontSize: "10px",
-                                fontWeight: 900,
-                                padding: "1px 7px",
-                                borderRadius: "100px",
-                                flexShrink: 0,
-                              }}>
+                              <span
+                                style={{
+                                  background: "linear-gradient(135deg, #D4954E, #C6873E)",
+                                  color: "#FFFFFF",
+                                  fontSize: "10px",
+                                  fontWeight: 900,
+                                  padding: "1px 7px",
+                                  borderRadius: "100px",
+                                  flexShrink: 0,
+                                }}
+                              >
                                 {cust.count}
                               </span>
                             </div>
@@ -1800,7 +2821,7 @@ export default function DashboardOrdersPage() {
                     }}
                   >
                     {chatMessages.length === 0 ? (
-                      <div style={{ textAlign: "center", padding: "40px 0", color: "#8a7565", fontSize: "13px" }}>
+                      <div style={{ textAlign: "center", padding: "40px 0", color: "#7E5E49", fontSize: "13px" }}>
                         لا توجد رسائل في هذه المحادثة حتى الآن
                       </div>
                     ) : (
@@ -1818,17 +2839,18 @@ export default function DashboardOrdersPage() {
                           style={{
                             alignSelf: msg.isStaff ? "flex-start" : "flex-end",
                             maxWidth: "85%",
-                            background: msg.isStaff ? "rgba(217, 155, 86, 0.15)" : "rgba(255, 255, 255, 0.08)",
-                            border: msg.isStaff ? "1px solid rgba(217, 155, 86, 0.3)" : "1px solid rgba(255,255,255,0.1)",
+                            background: msg.isStaff ? "#FAF6EE" : "#FFFFFF",
+                            border: "1px solid #E8DAC8",
                             borderRadius: "14px",
                             padding: "10px 14px",
+                            boxShadow: "0 1px 4px rgba(43,23,14,0.04)",
                           }}
                         >
                           <div
                             style={{
                               fontSize: "11px",
                               fontWeight: 800,
-                              color: msg.isStaff ? "#d99b56" : "#60a5fa",
+                              color: msg.isStaff ? "#C6873E" : "#2563EB",
                               marginBottom: "3px",
                               display: "flex",
                               justifyContent: "space-between",
@@ -1837,15 +2859,15 @@ export default function DashboardOrdersPage() {
                           >
                             <span>{msg.senderName}</span>
                             {msg.customerPhone && (
-                              <span dir="ltr" style={{ color: "#8a7565" }}>
+                              <span dir="ltr" style={{ color: "#7E5E49" }}>
                                 {msg.customerPhone}
                               </span>
                             )}
                           </div>
-                          <div style={{ fontSize: "13.5px", color: "#f5ede4", lineHeight: 1.4, wordBreak: "break-word" }}>
+                          <div style={{ fontSize: "13.5px", color: "#2B170E", lineHeight: 1.4, wordBreak: "break-word" }}>
                             {msg.text}
                           </div>
-                          <div style={{ fontSize: "10px", color: "#8a7565", marginTop: "4px", textAlign: "left" }}>
+                          <div style={{ fontSize: "10px", color: "#7E5E49", marginTop: "4px", textAlign: "left" }}>
                             {new Date(msg.createdAt).toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit" })}
                           </div>
                         </div>
@@ -1857,17 +2879,17 @@ export default function DashboardOrdersPage() {
                   <div
                     style={{
                       padding: "14px 18px",
-                      borderTop: "1px solid rgba(255,255,255,0.08)",
-                      background: "#1a0f07",
+                      borderTop: "1px solid #E8DAC8",
+                      background: "#FAF6EE",
                       display: "flex",
                       flexDirection: "column",
                       gap: "8px",
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "11.5px" }}>
-                      <span style={{ color: "#d99b56", fontWeight: 700 }}>
+                      <span style={{ color: "#7E5E49", fontWeight: 700 }}>
                         الرد موجه إلى:{" "}
-                        <strong>
+                        <strong style={{ color: "#2B170E" }}>
                           {selectedChatPhone
                             ? chatCustomers.find((c) => c.id === selectedChatPhone)?.name || selectedChatPhone
                             : "جميع العملاء (بث عام)"}
@@ -1887,11 +2909,11 @@ export default function DashboardOrdersPage() {
                         style={{
                           flex: 1,
                           height: "42px",
-                          background: "#0d0805",
-                          border: "1px solid rgba(217, 155, 86, 0.3)",
+                          background: "#FFFFFF",
+                          border: "1px solid #E8DAC8",
                           borderRadius: "12px",
                           padding: "0 14px",
-                          color: "#ffffff",
+                          color: "#2B170E",
                           fontSize: "13px",
                           outline: "none",
                         }}
@@ -1903,13 +2925,14 @@ export default function DashboardOrdersPage() {
                           width: "44px",
                           height: "42px",
                           borderRadius: "12px",
-                          background: "#d99b56",
+                          background: "linear-gradient(135deg, #D4954E, #C6873E)",
                           border: "none",
-                          color: "#180e06",
+                          color: "#FFFFFF",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           cursor: "pointer",
+                          boxShadow: "0 2px 8px rgba(198,135,62,0.25)",
                         }}
                       >
                         <Send size={18} />
@@ -1945,54 +2968,80 @@ export default function DashboardOrdersPage() {
               alignItems: "center",
               justifyContent: "center",
               padding: "20px",
-              background: "rgba(0,0,0,0.85)",
+              background: "rgba(43, 23, 14, 0.55)",
+              backdropFilter: "blur(5px)",
             }}
           >
             <div
               style={{
-                background: "#160d05",
-                border: "1px solid rgba(217, 155, 86, 0.4)",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
                 borderRadius: "24px",
                 padding: "26px",
                 maxWidth: "400px",
                 width: "100%",
                 textAlign: "center",
-                boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
-                color: "#f5ede4",
+                boxShadow: "0 24px 64px rgba(43,23,14,0.25)",
+                color: "#2B170E",
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <QrCode size={22} color="#d99b56" />
-                  <h3 style={{ margin: 0, fontSize: "16px", fontWeight: 900, color: "#ffffff" }}>
+                  <div
+                    style={{
+                      width: "36px",
+                      height: "36px",
+                      borderRadius: "10px",
+                      background: "#FAF6EE",
+                      border: "1px solid #E8DAC8",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#C6873E",
+                    }}
+                  >
+                    <QrCode size={20} />
+                  </div>
+                  <h3 style={{ margin: 0, fontSize: "16px", fontWeight: 900, color: "#2B170E" }}>
                     الفاتورة الذكية والتتبع (QR) 📱
                   </h3>
                 </div>
                 <button
                   onClick={() => setQrModalOrder(null)}
-                  style={{ background: "transparent", border: "none", color: "#8a7565", cursor: "pointer" }}
+                  style={{
+                    background: "#FAF6EE",
+                    border: "1px solid #E8DAC8",
+                    color: "#7E5E49",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    padding: "4px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                 >
-                  <XCircle size={22} />
+                  <XCircle size={18} />
                 </button>
               </div>
 
-              <p style={{ margin: "0 0 16px 0", fontSize: "12.5px", color: "#8a7565" }}>
+              <p style={{ margin: "0 0 16px 0", fontSize: "12.5px", color: "#7E5E49" }}>
                 امسح الرمز بكاميرا الموبايل لفتح الفاتورة الذكية والتتبع للطيار أو العميل بدون طابعة
               </p>
 
               <div
                 style={{
-                  background: "#ffffff",
+                  background: "#FAF6EE",
+                  border: "1px solid #E8DAC8",
                   padding: "16px",
                   borderRadius: "16px",
                   display: "inline-block",
                   marginBottom: "16px",
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
+                  boxShadow: "0 2px 8px rgba(43,23,14,0.06)",
                 }}
               >
                 <img
                   src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(
-                    (typeof window !== "undefined" ? window.location.origin : "https://choco-house.vercel.app") +
+                    (typeof window !== "undefined" ? window.location.origin : "") +
                       "/receipt/" +
                       qrModalOrder.id
                   )}`}
@@ -2002,17 +3051,17 @@ export default function DashboardOrdersPage() {
               </div>
 
               <div style={{ marginBottom: "18px", fontSize: "13px" }}>
-                <div style={{ fontFamily: "monospace", fontWeight: 900, color: "#d99b56", fontSize: "16px" }}>
+                <div style={{ fontFamily: "monospace", fontWeight: 900, color: "#C6873E", fontSize: "18px" }}>
                   {qrModalOrder.orderNumber}
                 </div>
-                <div style={{ color: "#ffffff", fontWeight: 700, marginTop: "2px" }}>
+                <div style={{ color: "#2B170E", fontWeight: 700, marginTop: "2px" }}>
                   العميل: {qrModalOrder.customerName} ({qrModalOrder.phone})
                 </div>
-                <div style={{ color: "#4ade80", fontWeight: 800, marginTop: "2px" }}>
+                <div style={{ color: "#15803D", fontWeight: 900, marginTop: "2px", fontSize: "14px" }}>
                   المطلوب تحصيله: {qrModalOrder.total} ج.م
                 </div>
                 {qrModalOrder.captainName && (
-                  <div style={{ color: "#c084fc", fontSize: "12px", marginTop: "4px" }}>
+                  <div style={{ color: "#7E22CE", fontSize: "12px", marginTop: "4px", fontWeight: 800 }}>
                     🛵 الكابتن: {qrModalOrder.captainName}
                   </div>
                 )}
@@ -2022,7 +3071,7 @@ export default function DashboardOrdersPage() {
                 <button
                   onClick={() => {
                     const url =
-                      (typeof window !== "undefined" ? window.location.origin : "https://choco-house.vercel.app") +
+                      (typeof window !== "undefined" ? window.location.origin : "") +
                       "/receipt/" +
                       qrModalOrder.id;
                     navigator.clipboard.writeText(url);
@@ -2033,9 +3082,9 @@ export default function DashboardOrdersPage() {
                   style={{
                     flex: 1,
                     height: "42px",
-                    background: copiedQrLink ? "#22c55e" : "rgba(217, 155, 86, 0.2)",
-                    border: "1px solid rgba(217, 155, 86, 0.4)",
-                    color: copiedQrLink ? "#ffffff" : "#d99b56",
+                    background: copiedQrLink ? "#15803D" : "#FAF6EE",
+                    border: copiedQrLink ? "1px solid #15803D" : "1px solid #E8DAC8",
+                    color: copiedQrLink ? "#FFFFFF" : "#7E5E49",
                     borderRadius: "12px",
                     fontWeight: 800,
                     fontSize: "12.5px",
@@ -2057,8 +3106,8 @@ export default function DashboardOrdersPage() {
                   style={{
                     flex: 1,
                     height: "42px",
-                    background: "#d99b56",
-                    color: "#180e06",
+                    background: "linear-gradient(135deg, #D4954E, #C6873E)",
+                    color: "#FFFFFF",
                     borderRadius: "12px",
                     fontWeight: 900,
                     fontSize: "12.5px",
@@ -2067,6 +3116,7 @@ export default function DashboardOrdersPage() {
                     alignItems: "center",
                     justifyContent: "center",
                     gap: "6px",
+                    boxShadow: "0 2px 8px rgba(198,135,62,0.25)",
                   }}
                 >
                   <ExternalLink size={16} />

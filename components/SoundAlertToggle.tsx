@@ -25,7 +25,7 @@ export default function SoundAlertToggle() {
     <button
       onClick={toggle}
       title={enabled ? "إيقاف الأصوات" : "تشغيل الأصوات"}
-      className="fixed bottom-4 left-4 z-50 p-2.5 rounded-2xl bg-[#1a0f07] border border-[#3d1f0a] text-[#c8860a] hover:bg-[#3d1f0a] hover:border-[#c8860a] transition-all shadow-xl"
+      className="fixed bottom-4 left-4 z-50 p-2.5 rounded-2xl bg-[#FFFFFF] border border-[#E8DAC8] text-[#D4954E] hover:bg-[#FAF6EE] hover:border-[#D4954E] transition-all shadow-lg"
     >
       {enabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
     </button>

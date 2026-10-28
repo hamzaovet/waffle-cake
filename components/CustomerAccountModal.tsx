@@ -646,17 +646,17 @@ export default function CustomerAccountModal({
               {activeTab === "profile" && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                   <div>
-                    <label style={{ fontSize: "12px", color: "#8a7565", display: "block", marginBottom: "4px" }}>
+                    <label style={{ fontSize: "12px", color: "#6B4F3B", display: "block", marginBottom: "4px" }}>
                       الاسم بالكامل:
                     </label>
                     <div
                       style={{
                         padding: "10px 14px",
-                        background: "#0d0805",
+                        background: "#FFFFFF",
                         borderRadius: "10px",
-                        color: "#ffffff",
+                        color: "#2B170E",
                         fontWeight: 700,
-                        border: "1px solid rgba(255,255,255,0.08)",
+                        border: "1px solid #E8DAC8",
                       }}
                     >
                       {customer.name}

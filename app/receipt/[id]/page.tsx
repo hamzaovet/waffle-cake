@@ -88,10 +88,10 @@ export default function DigitalReceiptPage({ params }: { params: Promise<{ id: s
 
   if (loading) {
     return (
-      <div dir="rtl" style={{ minHeight: "100vh", background: "#0d0805", color: "#d99b56", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-cairo), sans-serif" }}>
+      <div dir="rtl" style={{ minHeight: "100vh", background: "#F8F4EC", color: "#C6873E", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-cairo), sans-serif" }}>
         <div style={{ textAlign: "center" }}>
-          <div style={{ fontSize: "36px", marginBottom: "12px" }}>🍫</div>
-          <p style={{ fontWeight: 800, fontSize: "16px" }}>جاري تحميل الفاتورة الذكية...</p>
+          <div style={{ fontSize: "36px", marginBottom: "12px" }}>🧇🍰</div>
+          <p style={{ fontWeight: 800, fontSize: "16px", color: "#2B170E" }}>جاري تحميل الفاتورة الذكية...</p>
         </div>
       </div>
     );
@@ -99,12 +99,12 @@ export default function DigitalReceiptPage({ params }: { params: Promise<{ id: s
 
   if (error || !order) {
     return (
-      <div dir="rtl" style={{ minHeight: "100vh", background: "#0d0805", color: "#f5ede4", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px", fontFamily: "var(--font-cairo), sans-serif" }}>
-        <div style={{ maxWidth: "400px", width: "100%", background: "#160d05", border: "1px solid rgba(239, 68, 68, 0.4)", borderRadius: "20px", padding: "28px", textAlign: "center" }}>
+      <div dir="rtl" style={{ minHeight: "100vh", background: "#F8F4EC", color: "#2B170E", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px", fontFamily: "var(--font-cairo), sans-serif" }}>
+        <div style={{ maxWidth: "400px", width: "100%", background: "#FFFFFF", border: "1px solid rgba(239, 68, 68, 0.4)", borderRadius: "20px", padding: "28px", textAlign: "center", boxShadow: "0 10px 30px rgba(0,0,0,0.06)" }}>
           <AlertCircle size={44} color="#ef4444" style={{ margin: "0 auto 12px" }} />
           <h2 style={{ fontSize: "18px", fontWeight: 900, marginBottom: "8px" }}>تعذر فتح الفاتورة</h2>
-          <p style={{ color: "#8a7565", fontSize: "13px", marginBottom: "20px" }}>{error || "تأكد من صحة رمز الـ QR أو رقم الأوردر"}</p>
-          <Link href="/" style={{ display: "inline-block", background: "#d99b56", color: "#180e06", padding: "10px 20px", borderRadius: "10px", fontWeight: 800, textDecoration: "none" }}>
+          <p style={{ color: "#7E5E49", fontSize: "13px", marginBottom: "20px" }}>{error || "تأكد من صحة رمز الـ QR أو رقم الأوردر"}</p>
+          <Link href="/" style={{ display: "inline-block", background: "linear-gradient(135deg, #D4954E, #C6873E)", color: "#FFFFFF", padding: "10px 20px", borderRadius: "10px", fontWeight: 800, textDecoration: "none" }}>
             العودة للموقع الرئيسي
           </Link>
         </div>
@@ -124,18 +124,18 @@ export default function DigitalReceiptPage({ params }: { params: Promise<{ id: s
   const customerWaPhone = cleanCustomerPhone.startsWith("0") ? "2" + cleanCustomerPhone : cleanCustomerPhone;
 
   return (
-    <div dir="rtl" style={{ minHeight: "100vh", background: "#0d0805", color: "#f5ede4", padding: "20px 14px", fontFamily: "var(--font-cairo), system-ui, sans-serif" }}>
+    <div dir="rtl" style={{ minHeight: "100vh", background: "#F8F4EC", color: "#2B170E", padding: "20px 14px", fontFamily: "var(--font-cairo), system-ui, sans-serif" }}>
       <div style={{ maxWidth: "460px", margin: "0 auto" }}>
         {/* Top Back Nav */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px" }}>
-          <Link href="/" style={{ display: "flex", alignItems: "center", gap: "6px", color: "#d99b56", textDecoration: "none", fontSize: "13px", fontWeight: 800 }}>
+          <Link href="/" style={{ display: "flex", alignItems: "center", gap: "6px", color: "#C6873E", textDecoration: "none", fontSize: "13px", fontWeight: 800 }}>
             <ArrowRight size={16} />
             <span>Waffle &amp; Cake Desserts</span>
           </Link>
 
           <button
             onClick={() => fetchOrder()}
-            style={{ background: "rgba(255,255,255,0.06)", border: "none", color: "#d99b56", padding: "6px 10px", borderRadius: "8px", fontSize: "12px", cursor: "pointer", display: "flex", alignItems: "center", gap: "4px" }}
+            style={{ background: "#FFFFFF", border: "1px solid #E8DAC8", color: "#C6873E", padding: "6px 12px", borderRadius: "8px", fontSize: "12px", cursor: "pointer", display: "flex", alignItems: "center", gap: "4px", boxShadow: "0 2px 6px rgba(0,0,0,0.04)" }}
           >
             <RefreshCw size={12} />
             <span>تحديث</span>
@@ -356,9 +356,9 @@ export default function DigitalReceiptPage({ params }: { params: Promise<{ id: s
               href="https://wa.me/201018671000"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "#0284c7", textDecoration: "none", fontWeight: 700, fontSize: "10.5px" }}
+              style={{ color: "#D4954E", textDecoration: "none", fontWeight: 800, fontSize: "11px" }}
             >
-              برمجة وتطوير: شركة أوركا للحلول البرمجية (01018671000)
+              تم التطوير بواسطة شركة أوركا للحلول البرمجية والخدمات السحابية 🐋 (01018671000)
             </a>
           </div>
         </div>

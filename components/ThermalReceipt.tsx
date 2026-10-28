@@ -274,12 +274,12 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
           width: "100%",
           maxWidth: "460px",
           maxHeight: "92vh",
-          backgroundColor: "#160d05",
-          border: "1px solid rgba(217, 155, 86, 0.35)",
+          backgroundColor: "#FFFFFF",
+          border: "1px solid #E8DAC8",
           borderRadius: "24px",
           display: "flex",
           flexDirection: "column",
-          boxShadow: "0 24px 60px rgba(0,0,0,0.8)",
+          boxShadow: "0 24px 60px rgba(43,23,14,0.22)",
           overflow: "hidden",
         }}
       >
@@ -287,10 +287,11 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
         <div
           style={{
             padding: "18px 22px",
-            borderBottom: "1px solid rgba(217, 155, 86, 0.2)",
+            borderBottom: "1px solid #E8DAC8",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            backgroundColor: "#FAF6EE",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -299,20 +300,20 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
                 width: "38px",
                 height: "38px",
                 borderRadius: "10px",
-                backgroundColor: "rgba(217, 155, 86, 0.15)",
+                backgroundColor: "rgba(198, 135, 62, 0.15)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#d99b56",
+                color: "#C6873E",
               }}
             >
               <Printer size={20} />
             </div>
             <div>
-              <h3 style={{ margin: 0, fontSize: "16px", fontWeight: 900, color: "#ffffff" }}>
+              <h3 style={{ margin: 0, fontSize: "16px", fontWeight: 900, color: "#2B170E" }}>
                 معاينة ريسيت الطابعة الحرارية 🧾
               </h3>
-              <span style={{ fontSize: "12px", color: "#8a7565" }}>مقاس رول 80mm / 58mm المعتمد</span>
+              <span style={{ fontSize: "12px", color: "#7E5E49" }}>مقاس رول 80mm / 58mm المعتمد</span>
             </div>
           </div>
 
@@ -321,7 +322,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
             style={{
               background: "none",
               border: "none",
-              color: "#8a7565",
+              color: "#7E5E49",
               cursor: "pointer",
               padding: "4px",
             }}
@@ -331,7 +332,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
         </div>
 
         {/* Scrollable Receipt Preview (Paper Style) */}
-        <div style={{ flex: 1, overflowY: "auto", padding: "20px", backgroundColor: "#0b0603" }}>
+        <div style={{ flex: 1, overflowY: "auto", padding: "20px", backgroundColor: "#F8F4EC" }}>
           <div
             style={{
               backgroundColor: "#ffffff",
@@ -488,12 +489,12 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
         <div
           style={{
             padding: "16px 20px",
-            borderTop: "1px solid rgba(217, 155, 86, 0.2)",
+            borderTop: "1px solid #E8DAC8",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
             gap: "12px",
-            backgroundColor: "#160d05",
+            backgroundColor: "#FAF6EE",
           }}
         >
           <button
@@ -501,9 +502,9 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
             style={{
               padding: "10px 18px",
               borderRadius: "12px",
-              backgroundColor: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.12)",
-              color: "#b0957e",
+              backgroundColor: "transparent",
+              border: "1px solid #E8DAC8",
+              color: "#7E5E49",
               fontSize: "13px",
               fontWeight: 700,
               cursor: "pointer",
@@ -517,16 +518,16 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
             style={{
               padding: "12px 24px",
               borderRadius: "12px",
-              backgroundColor: "#d99b56",
+              background: "linear-gradient(135deg, #D4954E, #C6873E)",
               border: "none",
-              color: "#180e06",
+              color: "#FFFFFF",
               fontSize: "14px",
               fontWeight: 900,
               cursor: "pointer",
               display: "flex",
               alignItems: "center",
               gap: "8px",
-              boxShadow: "0 4px 16px rgba(217, 155, 86, 0.35)",
+              boxShadow: "0 4px 16px rgba(198, 135, 62, 0.3)",
             }}
           >
             <Printer size={18} />

@@ -396,17 +396,18 @@ export default function ReportsPage() {
 
             {/* ── Recent Expenses List ── */}
             <div style={{
-              background: "#160d05",
-              border: "1px solid rgba(217, 155, 86, 0.2)",
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
               borderRadius: "20px",
               padding: "24px",
+              boxShadow: "0 2px 8px rgba(43,23,14,0.04)",
             }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "18px" }}>
                 <div>
-                  <h3 style={{ margin: "0 0 4px 0", fontSize: "17px", fontWeight: 900, color: "#ffffff" }}>
+                  <h3 style={{ margin: "0 0 4px 0", fontSize: "17px", fontWeight: 900, color: "#2B170E" }}>
                     {t("سجل المصروفات المسجلة 🧾", "Recorded Expenses Log 🧾")}
                   </h3>
-                  <p style={{ margin: 0, fontSize: "12px", color: "#8a7565" }}>
+                  <p style={{ margin: 0, fontSize: "12px", color: "#7E5E49" }}>
                     {t("جميع المصروفات اليومية وخصمها المباشر من صافي الأرباح", "All daily expenses and direct deduction from net profit")}
                   </p>
                 </div>
@@ -414,10 +415,10 @@ export default function ReportsPage() {
                 <button
                   onClick={() => { playSound("click"); setShowExpenseModal(true); }}
                   style={{
-                    background: "rgba(217, 155, 86, 0.15)",
-                    border: "1px solid rgba(217, 155, 86, 0.3)",
+                    background: "#FAF6EE",
+                    border: "1px solid #E8DAC8",
                     borderRadius: "10px",
-                    color: "#d99b56",
+                    color: "#C6873E",
                     padding: "7px 14px",
                     fontSize: "12.5px",
                     fontWeight: 800,
@@ -433,7 +434,7 @@ export default function ReportsPage() {
               </div>
 
               {expenses.length === 0 ? (
-                <div style={{ textAlign: "center", padding: "30px", color: "#8a7565" }}>
+                <div style={{ textAlign: "center", padding: "30px", color: "#7E5E49" }}>
                   <p>{t("لا توجد مصروفات مسجلة حتى الآن", "No recorded expenses yet")}</p>
                 </div>
               ) : (
@@ -442,8 +443,8 @@ export default function ReportsPage() {
                     <div
                       key={exp.id}
                       style={{
-                        background: "#0d0805",
-                        border: "1px solid rgba(217, 155, 86, 0.12)",
+                        background: "#FAF6EE",
+                        border: "1px solid #E8DAC8",
                         borderRadius: "14px",
                         padding: "12px 18px",
                         display: "flex",
@@ -457,25 +458,26 @@ export default function ReportsPage() {
                         <span style={{
                           padding: "4px 10px",
                           borderRadius: "8px",
-                          background: "rgba(217, 155, 86, 0.12)",
-                          color: "#d99b56",
+                          background: "#FFFFFF",
+                          border: "1px solid #E8DAC8",
+                          color: "#C6873E",
                           fontSize: "11px",
                           fontWeight: 800,
                         }}>
                           {exp.category}
                         </span>
                         <div>
-                          <div style={{ fontSize: "14px", fontWeight: 800, color: "#ffffff" }}>
+                          <div style={{ fontSize: "14px", fontWeight: 800, color: "#2B170E" }}>
                             {exp.description}
                           </div>
-                          <div style={{ fontSize: "11px", color: "#8a7565", marginTop: "2px" }}>
+                          <div style={{ fontSize: "11px", color: "#7E5E49", marginTop: "2px" }}>
                             {t("التاريخ:", "Date:")} {exp.expenseDate} {exp.recordedBy ? `— ${t("بواسطة:", "By:")} ${exp.recordedBy}` : ""}
                           </div>
                         </div>
                       </div>
 
                       <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                        <span style={{ fontSize: "16px", fontWeight: 900, color: "#f87171" }}>
+                        <span style={{ fontSize: "16px", fontWeight: 900, color: "#DC2626" }}>
                           - {formatCurrency(exp.amount)}
                         </span>
                         <button
@@ -484,9 +486,9 @@ export default function ReportsPage() {
                             width: "32px",
                             height: "32px",
                             borderRadius: "8px",
-                            background: "rgba(239, 68, 68, 0.1)",
-                            border: "1px solid rgba(239, 68, 68, 0.2)",
-                            color: "#f87171",
+                            background: "#FEE2E2",
+                            border: "1px solid #FCA5A5",
+                            color: "#DC2626",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
@@ -511,8 +513,8 @@ export default function ReportsPage() {
             position: "fixed",
             inset: 0,
             zIndex: 9999,
-            background: "rgba(0,0,0,0.8)",
-            backdropFilter: "blur(4px)",
+            background: "rgba(43, 23, 14, 0.55)",
+            backdropFilter: "blur(5px)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -521,20 +523,20 @@ export default function ReportsPage() {
             <div style={{
               width: "100%",
               maxWidth: "460px",
-              background: "#160d05",
-              border: "1px solid rgba(217, 155, 86, 0.35)",
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
               borderRadius: "24px",
               padding: "26px",
-              boxShadow: "0 24px 64px rgba(0,0,0,0.8)",
+              boxShadow: "0 24px 64px rgba(43,23,14,0.2)",
               position: "relative",
-              color: "#f5ede4",
+              color: "#2B170E",
             }}>
               <button
                 onClick={() => setShowExpenseModal(false)}
                 style={{
                   position: "absolute", top: "18px", [dir === "rtl" ? "left" : "right"]: "18px",
-                  background: "rgba(255,255,255,0.06)", border: "none",
-                  borderRadius: "10px", padding: "6px", cursor: "pointer", color: "#8a7565",
+                  background: "#FAF6EE", border: "1px solid #E8DAC8",
+                  borderRadius: "10px", padding: "6px", cursor: "pointer", color: "#7E5E49",
                 }}
               >
                 <X size={18} />
@@ -543,16 +545,16 @@ export default function ReportsPage() {
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
                 <div style={{
                   width: "40px", height: "40px", borderRadius: "12px",
-                  background: "rgba(239, 68, 68, 0.15)",
-                  display: "flex", alignItems: "center", justifyContent: "center", color: "#f87171",
+                  background: "#FEE2E2", border: "1px solid #FCA5A5",
+                  display: "flex", alignItems: "center", justifyContent: "center", color: "#DC2626",
                 }}>
                   <TrendingDown size={20} />
                 </div>
                 <div>
-                  <h2 style={{ margin: 0, fontSize: "18px", fontWeight: 900, color: "#ffffff" }}>
+                  <h2 style={{ margin: 0, fontSize: "18px", fontWeight: 900, color: "#2B170E" }}>
                     {t("تسجيل مصروف جديد 💸", "Record New Expense 💸")}
                   </h2>
-                  <div style={{ fontSize: "11px", color: "#8a7565" }}>
+                  <div style={{ fontSize: "11px", color: "#7E5E49" }}>
                     {t("يتم خصم المبلغ مباشرة من صافي أرباح المحل", "Deducted directly from store net profit")}
                   </div>
                 </div>
@@ -560,25 +562,25 @@ export default function ReportsPage() {
 
               <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                 <div>
-                  <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#b0957e", marginBottom: "5px" }}>
+                  <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#7E5E49", marginBottom: "5px" }}>
                     {t("بيان / وصف المصروف *", "Description / Notes *")}
                   </label>
                   <input
                     type="text"
                     value={expenseForm.description}
                     onChange={(e) => setExpenseForm({ ...expenseForm, description: e.target.value })}
-                    placeholder={t("مثلاً: شراء 2 كرتونة نوتيلا، فاتورة كهرباء، صيانة...", "e.g., 2 boxes of Nutella, electric bill, maintenance...")}
+                    placeholder={t("مثلاً: شراء خامات وافل، كرتونة نوتيلا، فاتورة كهرباء، صيانة...", "e.g., waffle ingredients, Nutella, electric bill, maintenance...")}
                     style={{
-                      width: "100%", height: "42px", background: "#0d0805",
-                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
-                      padding: "0 14px", color: "#fff", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
+                      width: "100%", height: "42px", background: "#FAF6EE",
+                      border: "1px solid #E8DAC8", borderRadius: "12px",
+                      padding: "0 14px", color: "#2B170E", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
                     }}
                   />
                 </div>
 
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
                   <div>
-                    <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#b0957e", marginBottom: "5px" }}>
+                    <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#7E5E49", marginBottom: "5px" }}>
                       {t("المبلغ (جنيه) *", "Amount (EGP) *")}
                     </label>
                     <input
@@ -588,15 +590,15 @@ export default function ReportsPage() {
                       onChange={(e) => setExpenseForm({ ...expenseForm, amount: e.target.value })}
                       placeholder="0.00"
                       style={{
-                        width: "100%", height: "42px", background: "#0d0805",
-                        border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
-                        padding: "0 14px", color: "#fff", fontSize: "14px", fontWeight: 800, outline: "none", boxSizing: "border-box",
+                        width: "100%", height: "42px", background: "#FAF6EE",
+                        border: "1px solid #E8DAC8", borderRadius: "12px",
+                        padding: "0 14px", color: "#2B170E", fontSize: "14px", fontWeight: 800, outline: "none", boxSizing: "border-box",
                       }}
                     />
                   </div>
 
                   <div>
-                    <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#b0957e", marginBottom: "5px" }}>
+                    <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#7E5E49", marginBottom: "5px" }}>
                       {t("تاريخ المصروف", "Expense Date")}
                     </label>
                     <input
@@ -605,25 +607,25 @@ export default function ReportsPage() {
                       value={expenseForm.expenseDate}
                       onChange={(e) => setExpenseForm({ ...expenseForm, expenseDate: e.target.value })}
                       style={{
-                        width: "100%", height: "42px", background: "#0d0805",
-                        border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
-                        padding: "0 10px", color: "#fff", fontSize: "12.5px", outline: "none", boxSizing: "border-box",
+                        width: "100%", height: "42px", background: "#FAF6EE",
+                        border: "1px solid #E8DAC8", borderRadius: "12px",
+                        padding: "0 10px", color: "#2B170E", fontSize: "12.5px", outline: "none", boxSizing: "border-box",
                       }}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#b0957e", marginBottom: "5px" }}>
+                  <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#7E5E49", marginBottom: "5px" }}>
                     {t("تصنيف المصروف", "Category")}
                   </label>
                   <select
                     value={expenseForm.category}
                     onChange={(e) => setExpenseForm({ ...expenseForm, category: e.target.value })}
                     style={{
-                      width: "100%", height: "42px", background: "#0d0805",
-                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
-                      padding: "0 12px", color: "#fff", fontSize: "13px", outline: "none", boxSizing: "border-box",
+                      width: "100%", height: "42px", background: "#FAF6EE",
+                      border: "1px solid #E8DAC8", borderRadius: "12px",
+                      padding: "0 12px", color: "#2B170E", fontSize: "13px", outline: "none", boxSizing: "border-box",
                     }}
                   >
                     {EXPENSE_CATEGORIES.map((cat) => (
@@ -637,8 +639,8 @@ export default function ReportsPage() {
                     onClick={() => setShowExpenseModal(false)}
                     style={{
                       flex: 1, height: "44px", borderRadius: "12px",
-                      background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
-                      color: "#b0957e", fontSize: "13px", fontWeight: 800, cursor: "pointer",
+                      background: "#FAF6EE", border: "1px solid #E8DAC8",
+                      color: "#7E5E49", fontSize: "13px", fontWeight: 800, cursor: "pointer",
                     }}
                   >
                     {t("إلغاء", "Cancel")}
@@ -649,10 +651,11 @@ export default function ReportsPage() {
                     disabled={savingExpense || !expenseForm.description || !expenseForm.amount}
                     style={{
                       flex: 2, height: "44px", borderRadius: "12px",
-                      background: "#d99b56", border: "none",
-                      color: "#180e06", fontSize: "13.5px", fontWeight: 900,
+                      background: "linear-gradient(135deg, #D4954E, #C6873E)", border: "none",
+                      color: "#FFFFFF", fontSize: "13.5px", fontWeight: 900,
                       cursor: savingExpense ? "wait" : "pointer",
                       display: "flex", alignItems: "center", justifyContent: "center", gap: "6px",
+                      boxShadow: "0 2px 8px rgba(198,135,62,0.25)",
                       opacity: (!expenseForm.description || !expenseForm.amount) ? 0.5 : 1,
                     }}
                   >

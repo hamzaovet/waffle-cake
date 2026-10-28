@@ -423,7 +423,8 @@ export default function MenuAdminPage() {
             position: "fixed",
             inset: 0,
             zIndex: 60,
-            background: "rgba(0,0,0,0.8)",
+            background: "rgba(43, 23, 14, 0.55)",
+            backdropFilter: "blur(5px)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -432,31 +433,32 @@ export default function MenuAdminPage() {
             <div style={{
               width: "100%",
               maxWidth: "440px",
-              background: "#1a0f07",
-              border: "1px solid rgba(217, 155, 86, 0.3)",
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
               borderRadius: "24px",
               padding: "26px",
-              boxShadow: "0 24px 64px rgba(0,0,0,0.6)",
+              boxShadow: "0 24px 64px rgba(43,23,14,0.2)",
               position: "relative",
+              color: "#2B170E",
             }}>
               <button
                 onClick={() => setEditProduct(null)}
                 style={{
                   position: "absolute", top: "18px", [dir === "rtl" ? "left" : "right"]: "18px",
-                  background: "rgba(255,255,255,0.06)", border: "none",
-                  borderRadius: "10px", padding: "6px", cursor: "pointer", color: "#8a7565",
+                  background: "#FAF6EE", border: "1px solid #E8DAC8",
+                  borderRadius: "10px", padding: "6px", cursor: "pointer", color: "#7E5E49",
                 }}
               >
                 <X size={18} />
               </button>
 
-              <h3 style={{ fontSize: "18px", fontWeight: 900, color: "#ffffff", margin: "0 0 18px 0" }}>
+              <h3 style={{ fontSize: "18px", fontWeight: 900, color: "#2B170E", margin: "0 0 18px 0" }}>
                 {editProduct.id ? t("✏️ تعديل صنف", "✏️ Edit Item") : t("➕ إضافة صنف جديد", "➕ Add New Item")}
               </h3>
 
               <form onSubmit={saveProduct} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                 <div>
-                  <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#b0957e", marginBottom: "5px" }}>
+                  <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#7E5E49", marginBottom: "5px" }}>
                     {t("اسم الصنف بالعربي *", "Arabic Name *")}
                   </label>
                   <input
@@ -465,15 +467,15 @@ export default function MenuAdminPage() {
                     onChange={(e) => setEditProduct({ ...editProduct, nameAr: e.target.value })}
                     required
                     style={{
-                      width: "100%", height: "42px", background: "#0d0805",
-                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "10px",
-                      padding: "0 14px", color: "#fff", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
+                      width: "100%", height: "42px", background: "#FAF6EE",
+                      border: "1px solid #E8DAC8", borderRadius: "10px",
+                      padding: "0 14px", color: "#2B170E", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
                     }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#b0957e", marginBottom: "5px" }}>
+                  <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#7E5E49", marginBottom: "5px" }}>
                     {t("اسم الصنف بالإنجليزي", "English Name")}
                   </label>
                   <input
@@ -482,24 +484,24 @@ export default function MenuAdminPage() {
                     value={editProduct.nameEn || ""}
                     onChange={(e) => setEditProduct({ ...editProduct, nameEn: e.target.value })}
                     style={{
-                      width: "100%", height: "42px", background: "#0d0805",
-                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "10px",
-                      padding: "0 14px", color: "#fff", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
+                      width: "100%", height: "42px", background: "#FAF6EE",
+                      border: "1px solid #E8DAC8", borderRadius: "10px",
+                      padding: "0 14px", color: "#2B170E", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
                     }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#b0957e", marginBottom: "5px" }}>
+                  <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#7E5E49", marginBottom: "5px" }}>
                     {t("التصنيف *", "Category *")}
                   </label>
                   <select
                     value={editProduct.category || CATEGORIES[0]}
                     onChange={(e) => setEditProduct({ ...editProduct, category: e.target.value })}
                     style={{
-                      width: "100%", height: "42px", background: "#0d0805",
-                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "10px",
-                      padding: "0 14px", color: "#fff", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
+                      width: "100%", height: "42px", background: "#FAF6EE",
+                      border: "1px solid #E8DAC8", borderRadius: "10px",
+                      padding: "0 14px", color: "#2B170E", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
                     }}
                   >
                     {CATEGORIES.map((cat) => (
@@ -509,7 +511,7 @@ export default function MenuAdminPage() {
                 </div>
 
                 <div>
-                  <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#b0957e", marginBottom: "5px" }}>
+                  <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#7E5E49", marginBottom: "5px" }}>
                     {t("السعر (جنيه) *", "Price (EGP) *")}
                   </label>
                   <input
@@ -519,9 +521,9 @@ export default function MenuAdminPage() {
                     onChange={(e) => setEditProduct({ ...editProduct, basePrice: +e.target.value })}
                     required
                     style={{
-                      width: "100%", height: "42px", background: "#0d0805",
-                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "10px",
-                      padding: "0 14px", color: "#fff", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
+                      width: "100%", height: "42px", background: "#FAF6EE",
+                      border: "1px solid #E8DAC8", borderRadius: "10px",
+                      padding: "0 14px", color: "#2B170E", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
                     }}
                   />
                 </div>
@@ -538,21 +540,22 @@ export default function MenuAdminPage() {
                     disabled={saving}
                     style={{
                       flex: 1, height: "44px",
-                      background: "#d99b56", color: "#180e06",
+                      background: "linear-gradient(135deg, #D4954E, #C6873E)", color: "#FFFFFF",
                       fontWeight: 900, fontSize: "14px",
                       borderRadius: "12px", border: "none", cursor: "pointer",
+                      boxShadow: "0 2px 8px rgba(198,135,62,0.25)",
                     }}
                   >
-                    {saving ? t("جاري الحفظ...", "Saving...") : t("حفظ الصنف 🍫", "Save Item 🍫")}
+                    {saving ? t("جاري الحفظ...", "Saving...") : t("حفظ الصنف 🧇🍰", "Save Item 🧇🍰")}
                   </button>
                   <button
                     type="button"
                     onClick={() => setEditProduct(null)}
                     style={{
                       padding: "0 18px", height: "44px",
-                      background: "rgba(255,255,255,0.06)", color: "#b0957e",
+                      background: "#FAF6EE", color: "#7E5E49",
                       fontWeight: 700, fontSize: "13px",
-                      borderRadius: "12px", border: "1px solid rgba(255,255,255,0.1)", cursor: "pointer",
+                      borderRadius: "12px", border: "1px solid #E8DAC8", cursor: "pointer",
                     }}
                   >
                     {t("إلغاء", "Cancel")}

@@ -35,11 +35,11 @@ interface Product {
 }
 
 const STATUS_COLORS: Record<string, { color: string; bg: string }> = {
-  new:       { color: "text-blue-300",    bg: "bg-blue-500/20 border-blue-500/40" },
-  preparing: { color: "text-orange-300",  bg: "bg-orange-500/20 border-orange-500/40" },
-  ready:     { color: "text-emerald-300", bg: "bg-emerald-500/20 border-emerald-500/40" },
-  delivered: { color: "text-green-300",   bg: "bg-green-500/20 border-green-500/40" },
-  cancelled: { color: "text-red-300",     bg: "bg-red-500/20 border-red-500/40" },
+  new:       { color: "text-blue-700",    bg: "bg-blue-50 border-blue-200" },
+  preparing: { color: "text-amber-800",  bg: "bg-amber-50 border-amber-200" },
+  ready:     { color: "text-emerald-700", bg: "bg-emerald-50 border-emerald-200" },
+  delivered: { color: "text-green-700",   bg: "bg-green-50 border-green-200" },
+  cancelled: { color: "text-red-700",     bg: "bg-red-50 border-red-200" },
 };
 
 const ZONES = ["الحي الثاني", "الحي الأول", "الحي الثالث", "الحي السادس", "الحي السابع", "المحور المركزي"];
@@ -186,25 +186,28 @@ export default function CashierPage() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen bg-[#0d0805] flex items-center justify-center">
-        <Loader2 className="animate-spin text-[#c8860a]" size={40} />
+      <div className="min-h-screen bg-[#F8F4EC] flex items-center justify-center">
+        <Loader2 className="animate-spin text-[#D4954E]" size={40} />
       </div>
     );
   }
 
   return (
-    <div dir={dir} className="min-h-screen bg-[#0d0805] p-4 sm:p-6" style={{ fontFamily: "var(--font-cairo), system-ui, sans-serif" }}>
+    <div dir={dir} className="min-h-screen bg-[#F8F4EC] p-4 sm:p-6" style={{ fontFamily: "var(--font-cairo), system-ui, sans-serif" }}>
       {/* Top Bar */}
-      <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
-        <h1 className="text-xl font-black text-white">{t("نقطة البيع والكاشير (POS)", "Cashier Point of Sale (POS)")}</h1>
+      <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
+        <div>
+          <h1 className="text-xl sm:text-2xl font-black text-[#2B170E]">{t("نقطة البيع والكاشير (POS)", "Cashier Point of Sale (POS)")}</h1>
+          <p className="text-xs text-[#7E5E49] mt-0.5">{t("إدارة ومتابعة طلبات الزبائن مباشرة", "Manage & track customer orders in real time")}</p>
+        </div>
         <div className="flex items-center gap-2">
           <button
             onClick={() => { playSound("click"); toggleLang(); }}
-            className="px-3.5 py-1.5 rounded-xl bg-[#1a0f07] border border-[#3d1f0a] text-[#d99b56] font-bold text-xs hover:border-[#d99b56] transition-colors"
+            className="px-3.5 py-1.5 rounded-xl bg-[#FFFFFF] border border-[#E8DAC8] text-[#D4954E] font-bold text-xs hover:border-[#D4954E] transition-colors shadow-sm"
           >
             {lang === "ar" ? "EN 🌐" : "ع 🌐"}
           </button>
-          <Link href="/dashboard" className="px-3 py-1.5 rounded-xl bg-[#1a0f07] border border-[#3d1f0a] text-[#b0957e] hover:text-white text-xs font-bold transition-colors">
+          <Link href="/dashboard" className="px-3.5 py-1.5 rounded-xl bg-[#FFFFFF] border border-[#E8DAC8] text-[#7E5E49] hover:text-[#2B170E] text-xs font-bold transition-colors shadow-sm">
             {t("الداشبورد", "Dashboard")}
           </Link>
         </div>
@@ -213,31 +216,31 @@ export default function CashierPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
         {[
-          { label: t("جديد", "New"), val: stats.new, color: "text-blue-300", bg: "bg-blue-500/10 border-blue-500/30" },
-          { label: t("يُحضَّر", "Preparing"), val: stats.preparing, color: "text-orange-300", bg: "bg-orange-500/10 border-orange-500/30" },
-          { label: t("جاهز", "Ready"), val: stats.ready, color: "text-emerald-300", bg: "bg-emerald-500/10 border-emerald-500/30" },
-          { label: t("اليوم (ج)", "Today (EGP)"), val: stats.total.toLocaleString(lang === "ar" ? "ar-EG" : "en-US"), color: "text-[#c8860a]", bg: "bg-[#c8860a]/10 border-[#c8860a]/30" },
+          { label: t("جديد", "New"), val: stats.new, color: "text-blue-700", bg: "bg-blue-50/70 border-blue-200" },
+          { label: t("يُحضَّر", "Preparing"), val: stats.preparing, color: "text-amber-800", bg: "bg-amber-50/70 border-amber-200" },
+          { label: t("جاهز", "Ready"), val: stats.ready, color: "text-emerald-700", bg: "bg-emerald-50/70 border-emerald-200" },
+          { label: t("اليوم (ج)", "Today (EGP)"), val: stats.total.toLocaleString(lang === "ar" ? "ar-EG" : "en-US"), color: "text-[#C6873E]", bg: "bg-[#FFFFFF] border-[#E8DAC8]" },
         ].map((s) => (
-          <div key={s.label} className={`rounded-2xl border p-4 text-center ${s.bg}`}>
+          <div key={s.label} className={`rounded-2xl border p-4 text-center shadow-sm ${s.bg}`}>
             <div className={`text-2xl font-black ${s.color}`}>{s.val}</div>
-            <div className="text-xs text-[#9c7a5e] mt-1">{s.label}</div>
+            <div className="text-xs text-[#7E5E49] mt-1 font-semibold">{s.label}</div>
           </div>
         ))}
       </div>
 
       {/* Controls */}
-      <div className="flex flex-wrap gap-3 mb-5">
+      <div className="flex flex-wrap gap-3 mb-5 items-center">
         <div className="relative flex-1 min-w-48">
-          <Search size={15} style={{ [dir === "rtl" ? "right" : "left"]: "12px" }} className="absolute top-1/2 -translate-y-1/2 text-[#9c7a5e]" />
+          <Search size={16} style={{ [dir === "rtl" ? "right" : "left"]: "12px" }} className="absolute top-1/2 -translate-y-1/2 text-[#7E5E49]" />
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t("ابحث بالاسم أو الرقم...", "Search by name or number...")}
             style={{ [dir === "rtl" ? "paddingRight" : "paddingLeft"]: "36px", [dir === "rtl" ? "paddingLeft" : "paddingRight"]: "16px" }}
-            className="w-full h-10 rounded-xl bg-[#1a0f07] border border-[#3d1f0a] focus:border-[#c8860a] text-white text-sm outline-none transition-colors"
+            className="w-full h-11 rounded-xl bg-[#FFFFFF] border border-[#E8DAC8] focus:border-[#D4954E] text-[#2B170E] placeholder:text-[#A88B77] text-sm outline-none transition-colors shadow-sm"
           />
         </div>
-        <div className="flex gap-1 bg-[#1a0f07] border border-[#3d1f0a] rounded-xl p-1">
+        <div className="flex gap-1 bg-[#FFFFFF] border border-[#E8DAC8] rounded-xl p-1 shadow-sm">
           {[
             { id: "active", label: t("نشط", "Active") },
             { id: "delivered", label: t("مسلَّم", "Delivered") },
@@ -247,19 +250,19 @@ export default function CashierPage() {
             <button
               key={s.id}
               onClick={() => setFilterStatus(s.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${filterStatus === s.id ? "bg-[#c8860a] text-[#0d0805]" : "text-[#9c7a5e] hover:text-white"}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${filterStatus === s.id ? "bg-gradient-to-r from-[#D4954E] to-[#C6873E] text-white shadow-sm" : "text-[#7E5E49] hover:text-[#2B170E]"}`}
             >
               {s.label}
             </button>
           ))}
         </div>
-        <button onClick={fetchData} className="p-2.5 rounded-xl bg-[#1a0f07] border border-[#3d1f0a] text-[#c8860a] hover:border-[#c8860a] transition-colors" title={t("تحديث", "Refresh")}>
-          <RefreshCw size={16} />
+        <button onClick={fetchData} className="p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E8DAC8] text-[#C6873E] hover:border-[#D4954E] transition-colors shadow-sm" title={t("تحديث", "Refresh")}>
+          <RefreshCw size={17} />
         </button>
         {permissions.canCreateOrder && (
           <button
             onClick={() => { setNewOrderOpen(true); playSound("click"); }}
-            className="btn-gold px-4 py-2.5 rounded-xl text-sm font-black flex items-center gap-1.5"
+            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#D4954E] to-[#C6873E] text-white hover:opacity-95 shadow-sm text-sm font-black flex items-center gap-1.5 transition-opacity"
           >
             <Plus size={16} /> {t("طلب جديد", "New Order")}
           </button>
@@ -267,24 +270,24 @@ export default function CashierPage() {
       </div>
 
       {/* Orders Table */}
-      <div className="bg-[#1a0f07] border border-[#3d1f0a] rounded-2xl overflow-hidden">
+      <div className="bg-[#FFFFFF] border border-[#E8DAC8] rounded-2xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-[#3d1f0a] text-[#9c7a5e] text-xs">
-                <th className={`p-3 text-${dir === "rtl" ? "right" : "left"}`}>{t("رقم الطلب", "Order #")}</th>
-                <th className={`p-3 text-${dir === "rtl" ? "right" : "left"}`}>{t("العميل", "Customer")}</th>
-                <th className={`p-3 text-${dir === "rtl" ? "right" : "left"} hidden sm:table-cell`}>{t("المنطقة", "Zone")}</th>
-                <th className={`p-3 text-${dir === "rtl" ? "right" : "left"}`}>{t("الحالة", "Status")}</th>
-                <th className={`p-3 text-${dir === "rtl" ? "left" : "right"}`}>{t("الإجمالي", "Total")}</th>
-                <th className={`p-3 text-${dir === "rtl" ? "right" : "left"} hidden md:table-cell`}>{t("الوقت", "Time")}</th>
-                <th className="p-3 text-center">{t("إجراءات", "Actions")}</th>
+              <tr className="border-b border-[#E8DAC8] text-[#7E5E49] text-xs bg-[#FAF6EE]">
+                <th className={`p-3.5 text-${dir === "rtl" ? "right" : "left"} font-bold`}>{t("رقم الطلب", "Order #")}</th>
+                <th className={`p-3.5 text-${dir === "rtl" ? "right" : "left"} font-bold`}>{t("العميل", "Customer")}</th>
+                <th className={`p-3.5 text-${dir === "rtl" ? "right" : "left"} hidden sm:table-cell font-bold`}>{t("المنطقة", "Zone")}</th>
+                <th className={`p-3.5 text-${dir === "rtl" ? "right" : "left"} font-bold`}>{t("الحالة", "Status")}</th>
+                <th className={`p-3.5 text-${dir === "rtl" ? "left" : "right"} font-bold`}>{t("الإجمالي", "Total")}</th>
+                <th className={`p-3.5 text-${dir === "rtl" ? "right" : "left"} hidden md:table-cell font-bold`}>{t("الوقت", "Time")}</th>
+                <th className="p-3.5 text-center font-bold">{t("إجراءات", "Actions")}</th>
               </tr>
             </thead>
             <tbody>
               {displayOrders.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-12 text-[#9c7a5e]">
+                  <td colSpan={7} className="text-center py-12 text-[#7E5E49]">
                     {t("لا توجد طلبات", "No orders found")}
                   </td>
                 </tr>
@@ -296,32 +299,32 @@ export default function CashierPage() {
                     <tr
                       key={order.id}
                       onClick={() => setSelectedOrder(order)}
-                      className="border-b border-[#3d1f0a]/50 hover:bg-white/5 cursor-pointer transition-colors"
+                      className="border-b border-[#E8DAC8]/60 hover:bg-[#FAF6EE]/70 cursor-pointer transition-colors"
                     >
-                      <td className="p-3 font-mono text-xs text-[#c8860a] font-bold">{order.orderNumber}</td>
-                      <td className="p-3">
-                        <p className="font-bold text-white">{order.customerName}</p>
-                        <p className="text-xs text-[#9c7a5e]">{order.phone}</p>
+                      <td className="p-3.5 font-mono text-xs text-[#C6873E] font-bold">{order.orderNumber}</td>
+                      <td className="p-3.5">
+                        <p className="font-bold text-[#2B170E]">{order.customerName}</p>
+                        <p className="text-xs text-[#7E5E49]">{order.phone}</p>
                       </td>
-                      <td className="p-3 text-[#9c7a5e] hidden sm:table-cell">{order.zone}</td>
-                      <td className="p-3">
-                        <span className={`text-xs px-2 py-1 rounded-lg border font-bold ${colorCfg.bg} ${colorCfg.color}`}>
+                      <td className="p-3.5 text-[#7E5E49] hidden sm:table-cell">{order.zone}</td>
+                      <td className="p-3.5">
+                        <span className={`text-xs px-2.5 py-1 rounded-lg border font-bold ${colorCfg.bg} ${colorCfg.color}`}>
                           {getStatusLabel(order.status)}
                         </span>
                       </td>
-                      <td className={`p-3 text-${dir === "rtl" ? "left" : "right"} font-black text-[#c8860a]`}>
+                      <td className={`p-3.5 text-${dir === "rtl" ? "left" : "right"} font-black text-[#C6873E]`}>
                         {order.total} {t("ج", "EGP")}
                       </td>
-                      <td className="p-3 hidden md:table-cell text-xs text-[#9c7a5e]">
+                      <td className="p-3.5 hidden md:table-cell text-xs text-[#7E5E49]">
                         {elapsed} {t("د", "m")}
                       </td>
-                      <td className="p-3 text-center">
+                      <td className="p-3.5 text-center">
                         <div className="flex items-center justify-center gap-1.5">
                           {order.status === "new" && permissions.canUpdateOrderStatus && (
                             <button
                               onClick={(e) => { e.stopPropagation(); changeStatus(order, "preparing"); }}
                               disabled={updating === order.id}
-                              className="text-xs px-2.5 py-1.5 rounded-lg bg-orange-500/20 border border-orange-500/40 text-orange-300 hover:bg-orange-500/30 transition-colors font-bold"
+                              className="text-xs px-2.5 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 hover:bg-amber-100 transition-colors font-bold shadow-xs"
                             >
                               {updating === order.id ? "..." : t("حضّر", "Prep")}
                             </button>
@@ -330,7 +333,7 @@ export default function CashierPage() {
                             <button
                               onClick={(e) => { e.stopPropagation(); changeStatus(order, "ready"); }}
                               disabled={updating === order.id}
-                              className="text-xs px-2.5 py-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/30 transition-colors font-bold"
+                              className="text-xs px-2.5 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 hover:bg-emerald-100 transition-colors font-bold shadow-xs"
                             >
                               {updating === order.id ? "..." : t("جاهز", "Ready")}
                             </button>
@@ -339,7 +342,7 @@ export default function CashierPage() {
                             <button
                               onClick={(e) => { e.stopPropagation(); changeStatus(order, "delivered"); }}
                               disabled={updating === order.id}
-                              className="text-xs px-2.5 py-1.5 rounded-lg bg-green-500/20 border border-green-500/40 text-green-300 hover:bg-green-500/30 transition-colors font-bold"
+                              className="text-xs px-2.5 py-1.5 rounded-lg bg-green-50 border border-green-200 text-green-800 hover:bg-green-100 transition-colors font-bold shadow-xs"
                             >
                               {updating === order.id ? "..." : t("سُلِّم ✓", "Delivered ✓")}
                             </button>
@@ -357,50 +360,50 @@ export default function CashierPage() {
 
       {/* Order Detail Modal */}
       {selectedOrder && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-black/70" onClick={() => setSelectedOrder(null)} />
-          <div className="relative bg-[#1a0f07] border border-[#3d1f0a] rounded-3xl p-6 mx-4 max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto animate-fadeIn">
-            <button onClick={() => setSelectedOrder(null)} style={{ [dir === "rtl" ? "left" : "right"]: "16px" }} className="absolute top-4 p-1.5 rounded-xl hover:bg-white/10 text-slate-400">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setSelectedOrder(null)} />
+          <div className="relative bg-[#FFFFFF] border border-[#E8DAC8] rounded-3xl p-6 max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto animate-fadeIn text-[#2B170E]">
+            <button onClick={() => setSelectedOrder(null)} style={{ [dir === "rtl" ? "left" : "right"]: "16px" }} className="absolute top-4 p-1.5 rounded-xl hover:bg-[#FAF6EE] text-[#7E5E49] transition-colors">
               <X size={18} />
             </button>
             <div className="flex items-center justify-between mb-4">
-              <span className="font-mono text-[#c8860a] font-black">{selectedOrder.orderNumber}</span>
-              <span className={`text-xs px-2 py-1 rounded-lg border font-bold ${STATUS_COLORS[selectedOrder.status]?.bg} ${STATUS_COLORS[selectedOrder.status]?.color}`}>
+              <span className="font-mono text-[#C6873E] font-black text-lg">{selectedOrder.orderNumber}</span>
+              <span className={`text-xs px-2.5 py-1 rounded-lg border font-bold ${STATUS_COLORS[selectedOrder.status]?.bg} ${STATUS_COLORS[selectedOrder.status]?.color}`}>
                 {getStatusLabel(selectedOrder.status)}
               </span>
             </div>
             <div className="space-y-2 text-sm mb-4">
-              <div className="flex items-center gap-2 text-[#9c7a5e]"><Phone size={14} /> {selectedOrder.customerName} — {selectedOrder.phone}</div>
-              <div className="flex items-center gap-2 text-[#9c7a5e]"><Truck size={14} /> {selectedOrder.zone} — {selectedOrder.address}</div>
-              <div className="flex items-center gap-2 text-[#9c7a5e]"><Clock size={14} /> {new Date(selectedOrder.createdAt).toLocaleString(lang === "ar" ? "ar-EG" : "en-US")}</div>
+              <div className="flex items-center gap-2 text-[#7E5E49]"><Phone size={14} className="text-[#D4954E]" /> {selectedOrder.customerName} — {selectedOrder.phone}</div>
+              <div className="flex items-center gap-2 text-[#7E5E49]"><Truck size={14} className="text-[#D4954E]" /> {selectedOrder.zone} — {selectedOrder.address}</div>
+              <div className="flex items-center gap-2 text-[#7E5E49]"><Clock size={14} className="text-[#D4954E]" /> {new Date(selectedOrder.createdAt).toLocaleString(lang === "ar" ? "ar-EG" : "en-US")}</div>
             </div>
 
-            <div className="bg-[#0d0805] rounded-xl p-3 space-y-2 mb-4">
+            <div className="bg-[#FAF6EE] border border-[#E8DAC8] rounded-2xl p-4 space-y-2.5 mb-4">
               {(() => { try { return JSON.parse(selectedOrder.items); } catch { return []; } })()
                 .map((item: { nameAr?: string; nameEn?: string; qty: number; unitPrice: number; extras: string[] }, i: number) => {
                   const itemName = (lang === "en" && item.nameEn) ? item.nameEn : (item.nameAr || item.nameEn || "");
                   return (
                     <div key={i} className="flex justify-between text-sm">
-                      <span className="text-white">× {item.qty} {itemName}</span>
-                      <span className="text-[#c8860a] font-bold">{item.unitPrice * item.qty} {t("ج", "EGP")}</span>
+                      <span className="text-[#2B170E] font-medium">× {item.qty} {itemName}</span>
+                      <span className="text-[#C6873E] font-bold">{item.unitPrice * item.qty} {t("ج", "EGP")}</span>
                     </div>
                   );
                 })}
-              <div className="border-t border-[#3d1f0a] pt-2 space-y-1">
-                <div className="flex justify-between text-[#9c7a5e] text-xs">
-                  <span>{t("توصيل", "Delivery")} {selectedOrder.zone}</span>
+              <div className="border-t border-[#E8DAC8] pt-2 space-y-1">
+                <div className="flex justify-between text-[#7E5E49] text-xs">
+                  <span>{t("توصيل", "Delivery")} ({selectedOrder.zone})</span>
                   <span>{selectedOrder.deliveryFee} {t("ج", "EGP")}</span>
                 </div>
-                <div className="flex justify-between font-black text-white">
+                <div className="flex justify-between font-black text-[#2B170E] text-base">
                   <span>{t("الإجمالي", "Total")}</span>
-                  <span className="text-[#c8860a]">{selectedOrder.total} {t("ج", "EGP")}</span>
+                  <span className="text-[#C6873E]">{selectedOrder.total} {t("ج", "EGP")}</span>
                 </div>
-                <div className="text-xs text-[#9c7a5e]">{getPaymentLabel(selectedOrder.paymentMethod)}</div>
+                <div className="text-xs text-[#7E5E49] mt-1">{getPaymentLabel(selectedOrder.paymentMethod)}</div>
               </div>
             </div>
 
             {selectedOrder.notes && (
-              <p className="text-xs text-amber-300 bg-amber-500/10 rounded-xl p-2 border border-amber-500/20 mb-4">
+              <p className="text-xs text-amber-800 bg-amber-50 rounded-xl p-3 border border-amber-200 mb-4 font-medium">
                 📝 {selectedOrder.notes}
               </p>
             )}
@@ -409,21 +412,21 @@ export default function CashierPage() {
               {selectedOrder.status !== "delivered" && selectedOrder.status !== "cancelled" && permissions.canUpdateOrderStatus && (
                 <>
                   {selectedOrder.status === "new" && (
-                    <button onClick={() => { changeStatus(selectedOrder, "preparing"); setSelectedOrder(null); }} className="flex-1 btn-gold py-2.5 rounded-xl text-sm font-black">
+                    <button onClick={() => { changeStatus(selectedOrder, "preparing"); setSelectedOrder(null); }} className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#D4954E] to-[#C6873E] text-white text-sm font-black shadow-sm hover:opacity-95 transition-opacity">
                       {t("بدأ التحضير", "Start Prep")}
                     </button>
                   )}
                   {selectedOrder.status === "preparing" && (
-                    <button onClick={() => { changeStatus(selectedOrder, "ready"); setSelectedOrder(null); }} className="flex-1 btn-gold py-2.5 rounded-xl text-sm font-black">
+                    <button onClick={() => { changeStatus(selectedOrder, "ready"); setSelectedOrder(null); }} className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#D4954E] to-[#C6873E] text-white text-sm font-black shadow-sm hover:opacity-95 transition-opacity">
                       {t("جاهز للتوصيل", "Ready for Delivery")}
                     </button>
                   )}
                   {selectedOrder.status === "ready" && (
-                    <button onClick={() => { changeStatus(selectedOrder, "delivered"); setSelectedOrder(null); }} className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-2.5 rounded-xl text-sm font-black transition-colors">
+                    <button onClick={() => { changeStatus(selectedOrder, "delivered"); setSelectedOrder(null); }} className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl text-sm font-black transition-colors shadow-sm">
                       {t("تم التسليم ✓", "Delivered ✓")}
                     </button>
                   )}
-                  <button onClick={() => { changeStatus(selectedOrder, "cancelled"); setSelectedOrder(null); }} className="px-4 py-2.5 rounded-xl bg-red-500/20 border border-red-500/30 text-red-400 text-sm font-bold hover:bg-red-500/30 transition-colors">
+                  <button onClick={() => { changeStatus(selectedOrder, "cancelled"); setSelectedOrder(null); }} className="px-4 py-2.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm font-bold hover:bg-red-100 transition-colors">
                     {t("إلغاء", "Cancel")}
                   </button>
                 </>
@@ -435,62 +438,62 @@ export default function CashierPage() {
 
       {/* New Order Modal */}
       {newOrderOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-black/70" onClick={() => setNewOrderOpen(false)} />
-          <div className="relative bg-[#1a0f07] border border-[#3d1f0a] rounded-3xl p-6 mx-4 max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto animate-fadeIn">
-            <button onClick={() => setNewOrderOpen(false)} style={{ [dir === "rtl" ? "left" : "right"]: "16px" }} className="absolute top-4 p-1.5 rounded-xl hover:bg-white/10 text-slate-400">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setNewOrderOpen(false)} />
+          <div className="relative bg-[#FFFFFF] border border-[#E8DAC8] rounded-3xl p-6 max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto animate-fadeIn text-[#2B170E]">
+            <button onClick={() => setNewOrderOpen(false)} style={{ [dir === "rtl" ? "left" : "right"]: "16px" }} className="absolute top-4 p-1.5 rounded-xl hover:bg-[#FAF6EE] text-[#7E5E49] transition-colors">
               <X size={18} />
             </button>
-            <h3 className="font-black text-white text-lg mb-5">{t("طلب جديد ➕", "New Order ➕")}</h3>
+            <h3 className="font-black text-[#2B170E] text-lg mb-5">{t("طلب جديد ➕", "New Order ➕")}</h3>
             <div className="space-y-3">
               <input
                 value={form.customerName}
                 onChange={(e) => setForm({ ...form, customerName: e.target.value })}
                 placeholder={t("اسم العميل *", "Customer Name *")}
-                className="w-full h-10 rounded-xl bg-[#0d0805] border border-[#3d1f0a] focus:border-[#c8860a] px-3 text-white text-sm outline-none"
+                className="w-full h-11 rounded-xl bg-[#FAF6EE] border border-[#E8DAC8] focus:border-[#D4954E] px-3.5 text-[#2B170E] placeholder:text-[#A88B77] text-sm outline-none transition-colors"
               />
               <input
                 value={form.phone}
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
                 placeholder={t("رقم الموبايل *", "Phone Number *")}
                 dir="ltr"
-                className="w-full h-10 rounded-xl bg-[#0d0805] border border-[#3d1f0a] focus:border-[#c8860a] px-3 text-white text-sm font-mono outline-none"
+                className="w-full h-11 rounded-xl bg-[#FAF6EE] border border-[#E8DAC8] focus:border-[#D4954E] px-3.5 text-[#2B170E] placeholder:text-[#A88B77] text-sm font-mono outline-none transition-colors"
               />
               <select
                 value={form.zone}
                 onChange={(e) => setForm({ ...form, zone: e.target.value })}
-                className="w-full h-10 rounded-xl bg-[#0d0805] border border-[#3d1f0a] focus:border-[#c8860a] px-3 text-white text-sm outline-none"
+                className="w-full h-11 rounded-xl bg-[#FAF6EE] border border-[#E8DAC8] focus:border-[#D4954E] px-3 text-[#2B170E] text-sm outline-none transition-colors"
               >
-                {ZONES.map((z) => <option key={z}>{z}</option>)}
+                {ZONES.map((z) => <option key={z} value={z}>{z}</option>)}
               </select>
               <input
                 value={form.address}
                 onChange={(e) => setForm({ ...form, address: e.target.value })}
                 placeholder={t("العنوان بالتفصيل", "Detailed Address")}
-                className="w-full h-10 rounded-xl bg-[#0d0805] border border-[#3d1f0a] focus:border-[#c8860a] px-3 text-white text-sm outline-none"
+                className="w-full h-11 rounded-xl bg-[#FAF6EE] border border-[#E8DAC8] focus:border-[#D4954E] px-3.5 text-[#2B170E] placeholder:text-[#A88B77] text-sm outline-none transition-colors"
               />
               <div>
-                <p className="text-xs text-[#9c7a5e] mb-2 font-bold">{t("المنتجات:", "Items:")}</p>
-                <div className="grid grid-cols-1 gap-1 max-h-40 overflow-y-auto">
+                <p className="text-xs text-[#7E5E49] mb-2 font-bold">{t("المنتجات:", "Items:")}</p>
+                <div className="grid grid-cols-1 gap-1.5 max-h-48 overflow-y-auto">
                   {products.map((p) => {
                     const inCart = form.items.find((i) => i.product.id === p.id);
                     const pName = (lang === "en" && p.nameEn) ? p.nameEn : p.nameAr;
                     return (
-                      <div key={p.id} className="flex items-center justify-between p-2 rounded-xl bg-[#0d0805] border border-[#3d1f0a]">
-                        <span className="text-xs text-white">{pName} <span className="text-[#c8860a]">{p.basePrice} {t("ج", "EGP")}</span></span>
+                      <div key={p.id} className="flex items-center justify-between p-2.5 rounded-xl bg-[#FAF6EE] border border-[#E8DAC8]">
+                        <span className="text-xs text-[#2B170E] font-medium">{pName} <span className="text-[#C6873E] font-bold">({p.basePrice} {t("ج", "EGP")})</span></span>
                         <div className="flex items-center gap-2">
                           {inCart ? (
                             <>
                               <button
                                 onClick={() => setForm((f) => ({ ...f, items: f.items.map((i) => i.product.id === p.id ? { ...i, qty: Math.max(0, i.qty - 1) } : i).filter((i) => i.qty > 0) }))}
-                                className="w-6 h-6 rounded-lg bg-[#3d1f0a] text-white flex items-center justify-center text-xs"
+                                className="w-6 h-6 rounded-lg bg-[#FFFFFF] border border-[#E8DAC8] text-[#2B170E] hover:bg-stone-100 flex items-center justify-center text-xs font-bold"
                               >
                                 -
                               </button>
-                              <span className="text-white font-bold text-xs w-4 text-center">{inCart.qty}</span>
+                              <span className="text-[#2B170E] font-bold text-xs w-4 text-center">{inCart.qty}</span>
                               <button
                                 onClick={() => setForm((f) => ({ ...f, items: f.items.map((i) => i.product.id === p.id ? { ...i, qty: i.qty + 1 } : i) }))}
-                                className="w-6 h-6 rounded-lg bg-[#c8860a] text-[#0d0805] flex items-center justify-center text-xs font-bold"
+                                className="w-6 h-6 rounded-lg bg-gradient-to-r from-[#D4954E] to-[#C6873E] text-white flex items-center justify-center text-xs font-bold shadow-xs"
                               >
                                 +
                               </button>
@@ -498,7 +501,7 @@ export default function CashierPage() {
                           ) : (
                             <button
                               onClick={() => setForm((f) => ({ ...f, items: [...f.items, { product: p, qty: 1 }] }))}
-                              className="text-xs px-2 py-1 rounded-lg bg-[#c8860a]/20 text-[#c8860a] border border-[#c8860a]/30 font-bold"
+                              className="text-xs px-2.5 py-1 rounded-lg bg-[#FFFFFF] text-[#C6873E] border border-[#E8DAC8] font-bold hover:border-[#D4954E] transition-colors"
                             >
                               {t("+ أضف", "+ Add")}
                             </button>
@@ -510,13 +513,13 @@ export default function CashierPage() {
                 </div>
               </div>
             </div>
-            <div className="mt-4 text-sm font-bold text-[#c8860a]">
+            <div className="mt-4 text-sm font-bold text-[#C6873E]">
               {t("الإجمالي", "Total")}: {form.items.reduce((s, i) => s + i.product.basePrice * i.qty, 0) + (ZONE_FEES[form.zone] || 10)} {t("ج", "EGP")}
             </div>
             <button
               onClick={placeNewOrder}
               disabled={!form.customerName || !form.phone || form.items.length === 0}
-              className="w-full btn-gold py-3 rounded-xl font-black mt-4 disabled:opacity-50"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#D4954E] to-[#C6873E] text-white font-black mt-4 disabled:opacity-50 hover:opacity-95 shadow-sm transition-opacity"
             >
               {t("أضف الطلب 🛵", "Place Order 🛵")}
             </button>

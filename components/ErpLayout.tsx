@@ -15,7 +15,7 @@ import SettingsModal from "@/components/SettingsModal";
 
 interface ErpLayoutProps {
   children: React.ReactNode;
-  activeItem?: "orders" | "menu" | "inventory" | "reports" | "users" | "customers";
+  activeItem?: "orders" | "menu" | "inventory" | "reports" | "users" | "customers" | "captains";
 }
 
 export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
@@ -65,14 +65,14 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
   return (
     <div dir={dir} style={{
       minHeight: "100vh",
-      backgroundColor: "#0d0805",
-      color: "#f5ede4",
+      backgroundColor: "#F8F4EC",
+      color: "#2B170E",
       display: "flex",
       fontFamily: "var(--font-cairo), system-ui, -apple-system, sans-serif",
     }}>
 
       {/* ══════════════════════════════════════════════════════════
-          SIDEBAR — Whacka 1:1 Operations Hub
+          SIDEBAR — Waffle & Cake Operations Hub (Light Warm Ivory)
       ══════════════════════════════════════════════════════════ */}
       {/* Mobile Backdrop Overlay */}
       {isMobile && mobileMenuOpen && (
@@ -81,7 +81,7 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
           style={{
             position: "fixed",
             inset: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.75)",
+            backgroundColor: "rgba(43, 23, 14, 0.4)",
             backdropFilter: "blur(4px)",
             zIndex: 998,
           }}
@@ -97,9 +97,9 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
         bottom: 0,
         ...(isMobile ? (dir === "rtl" ? { right: 0 } : { left: 0 }) : {}),
         flexShrink: 0,
-        backgroundColor: "#160d05",
-        borderLeft: dir === "rtl" ? "1px solid rgba(217, 155, 86, 0.16)" : "none",
-        borderRight: dir === "ltr" ? "1px solid rgba(217, 155, 86, 0.16)" : "none",
+        backgroundColor: "#FFFFFF",
+        borderLeft: dir === "rtl" ? "1px solid #E8DAC8" : "none",
+        borderRight: dir === "ltr" ? "1px solid #E8DAC8" : "none",
         padding: "24px 16px",
         display: "flex",
         flexDirection: "column",
@@ -114,7 +114,7 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
             : "translateX(-100%)"
           : "none",
         transition: "transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
-        boxShadow: isMobile && mobileMenuOpen ? "0 0 40px rgba(0,0,0,0.9)" : "none",
+        boxShadow: isMobile && mobileMenuOpen ? "0 0 35px rgba(43,23,14,0.18)" : "none",
       }}>
         {/* Top: Brand Header & Nav Links */}
         <div>
@@ -140,21 +140,22 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
                 width: "42px",
                 height: "42px",
                 borderRadius: "50%",
-                background: "#d99b56",
+                background: "#FAF6EE",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 flexShrink: 0,
                 overflow: "hidden",
-                border: "1.5px solid #d99b56",
+                border: "1.5px solid #C6873E",
+                boxShadow: "0 2px 8px rgba(198, 135, 62, 0.2)",
               }}>
                 <img src="/waffle-logo.jpeg" alt="Waffle & Cake" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               </div>
               <div>
                 <div style={{
                   fontSize: "16.5px",
-                  fontWeight: 800,
-                  color: "#f5ede4",
+                  fontWeight: 900,
+                  color: "#2B170E",
                   fontFamily: "var(--font-playfair), Georgia, serif",
                   lineHeight: 1.15,
                 }}>
@@ -162,12 +163,12 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
                 </div>
                 <div style={{
                   fontSize: "10.5px",
-                  fontWeight: 700,
-                  color: "#d99b56",
+                  fontWeight: 800,
+                  color: "#C6873E",
                   marginTop: "2px",
-                  letterSpacing: "1px",
+                  letterSpacing: "0.8px",
                 }}>
-                  {t("لوحة التشغيل", "Operations Hub")}
+                  {t("لوحة التشغيل والإدارة", "Operations Hub")}
                 </div>
               </div>
             </Link>
@@ -176,9 +177,9 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 style={{
-                  background: "rgba(255, 255, 255, 0.08)",
+                  background: "rgba(198, 135, 62, 0.1)",
                   border: "none",
-                  color: "#d99b56",
+                  color: "#C6873E",
                   borderRadius: "8px",
                   padding: "6px",
                   cursor: "pointer",
@@ -246,23 +247,24 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
                     fontSize: "13.5px",
                     fontWeight: isActive ? 900 : 700,
                     transition: "all 0.15s ease",
-                    background: isActive ? "#d99b56" : "transparent",
-                    color: isActive ? "#180e06" : "#b0957e",
+                    background: isActive ? "linear-gradient(135deg, #D4954E, #C6873E)" : "transparent",
+                    color: isActive ? "#FFFFFF" : "#6B4F3B",
+                    boxShadow: isActive ? "0 4px 12px rgba(198, 135, 62, 0.25)" : "none",
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) {
-                      e.currentTarget.style.background = "rgba(255,255,255,0.05)";
-                      e.currentTarget.style.color = "#ffffff";
+                      e.currentTarget.style.background = "#FAF6EE";
+                      e.currentTarget.style.color = "#2B170E";
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isActive) {
                       e.currentTarget.style.background = "transparent";
-                      e.currentTarget.style.color = "#b0957e";
+                      e.currentTarget.style.color = "#6B4F3B";
                     }
                   }}
                 >
-                  <Icon size={17} strokeWidth={isActive ? 2.5 : 2} color={isActive ? "#180e06" : "#d99b56"} />
+                  <Icon size={17} strokeWidth={isActive ? 2.5 : 2} color={isActive ? "#FFFFFF" : "#C6873E"} />
                   <span>{item.label}</span>
                 </Link>
               );
@@ -272,7 +274,7 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
 
         {/* Bottom Actions */}
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-          {/* Staff Management Button (Whacka Replica) */}
+          {/* Staff Management Button */}
           <Link
             href="/users"
             onClick={() => {
@@ -284,9 +286,9 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
               alignItems: "center",
               justifyContent: "center",
               gap: "8px",
-              background: currentActive === "users" ? "#d99b56" : "rgba(255, 255, 255, 0.06)",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
-              color: currentActive === "users" ? "#180e06" : "#f5ede4",
+              background: currentActive === "users" ? "linear-gradient(135deg, #D4954E, #C6873E)" : "#FAF6EE",
+              border: "1px solid #E8DAC8",
+              color: currentActive === "users" ? "#FFFFFF" : "#2B170E",
               padding: "10px 14px",
               borderRadius: "14px",
               textDecoration: "none",
@@ -296,18 +298,18 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
             }}
             onMouseEnter={(e) => {
               if (currentActive !== "users") {
-                e.currentTarget.style.borderColor = "#d99b56";
-                e.currentTarget.style.color = "#d99b56";
+                e.currentTarget.style.borderColor = "#C6873E";
+                e.currentTarget.style.color = "#C6873E";
               }
             }}
             onMouseLeave={(e) => {
               if (currentActive !== "users") {
-                e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
-                e.currentTarget.style.color = "#f5ede4";
+                e.currentTarget.style.borderColor = "#E8DAC8";
+                e.currentTarget.style.color = "#2B170E";
               }
             }}
           >
-            <Users size={15} />
+            <Users size={15} color={currentActive === "users" ? "#FFFFFF" : "#C6873E"} />
             <span>{t("إدارة الموظفين", "Team Management")}</span>
           </Link>
 
@@ -323,18 +325,18 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
               alignItems: "center",
               gap: "8px",
               padding: "8px 12px",
-              color: "#8a7565",
+              color: "#7E5E49",
               textDecoration: "none",
               fontSize: "13px",
               fontWeight: 700,
               borderRadius: "10px",
               transition: "color 0.15s ease",
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = "#d99b56"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = "#8a7565"; }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = "#C6873E"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = "#7E5E49"; }}
           >
             <Store size={15} />
-            <span>{t("المتجر", "Storefront")}</span>
+            <span>{t("المتجر والطلبات أونلاين", "Storefront")}</span>
           </Link>
 
           {/* Logout Button */}
@@ -347,7 +349,7 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
               padding: "8px 12px",
               background: "transparent",
               border: "none",
-              color: "#ef4444",
+              color: "#dc2626",
               fontSize: "13px",
               fontWeight: 700,
               cursor: "pointer",
@@ -366,15 +368,15 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
       ══════════════════════════════════════════════════════════ */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0, width: "100%" }}>
 
-        {/* ── Top Bar — Whacka 1:1 ── */}
+        {/* ── Top Bar — Waffle & Cake Light Theme ── */}
         <header style={{
           minHeight: "64px",
           padding: isMobile ? "10px 14px" : "0 28px",
-          borderBottom: "1px solid rgba(217, 155, 86, 0.12)",
+          borderBottom: "1px solid #E8DAC8",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          backgroundColor: "#100904",
+          backgroundColor: "#FFFFFF",
           gap: "10px",
           flexWrap: "wrap",
         }}>
@@ -387,9 +389,9 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
                   setMobileMenuOpen(!mobileMenuOpen);
                 }}
                 style={{
-                  background: "rgba(217, 155, 86, 0.15)",
-                  border: "1px solid rgba(217, 155, 86, 0.35)",
-                  color: "#d99b56",
+                  background: "rgba(198, 135, 62, 0.12)",
+                  border: "1px solid #E8DAC8",
+                  color: "#C6873E",
                   borderRadius: "10px",
                   padding: "7px 10px",
                   cursor: "pointer",
@@ -408,29 +410,29 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
             )}
 
             <div suppressHydrationWarning style={{
-              width: "34px",
-              height: "34px",
+              width: "36px",
+              height: "36px",
               borderRadius: "50%",
-              background: mounted ? (isOwner ? "#ea580c" : isManager ? "#0284c7" : "#0369a1") : "#ea580c",
+              background: mounted ? (isOwner ? "linear-gradient(135deg, #ea580c, #c2410c)" : isManager ? "linear-gradient(135deg, #0284c7, #0369a1)" : "linear-gradient(135deg, #D4954E, #C6873E)") : "linear-gradient(135deg, #ea580c, #c2410c)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               color: "#ffffff",
-              boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
               flexShrink: 0,
             }}>
-              <Shield size={16} strokeWidth={2.3} />
+              <Shield size={17} strokeWidth={2.3} />
             </div>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <span suppressHydrationWarning style={{ fontSize: "14px", fontWeight: 900, color: "#ffffff" }}>
+                <span suppressHydrationWarning style={{ fontSize: "14px", fontWeight: 900, color: "#2B170E" }}>
                   {isOwner ? "Owner" : currentUser?.name || "Owner"}
                 </span>
-                <span style={{ fontSize: "11px", color: "#d99b56", fontWeight: 700 }}>
+                <span style={{ fontSize: "11px", color: "#C6873E", fontWeight: 700 }}>
                   🛡️
                 </span>
               </div>
-              <div suppressHydrationWarning style={{ fontSize: "11px", color: "#8a7565", fontWeight: 600 }}>
+              <div suppressHydrationWarning style={{ fontSize: "11px", color: "#7E5E49", fontWeight: 600 }}>
                 {isOwner
                   ? t("الرتبة: مدير / Manager - مالك النظام", "Role: Manager - System Owner")
                   : isManager
@@ -450,22 +452,22 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "5px",
-                background: "rgba(217, 155, 86, 0.1)",
-                border: "1px solid rgba(217, 155, 86, 0.35)",
+                gap: "6px",
+                background: "rgba(198, 135, 62, 0.1)",
+                border: "1px solid #E8DAC8",
                 borderRadius: "100px",
                 height: "36px",
                 padding: isMobile ? "0 10px" : "0 14px",
-                color: "#d99b56",
+                color: "#C6873E",
                 fontSize: "12px",
                 fontWeight: 800,
                 cursor: "pointer",
                 transition: "all 0.15s ease",
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(217, 155, 86, 0.2)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(217, 155, 86, 0.1)"; }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(198, 135, 62, 0.18)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(198, 135, 62, 0.1)"; }}
             >
-              <Bell size={14} color="#d99b56" />
+              <Bell size={14} color="#C6873E" />
               <span>{isMobile ? "صوت 🔔" : t("تجربة الصوت 🔔", "Test Audio 🔔")}</span>
             </button>
 
@@ -476,13 +478,22 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
                 width: "36px",
                 height: "36px",
                 borderRadius: "10px",
-                background: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
+                background: "#FAF6EE",
+                border: "1px solid #E8DAC8",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#b0957e",
+                color: "#6B4F3B",
                 cursor: "pointer",
+                transition: "all 0.15s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "#C6873E";
+                e.currentTarget.style.color = "#C6873E";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "#E8DAC8";
+                e.currentTarget.style.color = "#6B4F3B";
               }}
               title={t("إعدادات النظام والمتجر", "System & Store Settings")}
             >
@@ -500,17 +511,17 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
                 alignItems: "center",
                 gap: "5px",
                 height: "36px",
-                padding: "0 10px",
+                padding: "0 11px",
                 borderRadius: "10px",
-                background: "transparent",
-                border: "1px solid rgba(217, 155, 86, 0.35)",
-                color: "#d99b56",
+                background: "#FAF6EE",
+                border: "1px solid #E8DAC8",
+                color: "#C6873E",
                 fontSize: "12px",
                 fontWeight: 800,
                 cursor: "pointer",
               }}
             >
-              <Globe size={13} color="#d99b56" />
+              <Globe size={13} color="#C6873E" />
               <span>{lang === "ar" ? "EN 🌐" : "ع 🌐"}</span>
             </button>
           </div>
@@ -530,11 +541,12 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
 
         {/* ── Bottom Credit Note (Orca Official Stamp) ── */}
         <footer style={{
-          padding: "16px 28px 24px",
+          padding: "18px 28px 26px",
           textAlign: "center",
-          fontSize: "12px",
-          color: "#9c7a5e",
-          borderTop: "1px solid rgba(255, 255, 255, 0.05)",
+          fontSize: "12.5px",
+          color: "#7E5E49",
+          borderTop: "1px solid #E8DAC8",
+          backgroundColor: "#FFFFFF",
           lineHeight: 1.6,
         }}>
           <span>{t("تم تطوير وبرمجة النظام بواسطة ", "System developed by ")}</span>
@@ -543,7 +555,7 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              color: "#d99b56",
+              color: "#C6873E",
               fontWeight: 800,
               textDecoration: "underline",
               display: "inline-flex",
@@ -553,10 +565,10 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
             }}
           >
             <span>شركة أوركا للحلول البرمجية والخدمات السحابية</span>
-            <span style={{ color: "#4ade80", fontSize: "11px" }} dir="ltr">(01018671000 💬)</span>
+            <span style={{ color: "#16a34a", fontSize: "11.5px" }} dir="ltr">(01018671000 💬)</span>
           </a>
           <div>
-            <span style={{ fontSize: "11px", color: "#6d5440" }}>
+            <span style={{ fontSize: "11px", color: "#967B66" }}>
               {t("حفاظاً على حقوق ملكيتك الكاملة للفكرة والتطوير والتشغيل السحابي", "Protecting your full intellectual property and cloud operations rights")}
             </span>
           </div>

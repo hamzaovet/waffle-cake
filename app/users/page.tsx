@@ -202,7 +202,7 @@ export default function UsersTeamPage() {
   return (
     <div dir={dir} style={{
       minHeight: "100vh",
-      background: "#160d05",
+      background: "#F8F4EC",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
@@ -210,14 +210,15 @@ export default function UsersTeamPage() {
       fontFamily: "var(--font-cairo), system-ui, -apple-system, sans-serif",
     }}>
 
-      {/* ── Floating Modal Card — Exact Whacka 1:1 ── */}
+      {/* ── Floating Modal Card ── */}
       <div style={{
         width: "100%",
         maxWidth: "520px",
         background: "#ffffff",
+        border: "1px solid #E8DAC8",
         borderRadius: "28px",
         padding: "24px 24px 30px",
-        boxShadow: "0 24px 72px rgba(0,0,0,0.6)",
+        boxShadow: "0 20px 60px rgba(43,23,14,0.08)",
         position: "relative",
         boxSizing: "border-box",
       }}>

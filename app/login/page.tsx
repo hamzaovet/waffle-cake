@@ -47,7 +47,7 @@ export default function LoginPage() {
   async function handleOwnerQuickLogin() {
     setLoading(true);
     setError("");
-    const res = await login("maestro", "Tha012157230@#$", "username");
+    const res = await login("maestro", "123456789", "username");
     setLoading(false);
 
     if (res.success && res.user) {
@@ -60,18 +60,18 @@ export default function LoginPage() {
   }
 
   function onFocus(e: React.FocusEvent<HTMLInputElement>) {
-    e.target.style.borderColor = "#d99b56";
-    e.target.style.boxShadow   = "0 0 0 3px rgba(217,155,86,0.18)";
+    e.target.style.borderColor = "#C6873E";
+    e.target.style.boxShadow   = "0 0 0 3px rgba(198,135,62,0.18)";
   }
   function onBlur(e: React.FocusEvent<HTMLInputElement>) {
-    e.target.style.borderColor = "#e5dac9";
+    e.target.style.borderColor = "#E8DAC8";
     e.target.style.boxShadow   = "none";
   }
 
   return (
     <div dir={dir} style={{
       minHeight: "100vh",
-      background: "#160d05",
+      background: "#F8F4EC",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -91,9 +91,9 @@ export default function LoginPage() {
           [dir === "rtl" ? "left" : "right"]: "24px",
           padding: "8px 16px",
           borderRadius: "100px",
-          backgroundColor: "rgba(217, 155, 86, 0.12)",
-          border: "1px solid rgba(217, 155, 86, 0.3)",
-          color: "#d99b56",
+          backgroundColor: "#FAF6EE",
+          border: "1px solid #E8DAC8",
+          color: "#2B170E",
           fontWeight: 800,
           fontSize: "13px",
           cursor: "pointer",
@@ -107,56 +107,70 @@ export default function LoginPage() {
         <span>{lang === "ar" ? "EN 🌐" : "ع 🌐"}</span>
       </button>
 
-      {/* ── Brand — exact Whacka 1:1 replica ── */}
-      <div style={{ textAlign: "center", marginBottom: "28px" }}>
+      {/* ── Brand Waffle & Cake ── */}
+      <div style={{ textAlign: "center", marginBottom: "24px" }}>
+        <div style={{
+          width: "72px",
+          height: "72px",
+          margin: "0 auto 12px",
+          borderRadius: "20px",
+          overflow: "hidden",
+          boxShadow: "0 8px 24px rgba(43,23,14,0.12)",
+          border: "2px solid #E8DAC8",
+          background: "#FFFFFF",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}>
+          <img src="/logo.jpg" alt="Waffle & Cake Logo" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        </div>
         <h1 style={{
-          fontSize: "28px",
-          fontWeight: 700,
-          color: "#d99b56",
-          margin: "0 0 8px 0",
-          fontFamily: "var(--font-playfair), Georgia, 'Times New Roman', serif",
-          fontStyle: "normal",
+          fontSize: "26px",
+          fontWeight: 900,
+          color: "#2B170E",
+          margin: "0 0 6px 0",
           letterSpacing: "0.2px",
         }}>
-          Choco House Desserts
+          وافل آند كيك • Waffle & Cake 🧇🍰
         </h1>
         <p style={{
           fontSize: "13.5px",
-          color: "#9c7a5e",
+          color: "#7E5E49",
           margin: 0,
-          fontWeight: 600,
+          fontWeight: 700,
         }}>
-          {t("منصة الموظفين والإدارة", "Staff & Management Portal")}
+          {t("منظومة إدارة وتشغيل الفروع والمبيعات السحابية", "Cloud ERP & Operations Platform")}
         </p>
       </div>
 
-      {/* ── White Login Card — Exact Whacka 1:1 ── */}
+      {/* ── White Login Card ── */}
       <div style={{
         width: "100%",
-        maxWidth: "410px",
+        maxWidth: "420px",
         background: "#ffffff",
+        border: "1px solid #E8DAC8",
         borderRadius: "24px",
         padding: "36px 32px 32px",
-        boxShadow: "0 24px 64px rgba(0,0,0,0.6)",
+        boxShadow: "0 20px 50px rgba(43,23,14,0.08)",
         boxSizing: "border-box",
       }}>
 
         <h2 style={{
           fontSize: "20px",
           fontWeight: 900,
-          color: "#180e06",
+          color: "#2B170E",
           margin: "0 0 6px 0",
           textAlign: "center",
         }}>
-          {t("تسجيل الدخول إلى Choco House", "Log in to Choco House")}
+          {t("تسجيل الدخول إلى Waffle & Cake", "Log in to Waffle & Cake")}
         </h2>
         <p style={{
           fontSize: "13px",
-          color: "#8a7565",
-          margin: "0 0 26px 0",
+          color: "#7E5E49",
+          margin: "0 0 24px 0",
           textAlign: "center",
         }}>
-          {t("أدخل اسم المستخدم وكلمة المرور", "Enter your username and password")}
+          {t("أدخل اسم المستخدم وكلمة المرور الخاصة بك", "Enter your username and password")}
         </p>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
@@ -164,8 +178,8 @@ export default function LoginPage() {
           {/* Username */}
           <div>
             <label style={{
-              display: "block", fontSize: "13px", fontWeight: 700,
-              color: "#3a2010", marginBottom: "7px",
+              display: "block", fontSize: "13px", fontWeight: 800,
+              color: "#2B170E", marginBottom: "7px",
             }}>
               {t("اسم المستخدم", "Username")}
             </label>
@@ -173,16 +187,16 @@ export default function LoginPage() {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder={t("اسم المستخدم", "Username")}
+              placeholder={t("اسم المستخدم (مثال: maestro)", "Username (e.g. maestro)")}
               autoComplete="username"
               autoFocus
               style={{
                 width: "100%", height: "48px",
-                background: "#faf8f5",
-                border: "1.5px solid #e5dac9",
+                background: "#FAF6EE",
+                border: "1.5px solid #E8DAC8",
                 borderRadius: "12px",
                 padding: "0 16px",
-                fontSize: "14px", color: "#180e06",
+                fontSize: "14px", color: "#2B170E",
                 outline: "none", boxSizing: "border-box",
                 transition: "border-color 0.2s, box-shadow 0.2s",
                 fontFamily: "var(--font-cairo), system-ui, sans-serif",
@@ -195,8 +209,8 @@ export default function LoginPage() {
           {/* Password */}
           <div>
             <label style={{
-              display: "block", fontSize: "13px", fontWeight: 700,
-              color: "#3a2010", marginBottom: "7px",
+              display: "block", fontSize: "13px", fontWeight: 800,
+              color: "#2B170E", marginBottom: "7px",
             }}>
               {t("كلمة المرور", "Password")}
             </label>
@@ -209,12 +223,12 @@ export default function LoginPage() {
                 autoComplete="current-password"
                 style={{
                   width: "100%", height: "48px",
-                  background: "#faf8f5",
-                  border: "1.5px solid #e5dac9",
+                  background: "#FAF6EE",
+                  border: "1.5px solid #E8DAC8",
                   borderRadius: "12px",
                   padding: dir === "rtl" ? "0 44px 0 16px" : "0 16px 0 44px",
                   fontSize: "14px",
-                  color: "#180e06",
+                  color: "#2B170E",
                   outline: "none", boxSizing: "border-box",
                   transition: "border-color 0.2s, box-shadow 0.2s",
                   fontFamily: showPwd ? "monospace" : "inherit",
@@ -232,7 +246,7 @@ export default function LoginPage() {
                   transform: "translateY(-50%)",
                   background: "none", border: "none",
                   cursor: "pointer", fontSize: "15px",
-                  color: "#8a7565", padding: "4px",
+                  color: "#7E5E49", padding: "4px",
                 }}
                 tabIndex={-1}
               >
@@ -244,32 +258,31 @@ export default function LoginPage() {
           {/* Error */}
           {error && (
             <div style={{
-              background: "#fef2f2", border: "1px solid #fecaca",
+              background: "#FEF2F2", border: "1px solid #FECACA",
               borderRadius: "10px", padding: "10px 14px",
-              fontSize: "13px", color: "#dc2626", textAlign: "center",
+              fontSize: "13px", color: "#DC2626", textAlign: "center",
+              fontWeight: 700,
             }}>
               ⚠️ {error}
             </div>
           )}
 
-          {/* Submit button — solid gold button */}
+          {/* Submit button — luxury caramel gold */}
           <button
             type="submit"
             disabled={loading}
             style={{
               width: "100%", height: "48px",
-              background: "#d99b56",
+              background: "linear-gradient(135deg, #D4954E, #C6873E)",
               color: "#ffffff",
-              fontWeight: 800, fontSize: "15.5px",
+              fontWeight: 900, fontSize: "15px",
               borderRadius: "100px",
               border: "none", cursor: loading ? "not-allowed" : "pointer",
-              boxShadow: "0 3px 14px rgba(217,155,86,0.35)",
+              boxShadow: "0 4px 14px rgba(198,135,62,0.28)",
               transition: "all 0.2s ease",
               marginTop: "4px",
               fontFamily: "var(--font-cairo), system-ui, sans-serif",
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "#dfb252"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "#d99b56"; }}
           >
             {loading ? t("جاري التحقق...", "Verifying...") : t("تسجيل الدخول", "Log In")}
           </button>
@@ -280,11 +293,11 @@ export default function LoginPage() {
           display: "flex", alignItems: "center", gap: "12px",
           margin: "24px 0 18px",
         }}>
-          <div style={{ flex: 1, height: "1px", background: "#e8ded2" }} />
-          <span style={{ fontSize: "12px", color: "#a58d79", fontWeight: 700 }}>
-            {t("المالك", "Owner")}
+          <div style={{ flex: 1, height: "1px", background: "#E8DAC8" }} />
+          <span style={{ fontSize: "12px", color: "#7E5E49", fontWeight: 800 }}>
+            {t("المالك (Maestro)", "Owner (Maestro)")}
           </span>
-          <div style={{ flex: 1, height: "1px", background: "#e8ded2" }} />
+          <div style={{ flex: 1, height: "1px", background: "#E8DAC8" }} />
         </div>
 
         {/* Owner quick-login button */}
@@ -293,46 +306,59 @@ export default function LoginPage() {
           disabled={loading}
           style={{
             width: "100%", height: "46px",
-            background: "#ffffff",
-            border: "1.5px solid #d4c4b0",
+            background: "#FAF6EE",
+            border: "1.5px solid #E8DAC8",
             borderRadius: "100px",
-            color: "#180e06", fontWeight: 800, fontSize: "14.5px",
+            color: "#2B170E", fontWeight: 900, fontSize: "14px",
             cursor: loading ? "not-allowed" : "pointer",
             transition: "all 0.2s ease",
             fontFamily: "var(--font-cairo), system-ui, sans-serif",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = "#d99b56";
-            e.currentTarget.style.color = "#d99b56";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "#d4c4b0";
-            e.currentTarget.style.color = "#180e06";
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "8px",
           }}
         >
-          {t("تسجيل الدخول كمالك", "Log in as Owner")}
+          <span>👑</span>
+          <span>{t("تسجيل دخول المالك المباشر (1-Click)", "Direct Owner Login (1-Click)")}</span>
         </button>
 
         {/* Owner note */}
         <p style={{
           fontSize: "11px",
-          color: "#9c8573",
+          color: "#7E5E49",
           textAlign: "center",
           margin: "12px 0 0 0",
           lineHeight: 1.6,
         }}>
-          {t("بحساب Whacka الذي تُبني به هذا التطبيق — لا توجد كلمة مرور منفصلة للمالك.", "Authorized via system administrator credentials — no separate password needed.")}
+          {t("حساب المالك الدائم maestro بصلاحيات الإدارة والتشغيل الشاملة.", "Authorized via owner credentials maestro with full operational privileges.")}
         </p>
 
-        {/* Footer */}
-        <p style={{
-          marginTop: "22px",
-          fontSize: "11.5px", color: "#a58d79",
-          textAlign: "center", margin: "22px 0 0 0",
-          display: "flex", alignItems: "center", justifyContent: "center", gap: "6px",
+        {/* Orca Cloud Permanent Stamp */}
+        <div style={{
+          marginTop: "24px",
+          paddingTop: "16px",
+          borderTop: "1px solid #E8DAC8",
+          textAlign: "center",
         }}>
-          {t("مُقدّم من Whacka", "Powered by Whacka")} <span style={{ color: "#d99b56" }}>✻</span>
-        </p>
+          <a
+            href="https://wa.me/201018671000"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontSize: "11.5px",
+              color: "#7E5E49",
+              textDecoration: "none",
+              fontWeight: 800,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              transition: "color 0.2s ease",
+            }}
+          >
+            <span>تم التطوير بواسطة شركة أوركا للحلول البرمجية والخدمات السحابية 🐋</span>
+          </a>
+        </div>
       </div>
     </div>
   );
