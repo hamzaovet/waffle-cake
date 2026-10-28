@@ -7,7 +7,8 @@ import { useLanguage } from "@/context/LanguageContext";
 import { playSound } from "@/lib/sounds";
 import {
   Sparkles, Save, ArrowRight, Loader2, PartyPopper,
-  Bike, GraduationCap, Gift, Check, Flame, Star, Undo2
+  Bike, GraduationCap, Gift, Check, Flame, Star, Undo2,
+  Power, Tag, Percent, CheckCircle2, Search
 } from "lucide-react";
 import Link from "next/link";
 import ErpLayout from "@/components/ErpLayout";
@@ -20,7 +21,17 @@ interface OfferCard {
   icon: string;
 }
 
-interface OfferData {
+export interface DiscountRule {
+  enabled: boolean;
+  title: string;
+  type: "percentage" | "fixed";
+  value: number;
+  scope: "all" | "category" | "products";
+  categoryName: string;
+  productIds: string[];
+}
+
+export interface OfferData {
   enabled?: boolean;
   badge: string;
   title: string;
@@ -33,9 +44,22 @@ interface OfferData {
     linkHref: string;
     image: string;
   };
+  discount?: DiscountRule;
 }
 
+const DEFAULT_DISCOUNT: DiscountRule = {
+  enabled: false,
+  title: "خصم خاص 20% لفترة محدودة على جميع أنواع الوافل! 🧇🔥",
+  type: "percentage",
+  value: 20,
+  scope: "all",
+  categoryName: "وافل",
+  productIds: [],
+};
+
 const DEFAULT_OFFERS: OfferData = {
+  enabled: true,
+  discount: DEFAULT_DISCOUNT,
   badge: "عروض محدودة",
   title: "العروض الخاصة",
   subtitle: "عروض متجددة كل أسبوع — اسأل الكاشير عن عرض اليوم",
@@ -95,6 +119,9 @@ export default function OffersAdminPage() {
   const { isAuthenticated, permissions, loading: authLoading } = useStaff();
   const { lang, dir, t } = useLanguage();
   const [offers, setOffers] = useState<OfferData>(DEFAULT_OFFERS);
+  const [categories, setCategories] = useState<{ id: string; nameAr: string; nameEn?: string }[]>([]);
+  const [products, setProducts] = useState<{ id: string; nameAr: string; nameEn?: string; basePrice: number; category: string; image?: string }[]>([]);
+  const [productSearch, setProductSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [savedSuccess, setSavedSuccess] = useState(false);
@@ -112,14 +139,35 @@ export default function OffersAdminPage() {
   async function fetchOffers() {
     try {
       setLoading(true);
-      const res = await fetch("/api/public/offers", { cache: "no-store" });
-      const data = await res.json();
-      if (data) {
-        setOffers({
-          ...DEFAULT_OFFERS,
-          ...data,
-          enabled: data.enabled !== undefined ? Boolean(data.enabled) : true,
-        });
+      const [offersRes, catRes, prodRes] = await Promise.all([
+        fetch("/api/public/offers", { cache: "no-store" }),
+        fetch("/api/categories", { cache: "no-store" }).catch(() => null),
+        fetch("/api/products", { cache: "no-store" }).catch(() => null),
+      ]);
+
+      if (offersRes.ok) {
+        const data = await offersRes.json();
+        if (data) {
+          setOffers({
+            ...DEFAULT_OFFERS,
+            ...data,
+            enabled: data.enabled !== undefined ? Boolean(data.enabled) : true,
+            discount: {
+              ...DEFAULT_DISCOUNT,
+              ...(data.discount || {}),
+            },
+          });
+        }
+      }
+
+      if (catRes && catRes.ok) {
+        const catData = await catRes.json();
+        if (Array.isArray(catData)) setCategories(catData);
+      }
+
+      if (prodRes && prodRes.ok) {
+        const prodData = await prodRes.json();
+        if (Array.isArray(prodData)) setProducts(prodData);
       }
     } catch (e) {
       console.error("fetchOffers error:", e);
@@ -156,6 +204,22 @@ export default function OffersAdminPage() {
     const nextCards = [...offers.cards];
     nextCards[idx] = { ...nextCards[idx], [field]: value };
     setOffers({ ...offers, cards: nextCards });
+  }
+
+  function updateDiscount<K extends keyof DiscountRule>(field: K, value: DiscountRule[K]) {
+    setOffers((prev) => ({
+      ...prev,
+      discount: {
+        ...(prev.discount || DEFAULT_DISCOUNT),
+        [field]: value,
+      },
+    }));
+  }
+
+  function toggleProductInDiscount(productId: string) {
+    const cur = offers.discount?.productIds || [];
+    const next = cur.includes(productId) ? cur.filter((id) => id !== productId) : [...cur, productId];
+    updateDiscount("productIds", next);
   }
 
   if (authLoading || loading) {
@@ -373,6 +437,592 @@ export default function OffersAdminPage() {
             <span>{offers.enabled !== false ? t("تعطيل وإخفاء العروض", "Disable & Hide Offers") : t("تفعيل وإظهار العروض", "Enable & Show Offers")}</span>
           </button>
         </div>
+
+        {/* ═══════════════════════════════════════════════════════
+            LIVE DISCOUNT PROMOTIONAL ENGINE (ماكينة الخصومات الترويجية الذكية 🔥)
+        ══════════════════════════════════════════════════════════ */}
+        {(() => {
+          const discount = offers.discount || DEFAULT_DISCOUNT;
+          const filteredProducts = products.filter((p) => {
+            if (!productSearch.trim()) return true;
+            const q = productSearch.toLowerCase();
+            return p.nameAr.toLowerCase().includes(q) || (p.nameEn && p.nameEn.toLowerCase().includes(q));
+          });
+
+          return (
+            <div
+              style={{
+                background: "#FFFFFF",
+                border: discount.enabled ? "2px solid #C6873E" : "1.5px solid #E8DAC8",
+                borderRadius: "20px",
+                padding: "22px 26px",
+                marginBottom: "28px",
+                boxShadow: discount.enabled
+                  ? "0 10px 30px rgba(198, 135, 62, 0.18)"
+                  : "0 4px 16px rgba(43, 23, 14, 0.04)",
+                transition: "all 0.2s ease",
+              }}
+            >
+              {/* Header row with Title and On/Off Toggle */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                  gap: "14px",
+                  paddingBottom: "18px",
+                  borderBottom: "1px solid #F0E4D5",
+                  marginBottom: "20px",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <div
+                    style={{
+                      width: "44px",
+                      height: "44px",
+                      borderRadius: "12px",
+                      background: discount.enabled ? "rgba(220, 38, 38, 0.12)" : "rgba(198, 135, 62, 0.12)",
+                      border: discount.enabled ? "1px solid rgba(220, 38, 38, 0.3)" : "1px solid rgba(198, 135, 62, 0.3)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "22px",
+                    }}
+                  >
+                    🔥
+                  </div>
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <h2 style={{ margin: 0, fontSize: "17.5px", fontWeight: 900, color: "#2B170E" }}>
+                        {t("ماكينة تطبيق الخصومات على المنيو والأقسام ⚡", "Live Menu Discount Engine ⚡")}
+                      </h2>
+                      <span
+                        style={{
+                          background: discount.enabled ? "#DC2626" : "#F3EDE4",
+                          color: discount.enabled ? "#FFFFFF" : "#7E5E49",
+                          fontSize: "11px",
+                          fontWeight: 900,
+                          padding: "2px 8px",
+                          borderRadius: "100px",
+                        }}
+                      >
+                        {discount.enabled ? "نشط ومطبق حالياً 🔥" : "متوقف (غير نشط)"}
+                      </span>
+                    </div>
+                    <p style={{ margin: "3px 0 0 0", fontSize: "12.5px", color: "#7E5E49" }}>
+                      {t(
+                        "تطبيق خصم مباشر على كل المنتجات، أو على قسم بالتحديد، أو على منتجات معينة مع شطب السعر القديم وإظهار السعر المخفض في السلة",
+                        "Apply real-time discount across all products, a specific category, or selected items with price strikethrough"
+                      )}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Toggle Button */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    playSound("click");
+                    updateDiscount("enabled", !discount.enabled);
+                  }}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    padding: "9px 18px",
+                    borderRadius: "12px",
+                    border: "none",
+                    background: discount.enabled ? "#16A34A" : "#F0E4D5",
+                    color: discount.enabled ? "#FFFFFF" : "#7E5E49",
+                    fontWeight: 900,
+                    fontSize: "13px",
+                    cursor: "pointer",
+                    boxShadow: discount.enabled ? "0 4px 14px rgba(22, 163, 74, 0.3)" : "none",
+                    transition: "all 0.15s ease",
+                  }}
+                >
+                  <Power size={15} />
+                  <span>{discount.enabled ? t("🟢 الخصم مُفعّل (شغال)", "Discount ACTIVE") : t("⚪ تفعيل الخصم الآن", "Activate Discount")}</span>
+                </button>
+              </div>
+
+              {/* Discount Settings Grid */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "18px", marginBottom: "20px" }}>
+                
+                {/* Setting 1: Discount Type & Value */}
+                <div
+                  style={{
+                    background: "#FAF6EE",
+                    border: "1px solid #E8DAC8",
+                    borderRadius: "14px",
+                    padding: "16px",
+                  }}
+                >
+                  <label style={labelStyle}>{t("1. نوع وقيمة الخصم:", "1. Discount Type & Value:")}</label>
+                  
+                  <div style={{ display: "flex", gap: "8px", marginBottom: "12px" }}>
+                    <button
+                      type="button"
+                      onClick={() => { playSound("click"); updateDiscount("type", "percentage"); }}
+                      style={{
+                        flex: 1,
+                        height: "38px",
+                        borderRadius: "10px",
+                        border: discount.type === "percentage" ? "1.5px solid #C6873E" : "1px solid #E8DAC8",
+                        background: discount.type === "percentage" ? "#C6873E" : "#FFFFFF",
+                        color: discount.type === "percentage" ? "#FFFFFF" : "#7E5E49",
+                        fontWeight: 800,
+                        fontSize: "12.5px",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "6px",
+                      }}
+                    >
+                      <Percent size={14} />
+                      <span>{t("نسبة مئوية (%)", "Percentage (%)")}</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => { playSound("click"); updateDiscount("type", "fixed"); }}
+                      style={{
+                        flex: 1,
+                        height: "38px",
+                        borderRadius: "10px",
+                        border: discount.type === "fixed" ? "1.5px solid #C6873E" : "1px solid #E8DAC8",
+                        background: discount.type === "fixed" ? "#C6873E" : "#FFFFFF",
+                        color: discount.type === "fixed" ? "#FFFFFF" : "#7E5E49",
+                        fontWeight: 800,
+                        fontSize: "12.5px",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "6px",
+                      }}
+                    >
+                      <Tag size={14} />
+                      <span>{t("مبلغ ثابت (ج.م)", "Fixed Amount (EGP)")}</span>
+                    </button>
+                  </div>
+
+                  {/* Value Input */}
+                  <div style={{ position: "relative", marginBottom: "10px" }}>
+                    <input
+                      type="number"
+                      min="1"
+                      max={discount.type === "percentage" ? "99" : "1000"}
+                      value={discount.value}
+                      onChange={(e) => updateDiscount("value", Math.max(1, parseInt(e.target.value) || 0))}
+                      style={{
+                        ...inputStyle,
+                        paddingRight: "14px",
+                        paddingLeft: "45px",
+                        fontSize: "16px",
+                        fontWeight: 900,
+                        color: "#C6873E",
+                        backgroundColor: "#FFFFFF",
+                      }}
+                    />
+                    <span
+                      style={{
+                        position: "absolute",
+                        left: "14px",
+                        top: "12px",
+                        color: "#7E5E49",
+                        fontSize: "13px",
+                        fontWeight: 800,
+                      }}
+                    >
+                      {discount.type === "percentage" ? "%" : "ج.م"}
+                    </span>
+                  </div>
+
+                  {/* Quick Presets */}
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                    {[10, 15, 20, 25, 30].map((val) => (
+                      <button
+                        key={val}
+                        type="button"
+                        onClick={() => { playSound("click"); updateDiscount("value", val); updateDiscount("type", "percentage"); }}
+                        style={{
+                          padding: "3px 9px",
+                          borderRadius: "6px",
+                          border: discount.value === val && discount.type === "percentage" ? "1px solid #C6873E" : "1px solid #E8DAC8",
+                          background: discount.value === val && discount.type === "percentage" ? "#C6873E" : "#FFFFFF",
+                          color: discount.value === val && discount.type === "percentage" ? "#FFFFFF" : "#7E5E49",
+                          fontSize: "11px",
+                          fontWeight: 900,
+                          cursor: "pointer",
+                        }}
+                      >
+                        {val}%
+                      </button>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={() => { playSound("click"); updateDiscount("value", 50); updateDiscount("type", "fixed"); }}
+                      style={{
+                        padding: "3px 9px",
+                        borderRadius: "6px",
+                        border: discount.value === 50 && discount.type === "fixed" ? "1px solid #C6873E" : "1px solid #E8DAC8",
+                        background: discount.value === 50 && discount.type === "fixed" ? "#C6873E" : "#FFFFFF",
+                        color: discount.value === 50 && discount.type === "fixed" ? "#FFFFFF" : "#7E5E49",
+                        fontSize: "11px",
+                        fontWeight: 900,
+                        cursor: "pointer",
+                      }}
+                    >
+                      50 ج.م
+                    </button>
+                  </div>
+                </div>
+
+                {/* Setting 2: Scope Selector */}
+                <div
+                  style={{
+                    background: "#FAF6EE",
+                    border: "1px solid #E8DAC8",
+                    borderRadius: "14px",
+                    padding: "16px",
+                  }}
+                >
+                  <label style={labelStyle}>{t("2. نطاق تطبيق الخصم:", "2. Discount Scope:")}</label>
+                  
+                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                    {/* Scope 1: All */}
+                    <label
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        padding: "8px 12px",
+                        borderRadius: "10px",
+                        background: discount.scope === "all" ? "rgba(198, 135, 62, 0.15)" : "#FFFFFF",
+                        border: discount.scope === "all" ? "1.5px solid #C6873E" : "1px solid #E8DAC8",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <input
+                        type="radio"
+                        name="waffleDiscountScope"
+                        checked={discount.scope === "all"}
+                        onChange={() => updateDiscount("scope", "all")}
+                      />
+                      <div>
+                        <div style={{ fontSize: "13px", fontWeight: 800, color: "#2B170E" }}>
+                          🌐 {t("على كل المنتجات والمنيو بالكامل", "All Products across the Menu")}
+                        </div>
+                        <div style={{ fontSize: "11px", color: "#7E5E49" }}>
+                          يطبق الخصم على جميع الأصناف بدون استثناء
+                        </div>
+                      </div>
+                    </label>
+
+                    {/* Scope 2: Category */}
+                    <label
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        padding: "8px 12px",
+                        borderRadius: "10px",
+                        background: discount.scope === "category" ? "rgba(198, 135, 62, 0.15)" : "#FFFFFF",
+                        border: discount.scope === "category" ? "1.5px solid #C6873E" : "1px solid #E8DAC8",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <input
+                        type="radio"
+                        name="waffleDiscountScope"
+                        checked={discount.scope === "category"}
+                        onChange={() => updateDiscount("scope", "category")}
+                      />
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: "13px", fontWeight: 800, color: "#2B170E" }}>
+                          📂 {t("على قسم بالتحديد فقط", "Specific Category Only")}
+                        </div>
+                        <div style={{ fontSize: "11px", color: "#7E5E49" }}>
+                          مثال: خصم على قسم الوافل فقط أو البان كيك
+                        </div>
+                      </div>
+                    </label>
+
+                    {/* Scope 3: Selected Products */}
+                    <label
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        padding: "8px 12px",
+                        borderRadius: "10px",
+                        background: discount.scope === "products" ? "rgba(198, 135, 62, 0.15)" : "#FFFFFF",
+                        border: discount.scope === "products" ? "1.5px solid #C6873E" : "1px solid #E8DAC8",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <input
+                        type="radio"
+                        name="waffleDiscountScope"
+                        checked={discount.scope === "products"}
+                        onChange={() => updateDiscount("scope", "products")}
+                      />
+                      <div>
+                        <div style={{ fontSize: "13px", fontWeight: 800, color: "#2B170E" }}>
+                          🎯 {t("على منتجات معينة بالاسم", "Selected Products Only")}
+                        </div>
+                        <div style={{ fontSize: "11px", color: "#7E5E49" }}>
+                          تحديد أصناف بالاسم ({discount.productIds.length} صنف محدد)
+                        </div>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                {/* Setting 3: Scope Details & Title */}
+                <div
+                  style={{
+                    background: "#FAF6EE",
+                    border: "1px solid #E8DAC8",
+                    borderRadius: "14px",
+                    padding: "16px",
+                  }}
+                >
+                  <label style={labelStyle}>{t("3. تحديد الهدف والعنوان:", "3. Target Selection & Title:")}</label>
+                  
+                  {discount.scope === "category" && (
+                    <div style={{ marginBottom: "12px" }}>
+                      <label style={{ fontSize: "11px", color: "#7E5E49", display: "block", marginBottom: "4px" }}>
+                        اختر القسم المطبق عليه الخصم:
+                      </label>
+                      <select
+                        value={discount.categoryName}
+                        onChange={(e) => updateDiscount("categoryName", e.target.value)}
+                        style={{
+                          ...inputStyle,
+                          backgroundColor: "#FFFFFF",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {(categories.length > 0 ? categories.map((c) => c.nameAr) : [
+                          "وافل", "بان كيك", "مولتن كيك", "تشيز كيك", "كيك غربي",
+                          "كريب حلو", "سموزي فريش", "ميلك شيك", "مشروبات ساخنة", "بوبا تي"
+                        ]).map((catName) => (
+                          <option key={catName} value={catName}>
+                            🏷️ {catName}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
+                  {/* Title Input */}
+                  <div>
+                    <label style={{ fontSize: "11px", color: "#7E5E49", display: "block", marginBottom: "4px" }}>
+                      عنوان وبانر الخصم التسويقي:
+                    </label>
+                    <input
+                      type="text"
+                      value={discount.title}
+                      onChange={(e) => updateDiscount("title", e.target.value)}
+                      placeholder="مثال: خصم 20% لفترة محدودة على جميع أنواع الوافل! 🧇🔥"
+                      style={{ ...inputStyle, backgroundColor: "#FFFFFF" }}
+                    />
+                  </div>
+
+                  {/* Live Price Impact Preview */}
+                  <div
+                    style={{
+                      marginTop: "12px",
+                      padding: "10px 12px",
+                      borderRadius: "8px",
+                      background: "rgba(22, 163, 74, 0.1)",
+                      border: "1px solid rgba(22, 163, 74, 0.25)",
+                      fontSize: "12px",
+                      color: "#166534",
+                    }}
+                  >
+                    💡 <strong>معاينة الحسبة:</strong> صنف بسعر <strong>120 ج.م</strong> يصبح بـ{" "}
+                    <span style={{ fontWeight: 900, textDecoration: "underline" }}>
+                      {discount.type === "percentage"
+                        ? Math.max(1, Math.round(120 * (1 - discount.value / 100)))
+                        : Math.max(1, 120 - discount.value)}{" "}
+                      ج.م
+                    </span>{" "}
+                    (وفرت{" "}
+                    {discount.type === "percentage"
+                      ? Math.round((120 * discount.value) / 100)
+                      : discount.value}{" "}
+                    ج.م!)
+                  </div>
+                </div>
+              </div>
+
+              {/* If Scope is 'products': Render Interactive Product Picker Grid */}
+              {discount.scope === "products" && (
+                <div
+                  style={{
+                    marginTop: "10px",
+                    padding: "16px",
+                    background: "#FAF6EE",
+                    border: "1px solid #E8DAC8",
+                    borderRadius: "14px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      flexWrap: "wrap",
+                      gap: "10px",
+                      marginBottom: "12px",
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <span style={{ fontSize: "13.5px", fontWeight: 800, color: "#2B170E" }}>
+                        🎯 حدد الأصناف المطبق عليها الخصم:
+                      </span>
+                      <span
+                        style={{
+                          background: "#C6873E",
+                          color: "#FFFFFF",
+                          fontSize: "11px",
+                          fontWeight: 900,
+                          padding: "1px 8px",
+                          borderRadius: "100px",
+                        }}
+                      >
+                        {discount.productIds.length} صنف محدد
+                      </span>
+                    </div>
+
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <button
+                        type="button"
+                        onClick={() => updateDiscount("productIds", products.map((p) => p.id))}
+                        style={{
+                          padding: "4px 10px",
+                          borderRadius: "6px",
+                          background: "rgba(198, 135, 62, 0.15)",
+                          border: "1px solid rgba(198, 135, 62, 0.3)",
+                          color: "#C6873E",
+                          fontSize: "11.5px",
+                          fontWeight: 800,
+                          cursor: "pointer",
+                        }}
+                      >
+                        تحديد الكل
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => updateDiscount("productIds", [])}
+                        style={{
+                          padding: "4px 10px",
+                          borderRadius: "6px",
+                          background: "#FFFFFF",
+                          border: "1px solid #E8DAC8",
+                          color: "#7E5E49",
+                          fontSize: "11.5px",
+                          fontWeight: 800,
+                          cursor: "pointer",
+                        }}
+                      >
+                        إلغاء التحديد
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Product Search Bar */}
+                  <div style={{ position: "relative", marginBottom: "12px" }}>
+                    <input
+                      type="text"
+                      placeholder="ابحث عن صنف بالاسم لتحديده..."
+                      value={productSearch}
+                      onChange={(e) => setProductSearch(e.target.value)}
+                      style={{
+                        ...inputStyle,
+                        height: "38px",
+                        paddingRight: "36px",
+                        fontSize: "12.5px",
+                        backgroundColor: "#FFFFFF",
+                      }}
+                    />
+                    <Search
+                      size={16}
+                      style={{
+                        position: "absolute",
+                        right: "12px",
+                        top: "11px",
+                        color: "#7E5E49",
+                      }}
+                    />
+                  </div>
+
+                  {/* Scrollable Products Grid */}
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+                      gap: "10px",
+                      maxHeight: "260px",
+                      overflowY: "auto",
+                      padding: "4px",
+                    }}
+                  >
+                    {filteredProducts.map((p) => {
+                      const isSelected = discount.productIds.includes(p.id);
+                      return (
+                        <div
+                          key={p.id}
+                          onClick={() => toggleProductInDiscount(p.id)}
+                          style={{
+                            padding: "8px 10px",
+                            borderRadius: "10px",
+                            background: isSelected ? "rgba(198, 135, 62, 0.18)" : "#FFFFFF",
+                            border: isSelected ? "1.5px solid #C6873E" : "1px solid #E8DAC8",
+                            cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                            transition: "all 0.15s ease",
+                          }}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={() => {}}
+                            style={{ cursor: "pointer" }}
+                          />
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div
+                              style={{
+                                fontSize: "12.5px",
+                                fontWeight: 800,
+                                color: isSelected ? "#C6873E" : "#2B170E",
+                                whiteSpace: "nowrap",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                              }}
+                            >
+                              {p.nameAr}
+                            </div>
+                            <div style={{ fontSize: "11px", color: "#7E5E49" }}>
+                              {p.category} • {p.basePrice} ج.م
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })()}
 
         {/* ── Main 2-Column Content: Form (Right) + Live Preview (Left) ── */}
         <div style={{
