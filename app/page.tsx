@@ -103,15 +103,15 @@ interface CartItem {
 
 /* ─── constants ───────────────────────────────────────────── */
 const C = {
-  dark:    "#140c07",
-  card:    "#22140c",
-  card2:   "#2c1b11",
-  border:  "#4d2d1b",
-  gold:    "#d99b56",
-  goldL:   "#e8b577",
-  cream:   "#fbf5ed",
-  muted:   "#b49279",
-  muted2:  "#8e6f59",
+  dark:    "#FAF6EE",
+  card:    "#FFFFFF",
+  card2:   "#F5EDE1",
+  border:  "#E8DAC8",
+  gold:    "#C6873E",
+  goldL:   "#D4954E",
+  cream:   "#2B170E",
+  muted:   "#6B4F3B",
+  muted2:  "#967B66",
 };
 
 const CATEGORY_EMOJI: Record<string, string> = {
@@ -598,9 +598,9 @@ export default function HomePage() {
 
   /* ─── INPUT STYLE ─── */
   const inputStyle: React.CSSProperties = {
-    width: "100%", height: "44px", background: "#0d0805",
-    border: "1px solid #3d1f0a", borderRadius: "12px",
-    padding: "0 14px", color: "#ffffff", fontSize: "14px",
+    width: "100%", height: "44px", background: "#FAF6EE",
+    border: "1px solid #D9C5B2", borderRadius: "12px",
+    padding: "0 14px", color: "#2B170E", fontSize: "14px",
     outline: "none", boxSizing: "border-box",
   };
 
@@ -611,15 +611,15 @@ export default function HomePage() {
     <div dir={lang === "ar" ? "rtl" : "ltr"} style={{ minHeight: "100vh", backgroundColor: C.dark, color: C.cream, fontFamily: "var(--font-cairo), system-ui, -apple-system, Arial, sans-serif" }}>
 
       {/* ═══════════════════════════════════════════════════════
-          HERO — Exact Whacka 1:1 Pixel-Perfect Replica
+          HERO — Light Warm Ivory Luxury Canvas
       ══════════════════════════════════════════════════════════ */}
       <section style={{
         position: "relative",
         overflow: "hidden",
-        backgroundColor: "#140b04",
-        padding: "44px 0 40px 0",
+        backgroundColor: "#FAF6EE",
+        padding: "48px 0 44px 0",
       }}>
-        {/* Exact Whacka Chocolate Waffle Background */}
+        {/* Exact Waffle Photography Background */}
         <div style={{
           position: "absolute",
           inset: 0,
@@ -627,16 +627,17 @@ export default function HomePage() {
           backgroundSize: "cover",
           backgroundPosition: lang === "ar" ? "left center" : "right center",
           backgroundRepeat: "no-repeat",
+          opacity: 0.88,
           transform: lang === "en" ? "scaleX(-1)" : "none",
         }} />
 
-        {/* Dynamic Gradient Overlay tailored for text visibility */}
+        {/* Dynamic Warm Ivory Overlay tailored for text visibility */}
         <div style={{
           position: "absolute",
           inset: 0,
           background: lang === "ar"
-            ? "linear-gradient(to left, rgba(20, 11, 4, 0.94) 0%, rgba(20, 11, 4, 0.72) 48%, rgba(20, 11, 4, 0.15) 100%)"
-            : "linear-gradient(to right, rgba(20, 11, 4, 0.94) 0%, rgba(20, 11, 4, 0.72) 48%, rgba(20, 11, 4, 0.15) 100%)",
+            ? "linear-gradient(to left, rgba(250, 246, 238, 0.98) 0%, rgba(250, 246, 238, 0.90) 52%, rgba(250, 246, 238, 0.35) 100%)"
+            : "linear-gradient(to right, rgba(250, 246, 238, 0.98) 0%, rgba(250, 246, 238, 0.90) 52%, rgba(250, 246, 238, 0.35) 100%)",
           pointerEvents: "none",
         }} />
 
@@ -655,18 +656,18 @@ export default function HomePage() {
             display: "inline-flex",
             alignItems: "center",
             gap: "7px",
-            background: "rgba(217, 155, 86, 0.14)",
-            border: "1px solid rgba(217, 155, 86, 0.38)",
+            background: "#FFFFFF",
+            border: "1px solid #E8DAC8",
             borderRadius: "100px",
             padding: "6px 18px",
             fontSize: "13px",
-            color: C.gold,
+            color: "#C6873E",
             fontWeight: 800,
             marginBottom: "16px",
-            backdropFilter: "blur(8px)",
+            boxShadow: "0 2px 10px rgba(78, 44, 21, 0.05)",
             fontFamily: "var(--font-cairo), system-ui, sans-serif",
           }}>
-            <Sparkles size={14} color={C.gold} />
+            <Sparkles size={14} color="#C6873E" />
             <span>{lang === "en" ? "✦ Handcrafted Desserts • Delivery to 84 Zones ✦" : "✦ وافل وكيك يُخبز لحظياً بشغف • توصيل لـ 84 منطقة ✦"}</span>
           </div>
 
@@ -677,23 +678,21 @@ export default function HomePage() {
             fontFamily: "var(--font-cairo), system-ui, sans-serif",
           }}>
             <span style={{
-              color: "#ffffff",
+              color: "#2B170E",
               display: "block",
               fontWeight: 900,
               fontSize: "clamp(34px, 5.2vw, 56px)",
               letterSpacing: lang === "en" ? "-0.2px" : "-0.5px",
-              textShadow: "0 2px 16px rgba(0,0,0,0.7)",
             }}>
               {lang === "en" ? "Artisanal Waffles & Decadent Cakes" : "عالم الوافل المقرمش والكيك الفاخر"}
             </span>
             <span style={{
-              color: C.gold,
+              color: "#C6873E",
               display: "block",
               fontWeight: 900,
               fontSize: "clamp(32px, 5vw, 54px)",
               letterSpacing: lang === "en" ? "-0.2px" : "-0.5px",
               marginTop: "4px",
-              textShadow: "0 2px 18px rgba(217, 155, 86, 0.4)",
               fontFamily: lang === "en" ? "var(--font-playfair), Georgia, 'Times New Roman', serif" : "var(--font-cairo), system-ui, sans-serif",
             }}>
               {lang === "en" ? "Pure Indulgence in Every Bite" : "سعادة تدوب في كل قطمة 🧇🍰"}
@@ -703,12 +702,11 @@ export default function HomePage() {
           {/* Subtitle — Fresh, Mouth-Watering Copy */}
           <p style={{
             fontSize: "clamp(14px, 1.5vw, 16.5px)",
-            color: C.muted,
+            color: "#6B4F3B",
             marginBottom: "26px",
-            fontWeight: 500,
-            lineHeight: 1.75,
-            maxWidth: "580px",
-            textShadow: "0 1px 8px rgba(0,0,0,0.5)",
+            fontWeight: 600,
+            lineHeight: 1.8,
+            maxWidth: "600px",
             fontFamily: "var(--font-cairo), system-ui, sans-serif",
           }}>
             {lang === "en"
@@ -717,14 +715,14 @@ export default function HomePage() {
             }
           </p>
 
-          {/* CTA Buttons — Exact Whacka Styling */}
+          {/* CTA Buttons */}
           <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap", marginBottom: "32px" }}>
             {/* Order Button */}
             <a
               href="#menu"
               style={{
-                background: "#d99b56",
-                color: "#180e06",
+                background: "linear-gradient(135deg, #D4954E, #C6873E)",
+                color: "#FFFFFF",
                 fontWeight: 800,
                 padding: "11px 26px",
                 borderRadius: "11px",
@@ -733,7 +731,7 @@ export default function HomePage() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "8px",
-                boxShadow: "0 4px 16px rgba(217, 155, 86, 0.35)",
+                boxShadow: "0 4px 18px rgba(198, 135, 62, 0.38)",
                 fontFamily: "var(--font-cairo), system-ui, sans-serif",
                 transition: "transform 0.15s ease",
               }}
@@ -748,10 +746,9 @@ export default function HomePage() {
             <a
               href="#track"
               style={{
-                background: "rgba(32, 20, 10, 0.75)",
-                backdropFilter: "blur(10px)",
-                border: "1px solid rgba(255, 255, 255, 0.15)",
-                color: "#ffffff",
+                background: "#FFFFFF",
+                border: "1px solid #D9C5B2",
+                color: "#2B170E",
                 fontWeight: 700,
                 padding: "11px 22px",
                 borderRadius: "11px",
@@ -760,19 +757,20 @@ export default function HomePage() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "8px",
+                boxShadow: "0 2px 8px rgba(78, 44, 21, 0.05)",
                 fontFamily: "var(--font-cairo), system-ui, sans-serif",
                 transition: "all 0.15s ease",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.5)";
-                e.currentTarget.style.color = "#d99b56";
+                e.currentTarget.style.borderColor = "#C6873E";
+                e.currentTarget.style.color = "#C6873E";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.15)";
-                e.currentTarget.style.color = "#ffffff";
+                e.currentTarget.style.borderColor = "#D9C5B2";
+                e.currentTarget.style.color = "#2B170E";
               }}
             >
-              <Truck size={16} color="#e5dcd3" />
+              <Truck size={16} color="#C6873E" />
               <span>{lang === "en" ? "Track your order" : "تتبع طلبك"}</span>
             </a>
           </div>
@@ -799,22 +797,21 @@ export default function HomePage() {
                 <div
                   key={i}
                   style={{
-                    background: "rgba(34, 20, 12, 0.75)",
-                    backdropFilter: "blur(12px)",
-                    WebkitBackdropFilter: "blur(12px)",
-                    border: "1px solid rgba(217, 155, 86, 0.25)",
+                    background: "#FFFFFF",
+                    border: "1px solid #E8DAC8",
                     borderRadius: "12px",
                     padding: "11px 18px",
                     display: "flex",
                     alignItems: "center",
                     gap: "10px",
+                    boxShadow: "0 2px 10px rgba(78, 44, 21, 0.04)",
                   }}
                 >
-                  <IconComp size={16} color={C.gold} strokeWidth={1.8} style={{ flexShrink: 0 }} />
+                  <IconComp size={16} color="#C6873E" strokeWidth={1.8} style={{ flexShrink: 0 }} />
                   <span style={{
                     fontSize: "13px",
                     fontWeight: 700,
-                    color: C.cream,
+                    color: "#2B170E",
                     fontFamily: "var(--font-cairo), system-ui, sans-serif",
                     whiteSpace: "nowrap",
                   }}>
@@ -828,12 +825,12 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          SPECIAL OFFERS SECTION — 1:1 Whacka Exact Replica
+          SPECIAL OFFERS SECTION — Light Warm Ivory Canvas
       ══════════════════════════════════════════════════════════ */}
       <section id="offers" style={{
         maxWidth: "1320px",
         margin: "0 auto",
-        padding: "40px 20px 16px 20px",
+        padding: "44px 20px 20px 20px",
         boxSizing: "border-box",
       }}>
         {/* Header */}
@@ -841,7 +838,7 @@ export default function HomePage() {
           <div style={{
             fontSize: "12.5px",
             fontWeight: 800,
-            color: "#d99b56",
+            color: "#C6873E",
             letterSpacing: "1.2px",
             marginBottom: "5px",
             fontFamily: "var(--font-cairo), system-ui, sans-serif",
@@ -851,7 +848,7 @@ export default function HomePage() {
           <h2 style={{
             fontSize: "clamp(28px, 3.4vw, 38px)",
             fontWeight: 900,
-            color: "#ffffff",
+            color: "#2B170E",
             margin: "0 0 6px 0",
             fontFamily: "var(--font-cairo), system-ui, sans-serif",
             letterSpacing: "-0.5px",
@@ -861,7 +858,7 @@ export default function HomePage() {
           </h2>
           <p style={{
             fontSize: "13.5px",
-            color: "#a8927e",
+            color: "#6B4F3B",
             margin: 0,
             fontWeight: 500,
             lineHeight: 1.6,
@@ -888,10 +885,8 @@ export default function HomePage() {
             <div
               key={c.id || i}
               style={{
-                background: "rgba(24, 13, 7, 0.82)",
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-                border: "1px solid rgba(217, 155, 86, 0.2)",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
                 borderRadius: "16px",
                 padding: "18px 22px",
                 display: "flex",
@@ -900,16 +895,17 @@ export default function HomePage() {
                 gap: "14px",
                 transition: "all 0.2s ease",
                 cursor: "pointer",
+                boxShadow: "0 2px 12px rgba(78, 44, 21, 0.04)",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.55)";
+                e.currentTarget.style.borderColor = "#C6873E";
                 e.currentTarget.style.transform = "translateY(-3px)";
-                e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.4)";
+                e.currentTarget.style.boxShadow = "0 8px 24px rgba(78, 44, 21, 0.1)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.2)";
+                e.currentTarget.style.borderColor = "#E8DAC8";
                 e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "none";
+                e.currentTarget.style.boxShadow = "0 2px 12px rgba(78, 44, 21, 0.04)";
               }}
             >
               {/* Content */}
@@ -917,7 +913,7 @@ export default function HomePage() {
                 <h3 style={{
                   fontSize: "16px",
                   fontWeight: 800,
-                  color: "#d99b56",
+                  color: "#2B170E",
                   margin: "0 0 5px 0",
                   fontFamily: "var(--font-cairo), system-ui, sans-serif",
                 }}>
@@ -925,7 +921,7 @@ export default function HomePage() {
                 </h3>
                 <p style={{
                   fontSize: "12px",
-                  color: "#cbbba8",
+                  color: "#6B4F3B",
                   margin: 0,
                   lineHeight: 1.5,
                   fontWeight: 500,
@@ -941,8 +937,8 @@ export default function HomePage() {
                 width: "48px",
                 height: "48px",
                 borderRadius: "12px",
-                background: "rgba(217, 155, 86, 0.08)",
-                border: "1px solid rgba(217, 155, 86, 0.15)",
+                background: "#FAF6EE",
+                border: "1px solid #E8DAC8",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -963,20 +959,21 @@ export default function HomePage() {
             minHeight: "160px",
             borderRadius: "18px",
             overflow: "hidden",
-            border: "1px solid rgba(217, 155, 86, 0.25)",
-            background: "#160c05",
+            border: "1px solid #E8DAC8",
+            background: "#241309",
             transition: "all 0.25s ease",
             cursor: "pointer",
+            boxShadow: "0 4px 18px rgba(78, 44, 21, 0.08)",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.6)";
+            e.currentTarget.style.borderColor = "#C6873E";
             e.currentTarget.style.transform = "scale(1.008)";
-            e.currentTarget.style.boxShadow = "0 12px 36px rgba(0, 0, 0, 0.6), 0 0 24px rgba(217, 155, 86, 0.2)";
+            e.currentTarget.style.boxShadow = "0 10px 30px rgba(78, 44, 21, 0.16)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.25)";
+            e.currentTarget.style.borderColor = "#E8DAC8";
             e.currentTarget.style.transform = "scale(1)";
-            e.currentTarget.style.boxShadow = "none";
+            e.currentTarget.style.boxShadow = "0 4px 18px rgba(78, 44, 21, 0.08)";
           }}
         >
           {/* Banner Photo Background */}
@@ -993,8 +990,8 @@ export default function HomePage() {
             position: "absolute",
             inset: 0,
             background: lang === "ar"
-              ? "linear-gradient(to left, rgba(16, 8, 3, 0.75) 0%, rgba(16, 8, 3, 0.45) 40%, rgba(16, 8, 3, 0.1) 100%)"
-              : "linear-gradient(to right, rgba(16, 8, 3, 0.75) 0%, rgba(16, 8, 3, 0.45) 40%, rgba(16, 8, 3, 0.1) 100%)",
+              ? "linear-gradient(to left, rgba(36, 19, 9, 0.85) 0%, rgba(36, 19, 9, 0.55) 40%, rgba(36, 19, 9, 0.15) 100%)"
+              : "linear-gradient(to right, rgba(36, 19, 9, 0.85) 0%, rgba(36, 19, 9, 0.55) 40%, rgba(36, 19, 9, 0.15) 100%)",
           }} />
 
           {/* Overlay Text positioned on Start side */}
@@ -1012,7 +1009,7 @@ export default function HomePage() {
             <div style={{
               fontSize: "12px",
               fontWeight: 800,
-              color: "#d99b56",
+              color: "#E0A358",
               marginBottom: "4px",
               fontFamily: "var(--font-cairo), system-ui, sans-serif",
               letterSpacing: "0.5px",
@@ -1022,7 +1019,7 @@ export default function HomePage() {
             <div style={{
               fontSize: "clamp(22px, 2.8vw, 32px)",
               fontWeight: 900,
-              color: "#ffffff",
+              color: "#FFFFFF",
               marginBottom: "8px",
               lineHeight: 1.2,
               fontFamily: "var(--font-cairo), system-ui, sans-serif",
@@ -1034,7 +1031,7 @@ export default function HomePage() {
               display: "inline-flex",
               alignItems: "center",
               gap: "6px",
-              color: "#d99b56",
+              color: "#E0A358",
               fontWeight: 800,
               fontSize: "13.5px",
               fontFamily: "var(--font-cairo), system-ui, sans-serif",
@@ -1055,12 +1052,12 @@ export default function HomePage() {
         padding: "44px 20px 64px 20px",
         boxSizing: "border-box",
       }}>
-        {/* Header — Clean, Luxurious Typography matching Whacka */}
+        {/* Header — Clean, Luxurious Typography matching Waffle & Cake */}
         <div style={{ marginBottom: "26px" }}>
           <h2 style={{
             fontSize: "clamp(28px, 3.4vw, 38px)",
             fontWeight: 900,
-            color: "#ffffff",
+            color: "#2B170E",
             margin: "0 0 6px 0",
             fontFamily: "var(--font-cairo), system-ui, sans-serif",
             letterSpacing: "-0.5px",
@@ -1069,7 +1066,7 @@ export default function HomePage() {
           </h2>
           <p style={{
             fontSize: "13.5px",
-            color: "#a8927e",
+            color: "#6B4F3B",
             margin: 0,
             fontWeight: 500,
             fontFamily: "var(--font-cairo), system-ui, sans-serif",
@@ -1081,7 +1078,7 @@ export default function HomePage() {
           </p>
         </div>
 
-        {/* Category Filter Pills — 1:1 Whacka Styling, Order & Emojis */}
+        {/* Category Filter Pills */}
         <div style={{
           display: "flex",
           gap: "8px",
@@ -1105,10 +1102,10 @@ export default function HomePage() {
                   fontSize: "13.5px",
                   fontWeight: isActive ? 800 : 600,
                   cursor: "pointer",
-                  border: isActive ? "1px solid #d99b56" : "1px solid rgba(217, 155, 86, 0.16)",
-                  background: isActive ? "#d99b56" : "rgba(36, 22, 12, 0.72)",
-                  color: isActive ? "#180e06" : "#e5dcd3",
-                  boxShadow: isActive ? "0 3px 12px rgba(217, 155, 86, 0.3)" : "none",
+                  border: isActive ? "1px solid #C6873E" : "1px solid #E8DAC8",
+                  background: isActive ? "linear-gradient(135deg, #D4954E, #C6873E)" : "#FFFFFF",
+                  color: isActive ? "#FFFFFF" : "#4A2814",
+                  boxShadow: isActive ? "0 3px 12px rgba(198, 135, 62, 0.35)" : "none",
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "8px",
@@ -1118,30 +1115,30 @@ export default function HomePage() {
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive) {
-                    e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.35)";
-                    e.currentTarget.style.background = "rgba(48, 28, 14, 0.85)";
-                    e.currentTarget.style.color = "#ffffff";
+                    e.currentTarget.style.borderColor = "#C6873E";
+                    e.currentTarget.style.background = "#FAF6EE";
+                    e.currentTarget.style.color = "#2B170E";
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isActive) {
-                    e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.16)";
-                    e.currentTarget.style.background = "rgba(36, 22, 12, 0.72)";
-                    e.currentTarget.style.color = "#e5dcd3";
+                    e.currentTarget.style.borderColor = "#E8DAC8";
+                    e.currentTarget.style.background = "#FFFFFF";
+                    e.currentTarget.style.color = "#4A2814";
                   }
                 }}
               >
                 <span>{catLabel}</span>
-                <span style={{ fontSize: "14.5px" }}>{CATEGORY_EMOJI[cat] || "🍫"}</span>
+                <span style={{ fontSize: "14.5px" }}>{CATEGORY_EMOJI[cat] || "🧇"}</span>
               </button>
             );
           })}
         </div>
 
-        {/* Products Grid — 1:1 Whacka Luxury Cards */}
+        {/* Products Grid — Luxury Waffle & Cake Cards */}
         {loading ? (
-          <div style={{ textAlign: "center", padding: "80px 0", color: "#a8927e" }}>
-            <div style={{ fontSize: "40px", marginBottom: "16px" }}>🍫</div>
+          <div style={{ textAlign: "center", padding: "80px 0", color: "#6B4F3B" }}>
+            <div style={{ fontSize: "40px", marginBottom: "16px" }}>🧇</div>
             <p style={{ fontSize: "16px", fontFamily: "var(--font-cairo), sans-serif" }}>
               {lang === "en" ? "Loading menu..." : "جاري تحميل المنيو..."}
             </p>
@@ -1163,33 +1160,34 @@ export default function HomePage() {
                   key={p.id}
                   onClick={() => { setSelectedProduct(p); setSelectedExtras([]); playSound("click"); }}
                   style={{
-                    background: "rgba(24, 13, 7, 0.88)",
-                    border: "1px solid rgba(217, 155, 86, 0.18)",
+                    background: "#FFFFFF",
+                    border: "1px solid #E8DAC8",
                     borderRadius: "18px",
                     overflow: "hidden",
                     cursor: "pointer",
                     transition: "all 0.25s ease",
                     display: "flex",
                     flexDirection: "column",
+                    boxShadow: "0 2px 12px rgba(78, 44, 21, 0.04)",
                   }}
                   onMouseEnter={(e) => {
                     const el = e.currentTarget as HTMLDivElement;
-                    el.style.borderColor = "rgba(217, 155, 86, 0.5)";
+                    el.style.borderColor = "#C6873E";
                     el.style.transform = "translateY(-4px)";
-                    el.style.boxShadow = "0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(217, 155, 86, 0.15)";
+                    el.style.boxShadow = "0 10px 28px rgba(78, 44, 21, 0.12)";
                   }}
                   onMouseLeave={(e) => {
                     const el = e.currentTarget as HTMLDivElement;
-                    el.style.borderColor = "rgba(217, 155, 86, 0.18)";
+                    el.style.borderColor = "#E8DAC8";
                     el.style.transform = "translateY(0)";
-                    el.style.boxShadow = "none";
+                    el.style.boxShadow = "0 2px 12px rgba(78, 44, 21, 0.04)";
                   }}
                 >
-                  {/* Image Container with Warm Glow & Bottom Fade */}
+                  {/* Image Container with Warm Cream Glow & Bottom Fade */}
                   <div style={{
                     width: "100%",
                     height: "175px",
-                    background: "radial-gradient(ellipse at center, rgba(140, 80, 20, 0.3) 0%, rgba(18, 10, 5, 0.95) 100%)",
+                    background: "#FAF6EE",
                     overflow: "hidden",
                     display: "flex",
                     alignItems: "center",
@@ -1217,13 +1215,13 @@ export default function HomePage() {
                             const parent = img.parentElement;
                             if (parent) {
                               img.style.display = "none";
-                              parent.innerHTML = `<span style="font-size:52px">${CATEGORY_EMOJI[p.category] || "🍫"}</span>`;
+                              parent.innerHTML = `<span style="font-size:52px">${CATEGORY_EMOJI[p.category] || "🧇"}</span>`;
                             }
                           }
                         }}
                       />
                     ) : (
-                      <span style={{ fontSize: "52px" }}>{CATEGORY_EMOJI[p.category] || "🍫"}</span>
+                      <span style={{ fontSize: "52px" }}>{CATEGORY_EMOJI[p.category] || "🧇"}</span>
                     )}
 
                     {/* Gradient Fade at bottom of image */}
@@ -1232,8 +1230,8 @@ export default function HomePage() {
                       bottom: 0,
                       left: 0,
                       right: 0,
-                      height: "45px",
-                      background: "linear-gradient(to top, rgba(24, 13, 7, 0.98) 0%, transparent 100%)",
+                      height: "40px",
+                      background: "linear-gradient(to top, #FFFFFF 0%, transparent 100%)",
                       pointerEvents: "none",
                     }} />
                   </div>
@@ -1250,7 +1248,7 @@ export default function HomePage() {
                       {/* Product Name */}
                       <h3 style={{
                         fontWeight: 800,
-                        color: "#ffffff",
+                        color: "#2B170E",
                         fontSize: "16px",
                         margin: "0 0 6px 0",
                         lineHeight: 1.3,
@@ -1262,7 +1260,7 @@ export default function HomePage() {
                       {/* Description */}
                       <p style={{
                         fontSize: "12.5px",
-                        color: "#9c8573",
+                        color: "#6B4F3B",
                         margin: "0 0 14px 0",
                         lineHeight: 1.5,
                         minHeight: "36px",
@@ -1278,11 +1276,11 @@ export default function HomePage() {
                       alignItems: "center",
                       justifyContent: "space-between",
                       paddingTop: "6px",
-                      borderTop: "1px solid rgba(255, 255, 255, 0.05)",
+                      borderTop: "1px solid #F0E4D5",
                     }}>
                       <div style={{ display: "flex", alignItems: "baseline", gap: "10px" }}>
                         <span style={{
-                          color: "#d99b56",
+                          color: "#C6873E",
                           fontWeight: 900,
                           fontSize: "20px",
                           fontFamily: "var(--font-cairo), system-ui, sans-serif",
@@ -1300,7 +1298,7 @@ export default function HomePage() {
                         </span>
                         <span style={{
                           fontSize: "11.5px",
-                          color: "#4ade80",
+                          color: "#16a34a",
                           fontWeight: 700,
                           fontFamily: "var(--font-cairo), system-ui, sans-serif",
                         }}>
@@ -1315,23 +1313,23 @@ export default function HomePage() {
                           width: "36px",
                           height: "36px",
                           borderRadius: "50%",
-                          background: "#d99b56",
+                          background: "#C6873E",
                           border: "none",
                           cursor: "pointer",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          color: "#180e06",
-                          boxShadow: "0 3px 10px rgba(217, 155, 86, 0.35)",
+                          color: "#FFFFFF",
+                          boxShadow: "0 3px 10px rgba(198, 135, 62, 0.35)",
                           transition: "all 0.15s ease",
                         }}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.transform = "scale(1.12)";
-                          e.currentTarget.style.background = "#e0b355";
+                          e.currentTarget.style.background = "#D4954E";
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.transform = "scale(1)";
-                          e.currentTarget.style.background = "#d99b56";
+                          e.currentTarget.style.background = "#C6873E";
                         }}
                         title={lang === "en" ? "Add to cart" : "أضف للسلة"}
                       >
@@ -1350,16 +1348,16 @@ export default function HomePage() {
           TRACK ORDER SECTION
       ══════════════════════════════════════════════════════════ */}
       <section id="track" style={{
-        background: "linear-gradient(135deg, #120a04 0%, #1a0d05 100%)",
-        borderTop: `1px solid ${C.border}`,
+        background: "#FAF6EE",
+        borderTop: "1px solid #E8DAC8",
         padding: "64px 20px",
       }}>
         <div style={{ maxWidth: "540px", margin: "0 auto", textAlign: "center" }}>
-          <div style={{ fontSize: "12px", fontWeight: 700, color: C.gold, letterSpacing: "2px", marginBottom: "8px" }}>● TRACK</div>
-          <h2 style={{ fontSize: "28px", fontWeight: 900, color: "#ffffff", marginBottom: "8px" }}>
+          <div style={{ fontSize: "12px", fontWeight: 800, color: "#C6873E", letterSpacing: "2px", marginBottom: "8px" }}>● TRACK</div>
+          <h2 style={{ fontSize: "28px", fontWeight: 900, color: "#2B170E", marginBottom: "8px" }}>
             {lang === "en" ? "Track your order 📦" : "تتبع طلبك 📦"}
           </h2>
-          <p style={{ fontSize: "14px", color: C.muted, marginBottom: "28px" }}>
+          <p style={{ fontSize: "14px", color: "#6B4F3B", marginBottom: "28px" }}>
             {lang === "en" ? "Enter order number or your phone number" : "أدخل رقم الطلب أو رقم موبايلك"}
           </p>
 
@@ -1370,18 +1368,19 @@ export default function HomePage() {
               onKeyDown={(e) => e.key === "Enter" && trackOrder()}
               placeholder={lang === "en" ? "CH-20261027-1234 or 01091413470" : "CH-20261027-1234 أو 01091413470"}
               style={{
-                flex: 1, height: "52px", background: C.dark,
-                border: `1px solid ${C.border}`, borderRadius: "14px",
-                padding: "0 18px", color: "#ffffff", fontSize: "13px",
+                flex: 1, height: "52px", background: "#FFFFFF",
+                border: "1px solid #D9C5B2", borderRadius: "14px",
+                padding: "0 18px", color: "#2B170E", fontSize: "14px",
                 outline: "none", fontFamily: "monospace",
               }}
             />
             <button onClick={trackOrder} disabled={trackLoading} style={{
-              background: `linear-gradient(135deg, ${C.gold}, ${C.goldL})`,
-              color: C.dark, fontWeight: 900, padding: "0 24px", height: "52px",
+              background: "linear-gradient(135deg, #D4954E, #C6873E)",
+              color: "#FFFFFF", fontWeight: 900, padding: "0 24px", height: "52px",
               borderRadius: "14px", border: "none", cursor: "pointer",
               fontSize: "14px", display: "flex", alignItems: "center", gap: "6px",
               minWidth: "100px",
+              boxShadow: "0 4px 14px rgba(198, 135, 62, 0.35)",
             }}>
               {trackLoading ? <Loader2 size={16} style={{ animation: "spin 1s linear infinite" }} /> : <><Search size={16} /> {lang === "en" ? "Search" : "بحث"}</>}
             </button>
@@ -1391,37 +1390,37 @@ export default function HomePage() {
 
           {trackResult && (
             <div style={{
-              marginTop: "24px", background: C.dark,
-              border: `1px solid ${C.border}`, borderRadius: "20px",
+              marginTop: "24px", background: "#FFFFFF",
+              border: "1px solid #E8DAC8", borderRadius: "20px",
               padding: "24px", textAlign: lang === "ar" ? "right" : "left",
-              boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+              boxShadow: "0 8px 32px rgba(78, 44, 21, 0.08)",
             }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "14px", alignItems: "center" }}>
-                <span style={{ fontFamily: "monospace", color: C.gold, fontWeight: 900, fontSize: "15px" }}>
+                <span style={{ fontFamily: "monospace", color: "#C6873E", fontWeight: 900, fontSize: "16px" }}>
                   {trackResult.orderNumber}
                 </span>
                 <span style={{
                   fontWeight: 700, fontSize: "13px",
-                  color: (lang === "en" ? ORDER_STATUSES_EN : ORDER_STATUSES_AR)[trackResult.status]?.color || "#ffffff",
-                  background: `${(lang === "en" ? ORDER_STATUSES_EN : ORDER_STATUSES_AR)[trackResult.status]?.color || "#ffffff"}20`,
+                  color: (lang === "en" ? ORDER_STATUSES_EN : ORDER_STATUSES_AR)[trackResult.status]?.color || "#2B170E",
+                  background: `${(lang === "en" ? ORDER_STATUSES_EN : ORDER_STATUSES_AR)[trackResult.status]?.color || "#2B170E"}20`,
                   padding: "4px 12px", borderRadius: "100px",
                 }}>
                   {(lang === "en" ? ORDER_STATUSES_EN : ORDER_STATUSES_AR)[trackResult.status]?.label || trackResult.status}
                 </span>
               </div>
-              <p style={{ fontSize: "13px", color: C.muted }}>
+              <p style={{ fontSize: "13px", color: "#6B4F3B" }}>
                 {trackResult.customerName} — {lang === "en" ? "Total: " : "إجمالي: "}
-                <strong style={{ color: C.gold }}>
+                <strong style={{ color: "#C6873E" }}>
                   {lang === "en" ? `EGP ${trackResult.total}` : `${trackResult.total} ج`}
                 </strong>
               </p>
               {(trackResult.timeline || []).length > 0 && (
-                <div style={{ marginTop: "16px", borderTop: `1px solid ${C.border}`, paddingTop: "14px", display: "flex", flexDirection: "column", gap: "8px" }}>
+                <div style={{ marginTop: "16px", borderTop: "1px solid #E8DAC8", paddingTop: "14px", display: "flex", flexDirection: "column", gap: "8px" }}>
                   {(trackResult.timeline || []).map((t: any, i: number) => (
-                    <div key={i} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "12px", color: C.muted }}>
-                      <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: C.gold, flexShrink: 0 }} />
+                    <div key={i} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "12px", color: "#6B4F3B" }}>
+                      <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#C6873E", flexShrink: 0 }} />
                       <span>{(lang === "en" ? ORDER_STATUSES_EN : ORDER_STATUSES_AR)[t.stage]?.label || t.stage}</span>
-                      <span style={{ marginInlineStart: "auto", color: C.muted2, fontSize: "11px" }}>
+                      <span style={{ marginInlineStart: "auto", color: "#967B66", fontSize: "11px" }}>
                         {new Date(t.at).toLocaleTimeString(lang === "en" ? "en-US" : "ar-EG")}
                       </span>
                     </div>
@@ -1438,8 +1437,8 @@ export default function HomePage() {
       ══════════════════════════════════════════════════════════ */}
       <section id="about" style={{ maxWidth: "1000px", margin: "0 auto", padding: "64px 20px" }}>
         <div style={{ textAlign: "center", marginBottom: "40px" }}>
-          <div style={{ fontSize: "12px", fontWeight: 700, color: C.gold, letterSpacing: "2px", marginBottom: "8px" }}>● ABOUT</div>
-          <h2 style={{ fontSize: "28px", fontWeight: 900, color: "#ffffff", margin: 0 }}>
+          <div style={{ fontSize: "12px", fontWeight: 800, color: "#C6873E", letterSpacing: "2px", marginBottom: "8px" }}>● ABOUT</div>
+          <h2 style={{ fontSize: "28px", fontWeight: 900, color: "#2B170E", margin: 0 }}>
             {lang === "en" ? "About Waffle & Cake" : "عن Waffle & Cake"}
           </h2>
         </div>
@@ -1447,62 +1446,63 @@ export default function HomePage() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px" }}>
           {(lang === "en" ? [
             {
-              icon: <MapPin size={28} color={C.gold} />,
+              icon: <MapPin size={28} color="#C6873E" />,
               title: "Our Location",
               body: `${storeSettings.address}\nDelivery across 84 zones in Giza & 6th of October`,
               link: null,
             },
             {
-              icon: <Clock size={28} color={C.gold} />,
+              icon: <Clock size={28} color="#C6873E" />,
               title: "Opening Hours",
               body: "10:00 AM to 2:00 AM\nDaily Freshly Prepared",
               link: null,
             },
             {
-              icon: <Phone size={28} color={C.gold} />,
+              icon: <Phone size={28} color="#C6873E" />,
               title: "Contact Us",
               body: `${storeSettings.phone}\nCash | InstaPay | Wallet | Card`,
               link: `tel:${storeSettings.phone}`,
             },
           ] : [
             {
-              icon: <MapPin size={28} color={C.gold} />,
+              icon: <MapPin size={28} color="#C6873E" />,
               title: "موقعنا",
               body: `${storeSettings.address}\nتوصيل سريع لـ 84 منطقة بالجيزة وأكتوبر`,
               link: null,
             },
             {
-              icon: <Clock size={28} color={C.gold} />,
+              icon: <Clock size={28} color="#C6873E" />,
               title: "مواعيد العمل",
               body: "من 10 صباحاً حتى 2 بعد منتصف الليل\nيومياً تحضير طازج ولحظي",
               link: null,
             },
             {
-              icon: <Phone size={28} color={C.gold} />,
+              icon: <Phone size={28} color="#C6873E" />,
               title: "تواصل معنا",
               body: `${storeSettings.phone}\nكاش | إنستاباي | محفظة | كارت`,
               link: `tel:${storeSettings.phone}`,
             },
           ]).map((c, i) => (
             <div key={i} style={{
-              background: C.card, border: `1px solid ${C.border}`,
+              background: "#FFFFFF", border: "1px solid #E8DAC8",
               borderRadius: "20px", padding: "28px 24px", textAlign: "center",
               transition: "all 0.2s ease",
+              boxShadow: "0 2px 12px rgba(78, 44, 21, 0.04)",
             }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = C.gold; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = C.border; }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "#C6873E"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "#E8DAC8"; }}
             >
               <div style={{ display: "flex", justifyContent: "center", marginBottom: "14px" }}>{c.icon}</div>
-              <h3 style={{ fontWeight: 800, color: "#ffffff", marginBottom: "10px", fontSize: "16px" }}>{c.title}</h3>
+              <h3 style={{ fontWeight: 800, color: "#2B170E", marginBottom: "10px", fontSize: "16px" }}>{c.title}</h3>
               {c.link ? (
                 <a
                   href={c.link}
-                  style={{ fontSize: "14px", color: C.gold, whiteSpace: "pre-line", lineHeight: 1.8, textDecoration: "none", fontWeight: 700 }}
+                  style={{ fontSize: "14px", color: "#C6873E", whiteSpace: "pre-line", lineHeight: 1.8, textDecoration: "none", fontWeight: 700 }}
                 >
                   {c.body}
                 </a>
               ) : (
-                <p style={{ fontSize: "14px", color: C.muted, whiteSpace: "pre-line", lineHeight: 1.8 }}>{c.body}</p>
+                <p style={{ fontSize: "14px", color: "#6B4F3B", whiteSpace: "pre-line", lineHeight: 1.8 }}>{c.body}</p>
               )}
             </div>
           ))}
@@ -1513,10 +1513,10 @@ export default function HomePage() {
           FOOTER
       ══════════════════════════════════════════════════════════ */}
       <footer style={{
-        borderTop: "1px solid rgba(217, 155, 86, 0.15)",
+        borderTop: "1px solid #3D2214",
         padding: "36px 20px 48px",
         textAlign: "center",
-        background: "rgba(13, 8, 5, 0.95)",
+        background: "#241309",
       }}>
         <div style={{
           maxWidth: "1200px",
@@ -1529,16 +1529,17 @@ export default function HomePage() {
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <div style={{
               width: "36px", height: "36px", borderRadius: "50%",
-              overflow: "hidden", border: "1.5px solid #d99b56",
+              overflow: "hidden", border: "1.5px solid #C6873E",
               display: "flex", alignItems: "center", justifyContent: "center",
+              background: "#FAF6EE",
             }}>
               <img src="/waffle-logo.jpeg" alt="Waffle & Cake" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             </div>
             <span style={{
               fontFamily: "var(--font-playfair), Georgia, serif",
-              fontSize: "18px", fontWeight: 800, color: "#f5ede4",
+              fontSize: "18px", fontWeight: 800, color: "#FAF6EE",
             }}>
-              Waffle &amp; Cake <span style={{ color: "#d99b56", fontSize: "11px", letterSpacing: "2px" }}>{lang === "en" ? "DESSERTS" : "ديسرتس"}</span>
+              Waffle &amp; Cake <span style={{ color: "#C6873E", fontSize: "11px", letterSpacing: "2px" }}>{lang === "en" ? "DESSERTS" : "ديسرتس"}</span>
             </span>
           </div>
 
@@ -1550,11 +1551,11 @@ export default function HomePage() {
               display: "inline-flex",
               alignItems: "center",
               gap: "8px",
-              background: "rgba(217, 155, 86, 0.1)",
-              border: "1px solid rgba(217, 155, 86, 0.3)",
+              background: "rgba(198, 135, 62, 0.15)",
+              border: "1px solid rgba(198, 135, 62, 0.35)",
               padding: "7px 18px",
               borderRadius: "100px",
-              color: "#e6c37a",
+              color: "#E0A358",
               textDecoration: "none",
               fontSize: "12.5px",
               fontWeight: 800,
@@ -1565,7 +1566,7 @@ export default function HomePage() {
             <span style={{ color: "#4ade80", fontSize: "11px" }}>● v1.0.0</span>
           </Link>
 
-          <p style={{ fontSize: "13px", color: C.muted, margin: 0 }}>
+          <p style={{ fontSize: "13px", color: "#B49279", margin: 0 }}>
             {lang === "en"
               ? "© 2026 Waffle & Cake Desserts. Luxury waffles, pancakes & cheesecakes in 6th of October."
               : "© 2026 وافل آند كيك ديسرتس. ألذ وأفخر وافل وبانكيك وتشيز كيك طازج في 6 أكتوبر."}
@@ -1606,11 +1607,11 @@ export default function HomePage() {
           position: "fixed", bottom: "24px",
           ...(lang === "ar" ? { right: "20px" } : { left: "20px" }),
           zIndex: 40,
-          background: `linear-gradient(135deg, ${C.gold}, ${C.goldL})`,
-          color: C.dark, fontWeight: 900, padding: "14px 22px",
+          background: "linear-gradient(135deg, #D4954E, #C6873E)",
+          color: "#FFFFFF", fontWeight: 900, padding: "14px 22px",
           borderRadius: "20px", border: "none", cursor: "pointer",
           fontSize: "14px", display: "flex", alignItems: "center", gap: "10px",
-          boxShadow: "0 6px 28px rgba(200,134,10,0.55)",
+          boxShadow: "0 6px 28px rgba(198, 135, 62, 0.45)",
           animation: "pulse-glow 2s infinite",
         }}>
           <ShoppingCart size={18} />
@@ -1628,26 +1629,27 @@ export default function HomePage() {
           position: "fixed", inset: 0, zIndex: 50, display: "flex",
           justifyContent: lang === "ar" ? "flex-end" : "flex-start",
         }}>
-          <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.65)" }} onClick={() => setCartOpen(false)} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(43, 23, 14, 0.45)", backdropFilter: "blur(4px)" }} onClick={() => setCartOpen(false)} />
           <div style={{
             position: "relative", width: "100%", maxWidth: "420px",
-            background: "#120a04",
-            borderLeft: lang === "ar" ? `1px solid ${C.border}` : "none",
-            borderRight: lang === "en" ? `1px solid ${C.border}` : "none",
+            background: "#FAF6EE",
+            borderLeft: lang === "ar" ? "1px solid #E8DAC8" : "none",
+            borderRight: lang === "en" ? "1px solid #E8DAC8" : "none",
             height: "100%", display: "flex", flexDirection: "column",
-            boxShadow: lang === "ar" ? "-8px 0 40px rgba(0,0,0,0.6)" : "8px 0 40px rgba(0,0,0,0.6)",
+            boxShadow: lang === "ar" ? "-8px 0 40px rgba(78, 44, 21, 0.25)" : "8px 0 40px rgba(78, 44, 21, 0.25)",
             direction: lang === "ar" ? "rtl" : "ltr",
           }}>
             <div style={{
               display: "flex", alignItems: "center", justifyContent: "space-between",
-              padding: "18px 20px", borderBottom: `1px solid ${C.border}`,
+              padding: "18px 20px", borderBottom: "1px solid #E8DAC8",
+              background: "#FFFFFF",
             }}>
-              <h2 style={{ fontWeight: 900, color: "#ffffff", fontSize: "18px", margin: 0 }}>
+              <h2 style={{ fontWeight: 900, color: "#2B170E", fontSize: "18px", margin: 0 }}>
                 🛒 {lang === "en" ? "Cart" : "السلة"} ({cartCount})
               </h2>
               <button onClick={() => setCartOpen(false)} style={{
-                background: "rgba(255,255,255,0.08)", border: "none",
-                cursor: "pointer", color: C.muted, padding: "8px",
+                background: "#FAF6EE", border: "1px solid #E8DAC8",
+                cursor: "pointer", color: "#7E5E49", padding: "8px",
                 borderRadius: "10px",
               }}>
                 <X size={20} />
@@ -1657,10 +1659,10 @@ export default function HomePage() {
             {cart.length === 0 ? (
               <div style={{
                 flex: 1, display: "flex", alignItems: "center", justifyContent: "center",
-                flexDirection: "column", color: C.muted, gap: "14px",
+                flexDirection: "column", color: "#6B4F3B", gap: "14px",
               }}>
                 <span style={{ fontSize: "56px" }}>🛒</span>
-                <p style={{ fontSize: "16px" }}>{lang === "en" ? "Cart is empty" : "السلة فارغة"}</p>
+                <p style={{ fontSize: "16px", fontWeight: 700 }}>{lang === "en" ? "Cart is empty" : "السلة فارغة"}</p>
               </div>
             ) : (
               <>
@@ -1669,42 +1671,44 @@ export default function HomePage() {
                     const itemName = lang === "en" ? (PRODUCT_NAMES_EN[item.product.nameAr] || item.product.nameEn || item.product.nameAr) : item.product.nameAr;
                     return (
                       <div key={idx} style={{
-                        background: C.card, border: `1px solid ${C.border}`,
+                        background: "#FFFFFF", border: "1px solid #E8DAC8",
                         borderRadius: "16px", padding: "12px", display: "flex", gap: "12px",
+                        boxShadow: "0 2px 8px rgba(78, 44, 21, 0.04)",
                       }}>
                         <div style={{
                           width: "60px", height: "60px", borderRadius: "12px",
-                          background: C.card2, overflow: "hidden", flexShrink: 0,
+                          background: "#FAF6EE", overflow: "hidden", flexShrink: 0,
                           display: "flex", alignItems: "center", justifyContent: "center",
+                          border: "1px solid #E8DAC8",
                         }}>
                           {item.product.image
                             ? <img src={item.product.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                            : <span style={{ fontSize: "28px" }}>{CATEGORY_EMOJI[item.product.category] || "🍫"}</span>
+                            : <span style={{ fontSize: "28px" }}>{CATEGORY_EMOJI[item.product.category] || "🧇"}</span>
                           }
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
-                          <p style={{ fontWeight: 700, color: "#ffffff", fontSize: "14px", margin: 0 }}>{itemName}</p>
+                          <p style={{ fontWeight: 800, color: "#2B170E", fontSize: "14px", margin: 0 }}>{itemName}</p>
                           {item.extras.length > 0 && (
-                            <p style={{ fontSize: "11px", color: C.muted, marginTop: "3px" }}>{item.extras.join(" + ")}</p>
+                            <p style={{ fontSize: "11px", color: "#6B4F3B", marginTop: "3px" }}>{item.extras.join(" + ")}</p>
                           )}
                           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "10px" }}>
-                            <span style={{ fontWeight: 900, color: C.gold, fontSize: "15px" }}>
+                            <span style={{ fontWeight: 900, color: "#C6873E", fontSize: "15px" }}>
                               {lang === "en" ? `EGP ${item.unitPrice * item.qty}` : `${item.unitPrice * item.qty} ج`}
                             </span>
                             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                               <button onClick={() => updateQty(idx, -1)} style={{
                                 width: "30px", height: "30px", borderRadius: "8px",
-                                background: "#3d1f0a", border: "none", color: "#fff",
+                                background: "#FAF6EE", border: "1px solid #D9C5B2", color: "#2B170E",
                                 cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
                               }}>
                                 <Minus size={14} />
                               </button>
-                              <span style={{ fontWeight: 900, color: "#fff", width: "22px", textAlign: "center", fontSize: "15px" }}>
+                              <span style={{ fontWeight: 900, color: "#2B170E", width: "22px", textAlign: "center", fontSize: "15px" }}>
                                 {item.qty}
                               </span>
                               <button onClick={() => updateQty(idx, 1)} style={{
                                 width: "30px", height: "30px", borderRadius: "8px",
-                                background: "#3d1f0a", border: "none", color: "#fff",
+                                background: "#FAF6EE", border: "1px solid #D9C5B2", color: "#2B170E",
                                 cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
                               }}>
                                 <Plus size={14} />
@@ -1717,31 +1721,31 @@ export default function HomePage() {
                   })}
                 </div>
 
-                <div style={{ padding: "18px 20px", borderTop: `1px solid ${C.border}` }}>
+                <div style={{ padding: "18px 20px", borderTop: "1px solid #E8DAC8", background: "#FFFFFF" }}>
                   <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "16px", fontSize: "14px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", color: C.muted }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", color: "#6B4F3B" }}>
                       <span>{lang === "en" ? "Products" : "المنتجات"}</span>
                       <span>{lang === "en" ? `EGP ${cartTotal}` : `${cartTotal} ج`}</span>
                     </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", color: C.muted }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", color: "#6B4F3B" }}>
                       <span>{lang === "en" ? "Delivery" : "توصيل"}</span>
                       <span>{lang === "en" ? `EGP ${currentZone.fee}` : `${currentZone.fee} ج`}</span>
                     </div>
                     <div style={{
                       display: "flex", justifyContent: "space-between",
-                      color: "#ffffff", fontWeight: 900, fontSize: "17px",
-                      borderTop: `1px solid ${C.border}`, paddingTop: "10px", marginTop: "4px",
+                      color: "#2B170E", fontWeight: 900, fontSize: "17px",
+                      borderTop: "1px solid #E8DAC8", paddingTop: "10px", marginTop: "4px",
                     }}>
                       <span>{lang === "en" ? "Total" : "الإجمالي"}</span>
-                      <span style={{ color: C.gold }}>{lang === "en" ? `EGP ${grandTotal}` : `${grandTotal} ج`}</span>
+                      <span style={{ color: "#C6873E" }}>{lang === "en" ? `EGP ${grandTotal}` : `${grandTotal} ج`}</span>
                     </div>
                   </div>
                   <button onClick={() => { setCheckoutOpen(true); setCartOpen(false); playSound("click"); }} style={{
                     width: "100%",
-                    background: `linear-gradient(135deg, ${C.gold}, ${C.goldL})`,
-                    color: C.dark, fontWeight: 900, padding: "15px",
+                    background: "linear-gradient(135deg, #D4954E, #C6873E)",
+                    color: "#FFFFFF", fontWeight: 900, padding: "15px",
                     borderRadius: "14px", border: "none", cursor: "pointer", fontSize: "16px",
-                    boxShadow: "0 4px 20px rgba(200,134,10,0.4)",
+                    boxShadow: "0 4px 20px rgba(198, 135, 62, 0.4)",
                   }}>
                     {lang === "en" ? "Proceed to Checkout 🛵" : "إتمام الطلب 🛵"}
                   </button>
@@ -1757,27 +1761,28 @@ export default function HomePage() {
       ══════════════════════════════════════════════════════════ */}
       {selectedProduct && (
         <div style={{ position: "fixed", inset: 0, zIndex: 50, display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
-          <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.8)" }} onClick={() => setSelectedProduct(null)} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(43, 23, 14, 0.55)", backdropFilter: "blur(4px)" }} onClick={() => setSelectedProduct(null)} />
           <div style={{
             position: "relative", width: "100%", maxWidth: "460px",
-            background: C.card, border: `1px solid ${C.border}`,
+            background: "#FFFFFF", border: "1px solid #E8DAC8",
             borderRadius: "28px 28px 0 0", padding: "24px",
-            boxShadow: "0 -8px 48px rgba(0,0,0,0.5)",
+            boxShadow: "0 -8px 48px rgba(78, 44, 21, 0.2)",
             maxHeight: "92vh", overflowY: "auto",
             direction: lang === "ar" ? "rtl" : "ltr",
           }}>
             <button onClick={() => setSelectedProduct(null)} style={{
               position: "absolute", top: "16px", [lang === "en" ? "right" : "left"]: "16px",
-              background: "rgba(255,255,255,0.08)", border: "none",
-              borderRadius: "10px", padding: "7px", cursor: "pointer", color: C.muted,
+              background: "#FAF6EE", border: "1px solid #E8DAC8",
+              borderRadius: "10px", padding: "7px", cursor: "pointer", color: "#7E5E49",
             }}>
               <X size={20} />
             </button>
 
             <div style={{
               width: "100%", height: "220px", borderRadius: "18px",
-              background: C.card2, overflow: "hidden", marginBottom: "18px",
+              background: "#FAF6EE", overflow: "hidden", marginBottom: "18px",
               display: "flex", alignItems: "center", justifyContent: "center",
+              border: "1px solid #E8DAC8",
             }}>
               {(selectedProduct.image || CATEGORY_FALLBACK[selectedProduct.category]) ? (
                 <img
@@ -1794,26 +1799,26 @@ export default function HomePage() {
                   }}
                 />
               ) : (
-                <span style={{ fontSize: "72px" }}>{CATEGORY_EMOJI[selectedProduct.category] || "🍫"}</span>
+                <span style={{ fontSize: "72px" }}>{CATEGORY_EMOJI[selectedProduct.category] || "🧇"}</span>
               )}
             </div>
 
-            <h3 style={{ fontWeight: 900, color: "#ffffff", fontSize: "22px", margin: 0 }}>
+            <h3 style={{ fontWeight: 900, color: "#2B170E", fontSize: "22px", margin: 0 }}>
               {lang === "en" ? (PRODUCT_NAMES_EN[selectedProduct.nameAr] || selectedProduct.nameEn) : selectedProduct.nameAr}
             </h3>
-            <p style={{ fontSize: "13px", color: C.muted, marginTop: "6px", lineHeight: "1.6" }}>
+            <p style={{ fontSize: "13px", color: "#6B4F3B", marginTop: "6px", lineHeight: "1.6" }}>
               {lang === "en"
                 ? (PRODUCT_DESCRIPTIONS_EN[selectedProduct.nameAr] || selectedProduct.nameEn)
                 : (PRODUCT_DESCRIPTIONS_AR[selectedProduct.nameAr] || selectedProduct.description || "")}
             </p>
-            <p style={{ color: C.gold, fontWeight: 900, fontSize: "24px", marginTop: "12px" }}>
+            <p style={{ color: "#C6873E", fontWeight: 900, fontSize: "24px", marginTop: "12px" }}>
               {lang === "en"
                 ? `EGP ${selectedProduct.basePrice + selectedExtras.reduce((s, e) => s + (currentExtras.find((x) => x.label === e)?.price || 0), 0)}`
                 : `${selectedProduct.basePrice + selectedExtras.reduce((s, e) => s + (currentExtras.find((x) => x.label === e)?.price || 0), 0)} ج`}
             </p>
 
             <div style={{ marginTop: "18px" }}>
-              <p style={{ fontSize: "13px", fontWeight: 700, color: C.muted, marginBottom: "12px" }}>
+              <p style={{ fontSize: "13px", fontWeight: 700, color: "#6B4F3B", marginBottom: "12px" }}>
                 {lang === "en" ? "Add-ons (optional):" : "إضافات (اختياري):"}
               </p>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
@@ -1830,13 +1835,13 @@ export default function HomePage() {
                         cursor: "pointer", border: "1px solid",
                         display: "flex", justifyContent: "space-between", alignItems: "center",
                         transition: "all 0.15s",
-                        background: isSelected ? C.gold : C.card2,
-                        borderColor: isSelected ? C.gold : C.border,
-                        color: isSelected ? C.dark : C.muted,
+                        background: isSelected ? "linear-gradient(135deg, #D4954E, #C6873E)" : "#FAF6EE",
+                        borderColor: isSelected ? "#C6873E" : "#E8DAC8",
+                        color: isSelected ? "#FFFFFF" : "#4A2814",
                       }}
                     >
                       <span>{ex.label}</span>
-                      <span style={{ opacity: 0.7, fontSize: "11px" }}>+{ex.price}</span>
+                      <span style={{ opacity: 0.8, fontSize: "11px" }}>+{ex.price}</span>
                     </button>
                   );
                 })}
@@ -1845,11 +1850,11 @@ export default function HomePage() {
 
             <button onClick={() => addToCart(selectedProduct, selectedExtras)} style={{
               width: "100%", marginTop: "22px",
-              background: `linear-gradient(135deg, ${C.gold}, ${C.goldL})`,
-              color: C.dark, fontWeight: 900, padding: "15px",
+              background: "linear-gradient(135deg, #D4954E, #C6873E)",
+              color: "#FFFFFF", fontWeight: 900, padding: "15px",
               borderRadius: "14px", border: "none", cursor: "pointer",
               fontSize: "16px", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px",
-              boxShadow: "0 4px 20px rgba(200,134,10,0.4)",
+              boxShadow: "0 4px 20px rgba(198, 135, 62, 0.4)",
             }}>
               <ShoppingCart size={18} /> {lang === "en" ? "Add to Cart" : "أضف للسلة"}
             </button>
@@ -1862,23 +1867,23 @@ export default function HomePage() {
       ══════════════════════════════════════════════════════════ */}
       {checkoutOpen && (
         <div style={{ position: "fixed", inset: 0, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}>
-          <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.8)" }} onClick={() => setCheckoutOpen(false)} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(43, 23, 14, 0.55)", backdropFilter: "blur(4px)" }} onClick={() => setCheckoutOpen(false)} />
           <div style={{
             position: "relative", width: "100%", maxWidth: "460px",
-            background: C.card, border: `1px solid ${C.border}`,
+            background: "#FFFFFF", border: "1px solid #E8DAC8",
             borderRadius: "24px", padding: "28px",
-            boxShadow: "0 12px 48px rgba(0,0,0,0.6)",
+            boxShadow: "0 12px 48px rgba(78, 44, 21, 0.2)",
             maxHeight: "92vh", overflowY: "auto",
             direction: lang === "ar" ? "rtl" : "ltr",
           }}>
             <button onClick={() => setCheckoutOpen(false)} style={{
               position: "absolute", top: "18px", [lang === "en" ? "right" : "left"]: "18px",
-              background: "rgba(255,255,255,0.08)", border: "none",
-              borderRadius: "10px", padding: "7px", cursor: "pointer", color: C.muted,
+              background: "#FAF6EE", border: "1px solid #E8DAC8",
+              borderRadius: "10px", padding: "7px", cursor: "pointer", color: "#7E5E49",
             }}>
               <X size={20} />
             </button>
-            <h3 style={{ fontWeight: 900, color: "#ffffff", fontSize: "22px", margin: "0 0 24px 0" }}>
+            <h3 style={{ fontWeight: 900, color: "#2B170E", fontSize: "22px", margin: "0 0 24px 0" }}>
               {lang === "en" ? "Confirm Order 🛵" : "تأكيد الطلب 🛵"}
             </h3>
 
@@ -1904,10 +1909,10 @@ export default function HomePage() {
 
               <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <label style={{ fontSize: "12px", fontWeight: 700, color: C.muted }}>
+                  <label style={{ fontSize: "12px", fontWeight: 700, color: "#6B4F3B" }}>
                     {lang === "en" ? "Delivery Zone (84 Areas in 6th of October & Giza)" : "منطقة التوصيل (84 منطقة بـ 6 أكتوبر والجيزة)"}
                   </label>
-                  <span style={{ fontSize: "11px", color: "#d99b56", fontWeight: 700 }}>
+                  <span style={{ fontSize: "11px", color: "#C6873E", fontWeight: 700 }}>
                     ⏱️ {currentZone.timeMinutes} {lang === "en" ? "mins" : "دقيقة"} • 🛵 {currentZone.fee} {lang === "en" ? "EGP" : "ج.م"}
                   </span>
                 </div>
@@ -1917,7 +1922,7 @@ export default function HomePage() {
                   placeholder={lang === "en" ? "🔍 Filter 84 areas (e.g. Dream Land, District 1)..." : "🔍 ابحث في المناطق (مثال: المتميز، دريم لاند، الحي الأول)..."}
                   value={zoneFilter}
                   onChange={(e) => setZoneFilter(e.target.value)}
-                  style={{ ...inputStyle, height: "38px", fontSize: "12px", background: "rgba(255,255,255,0.04)" }}
+                  style={{ ...inputStyle, height: "38px", fontSize: "12px", background: "#FAF6EE" }}
                 />
 
                 <select
@@ -1936,7 +1941,7 @@ export default function HomePage() {
               </div>
 
               <div>
-                <p style={{ fontSize: "13px", fontWeight: 700, color: C.muted, marginBottom: "10px" }}>
+                <p style={{ fontSize: "13px", fontWeight: 700, color: "#6B4F3B", marginBottom: "10px" }}>
                   {lang === "en" ? "Payment Method" : "طريقة الدفع"}
                 </p>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "10px" }}>
@@ -1948,9 +1953,9 @@ export default function HomePage() {
                     <button key={pm.val} onClick={() => setOrderForm({ ...orderForm, paymentMethod: pm.val })} style={{
                       padding: "11px 8px", borderRadius: "12px", fontSize: "13px", fontWeight: 700,
                       cursor: "pointer", border: "1px solid", transition: "all 0.15s",
-                      background: orderForm.paymentMethod === pm.val ? C.gold : C.card2,
-                      borderColor: orderForm.paymentMethod === pm.val ? C.gold : C.border,
-                      color: orderForm.paymentMethod === pm.val ? C.dark : C.muted,
+                      background: orderForm.paymentMethod === pm.val ? "linear-gradient(135deg, #D4954E, #C6873E)" : "#FAF6EE",
+                      borderColor: orderForm.paymentMethod === pm.val ? "#C6873E" : "#E8DAC8",
+                      color: orderForm.paymentMethod === pm.val ? "#FFFFFF" : "#4A2814",
                     }}>
                       {pm.label}
                     </button>
@@ -1961,8 +1966,8 @@ export default function HomePage() {
               <textarea value={orderForm.notes} onChange={(e) => setOrderForm({ ...orderForm, notes: e.target.value })}
                 placeholder={lang === "en" ? "Special notes..." : "ملاحظات خاصة..."} rows={2}
                 style={{
-                  width: "100%", background: C.dark, border: `1px solid ${C.border}`,
-                  borderRadius: "12px", padding: "12px 14px", color: "#ffffff", fontSize: "14px",
+                  width: "100%", background: "#FAF6EE", border: "1px solid #D9C5B2",
+                  borderRadius: "12px", padding: "12px 14px", color: "#2B170E", fontSize: "14px",
                   outline: "none", resize: "none", boxSizing: "border-box",
                 }}
               />
@@ -1970,25 +1975,26 @@ export default function HomePage() {
 
             {/* Order Summary */}
             <div style={{
-              background: C.dark, borderRadius: "16px",
+              background: "#FAF6EE", borderRadius: "16px",
               padding: "18px", margin: "20px 0",
+              border: "1px solid #E8DAC8",
               display: "flex", flexDirection: "column", gap: "8px", fontSize: "14px",
             }}>
-              <div style={{ display: "flex", justifyContent: "space-between", color: C.muted }}>
+              <div style={{ display: "flex", justifyContent: "space-between", color: "#6B4F3B" }}>
                 <span>{lang === "en" ? "Products" : "المنتجات"}</span>
                 <span>{lang === "en" ? `EGP ${cartTotal}` : `${cartTotal} ج`}</span>
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between", color: C.muted }}>
+              <div style={{ display: "flex", justifyContent: "space-between", color: "#6B4F3B" }}>
                 <span>{lang === "en" ? `Delivery (${currentZone.name})` : `توصيل (${currentZone.name})`}</span>
                 <span>{lang === "en" ? `EGP ${currentZone.fee}` : `${currentZone.fee} ج`}</span>
               </div>
               <div style={{
                 display: "flex", justifyContent: "space-between",
-                color: "#ffffff", fontWeight: 900, fontSize: "17px",
-                borderTop: `1px solid ${C.border}`, paddingTop: "10px", marginTop: "4px",
+                color: "#2B170E", fontWeight: 900, fontSize: "17px",
+                borderTop: "1px solid #E8DAC8", paddingTop: "10px", marginTop: "4px",
               }}>
                 <span>{lang === "en" ? "Total" : "الإجمالي"}</span>
-                <span style={{ color: C.gold }}>{lang === "en" ? `EGP ${grandTotal}` : `${grandTotal} ج`}</span>
+                <span style={{ color: "#C6873E" }}>{lang === "en" ? `EGP ${grandTotal}` : `${grandTotal} ج`}</span>
               </div>
             </div>
 
@@ -1996,16 +2002,16 @@ export default function HomePage() {
               disabled={placing || !orderForm.customerName || !orderForm.phone}
               style={{
                 width: "100%",
-                background: `linear-gradient(135deg, ${C.gold}, ${C.goldL})`,
-                color: C.dark, fontWeight: 900, padding: "16px",
+                background: "linear-gradient(135deg, #D4954E, #C6873E)",
+                color: "#FFFFFF", fontWeight: 900, padding: "16px",
                 borderRadius: "14px", border: "none", cursor: "pointer",
                 fontSize: "16px", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px",
                 opacity: (placing || !orderForm.customerName || !orderForm.phone) ? 0.5 : 1,
-                boxShadow: "0 4px 20px rgba(200,134,10,0.4)",
+                boxShadow: "0 4px 20px rgba(198, 135, 62, 0.4)",
               }}>
               {placing
                 ? (lang === "en" ? "Sending order..." : "جاري إرسال الطلب...")
-                : <><CheckCircle2 size={18} /> {lang === "en" ? "Confirm Order 🍫" : "أكد الطلب 🍫"}</>}
+                : <><CheckCircle2 size={18} /> {lang === "en" ? "Confirm Order 🧇" : "أكد الطلب 🧇"}</>}
             </button>
           </div>
         </div>
@@ -2016,33 +2022,33 @@ export default function HomePage() {
       ══════════════════════════════════════════════════════════ */}
       {orderResult && (
         <div style={{ position: "fixed", inset: 0, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}>
-          <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.9)" }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(43, 23, 14, 0.65)", backdropFilter: "blur(4px)" }} />
           <div style={{
-            position: "relative", background: C.card,
-            border: `1px solid rgba(200,134,10,0.5)`,
+            position: "relative", background: "#FFFFFF",
+            border: "1px solid #E8DAC8",
             borderRadius: "28px", padding: "40px 28px",
             textAlign: "center", maxWidth: "360px", width: "100%",
-            boxShadow: "0 12px 64px rgba(200,134,10,0.25)",
+            boxShadow: "0 12px 64px rgba(78, 44, 21, 0.2)",
             direction: lang === "ar" ? "rtl" : "ltr",
           }}>
             <div style={{ fontSize: "72px", marginBottom: "20px" }}>🎉</div>
-            <h3 style={{ fontSize: "26px", fontWeight: 900, color: "#ffffff", marginBottom: "10px" }}>
+            <h3 style={{ fontSize: "26px", fontWeight: 900, color: "#2B170E", marginBottom: "10px" }}>
               {lang === "en" ? "Order Received!" : "تم استلام طلبك!"}
             </h3>
-            <p style={{ color: C.muted, fontSize: "15px", marginBottom: "24px" }}>
+            <p style={{ color: "#6B4F3B", fontSize: "15px", marginBottom: "24px" }}>
               {lang === "en"
                 ? "We will start preparing right away and deliver fresh to you ⚡"
                 : "سنبدأ التحضير فوراً ونوصل لك في أقرب وقت ⚡"}
             </p>
             <div style={{
-              background: C.dark, borderRadius: "16px",
+              background: "#FAF6EE", borderRadius: "16px",
               padding: "20px", marginBottom: "24px",
-              border: `1px solid ${C.border}`,
+              border: "1px solid #E8DAC8",
             }}>
-              <p style={{ fontSize: "13px", color: C.muted, marginBottom: "6px" }}>
+              <p style={{ fontSize: "13px", color: "#6B4F3B", marginBottom: "6px" }}>
                 {lang === "en" ? "Your Order Number" : "رقم طلبك"}
               </p>
-              <p style={{ fontFamily: "monospace", color: C.gold, fontWeight: 900, fontSize: "22px" }}>
+              <p style={{ fontFamily: "monospace", color: "#C6873E", fontWeight: 900, fontSize: "22px" }}>
                 {orderResult.orderNumber}
               </p>
             </div>
@@ -2086,14 +2092,15 @@ export default function HomePage() {
               }}
               style={{
                 width: "100%",
-                background: `linear-gradient(135deg, ${C.gold}, ${C.goldL})`,
-                color: C.dark,
+                background: "linear-gradient(135deg, #D4954E, #C6873E)",
+                color: "#FFFFFF",
                 fontWeight: 900,
                 padding: "14px",
                 borderRadius: "14px",
                 border: "none",
                 cursor: "pointer",
                 fontSize: "15px",
+                boxShadow: "0 4px 14px rgba(198, 135, 62, 0.35)",
               }}
             >
               {lang === "en" ? "Awesome! Track order live 📍" : "ممتاز! تتبع طلبك لايف 📍"}

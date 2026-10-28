@@ -30,9 +30,11 @@ export default function Navbar() {
   const [cartCount,        setCartCount]         = useState(0);
   const [lang,             setLang]              = useState<"ar"|"en">("ar");
   const [customer,         setCustomer]          = useState<{ id: string; name: string; phone: string; email?: string } | null>(null);
+  const [mounted,          setMounted]           = useState(false);
 
   /* Read cart count & customer from localStorage & sync language */
   useEffect(() => {
+    setMounted(true);
     function syncCart() {
       try {
         const raw = localStorage.getItem("choco_cart_count");
@@ -129,14 +131,14 @@ export default function Navbar() {
             font-family: var(--font-cairo), system-ui, -apple-system, sans-serif;
             font-size: 15.5px;
             font-weight: 700;
-            color: #f5ede4;
+            color: #2B170E;
             text-decoration: none;
             transition: color 0.18s ease;
             white-space: nowrap;
             padding: 4px 0;
           }
           .whacka-nav-link:hover {
-            color: #d99b56;
+            color: #C6873E;
           }
         `}</style>
 
@@ -145,10 +147,11 @@ export default function Navbar() {
           top: 0,
           zIndex: 100,
           width: "100%",
-          background: "rgba(22, 13, 5, 0.96)",
-          borderBottom: "1px solid rgba(217, 155, 86, 0.14)",
+          background: "rgba(250, 246, 238, 0.95)",
+          borderBottom: "1px solid #E8DAC8",
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
+          boxShadow: "0 2px 14px rgba(78, 44, 21, 0.04)",
         }}>
           <div style={{
             maxWidth: "1320px",
@@ -179,13 +182,13 @@ export default function Navbar() {
                 width: "44px",
                 height: "44px",
                 borderRadius: "50%",
-                background: "#d99b56",
+                background: "#FAF6EE",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 flexShrink: 0,
                 overflow: "hidden",
-                border: "2px solid #5a3825",
+                border: "1.5px solid #E8DAC8",
               }}>
                 <img
                   src="/waffle-logo.jpeg"
@@ -208,7 +211,7 @@ export default function Navbar() {
                 <span style={{
                   fontSize: "19px",
                   fontWeight: 800,
-                  color: "#f5ede4",
+                  color: "#2B170E",
                   fontFamily: "var(--font-playfair), Georgia, 'Times New Roman', serif",
                   fontStyle: "normal",
                   letterSpacing: "0.2px",
@@ -217,7 +220,7 @@ export default function Navbar() {
                 </span>
                 <span style={{
                   fontSize: lang === "en" ? "9px" : "10px",
-                  color: "#d99b56",
+                  color: "#C6873E",
                   fontWeight: 700,
                   letterSpacing: lang === "en" ? "2.5px" : "2px",
                   marginTop: "3px",
@@ -281,9 +284,9 @@ export default function Navbar() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "6px",
-                  background: "transparent",
-                  border: "1px solid rgba(217, 155, 86, 0.45)",
-                  color: "#d99b56",
+                  background: "#FFFFFF",
+                  border: "1px solid #D9C5B2",
+                  color: "#4A2814",
                   borderRadius: "9px",
                   height: "40px",
                   padding: "0 13px",
@@ -294,15 +297,15 @@ export default function Navbar() {
                   fontFamily: "var(--font-cairo), system-ui, sans-serif",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "#d99b56";
-                  e.currentTarget.style.background = "rgba(217, 155, 86, 0.1)";
+                  e.currentTarget.style.borderColor = "#C6873E";
+                  e.currentTarget.style.background = "#FAF6EE";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.45)";
-                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.borderColor = "#D9C5B2";
+                  e.currentTarget.style.background = "#FFFFFF";
                 }}
               >
-                <Globe size={15} color="#d99b56" />
+                <Globe size={15} color="#C6873E" />
                 <span style={{ fontWeight: 800 }}>{lang === "ar" ? "EN" : "ع"}</span>
               </button>
 
@@ -310,14 +313,14 @@ export default function Navbar() {
               <button
                 onClick={openCustomer}
                 className="ch-nav-desktop"
-                title={customer ? `أهلاً، ${customer.name}` : (lang === "en" ? "Customer Account" : "حساب العميل")}
+                title={mounted && customer ? `أهلاً، ${customer.name}` : (lang === "en" ? "Customer Account" : "حساب العميل")}
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "7px",
-                  background: customer ? "rgba(217, 155, 86, 0.18)" : "transparent",
-                  border: "1px solid rgba(217, 155, 86, 0.45)",
-                  color: "#d99b56",
+                  background: mounted && customer ? "#F5EDE0" : "#FFFFFF",
+                  border: "1px solid #D9C5B2",
+                  color: "#4A2814",
                   borderRadius: "9px",
                   height: "40px",
                   padding: "0 14px",
@@ -328,30 +331,30 @@ export default function Navbar() {
                   fontFamily: "var(--font-cairo), system-ui, sans-serif",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "#d99b56";
-                  e.currentTarget.style.background = "rgba(217, 155, 86, 0.25)";
+                  e.currentTarget.style.borderColor = "#C6873E";
+                  e.currentTarget.style.background = "#F5EDE0";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.45)";
-                  e.currentTarget.style.background = customer ? "rgba(217, 155, 86, 0.18)" : "transparent";
+                  e.currentTarget.style.borderColor = "#D9C5B2";
+                  e.currentTarget.style.background = mounted && customer ? "#F5EDE0" : "#FFFFFF";
                 }}
               >
-                <User size={15} color="#d99b56" />
-                <span>{customer ? customer.name.split(" ")[0] : (lang === "en" ? "Account" : "حسابي")}</span>
+                <User size={15} color="#C6873E" />
+                <span>{mounted && customer ? customer.name.split(" ")[0] : (lang === "en" ? "Account" : "حسابي")}</span>
               </button>
 
-              {/* Staff Login — Outlined button with shield icon */}
+              {/* Staff Login — Outlined button with shield icon (Hydration Safe) */}
               <Link
-                href={isAuthenticated && currentUser ? permissions.defaultRoute : "/login"}
+                href={mounted && isAuthenticated && currentUser ? permissions.defaultRoute : "/login"}
                 onClick={() => playSound("click")}
                 className="ch-nav-desktop"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "7px",
-                  background: "transparent",
-                  border: "1px solid rgba(217, 155, 86, 0.45)",
-                  color: "#d99b56",
+                  background: "#FFFFFF",
+                  border: "1px solid #D9C5B2",
+                  color: "#4A2814",
                   borderRadius: "9px",
                   height: "40px",
                   padding: "0 15px",
@@ -363,16 +366,20 @@ export default function Navbar() {
                   fontFamily: "var(--font-cairo), system-ui, sans-serif",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "#d99b56";
-                  e.currentTarget.style.background = "rgba(217, 155, 86, 0.1)";
+                  e.currentTarget.style.borderColor = "#C6873E";
+                  e.currentTarget.style.background = "#FAF6EE";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.45)";
-                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.borderColor = "#D9C5B2";
+                  e.currentTarget.style.background = "#FFFFFF";
                 }}
               >
-                <ShieldCheck size={15} color="#d99b56" />
-                <span>{lang === "en" ? "Staff" : "دخول الموظفين"}</span>
+                <ShieldCheck size={15} color="#C6873E" />
+                <span>
+                  {mounted && isAuthenticated && currentUser
+                    ? (currentUser.name ? currentUser.name.split(" ")[0] : (lang === "en" ? "Dashboard" : "لوحة التحكم"))
+                    : (lang === "en" ? "Staff" : "دخول الموظفين")}
+                </span>
               </Link>
 
               {/* Cart Button — Golden rounded square */}
@@ -397,7 +404,7 @@ export default function Navbar() {
                 onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
               >
                 <ShoppingBag size={19} color="#180e06" strokeWidth={2.2} />
-                {cartCount > 0 && (
+                {mounted && cartCount > 0 && (
                   <span style={{
                     position: "absolute",
                     top: "-5px",
@@ -599,20 +606,21 @@ export default function Navbar() {
           }}>
             <div style={{
               width: "36px", height: "36px", borderRadius: "50%",
-              background: "#d99b56",
+              background: "#FAF6EE",
+              border: "1.5px solid #E8DAC8",
               display: "flex", alignItems: "center", justifyContent: "center",
               flexShrink: 0,
             }}>
-              <span style={{ fontSize: "14px", fontWeight: 700, color: "#180e06", fontFamily: "var(--font-playfair), Georgia, serif" }}>CH</span>
+              <span style={{ fontSize: "14px", fontWeight: 800, color: "#C6873E", fontFamily: "var(--font-playfair), Georgia, serif" }}>WK</span>
             </div>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "7px" }}>
                 <span style={{
-                  fontSize: "15px", fontWeight: 700, color: "#f3ebd7",
+                  fontSize: "15px", fontWeight: 800, color: "#FAF6EE",
                   fontFamily: "var(--font-playfair), Georgia, serif",
                   fontStyle: "normal",
                 }}>
-                  Choco House
+                  Waffle &amp; Cake
                 </span>
                 <span style={{
                   fontSize: "10px", background: "rgba(217,155,86,0.18)",

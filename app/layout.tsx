@@ -25,11 +25,11 @@ const cairo = Cairo({
 });
 
 export const metadata: Metadata = {
-  title: "Choco House Desserts | شوكو هاوس للحلويات",
-  description: "أشهى الحلويات والوافل والميلك شيك في السادس من أكتوبر - طلب أونلاين وتوصيل سريع",
+  title: "Waffle & Cake | وافل آند كيك",
+  description: "أشهى الوافل البلجيكي والكيك والميني بان كيك في السادس من أكتوبر - طلب أونلاين وتوصيل لـ 84 منطقة",
   icons: {
-    icon: "/choco-logo.svg",
-    apple: "/choco-logo.svg",
+    icon: "/waffle-logo.jpeg",
+    apple: "/waffle-logo.jpeg",
   },
 };
 
@@ -42,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <body
-        className="min-h-screen bg-[#0d0805] text-[#f5ede4] antialiased selection:bg-[#c8860a] selection:text-white"
+        className="min-h-screen bg-[#FAF6EE] text-[#2B170E] antialiased selection:bg-[#C6873E] selection:text-white"
         style={{ fontFamily: "var(--font-cairo), system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif" }}
         suppressHydrationWarning
       >
