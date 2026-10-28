@@ -112,11 +112,17 @@ export default function OffersAdminPage() {
   async function fetchOffers() {
     try {
       setLoading(true);
-      const res = await fetch("/api/public/offers");
+      const res = await fetch("/api/public/offers", { cache: "no-store" });
       const data = await res.json();
-      if (data && data.cards) {
-        setOffers(data);
+      if (data) {
+        setOffers({
+          ...DEFAULT_OFFERS,
+          ...data,
+          enabled: data.enabled !== undefined ? Boolean(data.enabled) : true,
+        });
       }
+    } catch (e) {
+      console.error("fetchOffers error:", e);
     } finally {
       setLoading(false);
     }
@@ -135,7 +141,12 @@ export default function OffersAdminPage() {
         playSound("success");
         setSavedSuccess(true);
         setTimeout(() => setSavedSuccess(false), 3000);
+      } else {
+        alert(t("فشل حفظ التعديلات في السيرفر", "Failed to save settings on server"));
       }
+    } catch (e) {
+      console.error("Save error:", e);
+      alert(t("فشل حفظ التعديلات", "Failed to save settings"));
     } finally {
       setSaving(false);
     }
@@ -325,14 +336,20 @@ export default function OffersAdminPage() {
               setOffers(nextOffers);
               setSaving(true);
               try {
-                await fetch("/api/public/offers", {
+                const res = await fetch("/api/public/offers", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify(nextOffers),
                 });
+                if (!res.ok) {
+                  throw new Error("Server error " + res.status);
+                }
                 playSound("success");
                 setSavedSuccess(true);
                 setTimeout(() => setSavedSuccess(false), 3000);
+              } catch (err) {
+                console.error("Toggle error:", err);
+                alert(t("تعذر حفظ حالة العروض، يرجى المحاولة مرة أخرى", "Failed to save offers status, please try again"));
               } finally {
                 setSaving(false);
               }

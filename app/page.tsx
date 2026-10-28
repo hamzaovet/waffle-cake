@@ -302,14 +302,18 @@ const PRODUCT_DESCRIPTIONS_EN: Record<string, string> = {
   "ميلك شيك خوخ بوبا": "Cold peach-infused milkshake complete with delicious signature boba pearls.",
 };
 
-/* Fallback images per category when product has no image */
+/* Fallback images per category when product has no image (100% verified local assets) */
 const CATEGORY_FALLBACK: Record<string, string> = {
-  "وافل":      "https://images.unsplash.com/photo-1562376552-0d160a2f238d?w=400&q=80&fit=crop",
-  "تشيز كيك": "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=400&q=80&fit=crop",
-  "بان كيك":  "https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=400&q=80&fit=crop",
-  "ميلك شيك": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400&q=80&fit=crop",
-  "سموزي":    "https://images.unsplash.com/photo-1553530666-ba11a90c3aee?w=400&q=80&fit=crop",
-  "بوبا":     "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80&fit=crop",
+  "وافل": "/categories/waffle.jpg",
+  "بان كيك": "/categories/pancake.jpg",
+  "تشيز كيك": "/categories/cheesecake.jpg",
+  "ميلك شيك": "/categories/milkshake.jpg",
+  "سموزي": "/categories/smoothie.jpg",
+  "بوبا": "/categories/boba.jpg",
+  "كيك وحلويات": "/categories/cake.jpg",
+  "مشروبات": "/categories/drinks.jpg",
+  "مولتن كيك": "/categories/molten.jpg",
+  "عروض خاصة": "/categories/offers.jpg",
 };
 
 const EXTRAS_AR = [
@@ -374,6 +378,7 @@ const HERO_IMAGES = [
 export default function HomePage() {
   const [products, setProducts]     = useState<Product[]>([]);
   const [dynamicCategories, setDynamicCategories] = useState<string[]>([]);
+  const [categoryObjects, setCategoryObjects]     = useState<{ id: string; nameAr: string; image?: string }[]>([]);
   const [loading, setLoading]       = useState(true);
   const [offers, setOffers]         = useState<OfferData>(DEFAULT_OFFERS);
   const [activeCategory, setActiveCategory] = useState("الكل");
@@ -486,15 +491,22 @@ export default function HomePage() {
       .then((d) => { setProducts(Array.isArray(d) ? d : []); setLoading(false); })
       .catch(() => setLoading(false));
 
-    fetch("/api/public/offers")
+    fetch("/api/public/offers", { cache: "no-store" })
       .then((r) => r.json())
-      .then((d) => { if (d && d.cards) setOffers(d); })
+      .then((d) => {
+        if (d && typeof d.enabled === "boolean") {
+          setOffers((prev) => ({ ...prev, ...d, enabled: d.enabled }));
+        } else if (d && d.cards) {
+          setOffers(d);
+        }
+      })
       .catch(() => {});
 
-    fetch("/api/categories")
+    fetch("/api/categories", { cache: "no-store" })
       .then((r) => r.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
+          setCategoryObjects(data);
           setDynamicCategories(data.map((c: any) => c.nameAr));
         }
       })
@@ -516,6 +528,16 @@ export default function HomePage() {
       window.removeEventListener("choco_open_customer", onOpenCustomer);
     };
   }, []);
+
+  function getCategoryIcon(cat: string): string | null {
+    if (cat === "الكل") return "/app-icon.png";
+    const fromObj = categoryObjects.find((c) => c.nameAr === cat)?.image;
+    if (fromObj) return fromObj;
+    if (CATEGORY_FALLBACK[cat]) return CATEGORY_FALLBACK[cat];
+    const prodWithImg = products.find((p) => p.category === cat && p.image);
+    if (prodWithImg?.image) return prodWithImg.image;
+    return null;
+  }
 
   const categoriesFromProducts = Array.from(new Set(products.map((p) => p.category).filter(Boolean)));
   const allUniqueCats = Array.from(new Set([...dynamicCategories, ...categoriesFromProducts]));
@@ -1117,7 +1139,7 @@ export default function HomePage() {
           {categories.map((cat) => {
             const isActive = activeCategory === cat;
             const catLabel = lang === "en" ? (CATEGORY_NAMES_EN[cat] || cat) : cat;
-            const imgSrc = cat === "الكل" ? "/app-icon.png" : (CATEGORY_FALLBACK[cat] || null);
+            const imgSrc = getCategoryIcon(cat);
             return (
               <button
                 key={cat}
@@ -1141,7 +1163,7 @@ export default function HomePage() {
                   height: "66px",
                   borderRadius: "50%",
                   overflow: "hidden",
-                  backgroundColor: "#FFFFFF",
+                  backgroundColor: "#FAF6EE",
                   border: isActive ? "3px solid #2B170E" : "1.5px solid #E8DAC8",
                   boxShadow: isActive ? "0 4px 16px rgba(43,23,14,0.24)" : "0 2px 8px rgba(43,23,14,0.05)",
                   display: "flex",
@@ -1149,11 +1171,17 @@ export default function HomePage() {
                   justifyContent: "center",
                   transform: isActive ? "scale(1.08)" : "scale(1)",
                   transition: "all 0.2s ease",
+                  position: "relative",
                 }}>
                   {imgSrc ? (
                     <img
                       src={imgSrc}
                       alt={catLabel}
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                        const fb = e.currentTarget.parentElement?.querySelector(".cat-emoji-fb") as HTMLElement | null;
+                        if (fb) fb.style.display = "flex";
+                      }}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -1161,9 +1189,18 @@ export default function HomePage() {
                         display: "block",
                       }}
                     />
-                  ) : (
-                    <span style={{ fontSize: "28px" }}>{CATEGORY_EMOJI[cat] || "🧇"}</span>
-                  )}
+                  ) : null}
+                  <span
+                    className="cat-emoji-fb"
+                    style={{
+                      fontSize: "26px",
+                      display: imgSrc ? "none" : "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {CATEGORY_EMOJI[cat] || "🧇"}
+                  </span>
                 </div>
 
                 {/* Category Label */}
@@ -1422,15 +1459,30 @@ export default function HomePage() {
                                 }}
                                 loading="lazy"
                                 onError={(e) => {
-                                  const img = e.target as HTMLImageElement;
-                                  if (img.src !== CATEGORY_FALLBACK[p.category] && CATEGORY_FALLBACK[p.category]) {
-                                    img.src = CATEGORY_FALLBACK[p.category];
+                                  const img = e.currentTarget;
+                                  const fallback = CATEGORY_FALLBACK[p.category];
+                                  if (fallback && !img.dataset.triedFallback) {
+                                    img.dataset.triedFallback = "true";
+                                    img.src = fallback;
+                                  } else {
+                                    img.style.display = "none";
+                                    const fb = img.parentElement?.querySelector(".prod-emoji-fb") as HTMLElement | null;
+                                    if (fb) fb.style.display = "flex";
                                   }
                                 }}
                               />
-                            ) : (
-                              <span style={{ fontSize: "44px" }}>{CATEGORY_EMOJI[p.category] || "🧇"}</span>
-                            )}
+                            ) : null}
+                            <span
+                              className="prod-emoji-fb"
+                              style={{
+                                fontSize: "38px",
+                                display: imgSrc ? "none" : "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              {CATEGORY_EMOJI[p.category] || "🧇"}
+                            </span>
                           </div>
                         </div>
                       );
