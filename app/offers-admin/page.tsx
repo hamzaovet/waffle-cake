@@ -21,6 +21,7 @@ interface OfferCard {
 }
 
 interface OfferData {
+  enabled?: boolean;
   badge: string;
   title: string;
   subtitle: string;
@@ -258,6 +259,102 @@ export default function OffersAdminPage() {
               )}
             </button>
           </div>
+        </div>
+
+        {/* ── Offers Enable/Disable Banner ── */}
+        <div style={{
+          backgroundColor: offers.enabled !== false ? "#F0FDF4" : "#FEF2F2",
+          border: `2px solid ${offers.enabled !== false ? "#86EFAC" : "#FECACA"}`,
+          borderRadius: "18px",
+          padding: "18px 22px",
+          marginBottom: "26px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: "16px",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+            <div style={{
+              width: "44px",
+              height: "44px",
+              borderRadius: "12px",
+              backgroundColor: offers.enabled !== false ? "#DCFCE7" : "#FEE2E2",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "22px",
+            }}>
+              {offers.enabled !== false ? "🎉" : "🚫"}
+            </div>
+            <div>
+              <div style={{
+                fontSize: "16px",
+                fontWeight: 900,
+                color: offers.enabled !== false ? "#166534" : "#991B1B",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+              }}>
+                <span>{offers.enabled !== false ? t("قسم العروض مفعل ونشط على الموقع للعملاء", "Offers section is ACTIVE on the storefront") : t("قسم العروض معطل ومخفي تماماً من الموقع", "Offers section is DISABLED and HIDDEN from storefront")}</span>
+                <span style={{
+                  padding: "3px 10px",
+                  borderRadius: "100px",
+                  fontSize: "11px",
+                  fontWeight: 900,
+                  backgroundColor: offers.enabled !== false ? "#16A34A" : "#DC2626",
+                  color: "#FFFFFF",
+                }}>
+                  {offers.enabled !== false ? t("معروض للزوار", "Visible to visitors") : t("مخفي", "Hidden")}
+                </span>
+              </div>
+              <p style={{ margin: "4px 0 0 0", fontSize: "12.5px", color: offers.enabled !== false ? "#15803D" : "#B91C1C", fontWeight: 600 }}>
+                {offers.enabled !== false 
+                  ? t("العملاء يرون قسم العروض والبانر في الصفحة الرئيسية.", "Customers can see the special offers and banner on the landing page.") 
+                  : t("القسم مخفي بالكامل من الصفحة الرئيسية وشريط التنقل ولن يظهر لأي زائر.", "Section is completely hidden from the homepage and navigation bar.")}
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={async () => {
+              playSound("click");
+              const nextVal = !(offers.enabled !== false);
+              const nextOffers = { ...offers, enabled: nextVal };
+              setOffers(nextOffers);
+              setSaving(true);
+              try {
+                await fetch("/api/public/offers", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(nextOffers),
+                });
+                playSound("success");
+                setSavedSuccess(true);
+                setTimeout(() => setSavedSuccess(false), 3000);
+              } finally {
+                setSaving(false);
+              }
+            }}
+            style={{
+              padding: "10px 22px",
+              borderRadius: "100px",
+              border: "none",
+              backgroundColor: offers.enabled !== false ? "#DC2626" : "#16A34A",
+              color: "#FFFFFF",
+              fontWeight: 900,
+              fontSize: "13.5px",
+              cursor: "pointer",
+              boxShadow: "0 3px 10px rgba(0,0,0,0.12)",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            <span>{offers.enabled !== false ? "🛑" : "✅"}</span>
+            <span>{offers.enabled !== false ? t("تعطيل وإخفاء العروض", "Disable & Hide Offers") : t("تفعيل وإظهار العروض", "Enable & Show Offers")}</span>
+          </button>
         </div>
 
         {/* ── Main 2-Column Content: Form (Right) + Live Preview (Left) ── */}

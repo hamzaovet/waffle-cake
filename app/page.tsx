@@ -22,6 +22,7 @@ interface OfferCard {
 }
 
 interface OfferData {
+  enabled?: boolean;
   badge: string;
   title: string;
   subtitle: string;
@@ -92,6 +93,7 @@ interface Product {
   image?: string | null;
   description?: string | null;
   isAvailable: boolean;
+  sortOrder?: number;
 }
 
 interface CartItem {
@@ -133,6 +135,18 @@ const CATEGORY_EMOJI: Record<string, string> = {
   "Milkshakes": "🥤",
   "Smoothies": "🍹",
   "Drinks": "☕",
+};
+
+const CATEGORY_SUBTITLES: Record<string, string> = {
+  "وافل": "مقرمش من بره .. ناعم ولذيذ من جوا",
+  "بان كيك": "صغير الحجم .. كبير وفخم في الطعم",
+  "تشيز كيك": "نعومة الكريمة مع لمسة صوص غنية",
+  "مولتن كيك": "انفجار شوكولاتة ساخنة لا يُقاوم",
+  "كيك وحلويات": "تشكيلة حلويات تُعد طازجة يومياً",
+  "ميلك شيك": "انتعاش كريمي غني بنكهاتك المفضلة",
+  "سموزي": "فواكه طبيعية 100% تروي عطشك",
+  "بوبا": "حبيبات البوبا المنعشة في مشروبات فاخرة",
+  "مشروبات": "مشروبات ساخنة ومثلجة بمذاق مميز",
 };
 
 const ORDERED_CATEGORIES = [
@@ -359,6 +373,7 @@ const HERO_IMAGES = [
 /* ─── main component ──────────────────────────────────────── */
 export default function HomePage() {
   const [products, setProducts]     = useState<Product[]>([]);
+  const [dynamicCategories, setDynamicCategories] = useState<string[]>([]);
   const [loading, setLoading]       = useState(true);
   const [offers, setOffers]         = useState<OfferData>(DEFAULT_OFFERS);
   const [activeCategory, setActiveCategory] = useState("الكل");
@@ -475,6 +490,15 @@ export default function HomePage() {
       .then((r) => r.json())
       .then((d) => { if (d && d.cards) setOffers(d); })
       .catch(() => {});
+
+    fetch("/api/categories")
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setDynamicCategories(data.map((c: any) => c.nameAr));
+        }
+      })
+      .catch(() => {});
     // rotate hero image every 5s
     const iv = setInterval(() => setHeroImg((n) => (n + 1) % HERO_IMAGES.length), 5000);
 
@@ -493,9 +517,9 @@ export default function HomePage() {
     };
   }, []);
 
-  const categories = products.length > 0
-    ? ORDERED_CATEGORIES.filter((cat) => cat === "الكل" || products.some((p) => p.category === cat))
-    : ORDERED_CATEGORIES;
+  const categoriesFromProducts = Array.from(new Set(products.map((p) => p.category).filter(Boolean)));
+  const allUniqueCats = Array.from(new Set([...dynamicCategories, ...categoriesFromProducts]));
+  const categories = ["الكل", ...(allUniqueCats.length > 0 ? allUniqueCats : ORDERED_CATEGORIES.slice(1))];
   const filtered = activeCategory === "الكل"
     ? [...products].sort((a, b) => (CATEGORY_PRIORITY[a.category] || 99) - (CATEGORY_PRIORITY[b.category] || 99))
     : products.filter((p) => p.category === activeCategory);
@@ -827,6 +851,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════
           SPECIAL OFFERS SECTION — Light Warm Ivory Canvas
       ══════════════════════════════════════════════════════════ */}
+      {offers.enabled !== false && (
       <section id="offers" style={{
         maxWidth: "1320px",
         margin: "0 auto",
@@ -1042,6 +1067,7 @@ export default function HomePage() {
           </div>
         </a>
       </section>
+      )}
 
       {/* ═══════════════════════════════════════════════════════
           MENU SECTION — Exact Whacka 1:1 Pixel-Perfect Replica
@@ -1078,64 +1104,90 @@ export default function HomePage() {
           </p>
         </div>
 
-        {/* Category Filter Pills */}
+        {/* Category Navigation Bar — Visual Carousel matching Image 3 */}
         <div style={{
           display: "flex",
-          gap: "8px",
+          gap: "14px",
           overflowX: "auto",
-          paddingBottom: "8px",
-          marginBottom: "32px",
+          padding: "4px 4px 18px 4px",
+          marginBottom: "20px",
           scrollbarWidth: "none",
+          WebkitOverflowScrolling: "touch",
         }}>
           {categories.map((cat) => {
             const isActive = activeCategory === cat;
             const catLabel = lang === "en" ? (CATEGORY_NAMES_EN[cat] || cat) : cat;
+            const imgSrc = cat === "الكل" ? "/app-icon.png" : (CATEGORY_FALLBACK[cat] || null);
             return (
               <button
                 key={cat}
                 onClick={() => { setActiveCategory(cat); playSound("click"); }}
                 style={{
                   flexShrink: 0,
-                  height: "38px",
-                  padding: "0 16px",
-                  borderRadius: "10px",
-                  fontSize: "13.5px",
-                  fontWeight: isActive ? 800 : 600,
-                  cursor: "pointer",
-                  border: isActive ? "1px solid #C6873E" : "1px solid #E8DAC8",
-                  background: isActive ? "linear-gradient(135deg, #D4954E, #C6873E)" : "#FFFFFF",
-                  color: isActive ? "#FFFFFF" : "#4A2814",
-                  boxShadow: isActive ? "0 3px 12px rgba(198, 135, 62, 0.35)" : "none",
-                  display: "inline-flex",
+                  display: "flex",
+                  flexDirection: "column",
                   alignItems: "center",
                   gap: "8px",
-                  transition: "all 0.18s ease",
-                  whiteSpace: "nowrap",
-                  fontFamily: "var(--font-cairo), system-ui, sans-serif",
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.borderColor = "#C6873E";
-                    e.currentTarget.style.background = "#FAF6EE";
-                    e.currentTarget.style.color = "#2B170E";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.borderColor = "#E8DAC8";
-                    e.currentTarget.style.background = "#FFFFFF";
-                    e.currentTarget.style.color = "#4A2814";
-                  }
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "4px 6px",
+                  transition: "all 0.2s ease",
                 }}
               >
-                <span>{catLabel}</span>
-                <span style={{ fontSize: "14.5px" }}>{CATEGORY_EMOJI[cat] || "🧇"}</span>
+                {/* Circular image badge */}
+                <div style={{
+                  width: "66px",
+                  height: "66px",
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                  backgroundColor: "#FFFFFF",
+                  border: isActive ? "3px solid #2B170E" : "1.5px solid #E8DAC8",
+                  boxShadow: isActive ? "0 4px 16px rgba(43,23,14,0.24)" : "0 2px 8px rgba(43,23,14,0.05)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  transform: isActive ? "scale(1.08)" : "scale(1)",
+                  transition: "all 0.2s ease",
+                }}>
+                  {imgSrc ? (
+                    <img
+                      src={imgSrc}
+                      alt={catLabel}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
+                    />
+                  ) : (
+                    <span style={{ fontSize: "28px" }}>{CATEGORY_EMOJI[cat] || "🧇"}</span>
+                  )}
+                </div>
+
+                {/* Category Label */}
+                <span style={{
+                  fontSize: "13px",
+                  fontWeight: isActive ? 900 : 700,
+                  color: isActive ? "#FFFFFF" : "#5A3825",
+                  backgroundColor: isActive ? "#2B170E" : "#FAF6EE",
+                  padding: "4px 12px",
+                  borderRadius: "100px",
+                  border: isActive ? "1px solid #2B170E" : "1px solid #E8DAC8",
+                  whiteSpace: "nowrap",
+                  fontFamily: "var(--font-cairo), system-ui, sans-serif",
+                  transition: "all 0.2s ease",
+                  boxShadow: isActive ? "0 3px 10px rgba(43,23,14,0.25)" : "none",
+                }}>
+                  {catLabel}
+                </span>
               </button>
             );
           })}
         </div>
 
-        {/* Products Grid — Luxury Waffle & Cake Cards */}
+        {/* Products Listing — Horizontal Row Cards Layout matching Image 3 */}
         {loading ? (
           <div style={{ textAlign: "center", padding: "80px 0", color: "#6B4F3B" }}>
             <div style={{ fontSize: "40px", marginBottom: "16px" }}>🧇</div>
@@ -1144,198 +1196,245 @@ export default function HomePage() {
             </p>
           </div>
         ) : (
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(290px, 1fr))",
-            gap: "24px",
-          }}>
-            {filtered.map((p) => {
-              const productName = lang === "en" ? (PRODUCT_NAMES_EN[p.nameAr] || p.nameEn || p.nameAr) : p.nameAr;
-              const description = lang === "en"
-                ? (PRODUCT_DESCRIPTIONS_EN[p.nameAr] || PRODUCT_DESCRIPTIONS_EN[p.nameEn] || "Original luxury ingredients prepared fresh to order.")
-                : (PRODUCT_DESCRIPTIONS_AR[p.nameAr] || p.description || "مكونات أصلية فاخرة تُحضّر خصيصاً ولحظة الطلب.");
+          <div>
+            {(activeCategory === "الكل" 
+              ? categories.filter(c => c !== "الكل" && products.some(p => p.category === c))
+              : [activeCategory]
+            ).map((catName) => {
+              const catProducts = products.filter(p => p.category === catName);
+              if (catProducts.length === 0) return null;
 
               return (
-                <div
-                  key={p.id}
-                  onClick={() => { setSelectedProduct(p); setSelectedExtras([]); playSound("click"); }}
-                  style={{
-                    background: "#FFFFFF",
-                    border: "1px solid #E8DAC8",
-                    borderRadius: "18px",
-                    overflow: "hidden",
-                    cursor: "pointer",
-                    transition: "all 0.25s ease",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "0 2px 12px rgba(78, 44, 21, 0.04)",
-                  }}
-                  onMouseEnter={(e) => {
-                    const el = e.currentTarget as HTMLDivElement;
-                    el.style.borderColor = "#C6873E";
-                    el.style.transform = "translateY(-4px)";
-                    el.style.boxShadow = "0 10px 28px rgba(78, 44, 21, 0.12)";
-                  }}
-                  onMouseLeave={(e) => {
-                    const el = e.currentTarget as HTMLDivElement;
-                    el.style.borderColor = "#E8DAC8";
-                    el.style.transform = "translateY(0)";
-                    el.style.boxShadow = "0 2px 12px rgba(78, 44, 21, 0.04)";
-                  }}
-                >
-                  {/* Image Container with Warm Cream Glow & Bottom Fade */}
+                <div key={catName} style={{ marginBottom: "40px" }}>
+                  {/* Category Ornamental Header */}
                   <div style={{
-                    width: "100%",
-                    height: "175px",
-                    background: "#FAF6EE",
-                    overflow: "hidden",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    position: "relative",
+                    gap: "14px",
+                    margin: "24px 0 20px",
+                    textAlign: "center",
                   }}>
-                    {(p.image || CATEGORY_FALLBACK[p.category]) ? (
-                      <img
-                        src={p.image || CATEGORY_FALLBACK[p.category]}
-                        alt={productName}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                          display: "block",
-                          transition: "transform 0.4s ease",
-                        }}
-                        onMouseEnter={(e) => { (e.target as HTMLImageElement).style.transform = "scale(1.07)"; }}
-                        onMouseLeave={(e) => { (e.target as HTMLImageElement).style.transform = "scale(1)"; }}
-                        onError={(e) => {
-                          const img = e.target as HTMLImageElement;
-                          if (img.src !== CATEGORY_FALLBACK[p.category] && CATEGORY_FALLBACK[p.category]) {
-                            img.src = CATEGORY_FALLBACK[p.category];
-                          } else {
-                            const parent = img.parentElement;
-                            if (parent) {
-                              img.style.display = "none";
-                              parent.innerHTML = `<span style="font-size:52px">${CATEGORY_EMOJI[p.category] || "🧇"}</span>`;
-                            }
-                          }
-                        }}
-                      />
-                    ) : (
-                      <span style={{ fontSize: "52px" }}>{CATEGORY_EMOJI[p.category] || "🧇"}</span>
-                    )}
-
-                    {/* Gradient Fade at bottom of image */}
-                    <div style={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      height: "40px",
-                      background: "linear-gradient(to top, #FFFFFF 0%, transparent 100%)",
-                      pointerEvents: "none",
-                    }} />
+                    <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, #DEC9B5)" }} />
+                    <div>
+                      <div style={{
+                        fontSize: "22px",
+                        fontWeight: 900,
+                        color: "#2B170E",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                        justifyContent: "center",
+                        fontFamily: "var(--font-cairo), system-ui, sans-serif",
+                      }}>
+                        <span style={{ fontSize: "24px" }}>{CATEGORY_EMOJI[catName] || "🧇"}</span>
+                        <span>{lang === "en" ? (CATEGORY_NAMES_EN[catName] || catName) : catName}</span>
+                      </div>
+                      <div style={{
+                        fontSize: "12.5px",
+                        color: "#8C6546",
+                        fontWeight: 600,
+                        marginTop: "2px",
+                        fontFamily: "var(--font-cairo), system-ui, sans-serif",
+                      }}>
+                        {CATEGORY_SUBTITLES[catName] || (lang === "en" ? "Crafted fresh with authentic luxury ingredients" : "مُحضّر طازجاً بأجود المكونات خصيصاً لك")}
+                      </div>
+                    </div>
+                    <div style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, #DEC9B5)" }} />
                   </div>
 
-                  {/* Card Body */}
+                  {/* Horizontal Cards Grid (1 col on mobile, 2 col on tablet/desktop) */}
                   <div style={{
-                    padding: "16px 18px 18px 18px",
-                    display: "flex",
-                    flexDirection: "column",
-                    flex: 1,
-                    justifyContent: "space-between",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(360px, 1fr))",
+                    gap: "16px",
                   }}>
-                    <div>
-                      {/* Product Name */}
-                      <h3 style={{
-                        fontWeight: 800,
-                        color: "#2B170E",
-                        fontSize: "16px",
-                        margin: "0 0 6px 0",
-                        lineHeight: 1.3,
-                        fontFamily: "var(--font-cairo), system-ui, sans-serif",
-                      }}>
-                        {productName}
-                      </h3>
+                    {catProducts.map((p) => {
+                      const productName = lang === "en" ? (PRODUCT_NAMES_EN[p.nameAr] || p.nameEn || p.nameAr) : p.nameAr;
+                      const description = lang === "en"
+                        ? (PRODUCT_DESCRIPTIONS_EN[p.nameAr] || PRODUCT_DESCRIPTIONS_EN[p.nameEn] || "Original luxury ingredients prepared fresh to order.")
+                        : (PRODUCT_DESCRIPTIONS_AR[p.nameAr] || p.description || "مكونات أصلية فاخرة تُحضّر خصيصاً ولحظة الطلب.");
+                      const imgSrc = p.image || CATEGORY_FALLBACK[p.category];
+                      const inCartQty = cart.filter(i => i.product.id === p.id).reduce((s, i) => s + i.qty, 0);
 
-                      {/* Description */}
-                      <p style={{
-                        fontSize: "12.5px",
-                        color: "#6B4F3B",
-                        margin: "0 0 14px 0",
-                        lineHeight: 1.5,
-                        minHeight: "36px",
-                        fontFamily: "var(--font-cairo), system-ui, sans-serif",
-                      }}>
-                        {description}
-                      </p>
-                    </div>
+                      return (
+                        <div
+                          key={p.id}
+                          onClick={() => { setSelectedProduct(p); setSelectedExtras([]); playSound("click"); }}
+                          style={{
+                            backgroundColor: "#FFFFFF",
+                            border: "1.5px solid #E8DAC8",
+                            borderRadius: "20px",
+                            padding: "14px 16px",
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: "16px",
+                            cursor: "pointer",
+                            boxShadow: "0 2px 10px rgba(43,23,14,0.04)",
+                            transition: "all 0.2s ease",
+                            position: "relative",
+                            overflow: "hidden",
+                          }}
+                          onMouseEnter={(e) => {
+                            const el = e.currentTarget as HTMLDivElement;
+                            el.style.borderColor = "#C6873E";
+                            el.style.transform = "translateY(-3px)";
+                            el.style.boxShadow = "0 8px 24px rgba(43,23,14,0.1)";
+                          }}
+                          onMouseLeave={(e) => {
+                            const el = e.currentTarget as HTMLDivElement;
+                            el.style.borderColor = "#E8DAC8";
+                            el.style.transform = "translateY(0)";
+                            el.style.boxShadow = "0 2px 10px rgba(43,23,14,0.04)";
+                          }}
+                        >
+                          {/* Details (Left in RTL, taking flex: 1) */}
+                          <div style={{
+                            flex: 1,
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-between",
+                            minHeight: "105px",
+                          }}>
+                            <div>
+                              <div style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "6px",
+                                marginBottom: "4px",
+                              }}>
+                                <span style={{
+                                  fontSize: "16.5px",
+                                  fontWeight: 900,
+                                  color: "#2B170E",
+                                  lineHeight: 1.3,
+                                  fontFamily: "var(--font-cairo), system-ui, sans-serif",
+                                }}>
+                                  {productName}
+                                </span>
+                                {(p.basePrice >= 120 || p.sortOrder === 1) && (
+                                  <span title="الأكثر طلباً" style={{ fontSize: "14px" }}>👑</span>
+                                )}
+                              </div>
 
-                    {/* Price & Action Row */}
-                    <div style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      paddingTop: "6px",
-                      borderTop: "1px solid #F0E4D5",
-                    }}>
-                      <div style={{ display: "flex", alignItems: "baseline", gap: "10px" }}>
-                        <span style={{
-                          color: "#C6873E",
-                          fontWeight: 900,
-                          fontSize: "20px",
-                          fontFamily: "var(--font-cairo), system-ui, sans-serif",
-                        }}>
-                          {lang === "en" ? (
-                            <>
-                              <span style={{ fontSize: "12.5px", fontWeight: 700, marginRight: "4px" }}>EGP</span>
-                              {p.basePrice}
-                            </>
-                          ) : (
-                            <>
-                              {p.basePrice} <span style={{ fontSize: "13px", fontWeight: 700 }}>ج</span>
-                            </>
-                          )}
-                        </span>
-                        <span style={{
-                          fontSize: "11.5px",
-                          color: "#16a34a",
-                          fontWeight: 700,
-                          fontFamily: "var(--font-cairo), system-ui, sans-serif",
-                        }}>
-                          {lang === "en" ? "Available ✓" : "متاح ✓"}
-                        </span>
-                      </div>
+                              <p style={{
+                                margin: 0,
+                                fontSize: "12.5px",
+                                color: "#7E5E49",
+                                lineHeight: 1.45,
+                                display: "-webkit-box",
+                                WebkitLineClamp: 2,
+                                WebkitBoxOrient: "vertical",
+                                overflow: "hidden",
+                                fontFamily: "var(--font-cairo), system-ui, sans-serif",
+                              }}>
+                                {description}
+                              </p>
+                            </div>
 
-                      {/* Gold Plus Button */}
-                      <button
-                        onClick={(e) => { e.stopPropagation(); addToCart(p, []); }}
-                        style={{
-                          width: "36px",
-                          height: "36px",
-                          borderRadius: "50%",
-                          background: "#C6873E",
-                          border: "none",
-                          cursor: "pointer",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          color: "#FFFFFF",
-                          boxShadow: "0 3px 10px rgba(198, 135, 62, 0.35)",
-                          transition: "all 0.15s ease",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.transform = "scale(1.12)";
-                          e.currentTarget.style.background = "#D4954E";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.transform = "scale(1)";
-                          e.currentTarget.style.background = "#C6873E";
-                        }}
-                        title={lang === "en" ? "Add to cart" : "أضف للسلة"}
-                      >
-                        <Plus size={18} strokeWidth={2.8} />
-                      </button>
-                    </div>
+                            {/* Bottom row: Price + Add Button */}
+                            <div style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              marginTop: "10px",
+                              paddingTop: "6px",
+                              borderTop: "1px dashed #F0E4D5",
+                            }}>
+                              <div style={{
+                                fontSize: "17px",
+                                fontWeight: 900,
+                                color: "#2B170E",
+                                display: "flex",
+                                alignItems: "baseline",
+                                gap: "4px",
+                                fontFamily: "var(--font-cairo), system-ui, sans-serif",
+                              }}>
+                                <span>{p.basePrice}</span>
+                                <span style={{ fontSize: "12px", color: "#8C6546", fontWeight: 700 }}>
+                                  {lang === "en" ? "EGP" : "ج.م"}
+                                </span>
+                              </div>
+
+                              {/* Quick Add Pill Button (Matching Image 3) */}
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  addToCart(p, []);
+                                }}
+                                style={{
+                                  backgroundColor: inCartQty > 0 ? "#C6873E" : "#2B170E",
+                                  color: "#FFFFFF",
+                                  border: "none",
+                                  borderRadius: "100px",
+                                  padding: "6px 16px",
+                                  fontSize: "12.5px",
+                                  fontWeight: 900,
+                                  cursor: "pointer",
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: "6px",
+                                  boxShadow: inCartQty > 0 ? "0 2px 8px rgba(198,135,62,0.3)" : "0 2px 8px rgba(43,23,14,0.18)",
+                                  transition: "all 0.15s ease",
+                                  fontFamily: "var(--font-cairo), system-ui, sans-serif",
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.backgroundColor = "#C6873E";
+                                  e.currentTarget.style.transform = "scale(1.05)";
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.backgroundColor = inCartQty > 0 ? "#C6873E" : "#2B170E";
+                                  e.currentTarget.style.transform = "scale(1)";
+                                }}
+                              >
+                                <span>{inCartQty > 0 ? `✓ (${inCartQty})` : (lang === "en" ? "+ Add" : "+ أضف")}</span>
+                              </button>
+                            </div>
+                          </div>
+
+                          {/* Food Photo Container (Large, clear, appetizing) */}
+                          <div style={{
+                            width: "115px",
+                            height: "115px",
+                            flexShrink: 0,
+                            borderRadius: "16px",
+                            overflow: "hidden",
+                            backgroundColor: "#FAF6EE",
+                            border: "1px solid #E8DAC8",
+                            boxShadow: "0 3px 10px rgba(43,23,14,0.06)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            position: "relative",
+                          }}>
+                            {imgSrc ? (
+                              <img
+                                src={imgSrc}
+                                alt={productName}
+                                style={{
+                                  width: "100%",
+                                  height: "100%",
+                                  objectFit: "cover",
+                                  display: "block",
+                                  transition: "transform 0.3s ease",
+                                }}
+                                loading="lazy"
+                                onError={(e) => {
+                                  const img = e.target as HTMLImageElement;
+                                  if (img.src !== CATEGORY_FALLBACK[p.category] && CATEGORY_FALLBACK[p.category]) {
+                                    img.src = CATEGORY_FALLBACK[p.category];
+                                  }
+                                }}
+                              />
+                            ) : (
+                              <span style={{ fontSize: "44px" }}>{CATEGORY_EMOJI[p.category] || "🧇"}</span>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               );

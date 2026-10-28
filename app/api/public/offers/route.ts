@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 const DEFAULT_OFFERS = {
+  enabled: true,
   badge: "عروض محدودة",
   title: "العروض الخاصة",
   subtitle: "عروض متجددة كل أسبوع — اسأل الكاشير عن عرض اليوم",
@@ -36,7 +37,7 @@ const DEFAULT_OFFERS = {
 
 let cachedOffers: any = null;
 let lastOffersTime = 0;
-const OFFERS_TTL_MS = 60_000;
+const OFFERS_TTL_MS = 30_000;
 
 export async function GET() {
   try {
@@ -47,23 +48,23 @@ export async function GET() {
 
     const setting = await prisma.systemSettings.findUnique({
       where: { id: "default" },
-      select: { specialOffers: true },
+      select: { specialOffers: true, offersEnabled: true },
     });
 
+    let data: any = { ...DEFAULT_OFFERS };
     if (setting?.specialOffers) {
       try {
         const parsed = JSON.parse(setting.specialOffers);
-        cachedOffers = parsed;
-        lastOffersTime = now;
-        return NextResponse.json(parsed);
+        data = { ...DEFAULT_OFFERS, ...parsed };
       } catch {
         // Fallback
       }
     }
 
-    cachedOffers = DEFAULT_OFFERS;
+    data.enabled = setting?.offersEnabled ?? (data.enabled !== false);
+    cachedOffers = data;
     lastOffersTime = now;
-    return NextResponse.json(DEFAULT_OFFERS);
+    return NextResponse.json(data);
   } catch {
     cachedOffers = DEFAULT_OFFERS;
     lastOffersTime = Date.now();
@@ -74,14 +75,20 @@ export async function GET() {
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
+    const isEnabled = body.enabled !== undefined ? Boolean(body.enabled) : true;
+    body.enabled = isEnabled;
     const jsonStr = JSON.stringify(body);
 
     await prisma.systemSettings.upsert({
       where: { id: "default" },
-      update: { specialOffers: jsonStr },
+      update: { 
+        specialOffers: jsonStr,
+        offersEnabled: isEnabled,
+      },
       create: {
         id: "default",
         specialOffers: jsonStr,
+        offersEnabled: isEnabled,
       },
     });
 

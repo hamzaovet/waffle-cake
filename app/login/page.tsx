@@ -44,21 +44,6 @@ export default function LoginPage() {
     }
   }
 
-  async function handleOwnerQuickLogin() {
-    setLoading(true);
-    setError("");
-    const res = await login("maestro", "123456789", "username");
-    setLoading(false);
-
-    if (res.success && res.user) {
-      playSound("success");
-      router.push("/dashboard");
-    } else {
-      playSound("alert");
-      setError(res.error || t("تعذر تسجيل الدخول كمالك", "Could not log in as owner"));
-    }
-  }
-
   function onFocus(e: React.FocusEvent<HTMLInputElement>) {
     e.target.style.borderColor = "#C6873E";
     e.target.style.boxShadow   = "0 0 0 3px rgba(198,135,62,0.18)";
@@ -288,50 +273,16 @@ export default function LoginPage() {
           </button>
         </form>
 
-        {/* Divider */}
-        <div style={{
-          display: "flex", alignItems: "center", gap: "12px",
-          margin: "24px 0 18px",
-        }}>
-          <div style={{ flex: 1, height: "1px", background: "#E8DAC8" }} />
-          <span style={{ fontSize: "12px", color: "#7E5E49", fontWeight: 800 }}>
-            {t("المالك (Maestro)", "Owner (Maestro)")}
-          </span>
-          <div style={{ flex: 1, height: "1px", background: "#E8DAC8" }} />
-        </div>
-
-        {/* Owner quick-login button */}
-        <button
-          onClick={handleOwnerQuickLogin}
-          disabled={loading}
-          style={{
-            width: "100%", height: "46px",
-            background: "#FAF6EE",
-            border: "1.5px solid #E8DAC8",
-            borderRadius: "100px",
-            color: "#2B170E", fontWeight: 900, fontSize: "14px",
-            cursor: loading ? "not-allowed" : "pointer",
-            transition: "all 0.2s ease",
-            fontFamily: "var(--font-cairo), system-ui, sans-serif",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "8px",
-          }}
-        >
-          <span>👑</span>
-          <span>{t("تسجيل دخول المالك المباشر (1-Click)", "Direct Owner Login (1-Click)")}</span>
-        </button>
-
-        {/* Owner note */}
+        {/* Security Notice */}
         <p style={{
-          fontSize: "11px",
+          fontSize: "12px",
           color: "#7E5E49",
           textAlign: "center",
-          margin: "12px 0 0 0",
+          margin: "20px 0 0 0",
           lineHeight: 1.6,
+          fontWeight: 600,
         }}>
-          {t("حساب المالك الدائم maestro بصلاحيات الإدارة والتشغيل الشاملة.", "Authorized via owner credentials maestro with full operational privileges.")}
+          🔒 {t("بوابة دخول آمنة ومشفرة لطاقم العمل والإدارة فقط.", "Secure encrypted access portal for staff and management only.")}
         </p>
 
         {/* Orca Cloud Permanent Stamp */}

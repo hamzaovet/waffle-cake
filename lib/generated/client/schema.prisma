@@ -122,8 +122,18 @@ model SystemSettings {
   address        String   @default("السادس من أكتوبر - الحي الأول")
   deliveryZones  String   @default("[]") // JSON: [{name, fee}]
   soundsEnabled  Boolean  @default(true)
+  offersEnabled  Boolean  @default(true)
   specialOffers  String?
   updatedAt      DateTime @updatedAt
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  nameAr    String   @unique
+  nameEn    String?
+  image     String?
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
 }
 
 model DeliveryZone {

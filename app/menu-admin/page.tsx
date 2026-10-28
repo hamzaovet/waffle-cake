@@ -23,21 +23,48 @@ interface Product {
   sortOrder: number;
 }
 
-const CATEGORIES = ["وافل", "تشيز كيك", "بان كيك", "ميلك شيك", "سموزي", "بوبا"];
+interface CategoryItem {
+  id: string;
+  nameAr: string;
+  nameEn?: string | null;
+  image?: string | null;
+  sortOrder: number;
+}
+
+const DEFAULT_CATEGORIES = ["وافل", "بان كيك", "تشيز كيك", "ميلك شيك", "سموزي", "بوبا"];
 
 export default function MenuAdminPage() {
   const router = useRouter();
   const { isAuthenticated, currentUser, permissions, loading: authLoading } = useStaff();
   const { lang, t, dir } = useLanguage();
 
-  const [products, setProducts]       = useState<Product[]>([]);
-  const [loading, setLoading]         = useState(true);
-  const [filterCat, setFilterCat]     = useState("الكل");
-  const [editProduct, setEditProduct] = useState<Partial<Product> | null>(null);
-  const [saving, setSaving]           = useState(false);
+  const [products, setProducts]             = useState<Product[]>([]);
+  const [categories, setCategories]         = useState<CategoryItem[]>([]);
+  const [loading, setLoading]               = useState(true);
+  const [filterCat, setFilterCat]           = useState("الكل");
+  const [editProduct, setEditProduct]       = useState<Partial<Product> | null>(null);
+  const [saving, setSaving]                 = useState(false);
+
+  // Category Modal state
+  const [showCategoryModal, setShowCategoryModal] = useState(false);
+  const [newCatNameAr, setNewCatNameAr]           = useState("");
+  const [newCatNameEn, setNewCatNameEn]           = useState("");
+  const [newCatImage, setNewCatImage]             = useState("");
+  const [creatingCat, setCreatingCat]             = useState(false);
+  const [catError, setCatError]                   = useState("");
+
+  // Inline quick-add in product modal
+  const [showQuickAddCat, setShowQuickAddCat]     = useState(false);
+  const [quickCatName, setQuickCatName]           = useState("");
+
+  const activeCategoryList = categories.length > 0 
+    ? categories.map(c => c.nameAr) 
+    : Array.from(new Set([...DEFAULT_CATEGORIES, ...products.map(p => p.category).filter(Boolean)]));
 
   const translateCategory = (cat: string) => {
     if (lang !== "en") return cat;
+    const found = categories.find(c => c.nameAr === cat);
+    if (found?.nameEn) return found.nameEn;
     const map: Record<string, string> = {
       "الكل": "All",
       "وافل": "Waffles",
@@ -56,21 +83,98 @@ export default function MenuAdminPage() {
         router.push("/login");
         return;
       }
-      loadProducts();
+      loadData();
     }
   }, [authLoading, currentUser, router]);
 
-  async function loadProducts() {
+  async function loadData() {
     setLoading(true);
+    await Promise.all([loadProducts(), loadCategories()]);
+    setLoading(false);
+  }
+
+  async function loadProducts() {
     try {
       const res = await fetch("/api/products");
       const data = await res.json();
       setProducts(Array.isArray(data) ? data : []);
     } catch {
       setProducts([]);
-    } finally {
-      setLoading(false);
     }
+  }
+
+  async function loadCategories() {
+    try {
+      const res = await fetch("/api/categories");
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        setCategories(data);
+      }
+    } catch {}
+  }
+
+  async function handleCreateCategory(e: React.FormEvent) {
+    e.preventDefault();
+    if (!newCatNameAr.trim()) return;
+    setCreatingCat(true);
+    setCatError("");
+    try {
+      const res = await fetch("/api/categories", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nameAr: newCatNameAr.trim(),
+          nameEn: newCatNameEn.trim(),
+          image: newCatImage.trim() || null,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setCatError(data.error || "تعذر إضافة القسم");
+        return;
+      }
+      playSound("success");
+      setNewCatNameAr("");
+      setNewCatNameEn("");
+      setNewCatImage("");
+      await loadCategories();
+    } catch (err: any) {
+      setCatError(err.message || "حدث خطأ أثناء الإضافة");
+    } finally {
+      setCreatingCat(false);
+    }
+  }
+
+  async function handleQuickAddCategory() {
+    if (!quickCatName.trim()) return;
+    try {
+      const res = await fetch("/api/categories", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nameAr: quickCatName.trim() }),
+      });
+      if (res.ok) {
+        playSound("success");
+        const created = await res.json();
+        await loadCategories();
+        if (editProduct) {
+          setEditProduct({ ...editProduct, category: created.nameAr });
+        }
+        setQuickCatName("");
+        setShowQuickAddCat(false);
+      }
+    } catch {}
+  }
+
+  async function handleDeleteCategory(id: string, name: string) {
+    if (!confirm(`هل أنت متأكد من حذف قسم "${name}"؟ الأصناف المرتبطة به لن تُحذف.`)) return;
+    try {
+      const res = await fetch(`/api/categories?id=${id}`, { method: "DELETE" });
+      if (res.ok) {
+        playSound("alert");
+        await loadCategories();
+      }
+    } catch {}
   }
 
   async function toggleAvailability(p: Product) {
@@ -179,11 +283,42 @@ export default function MenuAdminPage() {
             </button>
 
             <button
+              onClick={() => { playSound("click"); setShowCategoryModal(true); }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "7px",
+                background: "#FAF6EE",
+                border: "1.5px solid #DEC9B5",
+                color: "#2B170E",
+                padding: "9px 16px",
+                borderRadius: "12px",
+                fontSize: "13px",
+                fontWeight: 800,
+                cursor: "pointer",
+                boxShadow: "0 2px 6px rgba(43,23,14,0.03)",
+              }}
+            >
+              <span style={{ fontSize: "16px" }}>🏷️</span>
+              <span>{t("إدارة الأقسام", "Manage Categories")}</span>
+              <span style={{
+                background: "#C6873E",
+                color: "#FFFFFF",
+                fontSize: "11px",
+                fontWeight: 900,
+                padding: "1px 7px",
+                borderRadius: "100px",
+              }}>
+                {activeCategoryList.length}
+              </span>
+            </button>
+
+            <button
               onClick={() => {
                 setEditProduct({
                   nameAr: "",
                   nameEn: "",
-                  category: CATEGORIES[0],
+                  category: activeCategoryList[0] || "وافل",
                   basePrice: 160,
                   isAvailable: true,
                   sortOrder: 0,
@@ -224,7 +359,7 @@ export default function MenuAdminPage() {
           marginBottom: "24px",
           boxShadow: "0 2px 6px rgba(43,23,14,0.03)",
         }}>
-          {["الكل", ...CATEGORIES].map((c) => {
+          {["الكل", ...activeCategoryList].map((c) => {
             const isSelected = filterCat === c;
             return (
               <button
@@ -499,11 +634,75 @@ export default function MenuAdminPage() {
                 </div>
 
                 <div>
-                  <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "#7E5E49", marginBottom: "5px" }}>
-                    {t("التصنيف *", "Category *")}
-                  </label>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "5px" }}>
+                    <label style={{ fontSize: "12px", fontWeight: 800, color: "#7E5E49" }}>
+                      {t("القسم / التصنيف *", "Category *")}
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setShowQuickAddCat(!showQuickAddCat)}
+                      style={{
+                        background: "none",
+                        border: "none",
+                        color: "#C6873E",
+                        fontSize: "12px",
+                        fontWeight: 800,
+                        cursor: "pointer",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      {showQuickAddCat ? t("إغلاق", "Close") : t("+ إضافة قسم جديد", "+ New Category")}
+                    </button>
+                  </div>
+
+                  {showQuickAddCat && (
+                    <div style={{
+                      display: "flex",
+                      gap: "8px",
+                      marginBottom: "8px",
+                      padding: "8px",
+                      backgroundColor: "#FFF8F0",
+                      borderRadius: "10px",
+                      border: "1px dashed #C6873E",
+                    }}>
+                      <input
+                        type="text"
+                        placeholder={t("اسم القسم الجديد...", "New category name...")}
+                        value={quickCatName}
+                        onChange={(e) => setQuickCatName(e.target.value)}
+                        style={{
+                          flex: 1,
+                          height: "36px",
+                          backgroundColor: "#FFFFFF",
+                          border: "1px solid #E8DAC8",
+                          borderRadius: "8px",
+                          padding: "0 10px",
+                          fontSize: "13px",
+                          outline: "none",
+                        }}
+                      />
+                      <button
+                        type="button"
+                        onClick={handleQuickAddCategory}
+                        style={{
+                          padding: "0 14px",
+                          height: "36px",
+                          backgroundColor: "#C6873E",
+                          color: "#FFFFFF",
+                          border: "none",
+                          borderRadius: "8px",
+                          fontWeight: 800,
+                          fontSize: "12px",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {t("إضافة", "Add")}
+                      </button>
+                    </div>
+                  )}
+
                   <select
-                    value={editProduct.category || CATEGORIES[0]}
+                    value={editProduct.category || activeCategoryList[0]}
                     onChange={(e) => setEditProduct({ ...editProduct, category: e.target.value })}
                     style={{
                       width: "100%", height: "42px", background: "#FAF6EE",
@@ -511,7 +710,7 @@ export default function MenuAdminPage() {
                       padding: "0 14px", color: "#2B170E", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
                     }}
                   >
-                    {CATEGORIES.map((cat) => (
+                    {activeCategoryList.map((cat) => (
                       <option key={cat} value={cat}>{translateCategory(cat)}</option>
                     ))}
                   </select>
@@ -569,6 +768,229 @@ export default function MenuAdminPage() {
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+        )}
+
+        {/* ── Category Management Modal ── */}
+        {showCategoryModal && (
+          <div style={{
+            position: "fixed", inset: 0,
+            backgroundColor: "rgba(43,23,14,0.65)",
+            backdropFilter: "blur(4px)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: "20px", zIndex: 9999,
+          }}>
+            <div style={{
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
+              borderRadius: "20px",
+              padding: "26px",
+              width: "100%", maxWidth: "560px",
+              maxHeight: "90vh", overflowY: "auto",
+              boxShadow: "0 20px 40px rgba(43,23,14,0.18)",
+            }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "18px" }}>
+                <div>
+                  <h3 style={{ margin: 0, fontSize: "20px", fontWeight: 900, color: "#2B170E" }}>
+                    {t("إدارة أقسام المنيو 🏷️", "Manage Menu Categories 🏷️")}
+                  </h3>
+                  <p style={{ margin: "4px 0 0", fontSize: "12.5px", color: "#7E5E49" }}>
+                    {t("إضافة أقسام جديدة وتخصيصها لتظهر في الموقع والأبليكيشن فوراً", "Add new categories and customize them for web and mobile")}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowCategoryModal(false)}
+                  style={{
+                    background: "#FAF6EE", border: "1px solid #E8DAC8",
+                    borderRadius: "10px", width: "36px", height: "36px",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    cursor: "pointer", color: "#7E5E49",
+                  }}
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Add New Category Box */}
+              <form onSubmit={handleCreateCategory} style={{
+                backgroundColor: "#FAF6EE",
+                border: "1.5px solid #DEC9B5",
+                borderRadius: "14px",
+                padding: "16px",
+                marginBottom: "22px",
+              }}>
+                <div style={{ fontSize: "13.5px", fontWeight: 900, color: "#2B170E", marginBottom: "12px", display: "flex", alignItems: "center", gap: "6px" }}>
+                  <span>➕</span>
+                  <span>{t("إضافة قسم جديد للمنيو", "Add New Menu Category")}</span>
+                </div>
+
+                {catError && (
+                  <div style={{
+                    padding: "8px 12px",
+                    backgroundColor: "#FEF2F2",
+                    border: "1px solid #FECACA",
+                    borderRadius: "8px",
+                    color: "#DC2626",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    marginBottom: "10px",
+                  }}>
+                    ⚠️ {catError}
+                  </div>
+                )}
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "10px" }}>
+                  <div>
+                    <label style={{ display: "block", fontSize: "11.5px", fontWeight: 800, color: "#7E5E49", marginBottom: "4px" }}>
+                      {t("اسم القسم بالعربي *", "Arabic Name *")}
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="مثال: ميني بان كيك"
+                      value={newCatNameAr}
+                      onChange={(e) => setNewCatNameAr(e.target.value)}
+                      required
+                      style={{
+                        width: "100%", height: "38px", backgroundColor: "#FFFFFF",
+                        border: "1px solid #DEC9B5", borderRadius: "8px",
+                        padding: "0 10px", fontSize: "13px", outline: "none", boxSizing: "border-box",
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "11.5px", fontWeight: 800, color: "#7E5E49", marginBottom: "4px" }}>
+                      {t("الاسم بالإنجليزي (اختياري)", "English Name")}
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Mini Pancakes"
+                      dir="ltr"
+                      value={newCatNameEn}
+                      onChange={(e) => setNewCatNameEn(e.target.value)}
+                      style={{
+                        width: "100%", height: "38px", backgroundColor: "#FFFFFF",
+                        border: "1px solid #DEC9B5", borderRadius: "8px",
+                        padding: "0 10px", fontSize: "13px", outline: "none", boxSizing: "border-box",
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ marginBottom: "12px" }}>
+                  <label style={{ display: "block", fontSize: "11.5px", fontWeight: 800, color: "#7E5E49", marginBottom: "4px" }}>
+                    {t("رابط صورة أو أيقونة القسم (اختياري)", "Category Image URL")}
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="https://..."
+                    dir="ltr"
+                    value={newCatImage}
+                    onChange={(e) => setNewCatImage(e.target.value)}
+                    style={{
+                      width: "100%", height: "38px", backgroundColor: "#FFFFFF",
+                      border: "1px solid #DEC9B5", borderRadius: "8px",
+                      padding: "0 10px", fontSize: "12.5px", outline: "none", boxSizing: "border-box",
+                    }}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={creatingCat}
+                  style={{
+                    width: "100%",
+                    height: "40px",
+                    background: "linear-gradient(135deg, #D4954E, #C6873E)",
+                    color: "#FFFFFF",
+                    fontWeight: 900,
+                    fontSize: "13px",
+                    border: "none",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    boxShadow: "0 2px 6px rgba(198,135,62,0.25)",
+                  }}
+                >
+                  {creatingCat ? t("جاري الإضافة...", "Adding...") : t("إضافة القسم وحفظه فوراً ✨", "Add Category ✨")}
+                </button>
+              </form>
+
+              {/* Current Categories List */}
+              <div style={{ fontSize: "13px", fontWeight: 800, color: "#2B170E", marginBottom: "10px" }}>
+                {t("الأقسام الحالية المعتمدة في السيستم:", "Active Menu Categories:")}
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                {activeCategoryList.map((catName) => {
+                  const catItem = categories.find(c => c.nameAr === catName);
+                  const itemCount = products.filter(p => p.category === catName).length;
+                  return (
+                    <div
+                      key={catItem?.id || catName}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: "10px 14px",
+                        backgroundColor: "#FFFFFF",
+                        border: "1px solid #E8DAC8",
+                        borderRadius: "12px",
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                        <span style={{ fontSize: "16px" }}>🧇</span>
+                        <div>
+                          <div style={{ fontSize: "14px", fontWeight: 800, color: "#2B170E" }}>
+                            {catName}
+                            {catItem?.nameEn && <span style={{ fontSize: "12px", color: "#8C6546", marginRight: "8px" }}>({catItem.nameEn})</span>}
+                          </div>
+                          <div style={{ fontSize: "11.5px", color: "#7E5E49" }}>
+                            {itemCount} {t("صنف مسجل تحت هذا القسم", "items in this category")}
+                          </div>
+                        </div>
+                      </div>
+
+                      {catItem?.id && (
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteCategory(catItem.id, catName)}
+                          style={{
+                            padding: "6px 12px",
+                            backgroundColor: "#FEF2F2",
+                            border: "1px solid #FCA5A5",
+                            color: "#DC2626",
+                            borderRadius: "8px",
+                            fontSize: "12px",
+                            fontWeight: 700,
+                            cursor: "pointer",
+                          }}
+                        >
+                          {t("حذف", "Delete")}
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div style={{ marginTop: "20px", textAlign: "center" }}>
+                <button
+                  type="button"
+                  onClick={() => setShowCategoryModal(false)}
+                  style={{
+                    padding: "9px 24px",
+                    backgroundColor: "#FAF6EE",
+                    border: "1px solid #E8DAC8",
+                    borderRadius: "10px",
+                    fontWeight: 800,
+                    fontSize: "13px",
+                    color: "#2B170E",
+                    cursor: "pointer",
+                  }}
+                >
+                  {t("إغلاق والعودة للمنيو", "Close & Back to Menu")}
+                </button>
+              </div>
             </div>
           </div>
         )}
