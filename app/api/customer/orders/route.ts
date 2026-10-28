@@ -25,7 +25,7 @@ export async function GET(req: Request) {
         id, "orderNumber", "customerName", phone, address, zone, status,
         items, subtotal, "deliveryFee", total, "paymentMethod", notes,
         "captainName", "captainPhone", "createdAt", "updatedAt"
-      FROM choco."Order"
+      FROM "Order"
       WHERE ${condition}
       ORDER BY "createdAt" DESC
       LIMIT 50;

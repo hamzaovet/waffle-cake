@@ -158,13 +158,13 @@ export default function CustomersPage() {
               style={{
                 fontSize: "26px",
                 fontWeight: 900,
-                color: "#ffffff",
+                color: "#2B170E",
                 margin: "0 0 6px 0",
               }}
             >
               {t("قاعدة بيانات العملاء (CRM)", "Customer Relationship Database")}
             </h1>
-            <p style={{ fontSize: "13.5px", color: "#8a7565", margin: 0, fontWeight: 600 }}>
+            <p style={{ fontSize: "13.5px", color: "#7E5E49", margin: 0, fontWeight: 600 }}>
               {t(
                 "سجل العملاء الكامل — التوثيق بالجيميل — تكرار الطلبات وإجمالي المبيعات — التواصل المباشر",
                 "Full customer profiles — Gmail OTP verification — Orders frequency & direct WhatsApp contact"
@@ -183,15 +183,15 @@ export default function CustomersPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: "7px",
-                background: "linear-gradient(135deg, #d99b56, #e8a020)",
-                color: "#180e06",
+                background: "linear-gradient(135deg, #D4954E, #C6873E)",
+                color: "#FFFFFF",
                 border: "none",
                 padding: "10px 18px",
                 borderRadius: "12px",
                 fontWeight: 900,
                 fontSize: "13.5px",
                 cursor: "pointer",
-                boxShadow: "0 4px 14px rgba(217, 155, 86, 0.35)",
+                boxShadow: "0 4px 14px rgba(198, 135, 62, 0.3)",
               }}
             >
               <Plus size={16} />

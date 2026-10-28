@@ -26,8 +26,8 @@ export async function GET(req: Request) {
         COUNT(o.id)::int as "totalOrders",
         COALESCE(SUM(o.total), 0)::float as "totalSpent",
         MAX(o."createdAt") as "lastOrderDate"
-      FROM choco."Customer" c
-      LEFT JOIN choco."Order" o ON o.phone = c.phone
+      FROM "Customer" c
+      LEFT JOIN "Order" o ON o.phone = c.phone
       ${searchFilter}
       GROUP BY c.id
       ORDER BY c."createdAt" DESC
@@ -55,7 +55,7 @@ export async function POST(req: Request) {
 
     const id = `cust_${Date.now()}`;
     await prisma.$executeRawUnsafe(`
-      INSERT INTO choco."Customer" (id, name, phone, email, address, zone, "isVerified", "updatedAt")
+      INSERT INTO "Customer" (id, name, phone, email, address, zone, "isVerified", "updatedAt")
       VALUES (
         '${id}',
         '${name.trim().replace(/'/g, "''")}',
@@ -68,9 +68,9 @@ export async function POST(req: Request) {
       )
       ON CONFLICT (phone) DO UPDATE SET
         name = EXCLUDED.name,
-        email = COALESCE(EXCLUDED.email, choco."Customer".email),
-        address = COALESCE(EXCLUDED.address, choco."Customer".address),
-        zone = COALESCE(EXCLUDED.zone, choco."Customer".zone),
+        email = COALESCE(EXCLUDED.email, "Customer".email),
+        address = COALESCE(EXCLUDED.address, "Customer".address),
+        zone = COALESCE(EXCLUDED.zone, "Customer".zone),
         "isVerified" = EXCLUDED."isVerified",
         "updatedAt" = NOW();
     `);
@@ -89,7 +89,7 @@ export async function DELETE(req: Request) {
     if (!id) return NextResponse.json({ error: "معرف العميل مطلوب" }, { status: 400 });
 
     await prisma.$executeRawUnsafe(`
-      DELETE FROM choco."Customer" WHERE id = '${id.replace(/'/g, "''")}';
+      DELETE FROM "Customer" WHERE id = '${id.replace(/'/g, "''")}';
     `);
     return NextResponse.json({ success: true });
   } catch (err: any) {

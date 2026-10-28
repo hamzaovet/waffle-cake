@@ -190,10 +190,10 @@ export default function OffersAdminPage() {
               <ArrowRight size={20} style={{ transform: dir === "ltr" ? "rotate(180deg)" : "none" }} />
             </Link>
             <div>
-              <h1 style={{ margin: "0 0 4px 0", fontSize: "24px", fontWeight: 900, color: "#ffffff" }}>
+              <h1 style={{ margin: "0 0 4px 0", fontSize: "24px", fontWeight: 900, color: "#2B170E" }}>
                 {t("إدارة العروض الخاصة والبانر 🎁", "Manage Special Offers & Banner 🎁")}
               </h1>
-              <p style={{ margin: 0, fontSize: "13px", color: "#8a7565", fontWeight: 600 }}>
+              <p style={{ margin: 0, fontSize: "13px", color: "#7E5E49", fontWeight: 600 }}>
                 {t("تعديل نصوص وكروت العروض والبانر الرئيسي على الموقع فوراً ولحظياً", "Customize promotional banners and special deals across the storefront")}
               </p>
             </div>
@@ -205,15 +205,16 @@ export default function OffersAdminPage() {
               style={{
                 padding: "10px 18px",
                 borderRadius: "12px",
-                border: "1px solid rgba(255, 255, 255, 0.12)",
-                background: "transparent",
-                color: "#b0957e",
+                border: "1px solid #E8DAC8",
+                background: "#FFFFFF",
+                color: "#7E5E49",
                 fontSize: "13px",
                 fontWeight: 700,
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
                 gap: "6px",
+                boxShadow: "0 2px 6px rgba(43,23,14,0.03)",
               }}
             >
               <Undo2 size={15} />

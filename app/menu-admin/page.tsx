@@ -140,14 +140,14 @@ export default function MenuAdminPage() {
             <h1 style={{
               fontSize: "26px",
               fontWeight: 900,
-              color: "#ffffff",
+              color: "#2B170E",
               margin: "0 0 6px 0",
             }}>
-              {t("المنيو والأسعار 🍫", "Menu & Prices 🍫")}
+              {t("المنيو والأسعار 🧇🍰", "Menu & Prices 🧇🍰")}
             </h1>
             <p style={{
               fontSize: "13.5px",
-              color: "#8a7565",
+              color: "#7E5E49",
               margin: 0,
               fontWeight: 600,
             }}>
@@ -163,17 +163,18 @@ export default function MenuAdminPage() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "7px",
-                background: "rgba(217, 155, 86, 0.12)",
-                border: "1px solid rgba(217, 155, 86, 0.35)",
-                color: "#d99b56",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
+                color: "#C6873E",
                 padding: "9px 16px",
                 borderRadius: "12px",
                 fontSize: "13px",
                 fontWeight: 800,
                 cursor: "pointer",
+                boxShadow: "0 2px 6px rgba(43,23,14,0.03)",
               }}
             >
-              <Gift size={15} color="#d99b56" />
+              <Gift size={15} color="#C6873E" />
               <span>{t("إدارة العروض الخاصة", "Special Offers")}</span>
             </button>
 
@@ -193,15 +194,15 @@ export default function MenuAdminPage() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "7px",
-                background: "#d99b56",
-                color: "#180e06",
+                background: "linear-gradient(135deg, #D4954E, #C6873E)",
+                color: "#FFFFFF",
                 padding: "9px 18px",
                 borderRadius: "12px",
                 border: "none",
                 fontSize: "13.5px",
                 fontWeight: 900,
                 cursor: "pointer",
-                boxShadow: "0 2px 10px rgba(217, 155, 86, 0.3)",
+                boxShadow: "0 4px 14px rgba(198, 135, 62, 0.3)",
               }}
             >
               <Plus size={16} strokeWidth={2.5} />
@@ -216,8 +217,12 @@ export default function MenuAdminPage() {
           alignItems: "center",
           gap: "8px",
           overflowX: "auto",
-          paddingBottom: "10px",
+          padding: "6px",
+          background: "#FFFFFF",
+          border: "1px solid #E8DAC8",
+          borderRadius: "16px",
           marginBottom: "24px",
+          boxShadow: "0 2px 6px rgba(43,23,14,0.03)",
         }}>
           {["الكل", ...CATEGORIES].map((c) => {
             const isSelected = filterCat === c;
@@ -228,9 +233,9 @@ export default function MenuAdminPage() {
                 style={{
                   padding: "8px 18px",
                   borderRadius: "100px",
-                  border: isSelected ? "none" : "1px solid rgba(255, 255, 255, 0.08)",
-                  background: isSelected ? "#d99b56" : "rgba(255, 255, 255, 0.04)",
-                  color: isSelected ? "#180e06" : "#b0957e",
+                  border: isSelected ? "none" : "1px solid transparent",
+                  background: isSelected ? "linear-gradient(135deg, #D4954E, #C6873E)" : "transparent",
+                  color: isSelected ? "#FFFFFF" : "#7E5E49",
                   fontSize: "13px",
                   fontWeight: isSelected ? 900 : 700,
                   cursor: "pointer",
@@ -246,7 +251,7 @@ export default function MenuAdminPage() {
 
         {/* ── Products Grid ── */}
         {loading ? (
-          <div style={{ textAlign: "center", padding: "60px", color: "#8a7565" }}>
+          <div style={{ textAlign: "center", padding: "60px", color: "#7E5E49" }}>
             <p>{t("جاري تحميل المنيو...", "Loading menu...")}</p>
           </div>
         ) : (
@@ -259,28 +264,29 @@ export default function MenuAdminPage() {
               <div
                 key={p.id}
                 style={{
-                  background: "rgba(24, 13, 7, 0.85)",
-                  border: "1px solid rgba(217, 155, 86, 0.18)",
+                  background: "#FFFFFF",
+                  border: "1px solid #E8DAC8",
                   borderRadius: "18px",
                   overflow: "hidden",
                   display: "flex",
                   flexDirection: "column",
                   opacity: p.isAvailable ? 1 : 0.6,
                   transition: "all 0.2s ease",
+                  boxShadow: "0 2px 8px rgba(43,23,14,0.04)",
                 }}
               >
                 {/* Product Image */}
                 <div style={{
                   width: "100%",
                   height: "150px",
-                  background: "#180d06",
+                  background: "#FAF6EE",
                   position: "relative",
                   overflow: "hidden",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                 }}>
-                  <div style={{ position: "absolute", fontSize: "40px", opacity: 0.35 }}>🍫</div>
+                  <div style={{ position: "absolute", fontSize: "40px", opacity: 0.35 }}>🧇</div>
                   {p.image ? (
                     <img
                       src={p.image}
@@ -297,13 +303,14 @@ export default function MenuAdminPage() {
                     position: "absolute",
                     top: "10px",
                     [dir === "rtl" ? "right" : "left"]: "10px",
-                    background: "rgba(18, 10, 5, 0.85)",
-                    border: "1px solid rgba(217, 155, 86, 0.3)",
+                    background: "rgba(255, 255, 255, 0.9)",
+                    border: "1px solid #E8DAC8",
                     padding: "3px 10px",
                     borderRadius: "100px",
-                    color: "#d99b56",
+                    color: "#C6873E",
                     fontSize: "11px",
                     fontWeight: 800,
+                    backdropFilter: "blur(4px)",
                   }}>
                     {translateCategory(p.category)}
                   </span>
@@ -321,7 +328,7 @@ export default function MenuAdminPage() {
                     <h3 style={{
                       fontSize: "15px",
                       fontWeight: 800,
-                      color: "#ffffff",
+                      color: "#2B170E",
                       margin: "0 0 4px 0",
                       lineHeight: 1.3,
                     }}>
@@ -329,13 +336,13 @@ export default function MenuAdminPage() {
                     </h3>
                     <p style={{
                       fontSize: "12px",
-                      color: "#8a7565",
+                      color: "#7E5E49",
                       margin: "0 0 10px 0",
                       fontFamily: "monospace",
                     }}>
                       {lang === "en" ? p.nameAr : (p.nameEn || p.category)}
                     </p>
-                    <div style={{ fontSize: "18px", color: "#d99b56", fontWeight: 900 }}>
+                    <div style={{ fontSize: "18px", color: "#C6873E", fontWeight: 900 }}>
                       {p.basePrice} <span style={{ fontSize: "13px" }}>{t("ج", "EGP")}</span>
                     </div>
                   </div>
@@ -347,7 +354,7 @@ export default function MenuAdminPage() {
                     gap: "8px",
                     marginTop: "14px",
                     paddingTop: "12px",
-                    borderTop: "1px solid rgba(255, 255, 255, 0.06)",
+                    borderTop: "1px solid #E8DAC8",
                   }}>
                     {/* Availability toggle */}
                     <button
@@ -364,8 +371,8 @@ export default function MenuAdminPage() {
                         gap: "6px",
                         fontSize: "12px",
                         fontWeight: 800,
-                        background: p.isAvailable ? "rgba(34, 197, 94, 0.15)" : "rgba(239, 68, 68, 0.15)",
-                        color: p.isAvailable ? "#4ade80" : "#f87171",
+                        background: p.isAvailable ? "rgba(34, 197, 94, 0.12)" : "rgba(239, 68, 68, 0.12)",
+                        color: p.isAvailable ? "#16a34a" : "#dc2626",
                       }}
                     >
                       {p.isAvailable ? <><Eye size={13} /> {t("متاح", "Available")}</> : <><EyeOff size={13} /> {t("مخفي", "Hidden")}</>}
@@ -378,9 +385,9 @@ export default function MenuAdminPage() {
                         width: "36px",
                         height: "36px",
                         borderRadius: "10px",
-                        background: "rgba(255, 255, 255, 0.06)",
-                        border: "1px solid rgba(255, 255, 255, 0.1)",
-                        color: "#f5ede4",
+                        background: "#FAF6EE",
+                        border: "1px solid #E8DAC8",
+                        color: "#7E5E49",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -398,9 +405,9 @@ export default function MenuAdminPage() {
                         width: "36px",
                         height: "36px",
                         borderRadius: "10px",
-                        background: "rgba(239, 68, 68, 0.1)",
+                        background: "rgba(239, 68, 68, 0.08)",
                         border: "1px solid rgba(239, 68, 68, 0.2)",
-                        color: "#f87171",
+                        color: "#dc2626",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",

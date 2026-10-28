@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
       // Upsert customer record
       await prisma.$executeRawUnsafe(`
-        INSERT INTO choco."Customer" (id, name, phone, email, "otpCode", "otpExpires", "isVerified", "updatedAt")
+        INSERT INTO "Customer" (id, name, phone, email, "otpCode", "otpExpires", "isVerified", "updatedAt")
         VALUES (
           ${`'cust_${Date.now()}'`},
           ${`'${customerName.replace(/'/g, "''")}'`},
@@ -61,7 +61,7 @@ export async function POST(req: Request) {
       }
 
       const rows = await prisma.$queryRawUnsafe<any[]>(`
-        SELECT * FROM choco."Customer"
+        SELECT * FROM "Customer"
         WHERE email = '${email.trim().toLowerCase().replace(/'/g, "''")}'
         LIMIT 1;
       `);
@@ -80,7 +80,7 @@ export async function POST(req: Request) {
 
       // Update customer verification and extra details
       await prisma.$executeRawUnsafe(`
-        UPDATE choco."Customer"
+        UPDATE "Customer"
         SET 
           "isVerified" = true,
           "otpCode" = NULL,
@@ -95,7 +95,7 @@ export async function POST(req: Request) {
 
       const updatedRows = await prisma.$queryRawUnsafe<any[]>(`
         SELECT id, name, phone, email, address, zone, "isVerified"
-        FROM choco."Customer"
+        FROM "Customer"
         WHERE id = '${cust.id}';
       `);
 
@@ -115,7 +115,7 @@ export async function POST(req: Request) {
       const clean = String(phone).trim();
       const rows = await prisma.$queryRawUnsafe<any[]>(`
         SELECT id, name, phone, email, address, zone, "isVerified"
-        FROM choco."Customer"
+        FROM "Customer"
         WHERE phone = '${clean.replace(/'/g, "''")}'
         LIMIT 1;
       `);

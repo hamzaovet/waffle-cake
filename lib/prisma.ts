@@ -1,14 +1,29 @@
 import { PrismaClient } from "@/lib/generated/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+import { Pool } from "pg";
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
+const globalForPrisma = global as unknown as { prisma?: PrismaClient; pool?: Pool };
 
-function createPrismaClient() {
-  const connectionString =
-    process.env.DATABASE_URL ||
-    "postgresql://neondb_owner:npg_q8lPuIyzp3md@ep-gentle-dust-ba57jg0m-pooler.c-8.eu-central-1.aws.neon.tech/neondb?sslmode=require";
+function getPool(): Pool {
+  if (!globalForPrisma.pool) {
+    const connectionString =
+      process.env.DATABASE_URL ||
+      "postgresql://neondb_owner:npg_q8lPuIyzp3md@ep-gentle-dust-ba57jg0m-pooler.c-8.eu-central-1.aws.neon.tech/neondb?sslmode=require";
 
-  const adapter = new PrismaPg({ connectionString }, { schema: "public" });
+    globalForPrisma.pool = new Pool({
+      connectionString,
+      max: 10,
+      idleTimeoutMillis: 60000,
+      connectionTimeoutMillis: 10000,
+      keepAlive: true,
+    });
+  }
+  return globalForPrisma.pool;
+}
+
+function createPrismaClient(): PrismaClient {
+  const pool = getPool();
+  const adapter = new PrismaPg(pool, { schema: "public" });
   return new PrismaClient({ adapter });
 }
 

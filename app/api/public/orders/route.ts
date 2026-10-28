@@ -52,7 +52,7 @@ export async function POST(req: Request) {
       const cleanEmail = body.customerEmail ? String(body.customerEmail).trim().toLowerCase() : null;
 
       await prisma.$executeRawUnsafe(`
-        INSERT INTO choco."Customer" (id, name, phone, email, address, zone, "isVerified", "updatedAt")
+        INSERT INTO "Customer" (id, name, phone, email, address, zone, "isVerified", "updatedAt")
         VALUES (
           ${`'cust_${Date.now()}'`},
           ${`'${cleanName.replace(/'/g, "''")}'`},

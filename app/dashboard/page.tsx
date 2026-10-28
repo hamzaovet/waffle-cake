@@ -204,7 +204,7 @@ export default function DashboardOrdersPage() {
       const interval = setInterval(() => {
         fetchOrders();
         fetchChatMessages();
-      }, 7000);
+      }, 12000);
       return () => clearInterval(interval);
     }
   }, [authLoading, currentUser, router, fetchOrders, fetchCaptains, fetchChatMessages]);

@@ -39,7 +39,14 @@ export function StaffProvider({ children }: { children: React.ReactNode }) {
       return null;
     }
   });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true;
+    try {
+      return !localStorage.getItem("choco_auth_user");
+    } catch {
+      return true;
+    }
+  });
 
   async function loadUsers() {
     try {

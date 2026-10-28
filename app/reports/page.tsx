@@ -183,14 +183,14 @@ export default function ReportsPage() {
             <h1 style={{
               fontSize: "26px",
               fontWeight: 900,
-              color: "#ffffff",
+              color: "#2B170E",
               margin: "0 0 6px 0",
             }}>
               {t("الحسابات والأرباح 💰", "Finances & Profits 💰")}
             </h1>
             <p style={{
               fontSize: "13.5px",
-              color: "#8a7565",
+              color: "#7E5E49",
               margin: 0,
               fontWeight: 600,
             }}>
@@ -204,10 +204,11 @@ export default function ReportsPage() {
               display: "flex",
               alignItems: "center",
               gap: "4px",
-              background: "rgba(255, 255, 255, 0.04)",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
+              background: "#FFFFFF",
+              border: "1px solid #E8DAC8",
               borderRadius: "14px",
               padding: "4px",
+              boxShadow: "0 2px 6px rgba(43,23,14,0.03)",
             }}>
               {[
                 { id: "today", label: t("اليوم", "Today") },
@@ -223,8 +224,8 @@ export default function ReportsPage() {
                       padding: "7px 16px",
                       borderRadius: "10px",
                       border: "none",
-                      background: isSelected ? "#d99b56" : "transparent",
-                      color: isSelected ? "#180e06" : "#b0957e",
+                      background: isSelected ? "linear-gradient(135deg, #D4954E, #C6873E)" : "transparent",
+                      color: isSelected ? "#FFFFFF" : "#7E5E49",
                       fontSize: "13px",
                       fontWeight: isSelected ? 900 : 700,
                       cursor: "pointer",
@@ -241,10 +242,10 @@ export default function ReportsPage() {
             <button
               onClick={() => { playSound("click"); setShowExpenseModal(true); }}
               style={{
-                background: "#d99b56",
+                background: "linear-gradient(135deg, #D4954E, #C6873E)",
                 border: "none",
                 borderRadius: "12px",
-                color: "#180e06",
+                color: "#FFFFFF",
                 padding: "9px 18px",
                 fontSize: "13.5px",
                 fontWeight: 900,
@@ -337,12 +338,13 @@ export default function ReportsPage() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "18px", marginBottom: "28px" }}>
               {/* By Status */}
               <div style={{
-                background: "rgba(24, 13, 7, 0.85)",
-                border: "1px solid rgba(217, 155, 86, 0.16)",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
                 borderRadius: "20px",
                 padding: "22px",
+                boxShadow: "0 2px 8px rgba(43,23,14,0.04)",
               }}>
-                <h3 style={{ fontSize: "16px", fontWeight: 900, color: "#ffffff", margin: "0 0 16px 0" }}>
+                <h3 style={{ fontSize: "16px", fontWeight: 900, color: "#2B170E", margin: "0 0 16px 0" }}>
                   {t("توزيع الطلبات بالحالة", "Orders by Status")}
                 </h3>
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -352,11 +354,11 @@ export default function ReportsPage() {
                     return (
                       <div key={status}>
                         <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px", marginBottom: "5px" }}>
-                          <span style={{ color: "#b0957e", fontWeight: 700 }}>{statusLabel}</span>
-                          <span style={{ color: "#ffffff", fontWeight: 800 }}>{count} ({pct}%)</span>
+                          <span style={{ color: "#7E5E49", fontWeight: 700 }}>{statusLabel}</span>
+                          <span style={{ color: "#2B170E", fontWeight: 800 }}>{count} ({pct}%)</span>
                         </div>
-                        <div style={{ width: "100%", height: "8px", background: "rgba(255,255,255,0.06)", borderRadius: "100px", overflow: "hidden" }}>
-                          <div style={{ width: `${pct}%`, height: "100%", background: "#d99b56", borderRadius: "100px" }} />
+                        <div style={{ width: "100%", height: "8px", background: "#FAF6EE", border: "1px solid #E8DAC8", borderRadius: "100px", overflow: "hidden" }}>
+                          <div style={{ width: `${pct}%`, height: "100%", background: "linear-gradient(135deg, #D4954E, #C6873E)", borderRadius: "100px" }} />
                         </div>
                       </div>
                     );
@@ -366,12 +368,13 @@ export default function ReportsPage() {
 
               {/* By Payment Method */}
               <div style={{
-                background: "rgba(24, 13, 7, 0.85)",
-                border: "1px solid rgba(217, 155, 86, 0.16)",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
                 borderRadius: "20px",
                 padding: "22px",
+                boxShadow: "0 2px 8px rgba(43,23,14,0.04)",
               }}>
-                <h3 style={{ fontSize: "16px", fontWeight: 900, color: "#ffffff", margin: "0 0 16px 0" }}>
+                <h3 style={{ fontSize: "16px", fontWeight: 900, color: "#2B170E", margin: "0 0 16px 0" }}>
                   {t("الإيرادات بطريقة الدفع", "Revenue by Payment Method")}
                 </h3>
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -381,10 +384,10 @@ export default function ReportsPage() {
                     return (
                       <div key={method}>
                         <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px", marginBottom: "5px" }}>
-                          <span style={{ color: "#b0957e", fontWeight: 700 }}>{payLabel}</span>
-                          <span style={{ color: "#ffffff", fontWeight: 800 }}>{formatCurrency(amount)} ({pct}%)</span>
+                          <span style={{ color: "#7E5E49", fontWeight: 700 }}>{payLabel}</span>
+                          <span style={{ color: "#2B170E", fontWeight: 800 }}>{formatCurrency(amount)} ({pct}%)</span>
                         </div>
-                        <div style={{ width: "100%", height: "8px", background: "rgba(255,255,255,0.06)", borderRadius: "100px", overflow: "hidden" }}>
+                        <div style={{ width: "100%", height: "8px", background: "#FAF6EE", border: "1px solid #E8DAC8", borderRadius: "100px", overflow: "hidden" }}>
                           <div style={{ width: `${pct}%`, height: "100%", background: "#10b981", borderRadius: "100px" }} />
                         </div>
                       </div>

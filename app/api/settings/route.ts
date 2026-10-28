@@ -1,8 +1,17 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+let cachedSettings: any = null;
+let lastSettingsTime = 0;
+const SETTINGS_TTL_MS = 60_000; // 60 seconds
+
 export async function GET() {
   try {
+    const now = Date.now();
+    if (cachedSettings && now - lastSettingsTime < SETTINGS_TTL_MS) {
+      return NextResponse.json(cachedSettings);
+    }
+
     let settings = await prisma.systemSettings.findUnique({
       where: { id: "default" },
     });
@@ -26,8 +35,11 @@ export async function GET() {
       });
     }
 
+    cachedSettings = settings;
+    lastSettingsTime = now;
     return NextResponse.json(settings);
   } catch (err: unknown) {
+    if (cachedSettings) return NextResponse.json(cachedSettings);
     return NextResponse.json({ error: String(err) }, { status: 500 });
   }
 }
@@ -52,10 +64,13 @@ export async function PATCH(req: Request) {
         phone: body.phone || "01091413470",
         address: body.address || "السادس من أكتوبر — الحي الأول",
         soundsEnabled: body.soundsEnabled ?? true,
-        specialOffers: body.specialOffers || body.status || "open",
+        specialOffers: body.specialOffers || "open",
         deliveryZones: typeof body.deliveryZones === "string" ? body.deliveryZones : JSON.stringify(body.deliveryZones || []),
       },
     });
+
+    cachedSettings = updated;
+    lastSettingsTime = Date.now();
 
     return NextResponse.json(updated);
   } catch (err: unknown) {

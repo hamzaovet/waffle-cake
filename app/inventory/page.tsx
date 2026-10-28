@@ -332,10 +332,10 @@ export default function InventoryPage() {
           marginBottom: "24px",
         }}>
           <div>
-            <h1 style={{ margin: "0 0 6px 0", fontSize: "26px", fontWeight: 900, color: "#ffffff" }}>
+            <h1 style={{ margin: "0 0 6px 0", fontSize: "26px", fontWeight: 900, color: "#2B170E" }}>
               {t("المخزن والتكاليف 📦", "Inventory & Costs 📦")}
             </h1>
-            <p style={{ margin: 0, fontSize: "13.5px", color: "#8a7565", fontWeight: 600 }}>
+            <p style={{ margin: 0, fontSize: "13.5px", color: "#7E5E49", fontWeight: 600 }}>
               {t("متابعة أرصدة الخامات، حساب متوسط التكلفة المرجح، وجرد استهلاك الفترة", "Track raw materials, calculate Weighted Average Cost, and audit period consumption")}
             </p>
           </div>
@@ -346,10 +346,10 @@ export default function InventoryPage() {
             <button
               onClick={openAuditModal}
               style={{
-                background: "#d99b56",
+                background: "linear-gradient(135deg, #D4954E, #C6873E)",
                 border: "none",
                 borderRadius: "12px",
-                color: "#180e06",
+                color: "#FFFFFF",
                 padding: "10px 18px",
                 fontSize: "13.5px",
                 fontWeight: 900,
@@ -357,7 +357,7 @@ export default function InventoryPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: "7px",
-                boxShadow: "0 4px 14px rgba(217, 155, 86, 0.35)",
+                boxShadow: "0 4px 14px rgba(198, 135, 62, 0.3)",
               }}
               title={t("جرد المخزن وحساب تكلفة الخامات المستهلكة وترحيلها للأرباح", "Audit stock, calculate consumed costs, and book to profits")}
             >
@@ -372,10 +372,10 @@ export default function InventoryPage() {
                 if (items.length > 0) setPurchaseItem(items[0]);
               }}
               style={{
-                background: "rgba(217, 155, 86, 0.15)",
-                border: "1px solid rgba(217, 155, 86, 0.35)",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
                 borderRadius: "12px",
-                color: "#d99b56",
+                color: "#C6873E",
                 padding: "10px 16px",
                 fontSize: "13px",
                 fontWeight: 800,
@@ -383,6 +383,7 @@ export default function InventoryPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: "6px",
+                boxShadow: "0 2px 6px rgba(43,23,14,0.03)",
               }}
             >
               <ShoppingCart size={16} />
@@ -397,10 +398,10 @@ export default function InventoryPage() {
                 setShowHistoryModal(true);
               }}
               style={{
-                background: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid rgba(255, 255, 255, 0.12)",
+                background: "#FFFFFF",
+                border: "1px solid #E8DAC8",
                 borderRadius: "12px",
-                color: "#b0957e",
+                color: "#7E5E49",
                 padding: "10px 16px",
                 fontSize: "13px",
                 fontWeight: 700,
@@ -408,6 +409,7 @@ export default function InventoryPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: "6px",
+                boxShadow: "0 2px 6px rgba(43,23,14,0.03)",
               }}
             >
               <History size={16} />
@@ -422,10 +424,10 @@ export default function InventoryPage() {
                 setModalItem({ name: "", unit: "كيلو", quantity: 1, minStock: 2, costPerUnit: 100 });
               }}
               style={{
-                background: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid rgba(255, 255, 255, 0.12)",
+                background: "#FAF6EE",
+                border: "1px solid #E8DAC8",
                 borderRadius: "12px",
-                color: "#f5ede4",
+                color: "#2B170E",
                 padding: "10px 14px",
                 fontSize: "13px",
                 fontWeight: 700,

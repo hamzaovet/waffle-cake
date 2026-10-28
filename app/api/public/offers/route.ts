@@ -34,23 +34,39 @@ const DEFAULT_OFFERS = {
   },
 };
 
+let cachedOffers: any = null;
+let lastOffersTime = 0;
+const OFFERS_TTL_MS = 60_000;
+
 export async function GET() {
   try {
-    const rows = await prisma.$queryRawUnsafe<any[]>(
-      `SELECT "specialOffers" FROM choco."SystemSettings" WHERE id = 'default' LIMIT 1`
-    );
+    const now = Date.now();
+    if (cachedOffers && now - lastOffersTime < OFFERS_TTL_MS) {
+      return NextResponse.json(cachedOffers);
+    }
 
-    if (rows && rows.length > 0 && rows[0]?.specialOffers) {
+    const setting = await prisma.systemSettings.findUnique({
+      where: { id: "default" },
+      select: { specialOffers: true },
+    });
+
+    if (setting?.specialOffers) {
       try {
-        const parsed = JSON.parse(rows[0].specialOffers);
+        const parsed = JSON.parse(setting.specialOffers);
+        cachedOffers = parsed;
+        lastOffersTime = now;
         return NextResponse.json(parsed);
       } catch {
-        // Fallback to default
+        // Fallback
       }
     }
 
+    cachedOffers = DEFAULT_OFFERS;
+    lastOffersTime = now;
     return NextResponse.json(DEFAULT_OFFERS);
   } catch {
+    cachedOffers = DEFAULT_OFFERS;
+    lastOffersTime = Date.now();
     return NextResponse.json(DEFAULT_OFFERS);
   }
 }
@@ -60,10 +76,17 @@ export async function PUT(req: Request) {
     const body = await req.json();
     const jsonStr = JSON.stringify(body);
 
-    await prisma.$executeRawUnsafe(
-      `UPDATE choco."SystemSettings" SET "specialOffers" = $1, "updatedAt" = NOW() WHERE id = 'default'`,
-      jsonStr
-    );
+    await prisma.systemSettings.upsert({
+      where: { id: "default" },
+      update: { specialOffers: jsonStr },
+      create: {
+        id: "default",
+        specialOffers: jsonStr,
+      },
+    });
+
+    cachedOffers = body;
+    lastOffersTime = Date.now();
 
     return NextResponse.json({ success: true, offers: body });
   } catch (err: unknown) {
