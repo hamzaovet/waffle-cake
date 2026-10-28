@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'Waffle & Cake',
   webDir: 'public',
   server: {
-    url: 'https://waffle-cake.vercel.app',
+    url: 'https://waffle-cake-sepia.vercel.app',
     cleartext: true,
   },
   android: {
