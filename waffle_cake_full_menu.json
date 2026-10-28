@@ -1,0 +1,855 @@
+{
+  "categories": [
+    "Picks for you 🔥",
+    "Offers",
+    "Waffle",
+    "Mini Pancake",
+    "Cheesecake",
+    "Milkshake",
+    "مولتن كيك",
+    "السموزي",
+    "مياه معدنية",
+    "Dessert",
+    "ايس كوفي",
+    "كان كيك"
+  ],
+  "products": [
+    {
+      "name": "Nutella Waffle",
+      "price": 129.6,
+      "description": "Fresh waffle prepared daily with a soft and light dough, topped with a generous layer of rich and delicious chocolate Nutella, served hot and crispy on the outside.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/وافل_نوتيلا639226680323970276.jpg?width=172&amp;height=172",
+      "category": "Picks for you 🔥",
+      "section": "Picks for you 🔥",
+      "choices_count": 0
+    },
+    {
+      "name": "Waffle Mix",
+      "price": 132,
+      "description": "Delicious Waffle Mix made from fresh waffle batter, blended with a mix of half Nutella and half white chocolate.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/وافل_ميكس639226680666410955.jpg?width=172&amp;height=172",
+      "category": "Picks for you 🔥",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Mini Pancake",
+      "price": 128,
+      "description": "Mini pancakes, Nutella chocolate spread.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميني_بانكيك_نوتيلا639226681886777828.jpg?width=172&amp;height=172",
+      "category": "Picks for you 🔥",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Molten Cake",
+      "price": 120,
+      "description": "A delicate and luxurious chocolate cake, filled with molten Nutella, served warm for an unforgettable sweet experience, combining the cake's tenderness with Nutella's rich flavor.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/6973c5bf-e8d6-4552-9361-a86198369525.jpg?width=172&amp;height=172",
+      "category": "Picks for you 🔥",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Cheesecake",
+      "price": 120,
+      "description": "Biscuit, cream cheese, choclate Nutella.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/تشيز_كيك__كيندر639226711638929284.jpg?width=172&amp;height=172",
+      "category": "Picks for you 🔥",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Blueberry Cheesecake",
+      "price": 104,
+      "description": "Biscuit, cream cheese, sauce blueberry.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/تشيز_كيك_بلوبيري639226682895965879.jpg?width=172&amp;height=172",
+      "category": "Picks for you 🔥",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "White chocolate strawberry waffle",
+      "price": 136,
+      "description": "Fresh, crispy waffles topped with a thick layer of smooth white chocolate and garnished with delicious fresh strawberry pieces, served piping hot for an unforgettable sweet treat.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/c8f2aafa-eb72-4698-a5f2-94a009a26d86.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": "Offers",
+      "choices_count": 0
+    },
+    {
+      "name": "Caramel Waffle",
+      "price": 136,
+      "description": "A crispy golden waffle, very carefully prepared and topped with rich delicious caramel sauce served hot.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/34e719f2-67eb-4324-850a-c7f145853bf7.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Oreo Waffle",
+      "price": 136,
+      "description": "Belgian waffle topped with Nutella and Oreo biscuits",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/f6d1a242-3afe-44ea-b58f-f9723e58acbe.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Waffle",
+      "price": 129.6,
+      "description": "Fresh waffle prepared daily with a soft and light dough, topped with a generous layer of rich and delicious chocolate Nutella, served hot and crispy on the outside.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/وافل_نوتيلا639226680323970276.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Kinder Waffle",
+      "price": 144,
+      "description": "Waffle batter, Kinder chocolate spread.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/وافل_كيندر639226680425306696.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Lotus Waffle",
+      "price": 116,
+      "description": "Fresh waffle prepared with a soft and light dough, topped with a generous layer of delicious and distinctive Lotus Biscoff cream.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/وافل_لوتس639226680528274614.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Waffle Mix",
+      "price": 132,
+      "description": "Delicious Waffle Mix made from fresh waffle batter, blended with a mix of half Nutella and half white chocolate.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/وافل_ميكس639226680666410955.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "White Chocolate Waffle",
+      "price": 128,
+      "description": "Large waffle with crispy and golden layers, topped with smooth and delicious white chocolate cream, perfect to enjoy anytime.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/وافل_شوكلاته_بيضاء639226681210444247.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Mini Pancake Mix",
+      "price": 128,
+      "description": "Mini pancakes, mixed chocolate spread.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميني_بانكيك_ميكس_2639226681760542323.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Mini Pancake",
+      "price": 128,
+      "description": "Mini pancakes, Nutella chocolate spread.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميني_بانكيك_نوتيلا639226681886777828.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Lotus Mini Pancake",
+      "price": 124,
+      "description": "Mini pancakes, Lotus Biscoff spread.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميني_بانكيك_لوتس639226681983192380.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Kinder Mini Pancake",
+      "price": 144,
+      "description": "Mini pancakes, Kinder chocolate spread.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميني_بانكيك_كيندر639226682131272642.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Mini White Chocolate Pancakes",
+      "price": 128,
+      "description": "Mini pancakes, white chocolate spread.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميني_بانكيك_شوكلاته_بيضاء639226682341317855.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Plain Cheesecake",
+      "price": 80,
+      "description": "Biscuit, rich cream cheese.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/تشيز_كيك_ساده639226682874283076.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Blueberry Cheesecake",
+      "price": 104,
+      "description": "Biscuit, cream cheese, sauce blueberry.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/تشيز_كيك_بلوبيري639226682895965879.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Strawberry Cheesecake",
+      "price": 104,
+      "description": "Biscuit, cream cheese, sauce strawberry.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/تشيز_كيك_فراوله639226682920568480.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Cheesecake",
+      "price": 120,
+      "description": "Biscuit, cream cheese, choclate Nutella.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/تشيز_كيك__كيندر639226711638929284.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Mango Milkshake",
+      "price": 104,
+      "description": "Milk, vanilla ice cream, mango.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميلك_شيك_مانجو639226682502102311.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Blueberry Milkshake",
+      "price": 104,
+      "description": "Milk, vanilla ice cream, blueberries.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميلك_شيك_بلوبيري639226682536874399.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Strawberry Milkshake",
+      "price": 104,
+      "description": "Milk, vanilla ice cream, strawberries.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميلك_شيك_فراوله639226682569333205.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Mix Berry Milkshake",
+      "price": 110.4,
+      "description": "Milk, vanilla ice cream, mix berries.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميلك_شيك_مكس_بيري639226682610295137.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Lotus Milkshake",
+      "price": 104,
+      "description": "Milk, vanilla ice cream, lotus.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميلك_شيك_لوتس639226682664126990.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Milkshake",
+      "price": 116,
+      "description": "Milk, vanilla ice cream, Nutella.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميلك_شيك_نوتيلا639226682695631016.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Molten Cake",
+      "price": 120,
+      "description": "A delicate and luxurious chocolate cake, filled with molten Nutella, served warm for an unforgettable sweet experience, combining the cake's tenderness with Nutella's rich flavor.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/6973c5bf-e8d6-4552-9361-a86198369525.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Blueberry Smoothie",
+      "price": 80,
+      "description": "Refreshing and delicious blueberry smoothie made from blended fresh blueberries.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/f689aec7-65fe-4fac-8a4c-d207cd23871c.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Smoothie Mix Berry",
+      "price": 88,
+      "description": "Refreshing smoothie drink made with a delicious blend of fresh berries, strawberries, and wild grapes, served chilled and iced.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/ddefa062-a34a-4c71-ab76-fe2460ab295c.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Strawberry Smoothie",
+      "price": 88,
+      "description": "Enjoy a refreshing strawberry smoothie made from the finest fresh red strawberries blended with rich yogurt, offering you a rich, vitamin-packed frozen experience.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/8413d964-2f57-4833-8f51-9b2e745968a4.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Mango Smoothie",
+      "price": 88,
+      "description": "Fresh mango smoothie prepared from the finest naturally ripe mango fruits  serve as a refreshing and chilled .",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/e9845a96-3148-416f-a627-1762cbed9bb7.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Red Velvet",
+      "price": 76,
+      "description": "A luxurious Red Velvet cake featuring smooth layers of rich red cocoa and delicious cream cheese frosting, with an elegant finish that makes it the perfect choice for connoisseurs of fine desserts.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/6f43ab9d-3625-4bc5-bb8b-145747bdc86f.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Honey Cake",
+      "price": 96,
+      "description": "This premium honey cake is crafted using a traditional method, featuring smooth layers of natural honey and fresh butter that create a delicious, sweet flavor and a moist, tender texture that melts in the mouth.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/b8b11e83-0470-4322-b988-0cf0bc397d79.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Kinder Brownies Chocolate",
+      "price": 132,
+      "description": "Kinder Browns with Luxury Chocolate With soft and delicious chocolate pieces It combines a rich taste with a delicate, creamy texture. Perfect as a luxurious dessert",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/73353dd2-3923-480e-bd48-9da6c27c47c7.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Brownies",
+      "price": 120,
+      "description": "Delicious Nutella brownies Carefully prepared from the finest chocolate and hazelnut ingredients With a rich and smooth taste Melts in the mouth, served fresh and delicious",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/314d0227-d9e5-4e59-8ce1-cb6267367f4d.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Browns Lotus",
+      "price": 124,
+      "description": "Lotus delicious Brownies, carefully prepared from the finest ingredients with a unique and rich Lotus flavor, presented beautifully and attractively for lovers of gourmet desserts.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/d00a6207-7712-4807-9d33-3bf194f4750b.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Browns White Chocolate",
+      "price": 120,
+      "description": "Browns are luxurious, smooth-textured white chocolates made from the finest types of white chocolate, with a rich, creamy, and deliciously sweet taste.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/0b794692-53da-4e1a-a468-c1f180e5b2da.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "ايس لاتيه",
+      "price": 104,
+      "description": "مشروب قهوة مثلج منعش يجمع بين قهوة الإسبريسو الغنية والحليب البارد الكريمي مع مكعبات الثلج لتقديم تجربة قهوة باردة لذيذة وسهلة الشرب",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/0a4e2239-74d8-417e-8ddb-6f4499a0b09c.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "كراميل",
+      "price": 104,
+      "description": "قهوة مثلجة غنية بنكهة الكراميل الحلوة واللذيذة مع حليب",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/f34f8eca-a286-41d3-a0ce-2a7351f71b8e.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": " فانيليا",
+      "price": 104,
+      "description": "قهوة مثلجة بنكهة الفانيليا الفاخرة مع حليب ناعم وكريمة غنية تقدم باردة منعشة",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/99701703-2cdc-4484-bb77-65a3d4b27b78.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella",
+      "price": 112,
+      "description": "A rich iced coffee drink with the famous Nutella flavor, with soft milk and whipped cream for a delicious and smooth experience",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/74ef0544-8010-4fd6-bb35-24f878bc7132.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Vanilla Lotus Cake",
+      "price": 104,
+      "description": "A soft vanilla cake filled with the famous Lotus Cream and crunchy Lotus biscuits served with a rich taste and balanced sweetness",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/7e4d453e-99f1-4ff2-b635-e0e23c82b93f.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Red Velvet Cake Layers with Cream Cheese",
+      "price": 104,
+      "description": "Soft layers of luxurious red velvet cake with carefully whipped fresh cream cheese. Harmonious layers that combine the light chocolate taste with the gentle acidity of cream cheese",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/0a968bb1-28bc-4561-88d1-166b24747c3e.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Vanilla cake with layers of strawberry sauce",
+      "price": 104,
+      "description": "Soft multi-layer vanilla cake with delicious fresh strawberry sauce and cream",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/1640064c-c9fa-4911-8a3a-2bfd41b605ba.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Chocolate Cake With Layers of Orio and Nutella",
+      "price": 104,
+      "description": "Luxurious Chocolate Cake With Multiple Layers of Soft Orio Cream and Rich Nutella Filling for an Irresistible Chocolate Taste",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/de0bb666-a1ca-457d-b294-ce9177481c23.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Chocolate cake with layers of cookie cream and Oreo",
+      "price": 104,
+      "description": "A luxurious chocolate cake with multiple layers of soft cookie cream and crunchy Oreo, a rich and sweet taste that combines dark chocolate flavor with crunchy cookie pieces",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/daccd32d-43e4-45b1-9f2d-b416daeb68f5.jpg?width=172&amp;height=172",
+      "category": "Offers",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "White chocolate strawberry waffle",
+      "price": 136,
+      "description": "Fresh, crispy waffles topped with a thick layer of smooth white chocolate and garnished with delicious fresh strawberry pieces, served piping hot for an unforgettable sweet treat.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/c8f2aafa-eb72-4698-a5f2-94a009a26d86.jpg?width=172&amp;height=172",
+      "category": "Waffle",
+      "section": "Waffle",
+      "choices_count": 0
+    },
+    {
+      "name": "Caramel Waffle",
+      "price": 136,
+      "description": "A crispy golden waffle, very carefully prepared and topped with rich delicious caramel sauce served hot.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/34e719f2-67eb-4324-850a-c7f145853bf7.jpg?width=172&amp;height=172",
+      "category": "Waffle",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Oreo Waffle",
+      "price": 136,
+      "description": "Belgian waffle topped with Nutella and Oreo biscuits",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/f6d1a242-3afe-44ea-b58f-f9723e58acbe.jpg?width=172&amp;height=172",
+      "category": "Waffle",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Waffle",
+      "price": 129.6,
+      "description": "Fresh waffle prepared daily with a soft and light dough, topped with a generous layer of rich and delicious chocolate Nutella, served hot and crispy on the outside.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/وافل_نوتيلا639226680323970276.jpg?width=172&amp;height=172",
+      "category": "Waffle",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Kinder Waffle",
+      "price": 144,
+      "description": "Waffle batter, Kinder chocolate spread.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/وافل_كيندر639226680425306696.jpg?width=172&amp;height=172",
+      "category": "Waffle",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Lotus Waffle",
+      "price": 116,
+      "description": "Fresh waffle prepared with a soft and light dough, topped with a generous layer of delicious and distinctive Lotus Biscoff cream.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/وافل_لوتس639226680528274614.jpg?width=172&amp;height=172",
+      "category": "Waffle",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Waffle Mix",
+      "price": 132,
+      "description": "Delicious Waffle Mix made from fresh waffle batter, blended with a mix of half Nutella and half white chocolate.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/وافل_ميكس639226680666410955.jpg?width=172&amp;height=172",
+      "category": "Waffle",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "White Chocolate Waffle",
+      "price": 128,
+      "description": "Large waffle with crispy and golden layers, topped with smooth and delicious white chocolate cream, perfect to enjoy anytime.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/وافل_شوكلاته_بيضاء639226681210444247.jpg?width=172&amp;height=172",
+      "category": "Waffle",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Mini Pancake Mix",
+      "price": 128,
+      "description": "Mini pancakes, mixed chocolate spread.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميني_بانكيك_ميكس_2639226681760542323.jpg?width=172&amp;height=172",
+      "category": "Mini Pancake",
+      "section": "Mini Pancake",
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Mini Pancake",
+      "price": 128,
+      "description": "Mini pancakes, Nutella chocolate spread.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميني_بانكيك_نوتيلا639226681886777828.jpg?width=172&amp;height=172",
+      "category": "Mini Pancake",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Lotus Mini Pancake",
+      "price": 124,
+      "description": "Mini pancakes, Lotus Biscoff spread.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميني_بانكيك_لوتس639226681983192380.jpg?width=172&amp;height=172",
+      "category": "Mini Pancake",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Kinder Mini Pancake",
+      "price": 144,
+      "description": "Mini pancakes, Kinder chocolate spread.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميني_بانكيك_كيندر639226682131272642.jpg?width=172&amp;height=172",
+      "category": "Mini Pancake",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Mini White Chocolate Pancakes",
+      "price": 128,
+      "description": "Mini pancakes, white chocolate spread.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميني_بانكيك_شوكلاته_بيضاء639226682341317855.jpg?width=172&amp;height=172",
+      "category": "Mini Pancake",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Plain Cheesecake",
+      "price": 80,
+      "description": "Biscuit, rich cream cheese.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/تشيز_كيك_ساده639226682874283076.jpg?width=172&amp;height=172",
+      "category": "Cheesecake",
+      "section": "Cheesecake",
+      "choices_count": 0
+    },
+    {
+      "name": "Blueberry Cheesecake",
+      "price": 104,
+      "description": "Biscuit, cream cheese, sauce blueberry.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/تشيز_كيك_بلوبيري639226682895965879.jpg?width=172&amp;height=172",
+      "category": "Cheesecake",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Strawberry Cheesecake",
+      "price": 104,
+      "description": "Biscuit, cream cheese, sauce strawberry.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/تشيز_كيك_فراوله639226682920568480.jpg?width=172&amp;height=172",
+      "category": "Cheesecake",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Cheesecake",
+      "price": 120,
+      "description": "Biscuit, cream cheese, choclate Nutella.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/تشيز_كيك__كيندر639226711638929284.jpg?width=172&amp;height=172",
+      "category": "Cheesecake",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Mango Milkshake",
+      "price": 104,
+      "description": "Milk, vanilla ice cream, mango.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميلك_شيك_مانجو639226682502102311.jpg?width=172&amp;height=172",
+      "category": "Milkshake",
+      "section": "Milkshake",
+      "choices_count": 0
+    },
+    {
+      "name": "Blueberry Milkshake",
+      "price": 104,
+      "description": "Milk, vanilla ice cream, blueberries.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميلك_شيك_بلوبيري639226682536874399.jpg?width=172&amp;height=172",
+      "category": "Milkshake",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Strawberry Milkshake",
+      "price": 104,
+      "description": "Milk, vanilla ice cream, strawberries.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميلك_شيك_فراوله639226682569333205.jpg?width=172&amp;height=172",
+      "category": "Milkshake",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Mix Berry Milkshake",
+      "price": 110.4,
+      "description": "Milk, vanilla ice cream, mix berries.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميلك_شيك_مكس_بيري639226682610295137.jpg?width=172&amp;height=172",
+      "category": "Milkshake",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Lotus Milkshake",
+      "price": 104,
+      "description": "Milk, vanilla ice cream, lotus.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميلك_شيك_لوتس639226682664126990.jpg?width=172&amp;height=172",
+      "category": "Milkshake",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Milkshake",
+      "price": 116,
+      "description": "Milk, vanilla ice cream, Nutella.",
+      "image": "https://talabat.dhmedia.io/image/talabat/MenuItems/ميلك_شيك_نوتيلا639226682695631016.jpg?width=172&amp;height=172",
+      "category": "Milkshake",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Molten Cake",
+      "price": 120,
+      "description": "A delicate and luxurious chocolate cake, filled with molten Nutella, served warm for an unforgettable sweet experience, combining the cake's tenderness with Nutella's rich flavor.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/6973c5bf-e8d6-4552-9361-a86198369525.jpg?width=172&amp;height=172",
+      "category": "مولتن كيك",
+      "section": "مولتن كيك",
+      "choices_count": 0
+    },
+    {
+      "name": "Blueberry Smoothie",
+      "price": 80,
+      "description": "Refreshing and delicious blueberry smoothie made from blended fresh blueberries.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/f689aec7-65fe-4fac-8a4c-d207cd23871c.jpg?width=172&amp;height=172",
+      "category": "السموزي",
+      "section": "السموزي",
+      "choices_count": 0
+    },
+    {
+      "name": "Smoothie Mix Berry",
+      "price": 88,
+      "description": "Refreshing smoothie drink made with a delicious blend of fresh berries, strawberries, and wild grapes, served chilled and iced.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/ddefa062-a34a-4c71-ab76-fe2460ab295c.jpg?width=172&amp;height=172",
+      "category": "السموزي",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Strawberry Smoothie",
+      "price": 88,
+      "description": "Enjoy a refreshing strawberry smoothie made from the finest fresh red strawberries blended with rich yogurt, offering you a rich, vitamin-packed frozen experience.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/8413d964-2f57-4833-8f51-9b2e745968a4.jpg?width=172&amp;height=172",
+      "category": "السموزي",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Mango Smoothie",
+      "price": 88,
+      "description": "Fresh mango smoothie prepared from the finest naturally ripe mango fruits  serve as a refreshing and chilled .",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/e9845a96-3148-416f-a627-1762cbed9bb7.jpg?width=172&amp;height=172",
+      "category": "السموزي",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Mineral Water",
+      "price": 20,
+      "description": "Pure, natural mineral water rich in essential minerals and elements beneficial to the body's health. Refreshing and light in taste, ideal for daily drinking.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/b05d5bf3-b198-4a10-9476-2fa5601d26c6.jpg?width=172&amp;height=172",
+      "category": "مياه معدنية",
+      "section": "مياه معدنية",
+      "choices_count": 0
+    },
+    {
+      "name": "Red Velvet",
+      "price": 76,
+      "description": "A luxurious Red Velvet cake featuring smooth layers of rich red cocoa and delicious cream cheese frosting, with an elegant finish that makes it the perfect choice for connoisseurs of fine desserts.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/6f43ab9d-3625-4bc5-bb8b-145747bdc86f.jpg?width=172&amp;height=172",
+      "category": "Dessert",
+      "section": "Dessert",
+      "choices_count": 0
+    },
+    {
+      "name": "Honey Cake",
+      "price": 96,
+      "description": "This premium honey cake is crafted using a traditional method, featuring smooth layers of natural honey and fresh butter that create a delicious, sweet flavor and a moist, tender texture that melts in the mouth.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/b8b11e83-0470-4322-b988-0cf0bc397d79.jpg?width=172&amp;height=172",
+      "category": "Dessert",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Kinder Brownies Chocolate",
+      "price": 132,
+      "description": "Kinder Browns with Luxury Chocolate With soft and delicious chocolate pieces It combines a rich taste with a delicate, creamy texture. Perfect as a luxurious dessert",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/73353dd2-3923-480e-bd48-9da6c27c47c7.jpg?width=172&amp;height=172",
+      "category": "Dessert",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella Brownies",
+      "price": 120,
+      "description": "Delicious Nutella brownies Carefully prepared from the finest chocolate and hazelnut ingredients With a rich and smooth taste Melts in the mouth, served fresh and delicious",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/314d0227-d9e5-4e59-8ce1-cb6267367f4d.jpg?width=172&amp;height=172",
+      "category": "Dessert",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Browns Lotus",
+      "price": 124,
+      "description": "Lotus delicious Brownies, carefully prepared from the finest ingredients with a unique and rich Lotus flavor, presented beautifully and attractively for lovers of gourmet desserts.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/d00a6207-7712-4807-9d33-3bf194f4750b.jpg?width=172&amp;height=172",
+      "category": "Dessert",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Browns White Chocolate",
+      "price": 120,
+      "description": "Browns are luxurious, smooth-textured white chocolates made from the finest types of white chocolate, with a rich, creamy, and deliciously sweet taste.",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/0b794692-53da-4e1a-a468-c1f180e5b2da.jpg?width=172&amp;height=172",
+      "category": "Dessert",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "ايس لاتيه",
+      "price": 104,
+      "description": "مشروب قهوة مثلج منعش يجمع بين قهوة الإسبريسو الغنية والحليب البارد الكريمي مع مكعبات الثلج لتقديم تجربة قهوة باردة لذيذة وسهلة الشرب",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/0a4e2239-74d8-417e-8ddb-6f4499a0b09c.jpg?width=172&amp;height=172",
+      "category": "ايس كوفي",
+      "section": "ايس كوفي",
+      "choices_count": 0
+    },
+    {
+      "name": "كراميل",
+      "price": 104,
+      "description": "قهوة مثلجة غنية بنكهة الكراميل الحلوة واللذيذة مع حليب",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/f34f8eca-a286-41d3-a0ce-2a7351f71b8e.jpg?width=172&amp;height=172",
+      "category": "ايس كوفي",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": " فانيليا",
+      "price": 104,
+      "description": "قهوة مثلجة بنكهة الفانيليا الفاخرة مع حليب ناعم وكريمة غنية تقدم باردة منعشة",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/99701703-2cdc-4484-bb77-65a3d4b27b78.jpg?width=172&amp;height=172",
+      "category": "ايس كوفي",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Nutella",
+      "price": 112,
+      "description": "A rich iced coffee drink with the famous Nutella flavor, with soft milk and whipped cream for a delicious and smooth experience",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/74ef0544-8010-4fd6-bb35-24f878bc7132.jpg?width=172&amp;height=172",
+      "category": "ايس كوفي",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Vanilla Lotus Cake",
+      "price": 104,
+      "description": "A soft vanilla cake filled with the famous Lotus Cream and crunchy Lotus biscuits served with a rich taste and balanced sweetness",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/7e4d453e-99f1-4ff2-b635-e0e23c82b93f.jpg?width=172&amp;height=172",
+      "category": "كان كيك",
+      "section": "كان كيك",
+      "choices_count": 0
+    },
+    {
+      "name": "Red Velvet Cake Layers with Cream Cheese",
+      "price": 104,
+      "description": "Soft layers of luxurious red velvet cake with carefully whipped fresh cream cheese. Harmonious layers that combine the light chocolate taste with the gentle acidity of cream cheese",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/0a968bb1-28bc-4561-88d1-166b24747c3e.jpg?width=172&amp;height=172",
+      "category": "كان كيك",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Vanilla cake with layers of strawberry sauce",
+      "price": 104,
+      "description": "Soft multi-layer vanilla cake with delicious fresh strawberry sauce and cream",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/1640064c-c9fa-4911-8a3a-2bfd41b605ba.jpg?width=172&amp;height=172",
+      "category": "كان كيك",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Chocolate Cake With Layers of Orio and Nutella",
+      "price": 104,
+      "description": "Luxurious Chocolate Cake With Multiple Layers of Soft Orio Cream and Rich Nutella Filling for an Irresistible Chocolate Taste",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/de0bb666-a1ca-457d-b294-ce9177481c23.jpg?width=172&amp;height=172",
+      "category": "كان كيك",
+      "section": null,
+      "choices_count": 0
+    },
+    {
+      "name": "Chocolate cake with layers of cookie cream and Oreo",
+      "price": 104,
+      "description": "A luxurious chocolate cake with multiple layers of soft cookie cream and crunchy Oreo, a rich and sweet taste that combines dark chocolate flavor with crunchy cookie pieces",
+      "image": "https://talabat.dhmedia.io/image/global-menu-service/HF_EG/vendor/1119323/product/daccd32d-43e4-45b1-9f2d-b416daeb68f5.jpg?width=172&amp;height=172",
+      "category": "كان كيك",
+      "section": null,
+      "choices_count": 0
+    }
+  ]
+}
