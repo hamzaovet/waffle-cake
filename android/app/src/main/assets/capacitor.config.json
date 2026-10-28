@@ -1,0 +1,13 @@
+{
+	"appId": "com.wafflecake.desserts",
+	"appName": "Waffle & Cake",
+	"webDir": "public",
+	"server": {
+		"url": "https://waffle-cake-sepia.vercel.app",
+		"cleartext": true
+	},
+	"android": {
+		"allowMixedContent": true,
+		"backgroundColor": "#F8F4EC"
+	}
+}
