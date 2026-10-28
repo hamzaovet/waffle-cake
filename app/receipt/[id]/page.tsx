@@ -88,7 +88,7 @@ export default function DigitalReceiptPage({ params }: { params: Promise<{ id: s
 
   if (loading) {
     return (
-      <div dir="rtl" style={{ minHeight: "100vh", background: "#0d0805", color: "#cca043", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-cairo), sans-serif" }}>
+      <div dir="rtl" style={{ minHeight: "100vh", background: "#0d0805", color: "#d99b56", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-cairo), sans-serif" }}>
         <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: "36px", marginBottom: "12px" }}>🍫</div>
           <p style={{ fontWeight: 800, fontSize: "16px" }}>جاري تحميل الفاتورة الذكية...</p>
@@ -104,7 +104,7 @@ export default function DigitalReceiptPage({ params }: { params: Promise<{ id: s
           <AlertCircle size={44} color="#ef4444" style={{ margin: "0 auto 12px" }} />
           <h2 style={{ fontSize: "18px", fontWeight: 900, marginBottom: "8px" }}>تعذر فتح الفاتورة</h2>
           <p style={{ color: "#8a7565", fontSize: "13px", marginBottom: "20px" }}>{error || "تأكد من صحة رمز الـ QR أو رقم الأوردر"}</p>
-          <Link href="/" style={{ display: "inline-block", background: "#cca043", color: "#180e06", padding: "10px 20px", borderRadius: "10px", fontWeight: 800, textDecoration: "none" }}>
+          <Link href="/" style={{ display: "inline-block", background: "#d99b56", color: "#180e06", padding: "10px 20px", borderRadius: "10px", fontWeight: 800, textDecoration: "none" }}>
             العودة للموقع الرئيسي
           </Link>
         </div>
@@ -128,14 +128,14 @@ export default function DigitalReceiptPage({ params }: { params: Promise<{ id: s
       <div style={{ maxWidth: "460px", margin: "0 auto" }}>
         {/* Top Back Nav */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px" }}>
-          <Link href="/" style={{ display: "flex", alignItems: "center", gap: "6px", color: "#cca043", textDecoration: "none", fontSize: "13px", fontWeight: 800 }}>
+          <Link href="/" style={{ display: "flex", alignItems: "center", gap: "6px", color: "#d99b56", textDecoration: "none", fontSize: "13px", fontWeight: 800 }}>
             <ArrowRight size={16} />
             <span>Waffle &amp; Cake Desserts</span>
           </Link>
 
           <button
             onClick={() => fetchOrder()}
-            style={{ background: "rgba(255,255,255,0.06)", border: "none", color: "#cca043", padding: "6px 10px", borderRadius: "8px", fontSize: "12px", cursor: "pointer", display: "flex", alignItems: "center", gap: "4px" }}
+            style={{ background: "rgba(255,255,255,0.06)", border: "none", color: "#d99b56", padding: "6px 10px", borderRadius: "8px", fontSize: "12px", cursor: "pointer", display: "flex", alignItems: "center", gap: "4px" }}
           >
             <RefreshCw size={12} />
             <span>تحديث</span>
@@ -149,7 +149,7 @@ export default function DigitalReceiptPage({ params }: { params: Promise<{ id: s
             <img src="/waffle-logo.jpeg" alt="Waffle & Cake" style={{ width: "85px", height: "85px", borderRadius: "50%", objectFit: "cover", margin: "0 auto 8px", display: "block", border: "2px solid #5a3825" }} />
             <div style={{ fontSize: "15px", fontWeight: 900, color: "#180e06" }}>Waffle &amp; Cake (وافل وكيك)</div>
             <div style={{ fontSize: "11.5px", color: "#444", fontWeight: 700 }}>السادس من أكتوبر — الحي الأول</div>
-            <div style={{ fontSize: "12.5px", fontWeight: 800, marginTop: "2px" }}>هاتف / واتساب المتجر: 01018671000</div>
+            <div style={{ fontSize: "12.5px", fontWeight: 800, marginTop: "2px" }}>هاتف / واتساب المطعم: 01091413470</div>
           </div>
 
           <div style={{ borderTop: "1.5px dashed #444", margin: "12px 0" }} />

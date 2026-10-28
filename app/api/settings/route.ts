@@ -11,9 +11,9 @@ export async function GET() {
       settings = await prisma.systemSettings.create({
         data: {
           id: "default",
-          restaurantName: "Choco House Desserts",
+          restaurantName: "Waffle & Cake",
           phone: "01091413470",
-          address: "الحي الثاني، قطعة 3، مبنى 3، السادس من أكتوبر",
+          address: "السادس من أكتوبر — الحي الأول",
           deliveryZones: JSON.stringify([
             { name: "الحي الثاني", fee: 15 },
             { name: "الحي الأول", fee: 20 },
@@ -48,9 +48,9 @@ export async function PATCH(req: Request) {
       },
       create: {
         id: "default",
-        restaurantName: body.restaurantName || "Choco House Desserts",
+        restaurantName: body.restaurantName || "Waffle & Cake",
         phone: body.phone || "01091413470",
-        address: body.address || "الحي الثاني، قطعة 3، مبنى 3، السادس من أكتوبر",
+        address: body.address || "السادس من أكتوبر — الحي الأول",
         soundsEnabled: body.soundsEnabled ?? true,
         specialOffers: body.specialOffers || body.status || "open",
         deliveryZones: typeof body.deliveryZones === "string" ? body.deliveryZones : JSON.stringify(body.deliveryZones || []),

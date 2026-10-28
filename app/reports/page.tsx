@@ -223,7 +223,7 @@ export default function ReportsPage() {
                       padding: "7px 16px",
                       borderRadius: "10px",
                       border: "none",
-                      background: isSelected ? "#cca043" : "transparent",
+                      background: isSelected ? "#d99b56" : "transparent",
                       color: isSelected ? "#180e06" : "#b0957e",
                       fontSize: "13px",
                       fontWeight: isSelected ? 900 : 700,
@@ -241,7 +241,7 @@ export default function ReportsPage() {
             <button
               onClick={() => { playSound("click"); setShowExpenseModal(true); }}
               style={{
-                background: "#cca043",
+                background: "#d99b56",
                 border: "none",
                 borderRadius: "12px",
                 color: "#180e06",
@@ -252,7 +252,7 @@ export default function ReportsPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: "7px",
-                boxShadow: "0 4px 14px rgba(204, 160, 67, 0.3)",
+                boxShadow: "0 4px 14px rgba(217, 155, 86, 0.3)",
               }}
             >
               <Plus size={17} strokeWidth={2.5} />
@@ -264,7 +264,7 @@ export default function ReportsPage() {
         {/* ── KPIs Cards ── */}
         {loading ? (
           <div style={{ textAlign: "center", padding: "60px", color: "#8a7565" }}>
-            <Loader2 size={36} className="animate-spin" color="#cca043" style={{ margin: "0 auto 12px" }} />
+            <Loader2 size={36} className="animate-spin" color="#d99b56" style={{ margin: "0 auto 12px" }} />
             <p>{t("جاري تجميع البيانات المالية...", "Aggregating financial data...")}</p>
           </div>
         ) : !data ? (
@@ -283,10 +283,10 @@ export default function ReportsPage() {
                 {
                   label: t("إجمالي الإيرادات", "Total Revenue"),
                   val: formatCurrency(data.totalRevenue),
-                  icon: <CircleDollarSign size={22} color="#cca043" />,
-                  color: "#cca043",
-                  bg: "rgba(204, 160, 67, 0.1)",
-                  border: "rgba(204, 160, 67, 0.25)",
+                  icon: <CircleDollarSign size={22} color="#d99b56" />,
+                  color: "#d99b56",
+                  bg: "rgba(217, 155, 86, 0.1)",
+                  border: "rgba(217, 155, 86, 0.25)",
                 },
                 {
                   label: t("عدد الطلبات", "Total Orders"),
@@ -338,7 +338,7 @@ export default function ReportsPage() {
               {/* By Status */}
               <div style={{
                 background: "rgba(24, 13, 7, 0.85)",
-                border: "1px solid rgba(204, 160, 67, 0.16)",
+                border: "1px solid rgba(217, 155, 86, 0.16)",
                 borderRadius: "20px",
                 padding: "22px",
               }}>
@@ -356,7 +356,7 @@ export default function ReportsPage() {
                           <span style={{ color: "#ffffff", fontWeight: 800 }}>{count} ({pct}%)</span>
                         </div>
                         <div style={{ width: "100%", height: "8px", background: "rgba(255,255,255,0.06)", borderRadius: "100px", overflow: "hidden" }}>
-                          <div style={{ width: `${pct}%`, height: "100%", background: "#cca043", borderRadius: "100px" }} />
+                          <div style={{ width: `${pct}%`, height: "100%", background: "#d99b56", borderRadius: "100px" }} />
                         </div>
                       </div>
                     );
@@ -367,7 +367,7 @@ export default function ReportsPage() {
               {/* By Payment Method */}
               <div style={{
                 background: "rgba(24, 13, 7, 0.85)",
-                border: "1px solid rgba(204, 160, 67, 0.16)",
+                border: "1px solid rgba(217, 155, 86, 0.16)",
                 borderRadius: "20px",
                 padding: "22px",
               }}>
@@ -397,7 +397,7 @@ export default function ReportsPage() {
             {/* ── Recent Expenses List ── */}
             <div style={{
               background: "#160d05",
-              border: "1px solid rgba(204, 160, 67, 0.2)",
+              border: "1px solid rgba(217, 155, 86, 0.2)",
               borderRadius: "20px",
               padding: "24px",
             }}>
@@ -414,10 +414,10 @@ export default function ReportsPage() {
                 <button
                   onClick={() => { playSound("click"); setShowExpenseModal(true); }}
                   style={{
-                    background: "rgba(204, 160, 67, 0.15)",
-                    border: "1px solid rgba(204, 160, 67, 0.3)",
+                    background: "rgba(217, 155, 86, 0.15)",
+                    border: "1px solid rgba(217, 155, 86, 0.3)",
                     borderRadius: "10px",
-                    color: "#cca043",
+                    color: "#d99b56",
                     padding: "7px 14px",
                     fontSize: "12.5px",
                     fontWeight: 800,
@@ -443,7 +443,7 @@ export default function ReportsPage() {
                       key={exp.id}
                       style={{
                         background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.12)",
+                        border: "1px solid rgba(217, 155, 86, 0.12)",
                         borderRadius: "14px",
                         padding: "12px 18px",
                         display: "flex",
@@ -457,8 +457,8 @@ export default function ReportsPage() {
                         <span style={{
                           padding: "4px 10px",
                           borderRadius: "8px",
-                          background: "rgba(204, 160, 67, 0.12)",
-                          color: "#cca043",
+                          background: "rgba(217, 155, 86, 0.12)",
+                          color: "#d99b56",
                           fontSize: "11px",
                           fontWeight: 800,
                         }}>
@@ -522,7 +522,7 @@ export default function ReportsPage() {
               width: "100%",
               maxWidth: "460px",
               background: "#160d05",
-              border: "1px solid rgba(204, 160, 67, 0.35)",
+              border: "1px solid rgba(217, 155, 86, 0.35)",
               borderRadius: "24px",
               padding: "26px",
               boxShadow: "0 24px 64px rgba(0,0,0,0.8)",
@@ -570,7 +570,7 @@ export default function ReportsPage() {
                     placeholder={t("مثلاً: شراء 2 كرتونة نوتيلا، فاتورة كهرباء، صيانة...", "e.g., 2 boxes of Nutella, electric bill, maintenance...")}
                     style={{
                       width: "100%", height: "42px", background: "#0d0805",
-                      border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "12px",
+                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
                       padding: "0 14px", color: "#fff", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
                     }}
                   />
@@ -589,7 +589,7 @@ export default function ReportsPage() {
                       placeholder="0.00"
                       style={{
                         width: "100%", height: "42px", background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "12px",
+                        border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
                         padding: "0 14px", color: "#fff", fontSize: "14px", fontWeight: 800, outline: "none", boxSizing: "border-box",
                       }}
                     />
@@ -606,7 +606,7 @@ export default function ReportsPage() {
                       onChange={(e) => setExpenseForm({ ...expenseForm, expenseDate: e.target.value })}
                       style={{
                         width: "100%", height: "42px", background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "12px",
+                        border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
                         padding: "0 10px", color: "#fff", fontSize: "12.5px", outline: "none", boxSizing: "border-box",
                       }}
                     />
@@ -622,7 +622,7 @@ export default function ReportsPage() {
                     onChange={(e) => setExpenseForm({ ...expenseForm, category: e.target.value })}
                     style={{
                       width: "100%", height: "42px", background: "#0d0805",
-                      border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "12px",
+                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
                       padding: "0 12px", color: "#fff", fontSize: "13px", outline: "none", boxSizing: "border-box",
                     }}
                   >
@@ -649,7 +649,7 @@ export default function ReportsPage() {
                     disabled={savingExpense || !expenseForm.description || !expenseForm.amount}
                     style={{
                       flex: 2, height: "44px", borderRadius: "12px",
-                      background: "#cca043", border: "none",
+                      background: "#d99b56", border: "none",
                       color: "#180e06", fontSize: "13.5px", fontWeight: 900,
                       cursor: savingExpense ? "wait" : "pointer",
                       display: "flex", alignItems: "center", justifyContent: "center", gap: "6px",

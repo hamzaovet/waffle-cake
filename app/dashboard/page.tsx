@@ -502,9 +502,9 @@ export default function DashboardOrdersPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: "8px",
-                background: "rgba(204, 160, 67, 0.12)",
-                border: "1px solid rgba(204, 160, 67, 0.35)",
-                color: "#cca043",
+                background: "rgba(217, 155, 86, 0.12)",
+                border: "1px solid rgba(217, 155, 86, 0.35)",
+                color: "#d99b56",
                 padding: "9px 16px",
                 borderRadius: "12px",
                 fontWeight: 800,
@@ -518,7 +518,7 @@ export default function DashboardOrdersPage() {
               {chatMessages.length > 0 && (
                 <span
                   style={{
-                    background: "#cca043",
+                    background: "#d99b56",
                     color: "#180e06",
                     fontSize: "11px",
                     fontWeight: 900,
@@ -585,14 +585,14 @@ export default function DashboardOrdersPage() {
                   padding: "8px 16px",
                   borderRadius: "100px",
                   border: isSelected ? "none" : "1px solid rgba(255, 255, 255, 0.08)",
-                  background: isSelected ? "#cca043" : "rgba(255, 255, 255, 0.04)",
+                  background: isSelected ? "#d99b56" : "rgba(255, 255, 255, 0.04)",
                   color: isSelected ? "#180e06" : "#b0957e",
                   fontSize: "13px",
                   fontWeight: isSelected ? 900 : 700,
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                   transition: "all 0.15s ease",
-                  boxShadow: isSelected ? "0 2px 10px rgba(204, 160, 67, 0.3)" : "none",
+                  boxShadow: isSelected ? "0 2px 10px rgba(217, 155, 86, 0.3)" : "none",
                 }}
               >
                 <span>{tab.label}</span>
@@ -617,7 +617,7 @@ export default function DashboardOrdersPage() {
           <div
             style={{
               background: "rgba(24, 13, 7, 0.65)",
-              border: "1px solid rgba(204, 160, 67, 0.14)",
+              border: "1px solid rgba(217, 155, 86, 0.14)",
               borderRadius: "24px",
               minHeight: "360px",
               display: "flex",
@@ -633,13 +633,13 @@ export default function DashboardOrdersPage() {
                 width: "60px",
                 height: "60px",
                 borderRadius: "18px",
-                background: "rgba(204, 160, 67, 0.12)",
-                border: "1px solid rgba(204, 160, 67, 0.25)",
+                background: "rgba(217, 155, 86, 0.12)",
+                border: "1px solid rgba(217, 155, 86, 0.25)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 marginBottom: "18px",
-                color: "#cca043",
+                color: "#d99b56",
               }}
             >
               <ClipboardList size={30} strokeWidth={2} />
@@ -692,7 +692,7 @@ export default function DashboardOrdersPage() {
                         ? "1.5px solid #eab308"
                         : order.status === "delivering"
                         ? "1.5px solid #a855f7"
-                        : "1px solid rgba(204, 160, 67, 0.25)",
+                        : "1px solid rgba(217, 155, 86, 0.25)",
                     borderRadius: "20px",
                     padding: "20px",
                     display: "flex",
@@ -716,7 +716,7 @@ export default function DashboardOrdersPage() {
                         <span
                           style={{
                             fontFamily: "monospace",
-                            color: "#cca043",
+                            color: "#d99b56",
                             fontWeight: 900,
                             fontSize: "16px",
                           }}
@@ -732,9 +732,9 @@ export default function DashboardOrdersPage() {
                             display: "inline-flex",
                             alignItems: "center",
                             gap: "4px",
-                            background: "rgba(204, 160, 67, 0.15)",
-                            border: "1px solid rgba(204, 160, 67, 0.35)",
-                            color: "#cca043",
+                            background: "rgba(217, 155, 86, 0.15)",
+                            border: "1px solid rgba(217, 155, 86, 0.35)",
+                            color: "#d99b56",
                             borderRadius: "8px",
                             padding: "3px 8px",
                             fontSize: "11px",
@@ -943,7 +943,7 @@ export default function DashboardOrdersPage() {
                           marginBottom: "4px",
                         }}
                       >
-                        <Phone size={13} color="#cca043" />
+                        <Phone size={13} color="#d99b56" />
                         <a
                           href={`tel:${order.phone}`}
                           style={{ color: "#f5ede4", textDecoration: "none" }}
@@ -963,7 +963,7 @@ export default function DashboardOrdersPage() {
                             color: "#8a7565",
                           }}
                         >
-                          <MapPin size={13} color="#cca043" />
+                          <MapPin size={13} color="#d99b56" />
                           <span>
                             {order.address} ({order.zone || "6 أكتوبر"})
                           </span>
@@ -1073,12 +1073,12 @@ export default function DashboardOrdersPage() {
                                 : it.nameAr || it.nameEn}
                             </span>
                             {it.extras && it.extras.length > 0 && (
-                              <div style={{ fontSize: "11px", color: "#cca043", marginTop: "2px" }}>
+                              <div style={{ fontSize: "11px", color: "#d99b56", marginTop: "2px" }}>
                                 + {it.extras.join(" + ")}
                               </div>
                             )}
                           </div>
-                          <span style={{ color: "#cca043", fontWeight: 800 }}>
+                          <span style={{ color: "#d99b56", fontWeight: 800 }}>
                             {it.unitPrice * it.qty} {t("ج", "EGP")}
                           </span>
                         </div>
@@ -1103,11 +1103,11 @@ export default function DashboardOrdersPage() {
                           {t("المطلوب تحصيله", "To Collect")}{" "}
                           {order.paymentMethod === "cash" ? "(كاش 💵)" : "(مدفوع 💳)"}
                         </span>
-                        <span style={{ fontSize: "11px", color: "#cca043" }}>
+                        <span style={{ fontSize: "11px", color: "#d99b56" }}>
                           + توصيل {order.deliveryFee} ج
                         </span>
                       </div>
-                      <span style={{ fontSize: "20px", color: "#cca043", fontWeight: 900 }}>
+                      <span style={{ fontSize: "20px", color: "#d99b56", fontWeight: 900 }}>
                         {order.total} {t("ج", "EGP")}
                       </span>
                     </div>
@@ -1123,7 +1123,7 @@ export default function DashboardOrdersPage() {
                             flex: 1,
                             height: "42px",
                             borderRadius: "12px",
-                            background: "#cca043",
+                            background: "#d99b56",
                             color: "#180e06",
                             fontWeight: 900,
                             fontSize: "13px",
@@ -1272,7 +1272,7 @@ export default function DashboardOrdersPage() {
             <div
               style={{
                 background: "#180d06",
-                border: "1px solid rgba(204, 160, 67, 0.4)",
+                border: "1px solid rgba(217, 155, 86, 0.4)",
                 borderRadius: "24px",
                 padding: "26px",
                 maxWidth: "460px",
@@ -1308,7 +1308,7 @@ export default function DashboardOrdersPage() {
                     <h3 style={{ margin: 0, fontSize: "17px", fontWeight: 900 }}>
                       {t("ربط الطيار بالأوردر", "Assign Delivery Captain")}
                     </h3>
-                    <p style={{ margin: "2px 0 0 0", fontSize: "12px", color: "#cca043" }}>
+                    <p style={{ margin: "2px 0 0 0", fontSize: "12px", color: "#d99b56" }}>
                       أوردر رقم {captainModalOrder.orderNumber} — المطلوب: {captainModalOrder.total} ج
                     </p>
                   </div>
@@ -1353,11 +1353,11 @@ export default function DashboardOrdersPage() {
                         borderRadius: "12px",
                         background:
                           selectedCaptainPhone === cpt.phone
-                            ? "rgba(204, 160, 67, 0.15)"
+                            ? "rgba(217, 155, 86, 0.15)"
                             : "rgba(255,255,255,0.03)",
                         border:
                           selectedCaptainPhone === cpt.phone
-                            ? "1.5px solid #cca043"
+                            ? "1.5px solid #d99b56"
                             : "1px solid rgba(255,255,255,0.08)",
                         cursor: "pointer",
                       }}
@@ -1390,11 +1390,11 @@ export default function DashboardOrdersPage() {
                       borderRadius: "12px",
                       background:
                         selectedCaptainPhone === "custom"
-                          ? "rgba(204, 160, 67, 0.15)"
+                          ? "rgba(217, 155, 86, 0.15)"
                           : "rgba(255,255,255,0.03)",
                       border:
                         selectedCaptainPhone === "custom"
-                          ? "1.5px solid #cca043"
+                          ? "1.5px solid #d99b56"
                           : "1px solid rgba(255,255,255,0.08)",
                       cursor: "pointer",
                     }}
@@ -1420,7 +1420,7 @@ export default function DashboardOrdersPage() {
                     background: "rgba(0,0,0,0.3)",
                     padding: "14px",
                     borderRadius: "14px",
-                    border: "1px solid rgba(204, 160, 67, 0.2)",
+                    border: "1px solid rgba(217, 155, 86, 0.2)",
                     marginBottom: "18px",
                     display: "flex",
                     flexDirection: "column",
@@ -1440,7 +1440,7 @@ export default function DashboardOrdersPage() {
                         width: "100%",
                         height: "40px",
                         background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.3)",
+                        border: "1px solid rgba(217, 155, 86, 0.3)",
                         borderRadius: "10px",
                         padding: "0 12px",
                         color: "#ffffff",
@@ -1462,7 +1462,7 @@ export default function DashboardOrdersPage() {
                         width: "100%",
                         height: "40px",
                         background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.3)",
+                        border: "1px solid rgba(217, 155, 86, 0.3)",
                         borderRadius: "10px",
                         padding: "0 12px",
                         color: "#ffffff",
@@ -1541,8 +1541,8 @@ export default function DashboardOrdersPage() {
                 maxWidth: "460px",
                 height: "100%",
                 background: "#160d05",
-                borderRight: dir === "rtl" ? "1px solid rgba(204, 160, 67, 0.3)" : "none",
-                borderLeft: dir === "ltr" ? "1px solid rgba(204, 160, 67, 0.3)" : "none",
+                borderRight: dir === "rtl" ? "1px solid rgba(217, 155, 86, 0.3)" : "none",
+                borderLeft: dir === "ltr" ? "1px solid rgba(217, 155, 86, 0.3)" : "none",
                 display: "flex",
                 flexDirection: "column",
                 boxShadow: dir === "rtl" ? "10px 0 35px rgba(0,0,0,0.8)" : "-10px 0 35px rgba(0,0,0,0.8)",
@@ -1567,9 +1567,9 @@ export default function DashboardOrdersPage() {
                         playSound("click");
                       }}
                       style={{
-                        background: "rgba(204, 160, 67, 0.15)",
-                        border: "1px solid rgba(204, 160, 67, 0.3)",
-                        color: "#cca043",
+                        background: "rgba(217, 155, 86, 0.15)",
+                        border: "1px solid rgba(217, 155, 86, 0.3)",
+                        color: "#d99b56",
                         borderRadius: "8px",
                         padding: "6px 10px",
                         cursor: "pointer",
@@ -1586,7 +1586,7 @@ export default function DashboardOrdersPage() {
                   )}
 
                   <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <MessageSquare size={18} color="#cca043" />
+                    <MessageSquare size={18} color="#d99b56" />
                     <div>
                       <h3 style={{ margin: 0, fontSize: "15px", fontWeight: 900, color: "#ffffff" }}>
                         {chatView === "thread" && selectedChatPhone
@@ -1653,8 +1653,8 @@ export default function DashboardOrdersPage() {
                       playSound("click");
                     }}
                     style={{
-                      background: "rgba(204, 160, 67, 0.08)",
-                      border: "1px dashed rgba(204, 160, 67, 0.35)",
+                      background: "rgba(217, 155, 86, 0.08)",
+                      border: "1px dashed rgba(217, 155, 86, 0.35)",
                       borderRadius: "14px",
                       padding: "12px 14px",
                       cursor: "pointer",
@@ -1669,7 +1669,7 @@ export default function DashboardOrdersPage() {
                         width: "38px",
                         height: "38px",
                         borderRadius: "50%",
-                        background: "#cca043",
+                        background: "#d99b56",
                         color: "#180e06",
                         display: "flex",
                         alignItems: "center",
@@ -1688,7 +1688,7 @@ export default function DashboardOrdersPage() {
                         </div>
                       </div>
                     </div>
-                    <span style={{ fontSize: "11px", color: "#cca043", fontWeight: 700 }}>
+                    <span style={{ fontSize: "11px", color: "#d99b56", fontWeight: 700 }}>
                       {chatMessages.length} رسالة
                     </span>
                   </div>
@@ -1716,8 +1716,8 @@ export default function DashboardOrdersPage() {
                             playSound("click");
                           }}
                           style={{
-                            background: isSelected ? "rgba(204, 160, 67, 0.15)" : "rgba(255, 255, 255, 0.03)",
-                            border: isSelected ? "1px solid rgba(204, 160, 67, 0.4)" : "1px solid rgba(255, 255, 255, 0.06)",
+                            background: isSelected ? "rgba(217, 155, 86, 0.15)" : "rgba(255, 255, 255, 0.03)",
+                            border: isSelected ? "1px solid rgba(217, 155, 86, 0.4)" : "1px solid rgba(255, 255, 255, 0.06)",
                             borderRadius: "14px",
                             padding: "12px 14px",
                             cursor: "pointer",
@@ -1732,9 +1732,9 @@ export default function DashboardOrdersPage() {
                             width: "42px",
                             height: "42px",
                             borderRadius: "50%",
-                            background: "rgba(204, 160, 67, 0.2)",
-                            border: "1px solid rgba(204, 160, 67, 0.4)",
-                            color: "#cca043",
+                            background: "rgba(217, 155, 86, 0.2)",
+                            border: "1px solid rgba(217, 155, 86, 0.4)",
+                            color: "#d99b56",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
@@ -1769,7 +1769,7 @@ export default function DashboardOrdersPage() {
                                 {cust.lastMessage || (cust.phone ? `هاتف: ${cust.phone}` : "محادثة نشطة")}
                               </p>
                               <span style={{
-                                background: "#cca043",
+                                background: "#d99b56",
                                 color: "#180e06",
                                 fontSize: "10px",
                                 fontWeight: 900,
@@ -1818,8 +1818,8 @@ export default function DashboardOrdersPage() {
                           style={{
                             alignSelf: msg.isStaff ? "flex-start" : "flex-end",
                             maxWidth: "85%",
-                            background: msg.isStaff ? "rgba(204, 160, 67, 0.15)" : "rgba(255, 255, 255, 0.08)",
-                            border: msg.isStaff ? "1px solid rgba(204, 160, 67, 0.3)" : "1px solid rgba(255,255,255,0.1)",
+                            background: msg.isStaff ? "rgba(217, 155, 86, 0.15)" : "rgba(255, 255, 255, 0.08)",
+                            border: msg.isStaff ? "1px solid rgba(217, 155, 86, 0.3)" : "1px solid rgba(255,255,255,0.1)",
                             borderRadius: "14px",
                             padding: "10px 14px",
                           }}
@@ -1828,7 +1828,7 @@ export default function DashboardOrdersPage() {
                             style={{
                               fontSize: "11px",
                               fontWeight: 800,
-                              color: msg.isStaff ? "#cca043" : "#60a5fa",
+                              color: msg.isStaff ? "#d99b56" : "#60a5fa",
                               marginBottom: "3px",
                               display: "flex",
                               justifyContent: "space-between",
@@ -1865,7 +1865,7 @@ export default function DashboardOrdersPage() {
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "11.5px" }}>
-                      <span style={{ color: "#cca043", fontWeight: 700 }}>
+                      <span style={{ color: "#d99b56", fontWeight: 700 }}>
                         الرد موجه إلى:{" "}
                         <strong>
                           {selectedChatPhone
@@ -1888,7 +1888,7 @@ export default function DashboardOrdersPage() {
                           flex: 1,
                           height: "42px",
                           background: "#0d0805",
-                          border: "1px solid rgba(204, 160, 67, 0.3)",
+                          border: "1px solid rgba(217, 155, 86, 0.3)",
                           borderRadius: "12px",
                           padding: "0 14px",
                           color: "#ffffff",
@@ -1903,7 +1903,7 @@ export default function DashboardOrdersPage() {
                           width: "44px",
                           height: "42px",
                           borderRadius: "12px",
-                          background: "#cca043",
+                          background: "#d99b56",
                           border: "none",
                           color: "#180e06",
                           display: "flex",
@@ -1951,7 +1951,7 @@ export default function DashboardOrdersPage() {
             <div
               style={{
                 background: "#160d05",
-                border: "1px solid rgba(204, 160, 67, 0.4)",
+                border: "1px solid rgba(217, 155, 86, 0.4)",
                 borderRadius: "24px",
                 padding: "26px",
                 maxWidth: "400px",
@@ -1963,7 +1963,7 @@ export default function DashboardOrdersPage() {
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <QrCode size={22} color="#cca043" />
+                  <QrCode size={22} color="#d99b56" />
                   <h3 style={{ margin: 0, fontSize: "16px", fontWeight: 900, color: "#ffffff" }}>
                     الفاتورة الذكية والتتبع (QR) 📱
                   </h3>
@@ -2002,7 +2002,7 @@ export default function DashboardOrdersPage() {
               </div>
 
               <div style={{ marginBottom: "18px", fontSize: "13px" }}>
-                <div style={{ fontFamily: "monospace", fontWeight: 900, color: "#cca043", fontSize: "16px" }}>
+                <div style={{ fontFamily: "monospace", fontWeight: 900, color: "#d99b56", fontSize: "16px" }}>
                   {qrModalOrder.orderNumber}
                 </div>
                 <div style={{ color: "#ffffff", fontWeight: 700, marginTop: "2px" }}>
@@ -2033,9 +2033,9 @@ export default function DashboardOrdersPage() {
                   style={{
                     flex: 1,
                     height: "42px",
-                    background: copiedQrLink ? "#22c55e" : "rgba(204, 160, 67, 0.2)",
-                    border: "1px solid rgba(204, 160, 67, 0.4)",
-                    color: copiedQrLink ? "#ffffff" : "#cca043",
+                    background: copiedQrLink ? "#22c55e" : "rgba(217, 155, 86, 0.2)",
+                    border: "1px solid rgba(217, 155, 86, 0.4)",
+                    color: copiedQrLink ? "#ffffff" : "#d99b56",
                     borderRadius: "12px",
                     fontWeight: 800,
                     fontSize: "12.5px",
@@ -2057,7 +2057,7 @@ export default function DashboardOrdersPage() {
                   style={{
                     flex: 1,
                     height: "42px",
-                    background: "#cca043",
+                    background: "#d99b56",
                     color: "#180e06",
                     borderRadius: "12px",
                     fontWeight: 900,

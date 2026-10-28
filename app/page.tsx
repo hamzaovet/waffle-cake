@@ -71,15 +71,15 @@ const DEFAULT_OFFERS: OfferData = {
 function renderOfferIcon(icon: string) {
   switch (icon) {
     case "party":
-      return <PartyPopper size={24} color="#cca043" strokeWidth={1.8} />;
+      return <PartyPopper size={24} color="#d99b56" strokeWidth={1.8} />;
     case "delivery":
-      return <Bike size={24} color="#cca043" strokeWidth={1.8} />;
+      return <Bike size={24} color="#d99b56" strokeWidth={1.8} />;
     case "student":
-      return <GraduationCap size={24} color="#cca043" strokeWidth={1.8} />;
+      return <GraduationCap size={24} color="#d99b56" strokeWidth={1.8} />;
     case "fire":
-      return <Flame size={24} color="#cca043" strokeWidth={1.8} />;
+      return <Flame size={24} color="#d99b56" strokeWidth={1.8} />;
     default:
-      return <Gift size={24} color="#cca043" strokeWidth={1.8} />;
+      return <Gift size={24} color="#d99b56" strokeWidth={1.8} />;
   }
 }
 
@@ -103,15 +103,15 @@ interface CartItem {
 
 /* ─── constants ───────────────────────────────────────────── */
 const C = {
-  dark:    "#0d0805",
-  card:    "#1a0f07",
-  card2:   "#221108",
-  border:  "#3d1f0a",
-  gold:    "#c8860a",
-  goldL:   "#e8a020",
-  cream:   "#f5ede4",
-  muted:   "#9c7a5e",
-  muted2:  "#7a5c3e",
+  dark:    "#140c07",
+  card:    "#22140c",
+  card2:   "#2c1b11",
+  border:  "#4d2d1b",
+  gold:    "#d99b56",
+  goldL:   "#e8b577",
+  cream:   "#fbf5ed",
+  muted:   "#b49279",
+  muted2:  "#8e6f59",
 };
 
 const CATEGORY_EMOJI: Record<string, string> = {
@@ -408,6 +408,17 @@ export default function HomePage() {
   const [customerModalOpen, setCustomerModalOpen] = useState(false);
   const [customerProfile, setCustomerProfile]     = useState<any>(null);
 
+  // Store dynamic settings (phone, name, address)
+  const [storeSettings, setStoreSettings] = useState<{
+    restaurantName: string;
+    phone: string;
+    address: string;
+  }>({
+    restaurantName: "Waffle & Cake",
+    phone: "01091413470",
+    address: "السادس من أكتوبر — الحي الأول",
+  });
+
   // Checkout
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [zoneFilter, setZoneFilter]     = useState("");
@@ -425,6 +436,20 @@ export default function HomePage() {
   const [trackError, setTrackError]   = useState("");
 
   useEffect(() => {
+    // Fetch live system settings for dynamic phone & address
+    fetch("/api/settings")
+      .then((r) => r.json())
+      .then((d) => {
+        if (d && !d.error) {
+          setStoreSettings({
+            restaurantName: d.restaurantName || "Waffle & Cake",
+            phone: d.phone || "01091413470",
+            address: d.address || "السادس من أكتوبر — الحي الأول",
+          });
+        }
+      })
+      .catch(() => {});
+
     // Load customer profile from storage if available
     try {
       const rawCust = localStorage.getItem("choco_customer");
@@ -630,22 +655,22 @@ export default function HomePage() {
             display: "inline-flex",
             alignItems: "center",
             gap: "7px",
-            background: "rgba(204, 160, 67, 0.12)",
-            border: "1px solid rgba(204, 160, 67, 0.35)",
+            background: "rgba(217, 155, 86, 0.14)",
+            border: "1px solid rgba(217, 155, 86, 0.38)",
             borderRadius: "100px",
-            padding: "6px 16px",
+            padding: "6px 18px",
             fontSize: "13px",
-            color: "#cca043",
-            fontWeight: 700,
+            color: C.gold,
+            fontWeight: 800,
             marginBottom: "16px",
             backdropFilter: "blur(8px)",
             fontFamily: "var(--font-cairo), system-ui, sans-serif",
           }}>
-            <Sparkles size={13} color="#cca043" />
-            <span>{lang === "en" ? "✦ Luxury desserts, made to order ✦" : "حلويات فاخرة تُحضَّر لحظة الطلب"}</span>
+            <Sparkles size={14} color={C.gold} />
+            <span>{lang === "en" ? "✦ Handcrafted Desserts • Delivery to 84 Zones ✦" : "✦ وافل وكيك يُخبز لحظياً بشغف • توصيل لـ 84 منطقة ✦"}</span>
           </div>
 
-          {/* Heading — Exact Whacka Letters, Colors & Proportions */}
+          {/* Heading — Creative, Unique Waffle & Cake Identity */}
           <h1 style={{
             margin: "0 0 16px 0",
             lineHeight: 1.22,
@@ -655,40 +680,40 @@ export default function HomePage() {
               color: "#ffffff",
               display: "block",
               fontWeight: 900,
-              fontSize: "clamp(36px, 5.4vw, 58px)",
+              fontSize: "clamp(34px, 5.2vw, 56px)",
               letterSpacing: lang === "en" ? "-0.2px" : "-0.5px",
-              textShadow: "0 2px 14px rgba(0,0,0,0.6)",
+              textShadow: "0 2px 16px rgba(0,0,0,0.7)",
             }}>
-              {lang === "en" ? "The richest Nutella & Lotus waffle" : "أشهى وافل بنوتيلا ولوتس"}
+              {lang === "en" ? "Artisanal Waffles & Decadent Cakes" : "عالم الوافل المقرمش والكيك الفاخر"}
             </span>
             <span style={{
-              color: "#cca043",
+              color: C.gold,
               display: "block",
               fontWeight: 900,
-              fontSize: "clamp(36px, 5.4vw, 58px)",
+              fontSize: "clamp(32px, 5vw, 54px)",
               letterSpacing: lang === "en" ? "-0.2px" : "-0.5px",
               marginTop: "4px",
-              textShadow: "0 2px 14px rgba(204, 160, 67, 0.3)",
+              textShadow: "0 2px 18px rgba(217, 155, 86, 0.4)",
               fontFamily: lang === "en" ? "var(--font-playfair), Georgia, 'Times New Roman', serif" : "var(--font-cairo), system-ui, sans-serif",
             }}>
-              {lang === "en" ? "in 6th of October" : "في 6 أكتوبر"}
+              {lang === "en" ? "Pure Indulgence in Every Bite" : "سعادة تدوب في كل قطمة 🧇🍰"}
             </span>
           </h1>
 
-          {/* Subtitle — Exact Whacka Characters & Punctuation */}
+          {/* Subtitle — Fresh, Mouth-Watering Copy */}
           <p style={{
             fontSize: "clamp(14px, 1.5vw, 16.5px)",
-            color: "#d0bead",
+            color: C.muted,
             marginBottom: "26px",
             fontWeight: 500,
-            lineHeight: 1.7,
-            maxWidth: "560px",
+            lineHeight: 1.75,
+            maxWidth: "580px",
             textShadow: "0 1px 8px rgba(0,0,0,0.5)",
             fontFamily: "var(--font-cairo), system-ui, sans-serif",
           }}>
             {lang === "en"
-              ? "Order delivery and get it hot and fresh in 35 minutes. Original ingredients, premium packaging, a taste that brings you back."
-              : "اطلب دليفري يوصلك سخن وطازة في 35 دقيقة، مكونات أصلية، تغليف فخم، وطعم يخليك تطلب تاني."
+              ? "Golden Belgian waffles, fluffy mini pancakes, molten cakes & signature cheesecakes prepared fresh to your order with premium melted chocolate. Delivering hot & fresh across 84 zones in 6th of October & Giza."
+              : "وافل بلجيكي ذهبي، ميني بان كيك هش، بركان مولتن كيك، وكيكات غنية بالصوصات البلجيكية الأصلية وزبدة اللوتس. بنخبزها طازة لحظة طلبك وتوصلك سخنة ومقرمشة لأي مكان في 84 منطقة بأكتوبر والجيزة."
             }
           </p>
 
@@ -698,7 +723,7 @@ export default function HomePage() {
             <a
               href="#menu"
               style={{
-                background: "#cca043",
+                background: "#d99b56",
                 color: "#180e06",
                 fontWeight: 800,
                 padding: "11px 26px",
@@ -708,7 +733,7 @@ export default function HomePage() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "8px",
-                boxShadow: "0 4px 16px rgba(204, 160, 67, 0.35)",
+                boxShadow: "0 4px 16px rgba(217, 155, 86, 0.35)",
                 fontFamily: "var(--font-cairo), system-ui, sans-serif",
                 transition: "transform 0.15s ease",
               }}
@@ -739,8 +764,8 @@ export default function HomePage() {
                 transition: "all 0.15s ease",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "rgba(204, 160, 67, 0.5)";
-                e.currentTarget.style.color = "#cca043";
+                e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.5)";
+                e.currentTarget.style.color = "#d99b56";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.15)";
@@ -752,32 +777,32 @@ export default function HomePage() {
             </a>
           </div>
 
-          {/* ── Feature Cards (Exact 4 Cards from Whacka: Gold Outline Icons, Compact & Integrated) ── */}
+          {/* ── Feature Cards (Waffle & Cake Highlights) ── */}
           <div style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))",
             gap: "12px",
           }}>
             {(lang === "en" ? [
-              { icon: Truck, text: "Delivery in 35 min" },
-              { icon: Star, text: "5-star rated" },
-              { icon: Wallet, text: "Cash or InstaPay" },
-              { icon: BadgeCheck, text: "Certified kitchen" },
+              { icon: Truck, text: "84 Delivery Zones in Giza" },
+              { icon: Star, text: "Freshly Baked on Order" },
+              { icon: Wallet, text: "Cash, InstaPay & Card" },
+              { icon: BadgeCheck, text: "100% Belgian Chocolate" },
             ] : [
-              { icon: Truck, text: "توصيل خلال 35 دقيقة" },
-              { icon: Star, text: "تقييم 5 نجوم" },
-              { icon: Wallet, text: "كاش أو إنستاباي" },
-              { icon: BadgeCheck, text: "كيتشن معتمد" },
+              { icon: Truck, text: "توصيل لـ 84 منطقة بالجيزة وأكتوبر" },
+              { icon: Star, text: "عجينة طازجة تُخبز لحظة طلبك" },
+              { icon: Wallet, text: "كاش أو إنستاباي أو كارت" },
+              { icon: BadgeCheck, text: "شوكولاتة بلجيكي ولوتس أصلية" },
             ]).map((b, i) => {
               const IconComp = b.icon;
               return (
                 <div
                   key={i}
                   style={{
-                    background: "rgba(20, 11, 5, 0.72)",
+                    background: "rgba(34, 20, 12, 0.75)",
                     backdropFilter: "blur(12px)",
                     WebkitBackdropFilter: "blur(12px)",
-                    border: "1px solid rgba(204, 160, 67, 0.22)",
+                    border: "1px solid rgba(217, 155, 86, 0.25)",
                     borderRadius: "12px",
                     padding: "11px 18px",
                     display: "flex",
@@ -785,11 +810,11 @@ export default function HomePage() {
                     gap: "10px",
                   }}
                 >
-                  <IconComp size={16} color="#cca043" strokeWidth={1.8} style={{ flexShrink: 0 }} />
+                  <IconComp size={16} color={C.gold} strokeWidth={1.8} style={{ flexShrink: 0 }} />
                   <span style={{
                     fontSize: "13px",
                     fontWeight: 700,
-                    color: "#e5dcd3",
+                    color: C.cream,
                     fontFamily: "var(--font-cairo), system-ui, sans-serif",
                     whiteSpace: "nowrap",
                   }}>
@@ -816,7 +841,7 @@ export default function HomePage() {
           <div style={{
             fontSize: "12.5px",
             fontWeight: 800,
-            color: "#cca043",
+            color: "#d99b56",
             letterSpacing: "1.2px",
             marginBottom: "5px",
             fontFamily: "var(--font-cairo), system-ui, sans-serif",
@@ -866,7 +891,7 @@ export default function HomePage() {
                 background: "rgba(24, 13, 7, 0.82)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
-                border: "1px solid rgba(204, 160, 67, 0.2)",
+                border: "1px solid rgba(217, 155, 86, 0.2)",
                 borderRadius: "16px",
                 padding: "18px 22px",
                 display: "flex",
@@ -877,12 +902,12 @@ export default function HomePage() {
                 cursor: "pointer",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "rgba(204, 160, 67, 0.55)";
+                e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.55)";
                 e.currentTarget.style.transform = "translateY(-3px)";
                 e.currentTarget.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.4)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "rgba(204, 160, 67, 0.2)";
+                e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.2)";
                 e.currentTarget.style.transform = "translateY(0)";
                 e.currentTarget.style.boxShadow = "none";
               }}
@@ -892,7 +917,7 @@ export default function HomePage() {
                 <h3 style={{
                   fontSize: "16px",
                   fontWeight: 800,
-                  color: "#cca043",
+                  color: "#d99b56",
                   margin: "0 0 5px 0",
                   fontFamily: "var(--font-cairo), system-ui, sans-serif",
                 }}>
@@ -916,8 +941,8 @@ export default function HomePage() {
                 width: "48px",
                 height: "48px",
                 borderRadius: "12px",
-                background: "rgba(204, 160, 67, 0.08)",
-                border: "1px solid rgba(204, 160, 67, 0.15)",
+                background: "rgba(217, 155, 86, 0.08)",
+                border: "1px solid rgba(217, 155, 86, 0.15)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -938,18 +963,18 @@ export default function HomePage() {
             minHeight: "160px",
             borderRadius: "18px",
             overflow: "hidden",
-            border: "1px solid rgba(204, 160, 67, 0.25)",
+            border: "1px solid rgba(217, 155, 86, 0.25)",
             background: "#160c05",
             transition: "all 0.25s ease",
             cursor: "pointer",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = "rgba(204, 160, 67, 0.6)";
+            e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.6)";
             e.currentTarget.style.transform = "scale(1.008)";
-            e.currentTarget.style.boxShadow = "0 12px 36px rgba(0, 0, 0, 0.6), 0 0 24px rgba(204, 160, 67, 0.2)";
+            e.currentTarget.style.boxShadow = "0 12px 36px rgba(0, 0, 0, 0.6), 0 0 24px rgba(217, 155, 86, 0.2)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "rgba(204, 160, 67, 0.25)";
+            e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.25)";
             e.currentTarget.style.transform = "scale(1)";
             e.currentTarget.style.boxShadow = "none";
           }}
@@ -987,7 +1012,7 @@ export default function HomePage() {
             <div style={{
               fontSize: "12px",
               fontWeight: 800,
-              color: "#cca043",
+              color: "#d99b56",
               marginBottom: "4px",
               fontFamily: "var(--font-cairo), system-ui, sans-serif",
               letterSpacing: "0.5px",
@@ -1009,7 +1034,7 @@ export default function HomePage() {
               display: "inline-flex",
               alignItems: "center",
               gap: "6px",
-              color: "#cca043",
+              color: "#d99b56",
               fontWeight: 800,
               fontSize: "13.5px",
               fontFamily: "var(--font-cairo), system-ui, sans-serif",
@@ -1080,10 +1105,10 @@ export default function HomePage() {
                   fontSize: "13.5px",
                   fontWeight: isActive ? 800 : 600,
                   cursor: "pointer",
-                  border: isActive ? "1px solid #cca043" : "1px solid rgba(204, 160, 67, 0.16)",
-                  background: isActive ? "#cca043" : "rgba(36, 22, 12, 0.72)",
+                  border: isActive ? "1px solid #d99b56" : "1px solid rgba(217, 155, 86, 0.16)",
+                  background: isActive ? "#d99b56" : "rgba(36, 22, 12, 0.72)",
                   color: isActive ? "#180e06" : "#e5dcd3",
-                  boxShadow: isActive ? "0 3px 12px rgba(204, 160, 67, 0.3)" : "none",
+                  boxShadow: isActive ? "0 3px 12px rgba(217, 155, 86, 0.3)" : "none",
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "8px",
@@ -1093,14 +1118,14 @@ export default function HomePage() {
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive) {
-                    e.currentTarget.style.borderColor = "rgba(204, 160, 67, 0.35)";
+                    e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.35)";
                     e.currentTarget.style.background = "rgba(48, 28, 14, 0.85)";
                     e.currentTarget.style.color = "#ffffff";
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isActive) {
-                    e.currentTarget.style.borderColor = "rgba(204, 160, 67, 0.16)";
+                    e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.16)";
                     e.currentTarget.style.background = "rgba(36, 22, 12, 0.72)";
                     e.currentTarget.style.color = "#e5dcd3";
                   }
@@ -1139,7 +1164,7 @@ export default function HomePage() {
                   onClick={() => { setSelectedProduct(p); setSelectedExtras([]); playSound("click"); }}
                   style={{
                     background: "rgba(24, 13, 7, 0.88)",
-                    border: "1px solid rgba(204, 160, 67, 0.18)",
+                    border: "1px solid rgba(217, 155, 86, 0.18)",
                     borderRadius: "18px",
                     overflow: "hidden",
                     cursor: "pointer",
@@ -1149,13 +1174,13 @@ export default function HomePage() {
                   }}
                   onMouseEnter={(e) => {
                     const el = e.currentTarget as HTMLDivElement;
-                    el.style.borderColor = "rgba(204, 160, 67, 0.5)";
+                    el.style.borderColor = "rgba(217, 155, 86, 0.5)";
                     el.style.transform = "translateY(-4px)";
-                    el.style.boxShadow = "0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(204, 160, 67, 0.15)";
+                    el.style.boxShadow = "0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(217, 155, 86, 0.15)";
                   }}
                   onMouseLeave={(e) => {
                     const el = e.currentTarget as HTMLDivElement;
-                    el.style.borderColor = "rgba(204, 160, 67, 0.18)";
+                    el.style.borderColor = "rgba(217, 155, 86, 0.18)";
                     el.style.transform = "translateY(0)";
                     el.style.boxShadow = "none";
                   }}
@@ -1257,7 +1282,7 @@ export default function HomePage() {
                     }}>
                       <div style={{ display: "flex", alignItems: "baseline", gap: "10px" }}>
                         <span style={{
-                          color: "#cca043",
+                          color: "#d99b56",
                           fontWeight: 900,
                           fontSize: "20px",
                           fontFamily: "var(--font-cairo), system-ui, sans-serif",
@@ -1290,14 +1315,14 @@ export default function HomePage() {
                           width: "36px",
                           height: "36px",
                           borderRadius: "50%",
-                          background: "#cca043",
+                          background: "#d99b56",
                           border: "none",
                           cursor: "pointer",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           color: "#180e06",
-                          boxShadow: "0 3px 10px rgba(204, 160, 67, 0.35)",
+                          boxShadow: "0 3px 10px rgba(217, 155, 86, 0.35)",
                           transition: "all 0.15s ease",
                         }}
                         onMouseEnter={(e) => {
@@ -1306,7 +1331,7 @@ export default function HomePage() {
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.transform = "scale(1)";
-                          e.currentTarget.style.background = "#cca043";
+                          e.currentTarget.style.background = "#d99b56";
                         }}
                         title={lang === "en" ? "Add to cart" : "أضف للسلة"}
                       >
@@ -1424,46 +1449,61 @@ export default function HomePage() {
             {
               icon: <MapPin size={28} color={C.gold} />,
               title: "Our Location",
-              body: "1st District, 6th of October\nGiza — Delivery to 84 zones",
+              body: `${storeSettings.address}\nDelivery across 84 zones in Giza & 6th of October`,
+              link: null,
             },
             {
               icon: <Clock size={28} color={C.gold} />,
               title: "Opening Hours",
               body: "10:00 AM to 2:00 AM\nDaily Freshly Prepared",
+              link: null,
             },
             {
               icon: <Phone size={28} color={C.gold} />,
               title: "Contact Us",
-              body: "01018671000\nCash | InstaPay | Wallet | Card",
+              body: `${storeSettings.phone}\nCash | InstaPay | Wallet | Card`,
+              link: `tel:${storeSettings.phone}`,
             },
           ] : [
             {
               icon: <MapPin size={28} color={C.gold} />,
               title: "موقعنا",
-              body: "السادس من أكتوبر — الحي الأول\nتوصيل سريع لـ 84 منطقة بالجيزة وأكتوبر",
+              body: `${storeSettings.address}\nتوصيل سريع لـ 84 منطقة بالجيزة وأكتوبر`,
+              link: null,
             },
             {
               icon: <Clock size={28} color={C.gold} />,
               title: "مواعيد العمل",
               body: "من 10 صباحاً حتى 2 بعد منتصف الليل\nيومياً تحضير طازج ولحظي",
+              link: null,
             },
             {
               icon: <Phone size={28} color={C.gold} />,
               title: "تواصل معنا",
-              body: "01018671000\nكاش | إنستاباي | محفظة | كارت",
+              body: `${storeSettings.phone}\nكاش | إنستاباي | محفظة | كارت`,
+              link: `tel:${storeSettings.phone}`,
             },
           ]).map((c, i) => (
             <div key={i} style={{
               background: C.card, border: `1px solid ${C.border}`,
               borderRadius: "20px", padding: "28px 24px", textAlign: "center",
-              transition: "border-color 0.2s",
+              transition: "all 0.2s ease",
             }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = C.gold; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = C.border; }}
             >
               <div style={{ display: "flex", justifyContent: "center", marginBottom: "14px" }}>{c.icon}</div>
               <h3 style={{ fontWeight: 800, color: "#ffffff", marginBottom: "10px", fontSize: "16px" }}>{c.title}</h3>
-              <p style={{ fontSize: "14px", color: C.muted, whiteSpace: "pre-line", lineHeight: 1.8 }}>{c.body}</p>
+              {c.link ? (
+                <a
+                  href={c.link}
+                  style={{ fontSize: "14px", color: C.gold, whiteSpace: "pre-line", lineHeight: 1.8, textDecoration: "none", fontWeight: 700 }}
+                >
+                  {c.body}
+                </a>
+              ) : (
+                <p style={{ fontSize: "14px", color: C.muted, whiteSpace: "pre-line", lineHeight: 1.8 }}>{c.body}</p>
+              )}
             </div>
           ))}
         </div>
@@ -1473,7 +1513,7 @@ export default function HomePage() {
           FOOTER
       ══════════════════════════════════════════════════════════ */}
       <footer style={{
-        borderTop: "1px solid rgba(204, 160, 67, 0.15)",
+        borderTop: "1px solid rgba(217, 155, 86, 0.15)",
         padding: "36px 20px 48px",
         textAlign: "center",
         background: "rgba(13, 8, 5, 0.95)",
@@ -1489,7 +1529,7 @@ export default function HomePage() {
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <div style={{
               width: "36px", height: "36px", borderRadius: "50%",
-              overflow: "hidden", border: "1.5px solid #cca043",
+              overflow: "hidden", border: "1.5px solid #d99b56",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}>
               <img src="/waffle-logo.jpeg" alt="Waffle & Cake" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -1498,7 +1538,7 @@ export default function HomePage() {
               fontFamily: "var(--font-playfair), Georgia, serif",
               fontSize: "18px", fontWeight: 800, color: "#f5ede4",
             }}>
-              Waffle &amp; Cake <span style={{ color: "#cca043", fontSize: "11px", letterSpacing: "2px" }}>{lang === "en" ? "DESSERTS" : "ديسرتس"}</span>
+              Waffle &amp; Cake <span style={{ color: "#d99b56", fontSize: "11px", letterSpacing: "2px" }}>{lang === "en" ? "DESSERTS" : "ديسرتس"}</span>
             </span>
           </div>
 
@@ -1510,8 +1550,8 @@ export default function HomePage() {
               display: "inline-flex",
               alignItems: "center",
               gap: "8px",
-              background: "rgba(204, 160, 67, 0.1)",
-              border: "1px solid rgba(204, 160, 67, 0.3)",
+              background: "rgba(217, 155, 86, 0.1)",
+              border: "1px solid rgba(217, 155, 86, 0.3)",
               padding: "7px 18px",
               borderRadius: "100px",
               color: "#e6c37a",
@@ -1867,7 +1907,7 @@ export default function HomePage() {
                   <label style={{ fontSize: "12px", fontWeight: 700, color: C.muted }}>
                     {lang === "en" ? "Delivery Zone (84 Areas in 6th of October & Giza)" : "منطقة التوصيل (84 منطقة بـ 6 أكتوبر والجيزة)"}
                   </label>
-                  <span style={{ fontSize: "11px", color: "#cca043", fontWeight: 700 }}>
+                  <span style={{ fontSize: "11px", color: "#d99b56", fontWeight: 700 }}>
                     ⏱️ {currentZone.timeMinutes} {lang === "en" ? "mins" : "دقيقة"} • 🛵 {currentZone.fee} {lang === "en" ? "EGP" : "ج.م"}
                   </span>
                 </div>
@@ -2008,8 +2048,8 @@ export default function HomePage() {
             </div>
             {/* WhatsApp 100% Free Confirmation Button */}
             <a
-              href={`https://wa.me/201018671000?text=${encodeURIComponent(
-                `مرحباً Waffle & Cake (وافل وكيك) 🧇🍰\nأنا العميل: ${orderForm.customerName}\nقمت بطلب أوردر جديد رقم: #${orderResult.orderNumber}\nالمطلوب تحصيله: ${grandTotal} ج.م\nالعنوان: ${orderForm.address || ""} (${orderForm.zone})\nوقت التوصيل التقديري: ${currentZone.timeMinutes} دقيقة\nبرجاء التأكيد والتجهيز طازج!`
+              href={`https://wa.me/2${storeSettings.phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(
+                `مرحباً ${storeSettings.restaurantName} 🧇🍰\nأنا العميل: ${orderForm.customerName}\nقمت بطلب أوردر جديد رقم: #${orderResult.orderNumber}\nالمطلوب تحصيله: ${grandTotal} ج.م\nالعنوان: ${orderForm.address || ""} (${orderForm.zone})\nوقت التوصيل التقديري: ${currentZone.timeMinutes} دقيقة\nبرجاء التأكيد والتجهيز طازج!`
               )}`}
               target="_blank"
               rel="noopener noreferrer"

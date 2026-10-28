@@ -77,7 +77,7 @@ export default function DownloadAppPage() {
       dir="rtl"
       style={{
         minHeight: "100vh",
-        background: "radial-gradient(ellipse at 50% 0%, #2a1508 0%, #0d0805 70%, #050302 100%)",
+        background: "radial-gradient(ellipse at 50% 0%, #341e12 0%, #160c07 70%, #0c0603 100%)",
         color: "#ffffff",
         fontFamily: "system-ui, -apple-system, sans-serif",
         display: "flex",
@@ -98,7 +98,7 @@ export default function DownloadAppPage() {
           width: "600px",
           height: "380px",
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(204, 160, 67, 0.15) 0%, rgba(0,0,0,0) 70%)",
+          background: "radial-gradient(circle, rgba(217, 155, 86, 0.15) 0%, rgba(0,0,0,0) 70%)",
           pointerEvents: "none",
           filter: "blur(40px)",
         }}
@@ -143,9 +143,9 @@ export default function DownloadAppPage() {
             display: "inline-flex",
             alignItems: "center",
             gap: "7px",
-            color: "#cca043",
-            background: "rgba(204, 160, 67, 0.08)",
-            border: "1px solid rgba(204, 160, 67, 0.2)",
+            color: "#d99b56",
+            background: "rgba(217, 155, 86, 0.08)",
+            border: "1px solid rgba(217, 155, 86, 0.2)",
             padding: "8px 14px",
             borderRadius: "100px",
             fontSize: "12.5px",
@@ -164,11 +164,11 @@ export default function DownloadAppPage() {
           display: "inline-flex",
           alignItems: "center",
           gap: "8px",
-          background: "rgba(204, 160, 67, 0.12)",
-          border: "1px solid rgba(204, 160, 67, 0.35)",
+          background: "rgba(217, 155, 86, 0.12)",
+          border: "1px solid rgba(217, 155, 86, 0.35)",
           padding: "6px 16px",
           borderRadius: "100px",
-          color: "#cca043",
+          color: "#d99b56",
           fontSize: "12px",
           fontWeight: 800,
           marginBottom: "18px",
@@ -213,8 +213,8 @@ export default function DownloadAppPage() {
       {autoCountdown !== null && (
         <div 
           style={{
-            background: "rgba(204, 160, 67, 0.2)",
-            border: "1px solid #cca043",
+            background: "rgba(217, 155, 86, 0.2)",
+            border: "1px solid #d99b56",
             borderRadius: "14px",
             padding: "12px 20px",
             marginBottom: "24px",
@@ -238,7 +238,7 @@ export default function DownloadAppPage() {
           width: "100%",
           maxWidth: "880px",
           background: "linear-gradient(180deg, rgba(32, 19, 10, 0.7) 0%, rgba(18, 11, 6, 0.85) 100%)",
-          border: "1px solid rgba(204, 160, 67, 0.25)",
+          border: "1px solid rgba(217, 155, 86, 0.25)",
           borderRadius: "28px",
           padding: "36px 28px",
           boxShadow: "0 24px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.08)",
@@ -268,7 +268,7 @@ export default function DownloadAppPage() {
               display: "flex",
               alignItems: "center",
               gap: "7px",
-              color: "#cca043",
+              color: "#d99b56",
               fontSize: "13px",
               fontWeight: 800,
               marginBottom: "14px",
@@ -308,7 +308,7 @@ export default function DownloadAppPage() {
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "8px" }}>
-              <Smartphone size={24} style={{ color: "#cca043" }} />
+              <Smartphone size={24} style={{ color: "#d99b56" }} />
               <h2 style={{ fontSize: "22px", fontWeight: 900, color: "#ffffff" }}>
                 نسخة الأندرويد المباشرة
               </h2>
@@ -325,7 +325,7 @@ export default function DownloadAppPage() {
             style={{
               background: downloading 
                 ? "#4ade80" 
-                : "linear-gradient(135deg, #cca043 0%, #b37f1b 50%, #8c5b0b 100%)",
+                : "linear-gradient(135deg, #d99b56 0%, #b37f1b 50%, #8c5b0b 100%)",
               color: downloading ? "#062b11" : "#180e06",
               border: "none",
               borderRadius: "16px",
@@ -337,7 +337,7 @@ export default function DownloadAppPage() {
               alignItems: "center",
               justifyContent: "center",
               gap: "12px",
-              boxShadow: "0 12px 30px rgba(204, 160, 67, 0.35)",
+              boxShadow: "0 12px 30px rgba(217, 155, 86, 0.35)",
               transition: "all 0.25s ease",
               transform: downloading ? "scale(0.98)" : "scale(1)",
             }}
@@ -362,7 +362,7 @@ export default function DownloadAppPage() {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                color: "#cca043",
+                color: "#d99b56",
                 fontSize: "12.5px",
                 textDecoration: "underline",
                 display: "inline-flex",
@@ -391,7 +391,7 @@ export default function DownloadAppPage() {
             <div style={{ display: "flex", flexDirection: "column", gap: "10px", fontSize: "12.5px", color: "#d1c2b5" }}>
               <div style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
                 <span style={{ 
-                  background: "#cca043", 
+                  background: "#d99b56", 
                   color: "#180e06", 
                   width: "20px", 
                   height: "20px", 
@@ -409,7 +409,7 @@ export default function DownloadAppPage() {
 
               <div style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
                 <span style={{ 
-                  background: "#cca043", 
+                  background: "#d99b56", 
                   color: "#180e06", 
                   width: "20px", 
                   height: "20px", 
@@ -427,7 +427,7 @@ export default function DownloadAppPage() {
 
               <div style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
                 <span style={{ 
-                  background: "#cca043", 
+                  background: "#d99b56", 
                   color: "#180e06", 
                   width: "20px", 
                   height: "20px", 
@@ -470,7 +470,7 @@ export default function DownloadAppPage() {
             gap: "14px",
           }}
         >
-          <div style={{ background: "rgba(204, 160, 67, 0.15)", padding: "10px", borderRadius: "12px", color: "#cca043" }}>
+          <div style={{ background: "rgba(217, 155, 86, 0.15)", padding: "10px", borderRadius: "12px", color: "#d99b56" }}>
             <Zap size={22} />
           </div>
           <div>
@@ -492,7 +492,7 @@ export default function DownloadAppPage() {
             gap: "14px",
           }}
         >
-          <div style={{ background: "rgba(204, 160, 67, 0.15)", padding: "10px", borderRadius: "12px", color: "#cca043" }}>
+          <div style={{ background: "rgba(217, 155, 86, 0.15)", padding: "10px", borderRadius: "12px", color: "#d99b56" }}>
             <ShieldCheck size={22} />
           </div>
           <div>
@@ -514,7 +514,7 @@ export default function DownloadAppPage() {
             gap: "14px",
           }}
         >
-          <div style={{ background: "rgba(204, 160, 67, 0.15)", padding: "10px", borderRadius: "12px", color: "#cca043" }}>
+          <div style={{ background: "rgba(217, 155, 86, 0.15)", padding: "10px", borderRadius: "12px", color: "#d99b56" }}>
             <BellRing size={22} />
           </div>
           <div>
@@ -543,7 +543,7 @@ export default function DownloadAppPage() {
         <p style={{ marginBottom: "8px" }}>
           🚀 جاري تجهيز وإصدار النسخة الرسمية على <strong>Google Play Store</strong> و <strong>Apple App Store</strong>.
         </p>
-        <p style={{ color: "#cca043", fontWeight: 700, marginBottom: "12px" }}>
+        <p style={{ color: "#d99b56", fontWeight: 700, marginBottom: "12px" }}>
           جميع الحقوق محفوظة © Waffle &amp; Cake Desserts {new Date().getFullYear()}
         </p>
         <div>

@@ -62,7 +62,7 @@ export default function ImageUploader({ value, onChange, label = "صورة ال�
             style={{
               background: "transparent",
               border: "none",
-              color: "#cca043",
+              color: "#d99b56",
               fontSize: "11px",
               cursor: "pointer",
               display: "flex",
@@ -84,7 +84,7 @@ export default function ImageUploader({ value, onChange, label = "صورة ال�
           height: "140px",
           borderRadius: "14px",
           overflow: "hidden",
-          border: "1px solid rgba(204, 160, 67, 0.35)",
+          border: "1px solid rgba(217, 155, 86, 0.35)",
           marginBottom: "10px",
           background: "#120a05",
         }}>
@@ -110,7 +110,7 @@ export default function ImageUploader({ value, onChange, label = "صورة ال�
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 style={{
-                  background: "rgba(204, 160, 67, 0.9)",
+                  background: "rgba(217, 155, 86, 0.9)",
                   border: "none",
                   borderRadius: "8px",
                   color: "#180e06",
@@ -146,7 +146,7 @@ export default function ImageUploader({ value, onChange, label = "صورة ال�
         <div
           onClick={() => !uploading && fileInputRef.current?.click()}
           style={{
-            border: "2px dashed rgba(204, 160, 67, 0.3)",
+            border: "2px dashed rgba(217, 155, 86, 0.3)",
             borderRadius: "14px",
             padding: "20px",
             textAlign: "center",
@@ -156,16 +156,16 @@ export default function ImageUploader({ value, onChange, label = "صورة ال�
             marginBottom: "10px",
           }}
           onMouseEnter={(e) => {
-            if (!uploading) e.currentTarget.style.borderColor = "#cca043";
+            if (!uploading) e.currentTarget.style.borderColor = "#d99b56";
           }}
           onMouseLeave={(e) => {
-            if (!uploading) e.currentTarget.style.borderColor = "rgba(204, 160, 67, 0.3)";
+            if (!uploading) e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.3)";
           }}
         >
           {uploading ? (
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
-              <Loader2 size={28} className="animate-spin" color="#cca043" />
-              <div style={{ fontSize: "13px", fontWeight: 800, color: "#cca043" }}>
+              <Loader2 size={28} className="animate-spin" color="#d99b56" />
+              <div style={{ fontSize: "13px", fontWeight: 800, color: "#d99b56" }}>
                 جاري الرفع إلى ImgBB الآن...
               </div>
               <div style={{ fontSize: "11px", color: "#8a7565" }}>برجاء الانتظار ثوانٍ معدودة</div>
@@ -176,11 +176,11 @@ export default function ImageUploader({ value, onChange, label = "صورة ال�
                 width: "44px",
                 height: "44px",
                 borderRadius: "50%",
-                background: "rgba(204, 160, 67, 0.12)",
+                background: "rgba(217, 155, 86, 0.12)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#cca043",
+                color: "#d99b56",
               }}>
                 <UploadCloud size={22} />
               </div>
@@ -217,7 +217,7 @@ export default function ImageUploader({ value, onChange, label = "صورة ال�
               height: "40px",
               padding: "0 12px",
               background: "#140b04",
-              border: "1px solid rgba(204, 160, 67, 0.25)",
+              border: "1px solid rgba(217, 155, 86, 0.25)",
               borderRadius: "10px",
               color: "#ffffff",
               fontSize: "12px",

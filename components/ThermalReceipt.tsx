@@ -132,7 +132,7 @@ export function printThermalReceipt(order: PrintableOrder) {
         <img src="${typeof window !== 'undefined' ? window.location.origin : ''}/waffle-logo.jpeg" alt="Waffle & Cake" style="width: 44mm; max-width: 170px; height: auto; margin: 0 auto 6px; display: block; border-radius: 50%;" />
         <div style="font-size: 13px; font-weight: 900; letter-spacing: 0.5px;">Waffle &amp; Cake (وافل وكيك)</div>
         <div style="font-size: 11px; color: #444; margin-top: 2px;">السادس من أكتوبر — الحي الأول</div>
-        <div style="font-size: 12px; font-weight: bold;">هاتف / واتساب: 01018671000</div>
+        <div style="font-size: 12px; font-weight: bold;">هاتف / واتساب المطعم: 01091413470</div>
       </div>
 
       <div class="divider"></div>
@@ -275,7 +275,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
           maxWidth: "460px",
           maxHeight: "92vh",
           backgroundColor: "#160d05",
-          border: "1px solid rgba(204, 160, 67, 0.35)",
+          border: "1px solid rgba(217, 155, 86, 0.35)",
           borderRadius: "24px",
           display: "flex",
           flexDirection: "column",
@@ -287,7 +287,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
         <div
           style={{
             padding: "18px 22px",
-            borderBottom: "1px solid rgba(204, 160, 67, 0.2)",
+            borderBottom: "1px solid rgba(217, 155, 86, 0.2)",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -299,11 +299,11 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
                 width: "38px",
                 height: "38px",
                 borderRadius: "10px",
-                backgroundColor: "rgba(204, 160, 67, 0.15)",
+                backgroundColor: "rgba(217, 155, 86, 0.15)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#cca043",
+                color: "#d99b56",
               }}
             >
               <Printer size={20} />
@@ -349,7 +349,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
               <img src="/waffle-logo.jpeg" alt="Waffle & Cake" style={{ width: "90px", height: "90px", borderRadius: "50%", objectFit: "cover", margin: "0 auto 8px", display: "block", border: "2px solid #5a3825" }} />
               <div style={{ fontSize: "14px", fontWeight: 900, color: "#180e06" }}>Waffle &amp; Cake (وافل وكيك)</div>
               <div style={{ fontSize: "11px", color: "#444", fontWeight: 700 }}>السادس من أكتوبر — الحي الأول</div>
-              <div style={{ fontSize: "12px", fontWeight: 700, marginTop: "2px" }}>هاتف / واتساب: 01018671000</div>
+              <div style={{ fontSize: "12px", fontWeight: 700, marginTop: "2px" }}>هاتف / واتساب المطعم: 01091413470</div>
             </div>
 
             <div style={{ borderTop: "1px dashed #666", margin: "10px 0" }} />
@@ -358,7 +358,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
               <div
                 style={{
                   background: "#180e06",
-                  color: "#cca043",
+                  color: "#d99b56",
                   textAlign: "center",
                   fontWeight: 900,
                   fontSize: "12px",
@@ -478,7 +478,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
 
             <div style={{ textAlign: "center", fontSize: "11px", color: "#555" }}>
               شكراً لطلبكم من Waffle &amp; Cake 🧇🍰<br/>
-              لخدمة العملاء والطلبات: 01018671000<br/>
+              لخدمة العملاء والطلبات: 01091413470<br/>
               برمجة وتطوير: شركة أوركا للحلول البرمجية (01018671000)
             </div>
           </div>
@@ -488,7 +488,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
         <div
           style={{
             padding: "16px 20px",
-            borderTop: "1px solid rgba(204, 160, 67, 0.2)",
+            borderTop: "1px solid rgba(217, 155, 86, 0.2)",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -517,7 +517,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
             style={{
               padding: "12px 24px",
               borderRadius: "12px",
-              backgroundColor: "#cca043",
+              backgroundColor: "#d99b56",
               border: "none",
               color: "#180e06",
               fontSize: "14px",
@@ -526,7 +526,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
               display: "flex",
               alignItems: "center",
               gap: "8px",
-              boxShadow: "0 4px 16px rgba(204, 160, 67, 0.35)",
+              boxShadow: "0 4px 16px rgba(217, 155, 86, 0.35)",
             }}
           >
             <Printer size={18} />

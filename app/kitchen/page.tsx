@@ -121,7 +121,7 @@ export default function KitchenPage() {
           {/* Language Toggle Button */}
           <button
             onClick={() => { playSound("click"); toggleLang(); }}
-            className="px-3.5 py-2 rounded-xl bg-[#1a0f07] border border-[#3d1f0a] text-[#cca043] font-bold text-xs hover:border-[#cca043] transition-colors flex items-center gap-1.5"
+            className="px-3.5 py-2 rounded-xl bg-[#1a0f07] border border-[#3d1f0a] text-[#d99b56] font-bold text-xs hover:border-[#d99b56] transition-colors flex items-center gap-1.5"
           >
             <span>{lang === "ar" ? "EN 🌐" : "ع 🌐"}</span>
           </button>

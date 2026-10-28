@@ -269,7 +269,7 @@ export default function CustomerAccountModal({
           maxWidth: customer ? "640px" : "440px",
           maxHeight: "90vh",
           background: "#160d05",
-          border: "1px solid rgba(204, 160, 67, 0.35)",
+          border: "1px solid rgba(217, 155, 86, 0.35)",
           borderRadius: "24px",
           display: "flex",
           flexDirection: "column",
@@ -295,11 +295,11 @@ export default function CustomerAccountModal({
                 width: "40px",
                 height: "40px",
                 borderRadius: "12px",
-                background: "rgba(204, 160, 67, 0.15)",
+                background: "rgba(217, 155, 86, 0.15)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#cca043",
+                color: "#d99b56",
               }}
             >
               <User size={22} />
@@ -361,9 +361,9 @@ export default function CustomerAccountModal({
                   flex: 1,
                   padding: "12px",
                   border: "none",
-                  borderBottom: activeTab === "orders" ? "2px solid #cca043" : "none",
-                  background: activeTab === "orders" ? "rgba(204, 160, 67, 0.1)" : "transparent",
-                  color: activeTab === "orders" ? "#cca043" : "#8a7565",
+                  borderBottom: activeTab === "orders" ? "2px solid #d99b56" : "none",
+                  background: activeTab === "orders" ? "rgba(217, 155, 86, 0.1)" : "transparent",
+                  color: activeTab === "orders" ? "#d99b56" : "#8a7565",
                   fontWeight: 800,
                   fontSize: "13.5px",
                   cursor: "pointer",
@@ -378,7 +378,7 @@ export default function CustomerAccountModal({
                 {orders.length > 0 && (
                   <span
                     style={{
-                      background: "#cca043",
+                      background: "#d99b56",
                       color: "#180e06",
                       fontSize: "11px",
                       borderRadius: "100px",
@@ -400,9 +400,9 @@ export default function CustomerAccountModal({
                   flex: 1,
                   padding: "12px",
                   border: "none",
-                  borderBottom: activeTab === "profile" ? "2px solid #cca043" : "none",
-                  background: activeTab === "profile" ? "rgba(204, 160, 67, 0.1)" : "transparent",
-                  color: activeTab === "profile" ? "#cca043" : "#8a7565",
+                  borderBottom: activeTab === "profile" ? "2px solid #d99b56" : "none",
+                  background: activeTab === "profile" ? "rgba(217, 155, 86, 0.1)" : "transparent",
+                  color: activeTab === "profile" ? "#d99b56" : "#8a7565",
                   fontWeight: 800,
                   fontSize: "13.5px",
                   cursor: "pointer",
@@ -437,7 +437,7 @@ export default function CustomerAccountModal({
                       style={{
                         background: "transparent",
                         border: "none",
-                        color: "#cca043",
+                        color: "#d99b56",
                         cursor: "pointer",
                         display: "flex",
                         alignItems: "center",
@@ -452,7 +452,7 @@ export default function CustomerAccountModal({
                   </div>
 
                   {ordersLoading ? (
-                    <div style={{ textAlign: "center", padding: "40px", color: "#cca043" }}>
+                    <div style={{ textAlign: "center", padding: "40px", color: "#d99b56" }}>
                       جاري تحميل طلباتك... 🍫
                     </div>
                   ) : orders.length === 0 ? (
@@ -462,10 +462,10 @@ export default function CustomerAccountModal({
                         padding: "50px 20px",
                         background: "rgba(0,0,0,0.25)",
                         borderRadius: "16px",
-                        border: "1px dashed rgba(204, 160, 67, 0.2)",
+                        border: "1px dashed rgba(217, 155, 86, 0.2)",
                       }}
                     >
-                      <Package size={40} color="#cca043" style={{ margin: "0 auto 12px" }} />
+                      <Package size={40} color="#d99b56" style={{ margin: "0 auto 12px" }} />
                       <p style={{ margin: 0, fontWeight: 800, color: "#ffffff", fontSize: "15px" }}>
                         لم تقم بأي طلبات بعد
                       </p>
@@ -482,7 +482,7 @@ export default function CustomerAccountModal({
                             key={ord.id}
                             style={{
                               background: "rgba(255,255,255,0.03)",
-                              border: "1px solid rgba(204, 160, 67, 0.25)",
+                              border: "1px solid rgba(217, 155, 86, 0.25)",
                               borderRadius: "16px",
                               padding: "16px",
                             }}
@@ -500,7 +500,7 @@ export default function CustomerAccountModal({
                                 <span
                                   style={{
                                     fontFamily: "monospace",
-                                    color: "#cca043",
+                                    color: "#d99b56",
                                     fontWeight: 900,
                                     fontSize: "15px",
                                   }}
@@ -610,7 +610,7 @@ export default function CustomerAccountModal({
                                   <span>
                                     {it.qty} × {lang === "en" ? it.nameEn || it.nameAr : it.nameAr || it.nameEn}
                                   </span>
-                                  <span style={{ color: "#cca043" }}>{it.unitPrice * it.qty} ج</span>
+                                  <span style={{ color: "#d99b56" }}>{it.unitPrice * it.qty} ج</span>
                                 </div>
                               ))}
                             </div>
@@ -629,7 +629,7 @@ export default function CustomerAccountModal({
                               <span style={{ color: "#8a7565" }}>
                                 الإجمالي (شامل التوصيل):
                               </span>
-                              <span style={{ color: "#cca043", fontWeight: 900, fontSize: "15px" }}>
+                              <span style={{ color: "#d99b56", fontWeight: 900, fontSize: "15px" }}>
                                 {ord.total} ج.م
                               </span>
                             </div>
@@ -689,7 +689,7 @@ export default function CustomerAccountModal({
                         padding: "10px 14px",
                         background: "#0d0805",
                         borderRadius: "10px",
-                        color: "#cca043",
+                        color: "#d99b56",
                         fontWeight: 700,
                         border: "1px solid rgba(255,255,255,0.08)",
                       }}
@@ -752,7 +752,7 @@ export default function CustomerAccountModal({
               <button
                 onClick={onClose}
                 style={{
-                  background: "#cca043",
+                  background: "#d99b56",
                   color: "#180e06",
                   border: "none",
                   padding: "8px 20px",
@@ -791,7 +791,7 @@ export default function CustomerAccountModal({
                   padding: "8px",
                   borderRadius: "8px",
                   border: "none",
-                  background: authMode === "otp" ? "#cca043" : "transparent",
+                  background: authMode === "otp" ? "#d99b56" : "transparent",
                   color: authMode === "otp" ? "#180e06" : "#b0957e",
                   fontWeight: 800,
                   fontSize: "12.5px",
@@ -811,7 +811,7 @@ export default function CustomerAccountModal({
                   padding: "8px",
                   borderRadius: "8px",
                   border: "none",
-                  background: authMode === "quick" ? "#cca043" : "transparent",
+                  background: authMode === "quick" ? "#d99b56" : "transparent",
                   color: authMode === "quick" ? "#180e06" : "#b0957e",
                   fontWeight: 800,
                   fontSize: "12.5px",
@@ -880,7 +880,7 @@ export default function CustomerAccountModal({
                         width: "100%",
                         height: "42px",
                         background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.35)",
+                        border: "1px solid rgba(217, 155, 86, 0.35)",
                         borderRadius: "10px",
                         padding: "0 12px",
                         color: "#ffffff",
@@ -906,7 +906,7 @@ export default function CustomerAccountModal({
                         width: "100%",
                         height: "42px",
                         background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.35)",
+                        border: "1px solid rgba(217, 155, 86, 0.35)",
                         borderRadius: "10px",
                         padding: "0 12px",
                         color: "#ffffff",
@@ -931,7 +931,7 @@ export default function CustomerAccountModal({
                         width: "100%",
                         height: "42px",
                         background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.35)",
+                        border: "1px solid rgba(217, 155, 86, 0.35)",
                         borderRadius: "10px",
                         padding: "0 12px",
                         color: "#ffffff",
@@ -948,7 +948,7 @@ export default function CustomerAccountModal({
                     disabled={loading || !email.trim() || !name.trim()}
                     style={{
                       height: "46px",
-                      background: "linear-gradient(135deg, #cca043, #e8a020)",
+                      background: "linear-gradient(135deg, #d99b56, #e8a020)",
                       color: "#180e06",
                       fontWeight: 900,
                       fontSize: "14px",
@@ -956,7 +956,7 @@ export default function CustomerAccountModal({
                       border: "none",
                       cursor: "pointer",
                       marginTop: "6px",
-                      boxShadow: "0 4px 14px rgba(204, 160, 67, 0.35)",
+                      boxShadow: "0 4px 14px rgba(217, 155, 86, 0.35)",
                     }}
                   >
                     {loading ? "جاري الإرسال عبر Gmail..." : "إرسال رمز التفعيل ✉️"}
@@ -966,7 +966,7 @@ export default function CustomerAccountModal({
                 /* Step 2: Enter OTP Code */
                 <form onSubmit={handleVerifyOtp} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
                   <div style={{ textAlign: "center" }}>
-                    <p style={{ margin: 0, fontSize: "13px", color: "#cca043", fontWeight: 700 }}>
+                    <p style={{ margin: 0, fontSize: "13px", color: "#d99b56", fontWeight: 700 }}>
                       أدخل رمز التحقق المكون من 6 أرقام
                     </p>
                     <p style={{ margin: "4px 0 0 0", fontSize: "12px", color: "#8a7565" }}>
@@ -986,7 +986,7 @@ export default function CustomerAccountModal({
                       width: "100%",
                       height: "50px",
                       background: "#0d0805",
-                      border: "2px solid #cca043",
+                      border: "2px solid #d99b56",
                       borderRadius: "12px",
                       textAlign: "center",
                       fontFamily: "monospace",
@@ -1005,7 +1005,7 @@ export default function CustomerAccountModal({
                       style={{
                         flex: 1,
                         height: "44px",
-                        background: "#cca043",
+                        background: "#d99b56",
                         color: "#180e06",
                         fontWeight: 900,
                         fontSize: "14px",
@@ -1054,7 +1054,7 @@ export default function CustomerAccountModal({
                       width: "100%",
                       height: "42px",
                       background: "#0d0805",
-                      border: "1px solid rgba(204, 160, 67, 0.35)",
+                      border: "1px solid rgba(217, 155, 86, 0.35)",
                       borderRadius: "10px",
                       padding: "0 12px",
                       color: "#ffffff",
@@ -1071,7 +1071,7 @@ export default function CustomerAccountModal({
                   disabled={loading || !phone.trim()}
                   style={{
                     height: "46px",
-                    background: "#cca043",
+                    background: "#d99b56",
                     color: "#180e06",
                     fontWeight: 900,
                     fontSize: "14px",

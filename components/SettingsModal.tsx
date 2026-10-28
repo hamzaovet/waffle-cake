@@ -27,9 +27,9 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const [savedSuccess, setSavedSuccess] = useState(false);
 
   const [settings, setSettings] = useState({
-    restaurantName: "Choco House Desserts",
+    restaurantName: "Waffle & Cake",
     phone: "01091413470",
-    address: "الحي الثاني، قطعة 3، مبنى 3، السادس من أكتوبر",
+    address: "السادس من أكتوبر — الحي الأول",
     soundsEnabled: true,
     status: "open", // open, busy, closed, disabled
   });
@@ -47,9 +47,9 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       if (res.ok) {
         const data = await res.json();
         setSettings({
-          restaurantName: data.restaurantName || "Choco House Desserts",
+          restaurantName: data.restaurantName || "Waffle & Cake",
           phone: data.phone || "01091413470",
-          address: data.address || "الحي الثاني، قطعة 3، مبنى 3، السادس من أكتوبر",
+          address: data.address || "السادس من أكتوبر — الحي الأول",
           soundsEnabled: data.soundsEnabled ?? true,
           status: data.specialOffers || "open",
         });
@@ -103,7 +103,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
         maxWidth: "540px",
         maxHeight: "90vh",
         backgroundColor: "#160d05",
-        border: "1px solid rgba(204, 160, 67, 0.35)",
+        border: "1px solid rgba(217, 155, 86, 0.35)",
         borderRadius: "24px",
         display: "flex",
         flexDirection: "column",
@@ -116,7 +116,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
         {/* Header */}
         <div style={{
           padding: "20px 24px",
-          borderBottom: "1px solid rgba(204, 160, 67, 0.18)",
+          borderBottom: "1px solid rgba(217, 155, 86, 0.18)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -126,11 +126,11 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               width: "38px",
               height: "38px",
               borderRadius: "12px",
-              background: "rgba(204, 160, 67, 0.15)",
+              background: "rgba(217, 155, 86, 0.15)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#cca043",
+              color: "#d99b56",
             }}>
               <Settings size={20} />
             </div>
@@ -167,13 +167,13 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
         <div style={{ padding: "24px", overflowY: "auto", display: "flex", flexDirection: "column", gap: "20px" }}>
           {loading ? (
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "180px" }}>
-              <Loader2 size={32} className="animate-spin" color="#cca043" />
+              <Loader2 size={32} className="animate-spin" color="#d99b56" />
             </div>
           ) : (
             <>
               {/* Section 1: Store Operational Status */}
               <div>
-                <label style={{ display: "block", fontSize: "13px", fontWeight: 900, color: "#cca043", marginBottom: "10px" }}>
+                <label style={{ display: "block", fontSize: "13px", fontWeight: 900, color: "#d99b56", marginBottom: "10px" }}>
                   {t("حالة استقبال الطلبات في المتجر", "Store Order Acceptance Status")}
                 </label>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
@@ -217,10 +217,10 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                           padding: "12px",
                           borderRadius: "14px",
                           border: isSelected
-                            ? "2px solid #cca043"
+                            ? "2px solid #d99b56"
                             : "1px solid rgba(255, 255, 255, 0.08)",
                           background: isSelected
-                            ? "rgba(204, 160, 67, 0.16)"
+                            ? "rgba(217, 155, 86, 0.16)"
                             : "rgba(255, 255, 255, 0.03)",
                           color: disabled ? "rgba(255,255,255,0.2)" : "#ffffff",
                           textAlign: dir === "rtl" ? "right" : "left",
@@ -232,7 +232,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                         <div style={{ fontSize: "12.5px", fontWeight: 900, marginBottom: "3px" }}>
                           {st.label}
                         </div>
-                        <div style={{ fontSize: "10.5px", color: isSelected ? "#cca043" : "#8a7565" }}>
+                        <div style={{ fontSize: "10.5px", color: isSelected ? "#d99b56" : "#8a7565" }}>
                           {st.desc}
                         </div>
                       </button>
@@ -243,7 +243,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
               {/* Section 2: Store Info */}
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                <label style={{ fontSize: "13px", fontWeight: 900, color: "#cca043" }}>
+                <label style={{ fontSize: "13px", fontWeight: 900, color: "#d99b56" }}>
                   {t("بيانات التواصل والفرع", "Contact & Branch Details")}
                 </label>
 
@@ -261,7 +261,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                         width: "100%",
                         height: "42px",
                         background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.25)",
+                        border: "1px solid rgba(217, 155, 86, 0.25)",
                         borderRadius: "12px",
                         padding: "0 14px",
                         color: "#ffffff",
@@ -286,7 +286,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                       width: "100%",
                       height: "42px",
                       background: "#0d0805",
-                      border: "1px solid rgba(204, 160, 67, 0.25)",
+                      border: "1px solid rgba(217, 155, 86, 0.25)",
                       borderRadius: "12px",
                       padding: "0 14px",
                       color: "#ffffff",
@@ -309,7 +309,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 justifyContent: "space-between",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  <Bell size={18} color="#cca043" />
+                  <Bell size={18} color="#d99b56" />
                   <div>
                     <div style={{ fontSize: "13px", fontWeight: 800, color: "#ffffff" }}>
                       {t("صوت تنبيه الطلبات الجديدة", "New Orders Audio Chime")}
@@ -325,10 +325,10 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                     type="button"
                     onClick={() => playSound("order")}
                     style={{
-                      background: "rgba(204, 160, 67, 0.15)",
-                      border: "1px solid rgba(204, 160, 67, 0.3)",
+                      background: "rgba(217, 155, 86, 0.15)",
+                      border: "1px solid rgba(217, 155, 86, 0.3)",
                       borderRadius: "8px",
-                      color: "#cca043",
+                      color: "#d99b56",
                       padding: "4px 10px",
                       fontSize: "11px",
                       fontWeight: 700,
@@ -341,7 +341,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                     type="checkbox"
                     checked={settings.soundsEnabled}
                     onChange={(e) => setSettings({ ...settings, soundsEnabled: e.target.checked })}
-                    style={{ width: "18px", height: "18px", accentColor: "#cca043", cursor: "pointer" }}
+                    style={{ width: "18px", height: "18px", accentColor: "#d99b56", cursor: "pointer" }}
                   />
                 </div>
               </div>
@@ -350,14 +350,14 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               <div style={{
                 padding: "14px",
                 borderRadius: "14px",
-                background: "rgba(204, 160, 67, 0.08)",
-                border: "1px solid rgba(204, 160, 67, 0.25)",
+                background: "rgba(217, 155, 86, 0.08)",
+                border: "1px solid rgba(217, 155, 86, 0.25)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  <Smartphone size={20} color="#cca043" />
+                  <Smartphone size={20} color="#d99b56" />
                   <div>
                     <div style={{ fontSize: "13px", fontWeight: 800, color: "#ffffff" }}>
                       {t("تطبيق الأندرويد وQR التحميل (APK)", "Android App & Download QR")}
@@ -373,7 +373,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    background: "#cca043",
+                    background: "#d99b56",
                     borderRadius: "10px",
                     color: "#180e06",
                     padding: "7px 14px",
@@ -394,14 +394,14 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               <div style={{
                 padding: "14px",
                 borderRadius: "14px",
-                background: "rgba(204, 160, 67, 0.08)",
-                border: "1px solid rgba(204, 160, 67, 0.25)",
+                background: "rgba(217, 155, 86, 0.08)",
+                border: "1px solid rgba(217, 155, 86, 0.25)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                  <Sparkles size={18} color="#cca043" />
+                  <Sparkles size={18} color="#d99b56" />
                   <div>
                     <div style={{ fontSize: "13px", fontWeight: 800, color: "#ffffff" }}>
                       {t("إدارة العروض الخاصة والبانر", "Special Offers & Banners")}
@@ -419,7 +419,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                     router.push("/offers-admin");
                   }}
                   style={{
-                    background: "#cca043",
+                    background: "#d99b56",
                     border: "none",
                     borderRadius: "10px",
                     color: "#180e06",
@@ -443,7 +443,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
         {/* Footer actions */}
         <div style={{
           padding: "16px 24px",
-          borderTop: "1px solid rgba(204, 160, 67, 0.18)",
+          borderTop: "1px solid rgba(217, 155, 86, 0.18)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -471,7 +471,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             onClick={handleSave}
             disabled={saving || loading}
             style={{
-              background: savedSuccess ? "#22c55e" : "#cca043",
+              background: savedSuccess ? "#22c55e" : "#d99b56",
               border: "none",
               color: "#180e06",
               borderRadius: "12px",

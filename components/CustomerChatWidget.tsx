@@ -153,7 +153,7 @@ export default function CustomerChatWidget({ lang = "ar" }: CustomerChatWidgetPr
             display: "flex",
             alignItems: "center",
             gap: "8px",
-            background: "linear-gradient(135deg, #cca043, #b37f1b)",
+            background: "linear-gradient(135deg, #d99b56, #b37f1b)",
             color: "#180e06",
             border: "none",
             borderRadius: "100px",
@@ -161,7 +161,7 @@ export default function CustomerChatWidget({ lang = "ar" }: CustomerChatWidgetPr
             fontWeight: 900,
             fontSize: "13.5px",
             cursor: "pointer",
-            boxShadow: "0 8px 24px rgba(204, 160, 67, 0.4)",
+            boxShadow: "0 8px 24px rgba(217, 155, 86, 0.4)",
             transition: "all 0.2s ease",
             transform: isOpen ? "scale(0.95)" : "scale(1)",
           }}
@@ -199,7 +199,7 @@ export default function CustomerChatWidget({ lang = "ar" }: CustomerChatWidgetPr
             height: "460px",
             maxHeight: "calc(100vh - 140px)",
             background: "#160d05",
-            border: "1px solid rgba(204, 160, 67, 0.4)",
+            border: "1px solid rgba(217, 155, 86, 0.4)",
             borderRadius: "20px",
             display: "flex",
             flexDirection: "column",
@@ -226,7 +226,7 @@ export default function CustomerChatWidget({ lang = "ar" }: CustomerChatWidgetPr
                   width: "34px",
                   height: "34px",
                   borderRadius: "50%",
-                  background: "#cca043",
+                  background: "#d99b56",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -274,9 +274,9 @@ export default function CustomerChatWidget({ lang = "ar" }: CustomerChatWidgetPr
           {(!customerName || !customerPhone) && (
             <div
               style={{
-                background: "rgba(204, 160, 67, 0.08)",
+                background: "rgba(217, 155, 86, 0.08)",
                 padding: "8px 12px",
-                borderBottom: "1px solid rgba(204, 160, 67, 0.2)",
+                borderBottom: "1px solid rgba(217, 155, 86, 0.2)",
                 display: "flex",
                 gap: "6px",
               }}
@@ -333,8 +333,8 @@ export default function CustomerChatWidget({ lang = "ar" }: CustomerChatWidgetPr
               style={{
                 alignSelf: "flex-start",
                 maxWidth: "88%",
-                background: "rgba(204, 160, 67, 0.15)",
-                border: "1px solid rgba(204, 160, 67, 0.35)",
+                background: "rgba(217, 155, 86, 0.15)",
+                border: "1px solid rgba(217, 155, 86, 0.35)",
                 borderRadius: "14px",
                 padding: "10px 12px",
                 fontSize: "12.5px",
@@ -342,7 +342,7 @@ export default function CustomerChatWidget({ lang = "ar" }: CustomerChatWidgetPr
                 lineHeight: 1.4,
               }}
             >
-              <div style={{ fontWeight: 800, color: "#cca043", fontSize: "11px", marginBottom: "3px" }}>
+              <div style={{ fontWeight: 800, color: "#d99b56", fontSize: "11px", marginBottom: "3px" }}>
                 فريق Choco House 🍫
               </div>
               {lang === "en"
@@ -357,19 +357,19 @@ export default function CustomerChatWidget({ lang = "ar" }: CustomerChatWidgetPr
                 style={{
                   alignSelf: m.isStaff ? "flex-start" : "flex-end",
                   maxWidth: "88%",
-                  background: m.isStaff ? "linear-gradient(135deg, rgba(204, 160, 67, 0.2), rgba(204, 160, 67, 0.1))" : "#2a160a",
-                  border: m.isStaff ? "1px solid #cca043" : "1px solid rgba(255,255,255,0.1)",
+                  background: m.isStaff ? "linear-gradient(135deg, rgba(217, 155, 86, 0.2), rgba(217, 155, 86, 0.1))" : "#2a160a",
+                  border: m.isStaff ? "1px solid #d99b56" : "1px solid rgba(255,255,255,0.1)",
                   borderRadius: "14px",
                   padding: "10px 12px",
                   fontSize: "12.5px",
                   color: "#ffffff",
-                  boxShadow: m.isStaff ? "0 2px 10px rgba(204, 160, 67, 0.2)" : "none",
+                  boxShadow: m.isStaff ? "0 2px 10px rgba(217, 155, 86, 0.2)" : "none",
                 }}
               >
                 <div
                   style={{
                     fontSize: "10.5px",
-                    color: m.isStaff ? "#cca043" : "#8a7565",
+                    color: m.isStaff ? "#d99b56" : "#8a7565",
                     fontWeight: 800,
                     marginBottom: "3px",
                     display: "flex",
@@ -406,9 +406,9 @@ export default function CustomerChatWidget({ lang = "ar" }: CustomerChatWidgetPr
                 onClick={() => handleSendMessage(q)}
                 style={{
                   background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(204, 160, 67, 0.25)",
+                  border: "1px solid rgba(217, 155, 86, 0.25)",
                   borderRadius: "100px",
-                  color: "#cca043",
+                  color: "#d99b56",
                   fontSize: "10.5px",
                   padding: "4px 10px",
                   whiteSpace: "nowrap",
@@ -442,7 +442,7 @@ export default function CustomerChatWidget({ lang = "ar" }: CustomerChatWidgetPr
                 flex: 1,
                 height: "38px",
                 background: "#0d0805",
-                border: "1px solid rgba(204, 160, 67, 0.3)",
+                border: "1px solid rgba(217, 155, 86, 0.3)",
                 borderRadius: "10px",
                 padding: "0 12px",
                 fontSize: "12.5px",
@@ -456,7 +456,7 @@ export default function CustomerChatWidget({ lang = "ar" }: CustomerChatWidgetPr
               style={{
                 width: "38px",
                 height: "38px",
-                background: "#cca043",
+                background: "#d99b56",
                 border: "none",
                 borderRadius: "10px",
                 color: "#180e06",

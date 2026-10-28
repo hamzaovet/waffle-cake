@@ -60,8 +60,8 @@ export default function LoginPage() {
   }
 
   function onFocus(e: React.FocusEvent<HTMLInputElement>) {
-    e.target.style.borderColor = "#cca043";
-    e.target.style.boxShadow   = "0 0 0 3px rgba(204,160,67,0.18)";
+    e.target.style.borderColor = "#d99b56";
+    e.target.style.boxShadow   = "0 0 0 3px rgba(217,155,86,0.18)";
   }
   function onBlur(e: React.FocusEvent<HTMLInputElement>) {
     e.target.style.borderColor = "#e5dac9";
@@ -91,9 +91,9 @@ export default function LoginPage() {
           [dir === "rtl" ? "left" : "right"]: "24px",
           padding: "8px 16px",
           borderRadius: "100px",
-          backgroundColor: "rgba(204, 160, 67, 0.12)",
-          border: "1px solid rgba(204, 160, 67, 0.3)",
-          color: "#cca043",
+          backgroundColor: "rgba(217, 155, 86, 0.12)",
+          border: "1px solid rgba(217, 155, 86, 0.3)",
+          color: "#d99b56",
           fontWeight: 800,
           fontSize: "13px",
           cursor: "pointer",
@@ -112,7 +112,7 @@ export default function LoginPage() {
         <h1 style={{
           fontSize: "28px",
           fontWeight: 700,
-          color: "#cca043",
+          color: "#d99b56",
           margin: "0 0 8px 0",
           fontFamily: "var(--font-playfair), Georgia, 'Times New Roman', serif",
           fontStyle: "normal",
@@ -258,18 +258,18 @@ export default function LoginPage() {
             disabled={loading}
             style={{
               width: "100%", height: "48px",
-              background: "#cca043",
+              background: "#d99b56",
               color: "#ffffff",
               fontWeight: 800, fontSize: "15.5px",
               borderRadius: "100px",
               border: "none", cursor: loading ? "not-allowed" : "pointer",
-              boxShadow: "0 3px 14px rgba(204,160,67,0.35)",
+              boxShadow: "0 3px 14px rgba(217,155,86,0.35)",
               transition: "all 0.2s ease",
               marginTop: "4px",
               fontFamily: "var(--font-cairo), system-ui, sans-serif",
             }}
             onMouseEnter={(e) => { e.currentTarget.style.background = "#dfb252"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "#cca043"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "#d99b56"; }}
           >
             {loading ? t("جاري التحقق...", "Verifying...") : t("تسجيل الدخول", "Log In")}
           </button>
@@ -302,8 +302,8 @@ export default function LoginPage() {
             fontFamily: "var(--font-cairo), system-ui, sans-serif",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = "#cca043";
-            e.currentTarget.style.color = "#cca043";
+            e.currentTarget.style.borderColor = "#d99b56";
+            e.currentTarget.style.color = "#d99b56";
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.borderColor = "#d4c4b0";
@@ -331,7 +331,7 @@ export default function LoginPage() {
           textAlign: "center", margin: "22px 0 0 0",
           display: "flex", alignItems: "center", justifyContent: "center", gap: "6px",
         }}>
-          {t("مُقدّم من Whacka", "Powered by Whacka")} <span style={{ color: "#cca043" }}>✻</span>
+          {t("مُقدّم من Whacka", "Powered by Whacka")} <span style={{ color: "#d99b56" }}>✻</span>
         </p>
       </div>
     </div>

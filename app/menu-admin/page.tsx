@@ -163,9 +163,9 @@ export default function MenuAdminPage() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "7px",
-                background: "rgba(204, 160, 67, 0.12)",
-                border: "1px solid rgba(204, 160, 67, 0.35)",
-                color: "#cca043",
+                background: "rgba(217, 155, 86, 0.12)",
+                border: "1px solid rgba(217, 155, 86, 0.35)",
+                color: "#d99b56",
                 padding: "9px 16px",
                 borderRadius: "12px",
                 fontSize: "13px",
@@ -173,7 +173,7 @@ export default function MenuAdminPage() {
                 cursor: "pointer",
               }}
             >
-              <Gift size={15} color="#cca043" />
+              <Gift size={15} color="#d99b56" />
               <span>{t("إدارة العروض الخاصة", "Special Offers")}</span>
             </button>
 
@@ -193,7 +193,7 @@ export default function MenuAdminPage() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "7px",
-                background: "#cca043",
+                background: "#d99b56",
                 color: "#180e06",
                 padding: "9px 18px",
                 borderRadius: "12px",
@@ -201,7 +201,7 @@ export default function MenuAdminPage() {
                 fontSize: "13.5px",
                 fontWeight: 900,
                 cursor: "pointer",
-                boxShadow: "0 2px 10px rgba(204, 160, 67, 0.3)",
+                boxShadow: "0 2px 10px rgba(217, 155, 86, 0.3)",
               }}
             >
               <Plus size={16} strokeWidth={2.5} />
@@ -229,7 +229,7 @@ export default function MenuAdminPage() {
                   padding: "8px 18px",
                   borderRadius: "100px",
                   border: isSelected ? "none" : "1px solid rgba(255, 255, 255, 0.08)",
-                  background: isSelected ? "#cca043" : "rgba(255, 255, 255, 0.04)",
+                  background: isSelected ? "#d99b56" : "rgba(255, 255, 255, 0.04)",
                   color: isSelected ? "#180e06" : "#b0957e",
                   fontSize: "13px",
                   fontWeight: isSelected ? 900 : 700,
@@ -260,7 +260,7 @@ export default function MenuAdminPage() {
                 key={p.id}
                 style={{
                   background: "rgba(24, 13, 7, 0.85)",
-                  border: "1px solid rgba(204, 160, 67, 0.18)",
+                  border: "1px solid rgba(217, 155, 86, 0.18)",
                   borderRadius: "18px",
                   overflow: "hidden",
                   display: "flex",
@@ -298,10 +298,10 @@ export default function MenuAdminPage() {
                     top: "10px",
                     [dir === "rtl" ? "right" : "left"]: "10px",
                     background: "rgba(18, 10, 5, 0.85)",
-                    border: "1px solid rgba(204, 160, 67, 0.3)",
+                    border: "1px solid rgba(217, 155, 86, 0.3)",
                     padding: "3px 10px",
                     borderRadius: "100px",
-                    color: "#cca043",
+                    color: "#d99b56",
                     fontSize: "11px",
                     fontWeight: 800,
                   }}>
@@ -335,7 +335,7 @@ export default function MenuAdminPage() {
                     }}>
                       {lang === "en" ? p.nameAr : (p.nameEn || p.category)}
                     </p>
-                    <div style={{ fontSize: "18px", color: "#cca043", fontWeight: 900 }}>
+                    <div style={{ fontSize: "18px", color: "#d99b56", fontWeight: 900 }}>
                       {p.basePrice} <span style={{ fontSize: "13px" }}>{t("ج", "EGP")}</span>
                     </div>
                   </div>
@@ -433,7 +433,7 @@ export default function MenuAdminPage() {
               width: "100%",
               maxWidth: "440px",
               background: "#1a0f07",
-              border: "1px solid rgba(204, 160, 67, 0.3)",
+              border: "1px solid rgba(217, 155, 86, 0.3)",
               borderRadius: "24px",
               padding: "26px",
               boxShadow: "0 24px 64px rgba(0,0,0,0.6)",
@@ -466,7 +466,7 @@ export default function MenuAdminPage() {
                     required
                     style={{
                       width: "100%", height: "42px", background: "#0d0805",
-                      border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "10px",
+                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "10px",
                       padding: "0 14px", color: "#fff", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
                     }}
                   />
@@ -483,7 +483,7 @@ export default function MenuAdminPage() {
                     onChange={(e) => setEditProduct({ ...editProduct, nameEn: e.target.value })}
                     style={{
                       width: "100%", height: "42px", background: "#0d0805",
-                      border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "10px",
+                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "10px",
                       padding: "0 14px", color: "#fff", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
                     }}
                   />
@@ -498,7 +498,7 @@ export default function MenuAdminPage() {
                     onChange={(e) => setEditProduct({ ...editProduct, category: e.target.value })}
                     style={{
                       width: "100%", height: "42px", background: "#0d0805",
-                      border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "10px",
+                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "10px",
                       padding: "0 14px", color: "#fff", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
                     }}
                   >
@@ -520,7 +520,7 @@ export default function MenuAdminPage() {
                     required
                     style={{
                       width: "100%", height: "42px", background: "#0d0805",
-                      border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "10px",
+                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "10px",
                       padding: "0 14px", color: "#fff", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
                     }}
                   />
@@ -538,7 +538,7 @@ export default function MenuAdminPage() {
                     disabled={saving}
                     style={{
                       flex: 1, height: "44px",
-                      background: "#cca043", color: "#180e06",
+                      background: "#d99b56", color: "#180e06",
                       fontWeight: 900, fontSize: "14px",
                       borderRadius: "12px", border: "none", cursor: "pointer",
                     }}

@@ -7,13 +7,13 @@
 }
 
 :root {
-  --choco-dark: #0d0805;
-  --choco-card: #1a0f07;
-  --choco-border: #3d1f0a;
-  --choco-gold: #c8860a;
-  --choco-gold-light: #e8a020;
-  --choco-cream: #f5ede4;
-  --choco-text-muted: #9c7a5e;
+  --choco-dark: #140c07;
+  --choco-card: #22140c;
+  --choco-border: #4d2d1b;
+  --choco-gold: #d99b56;
+  --choco-gold-light: #e8b577;
+  --choco-cream: #fbf5ed;
+  --choco-text-muted: #b49279;
 }
 
 html {

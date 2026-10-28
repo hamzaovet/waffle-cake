@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3080",
+    "dev": "next dev --webpack --port 3080",
     "build": "next build --webpack",
     "start": "next start --port 3080",
     "postinstall": "prisma generate",

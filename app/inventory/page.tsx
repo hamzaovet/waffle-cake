@@ -346,7 +346,7 @@ export default function InventoryPage() {
             <button
               onClick={openAuditModal}
               style={{
-                background: "#cca043",
+                background: "#d99b56",
                 border: "none",
                 borderRadius: "12px",
                 color: "#180e06",
@@ -357,7 +357,7 @@ export default function InventoryPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: "7px",
-                boxShadow: "0 4px 14px rgba(204, 160, 67, 0.35)",
+                boxShadow: "0 4px 14px rgba(217, 155, 86, 0.35)",
               }}
               title={t("جرد المخزن وحساب تكلفة الخامات المستهلكة وترحيلها للأرباح", "Audit stock, calculate consumed costs, and book to profits")}
             >
@@ -372,10 +372,10 @@ export default function InventoryPage() {
                 if (items.length > 0) setPurchaseItem(items[0]);
               }}
               style={{
-                background: "rgba(204, 160, 67, 0.15)",
-                border: "1px solid rgba(204, 160, 67, 0.35)",
+                background: "rgba(217, 155, 86, 0.15)",
+                border: "1px solid rgba(217, 155, 86, 0.35)",
                 borderRadius: "12px",
-                color: "#cca043",
+                color: "#d99b56",
                 padding: "10px 16px",
                 fontSize: "13px",
                 fontWeight: 800,
@@ -470,21 +470,21 @@ export default function InventoryPage() {
         }}>
           <div style={{
             background: "#160d05",
-            border: "1px solid rgba(204, 160, 67, 0.2)",
+            border: "1px solid rgba(217, 155, 86, 0.2)",
             borderRadius: "16px",
             padding: "18px 20px",
           }}>
             <div style={{ fontSize: "12px", fontWeight: 800, color: "#8a7565", marginBottom: "6px" }}>
               {t("إجمالي قيمة المخزن الحالية", "Total Current Stock Value")}
             </div>
-            <div style={{ fontSize: "26px", fontWeight: 900, color: "#cca043" }}>
+            <div style={{ fontSize: "26px", fontWeight: 900, color: "#d99b56" }}>
               {totalValue.toLocaleString(lang === "en" ? "en-US" : "ar-EG")} <span style={{ fontSize: "14px", color: "#8a7565" }}>{t("ج.م", "EGP")}</span>
             </div>
           </div>
 
           <div style={{
             background: "#160d05",
-            border: "1px solid rgba(204, 160, 67, 0.2)",
+            border: "1px solid rgba(217, 155, 86, 0.2)",
             borderRadius: "16px",
             padding: "18px 20px",
           }}>
@@ -498,7 +498,7 @@ export default function InventoryPage() {
 
           <div style={{
             background: lowStockCount > 0 ? "rgba(239, 68, 68, 0.12)" : "#160d05",
-            border: `1px solid ${lowStockCount > 0 ? "rgba(239, 68, 68, 0.35)" : "rgba(204, 160, 67, 0.2)"}`,
+            border: `1px solid ${lowStockCount > 0 ? "rgba(239, 68, 68, 0.35)" : "rgba(217, 155, 86, 0.2)"}`,
             borderRadius: "16px",
             padding: "18px 20px",
           }}>
@@ -527,7 +527,7 @@ export default function InventoryPage() {
               width: "100%",
               height: "44px",
               backgroundColor: "#160d05",
-              border: "1px solid rgba(204, 160, 67, 0.2)",
+              border: "1px solid rgba(217, 155, 86, 0.2)",
               borderRadius: "14px",
               padding: dir === "rtl" ? "0 44px 0 16px" : "0 16px 0 44px",
               color: "#ffffff",
@@ -541,12 +541,12 @@ export default function InventoryPage() {
         {/* ── Items Cards Grid ── */}
         {loading ? (
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "240px" }}>
-            <Loader2 size={36} className="animate-spin" color="#cca043" />
+            <Loader2 size={36} className="animate-spin" color="#d99b56" />
           </div>
         ) : filtered.length === 0 ? (
           <div style={{
             background: "#160d05",
-            border: "1px solid rgba(204, 160, 67, 0.15)",
+            border: "1px solid rgba(217, 155, 86, 0.15)",
             borderRadius: "20px",
             padding: "60px 20px",
             textAlign: "center",
@@ -569,7 +569,7 @@ export default function InventoryPage() {
                   key={item.id}
                   style={{
                     background: "#160d05",
-                    border: `1px solid ${isLow ? "rgba(239, 68, 68, 0.35)" : "rgba(204, 160, 67, 0.18)"}`,
+                    border: `1px solid ${isLow ? "rgba(239, 68, 68, 0.35)" : "rgba(217, 155, 86, 0.18)"}`,
                     borderRadius: "18px",
                     padding: "18px",
                     display: "flex",
@@ -586,7 +586,7 @@ export default function InventoryPage() {
                         <h3 style={{ margin: "0 0 4px 0", fontSize: "16.5px", fontWeight: 900, color: "#ffffff" }}>
                           {item.name}
                         </h3>
-                        <div style={{ fontSize: "12px", color: "#cca043", fontWeight: 700 }}>
+                        <div style={{ fontSize: "12px", color: "#d99b56", fontWeight: 700 }}>
                           {t("متوسط التكلفة:", "Avg Cost:")} {item.costPerUnit} {t("ج", "EGP")} / {translateUnit(item.unit)}
                         </div>
                       </div>
@@ -621,7 +621,7 @@ export default function InventoryPage() {
                   }}>
                     <div>
                       <div style={{ fontSize: "11px", color: "#8a7565" }}>{t("الرصيد الدفتري الحالي", "Current Book Balance")}</div>
-                      <div style={{ fontSize: "20px", fontWeight: 900, color: isLow ? "#ef4444" : "#cca043" }}>
+                      <div style={{ fontSize: "20px", fontWeight: 900, color: isLow ? "#ef4444" : "#d99b56" }}>
                         {item.quantity} <span style={{ fontSize: "12px", color: "#8a7565" }}>{translateUnit(item.unit)}</span>
                       </div>
                       <div style={{ fontSize: "10.5px", color: "#7a5c3e" }}>
@@ -656,9 +656,9 @@ export default function InventoryPage() {
                           width: "32px",
                           height: "32px",
                           borderRadius: "10px",
-                          background: "rgba(204, 160, 67, 0.15)",
-                          border: "1px solid rgba(204, 160, 67, 0.3)",
-                          color: "#cca043",
+                          background: "rgba(217, 155, 86, 0.15)",
+                          border: "1px solid rgba(217, 155, 86, 0.3)",
+                          color: "#d99b56",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
@@ -689,9 +689,9 @@ export default function InventoryPage() {
                         style={{
                           padding: "6px 10px",
                           borderRadius: "10px",
-                          background: "rgba(204, 160, 67, 0.12)",
-                          border: "1px solid rgba(204, 160, 67, 0.3)",
-                          color: "#cca043",
+                          background: "rgba(217, 155, 86, 0.12)",
+                          border: "1px solid rgba(217, 155, 86, 0.3)",
+                          color: "#d99b56",
                           fontSize: "11.5px",
                           fontWeight: 800,
                           cursor: "pointer",
@@ -777,7 +777,7 @@ export default function InventoryPage() {
               maxWidth: "880px",
               maxHeight: "90vh",
               background: "#160d05",
-              border: "1px solid rgba(204, 160, 67, 0.4)",
+              border: "1px solid rgba(217, 155, 86, 0.4)",
               borderRadius: "24px",
               display: "flex",
               flexDirection: "column",
@@ -788,7 +788,7 @@ export default function InventoryPage() {
               {/* Modal Header */}
               <div style={{
                 padding: "20px 24px",
-                borderBottom: "1px solid rgba(204, 160, 67, 0.2)",
+                borderBottom: "1px solid rgba(217, 155, 86, 0.2)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -799,11 +799,11 @@ export default function InventoryPage() {
                     width: "42px",
                     height: "42px",
                     borderRadius: "12px",
-                    background: "rgba(204, 160, 67, 0.18)",
+                    background: "rgba(217, 155, 86, 0.18)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "#cca043",
+                    color: "#d99b56",
                   }}>
                     <Scale size={22} />
                   </div>
@@ -832,8 +832,8 @@ export default function InventoryPage() {
               {/* Period Title & Dates */}
               <div style={{
                 padding: "16px 24px",
-                background: "rgba(204, 160, 67, 0.05)",
-                borderBottom: "1px solid rgba(204, 160, 67, 0.12)",
+                background: "rgba(217, 155, 86, 0.05)",
+                borderBottom: "1px solid rgba(217, 155, 86, 0.12)",
                 display: "grid",
                 gridTemplateColumns: "2fr 1fr 1fr",
                 gap: "12px",
@@ -848,7 +848,7 @@ export default function InventoryPage() {
                     onChange={(e) => setAuditTitle(e.target.value)}
                     style={{
                       width: "100%", height: "38px", background: "#0d0805",
-                      border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "10px",
+                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "10px",
                       padding: "0 12px", color: "#fff", fontSize: "13px", outline: "none", boxSizing: "border-box",
                     }}
                   />
@@ -864,7 +864,7 @@ export default function InventoryPage() {
                     onChange={(e) => setAuditStart(e.target.value)}
                     style={{
                       width: "100%", height: "38px", background: "#0d0805",
-                      border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "10px",
+                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "10px",
                       padding: "0 10px", color: "#fff", fontSize: "12px", outline: "none", boxSizing: "border-box",
                     }}
                   />
@@ -880,7 +880,7 @@ export default function InventoryPage() {
                     onChange={(e) => setAuditEnd(e.target.value)}
                     style={{
                       width: "100%", height: "38px", background: "#0d0805",
-                      border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "10px",
+                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "10px",
                       padding: "0 10px", color: "#fff", fontSize: "12px", outline: "none", boxSizing: "border-box",
                     }}
                   />
@@ -891,7 +891,7 @@ export default function InventoryPage() {
               <div style={{ flex: 1, overflowY: "auto", overflowX: "auto", padding: "16px 24px" }}>
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "13px" }}>
                   <thead>
-                    <tr style={{ borderBottom: "1px solid rgba(204, 160, 67, 0.2)", color: "#b0957e", textAlign: dir === "rtl" ? "right" : "left" }}>
+                    <tr style={{ borderBottom: "1px solid rgba(217, 155, 86, 0.2)", color: "#b0957e", textAlign: dir === "rtl" ? "right" : "left" }}>
                       <th style={{ padding: "8px 6px" }}>{t("الخامة", "Material")}</th>
                       <th style={{ padding: "8px 6px" }}>{t("الرصيد الدفتري السابق", "Previous Book Balance")}</th>
                       <th style={{ padding: "8px 6px" }}>{t("الرصيد الفعلي بعد الجرد", "Actual Count")}</th>
@@ -911,7 +911,7 @@ export default function InventoryPage() {
                           key={item.id}
                           style={{
                             borderBottom: "1px solid rgba(255,255,255,0.05)",
-                            background: consumed > 0 ? "rgba(204, 160, 67, 0.04)" : "transparent",
+                            background: consumed > 0 ? "rgba(217, 155, 86, 0.04)" : "transparent",
                           }}
                         >
                           <td style={{ padding: "12px 6px", fontWeight: 800, color: "#ffffff" }}>
@@ -935,7 +935,7 @@ export default function InventoryPage() {
                                   width: "90px",
                                   height: "36px",
                                   background: "#0d0805",
-                                  border: "1px solid rgba(204, 160, 67, 0.4)",
+                                  border: "1px solid rgba(217, 155, 86, 0.4)",
                                   borderRadius: "8px",
                                   padding: "0 8px",
                                   color: "#ffffff",
@@ -948,7 +948,7 @@ export default function InventoryPage() {
                               <span style={{ fontSize: "11px", color: "#8a7565" }}>{translateUnit(item.unit)}</span>
                             </div>
                           </td>
-                          <td style={{ padding: "12px 6px", color: "#cca043", fontWeight: 700 }}>
+                          <td style={{ padding: "12px 6px", color: "#d99b56", fontWeight: 700 }}>
                             {item.costPerUnit} {t("ج", "EGP")}
                           </td>
                           <td style={{ padding: "12px 6px", fontWeight: 900, color: consumed > 0 ? "#ef4444" : "#4ade80" }}>
@@ -967,7 +967,7 @@ export default function InventoryPage() {
               {/* Live Consumption Cost Summary & Submit */}
               <div style={{
                 padding: "18px 24px",
-                borderTop: "1px solid rgba(204, 160, 67, 0.2)",
+                borderTop: "1px solid rgba(217, 155, 86, 0.2)",
                 background: "#110904",
                 display: "flex",
                 alignItems: "center",
@@ -979,7 +979,7 @@ export default function InventoryPage() {
                   <div style={{ fontSize: "11.5px", color: "#8a7565" }}>
                     {t("إجمالي تكلفة الخامات المستهلكة لهذه الفترة:", "Total period consumption cost:")}
                   </div>
-                  <div style={{ fontSize: "24px", fontWeight: 900, color: "#cca043" }}>
+                  <div style={{ fontSize: "24px", fontWeight: 900, color: "#d99b56" }}>
                     {calculateTotalAuditConsumptionCost().toLocaleString(lang === "en" ? "en-US" : "ar-EG")} <span style={{ fontSize: "14px" }}>{t("ج.م", "EGP")}</span>
                   </div>
                   <div style={{ fontSize: "11px", color: "#4ade80", marginTop: "2px" }}>
@@ -1010,7 +1010,7 @@ export default function InventoryPage() {
                     style={{
                       padding: "10px 24px",
                       borderRadius: "12px",
-                      background: auditSuccess ? "#22c55e" : "#cca043",
+                      background: auditSuccess ? "#22c55e" : "#d99b56",
                       border: "none",
                       color: "#180e06",
                       fontSize: "13.5px",
@@ -1019,7 +1019,7 @@ export default function InventoryPage() {
                       display: "flex",
                       alignItems: "center",
                       gap: "8px",
-                      boxShadow: "0 4px 14px rgba(204, 160, 67, 0.3)",
+                      boxShadow: "0 4px 14px rgba(217, 155, 86, 0.3)",
                       transition: "all 0.15s ease",
                     }}
                   >
@@ -1065,7 +1065,7 @@ export default function InventoryPage() {
               width: "100%",
               maxWidth: "520px",
               background: "#160d05",
-              border: "1px solid rgba(204, 160, 67, 0.35)",
+              border: "1px solid rgba(217, 155, 86, 0.35)",
               borderRadius: "24px",
               padding: "26px",
               boxShadow: "0 24px 64px rgba(0,0,0,0.85)",
@@ -1086,8 +1086,8 @@ export default function InventoryPage() {
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "18px" }}>
                 <div style={{
                   width: "42px", height: "42px", borderRadius: "12px",
-                  background: "rgba(204, 160, 67, 0.15)",
-                  display: "flex", alignItems: "center", justifyContent: "center", color: "#cca043",
+                  background: "rgba(217, 155, 86, 0.15)",
+                  display: "flex", alignItems: "center", justifyContent: "center", color: "#d99b56",
                 }}>
                   <ShoppingCart size={22} />
                 </div>
@@ -1103,8 +1103,8 @@ export default function InventoryPage() {
 
               {/* Current Stats Box */}
               <div style={{
-                background: "rgba(204, 160, 67, 0.08)",
-                border: "1px solid rgba(204, 160, 67, 0.2)",
+                background: "rgba(217, 155, 86, 0.08)",
+                border: "1px solid rgba(217, 155, 86, 0.2)",
                 borderRadius: "14px",
                 padding: "12px 16px",
                 marginBottom: "18px",
@@ -1120,7 +1120,7 @@ export default function InventoryPage() {
                 </div>
                 <div style={{ textAlign: dir === "rtl" ? "left" : "right" }}>
                   <div style={{ fontSize: "11px", color: "#8a7565" }}>{t("الرصيد / التكلفة الحالية:", "Current Stock / Avg Cost:")}</div>
-                  <div style={{ fontSize: "13px", fontWeight: 800, color: "#cca043" }}>
+                  <div style={{ fontSize: "13px", fontWeight: 800, color: "#d99b56" }}>
                     {purchaseItem.quantity} {translateUnit(purchaseItem.unit)} @ {purchaseItem.costPerUnit} {t("ج", "EGP")}
                   </div>
                 </div>
@@ -1144,7 +1144,7 @@ export default function InventoryPage() {
                     }}
                     style={{
                       width: "100%", height: "42px", background: "#0d0805",
-                      border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "12px",
+                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
                       padding: "0 12px", color: "#fff", fontSize: "13px", outline: "none", boxSizing: "border-box",
                     }}
                   >
@@ -1170,7 +1170,7 @@ export default function InventoryPage() {
                       placeholder="0.00"
                       style={{
                         width: "100%", height: "42px", background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "12px",
+                        border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
                         padding: "0 14px", color: "#fff", fontSize: "14px", fontWeight: 800, outline: "none", boxSizing: "border-box",
                       }}
                     />
@@ -1189,7 +1189,7 @@ export default function InventoryPage() {
                       placeholder="0.00"
                       style={{
                         width: "100%", height: "42px", background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "12px",
+                        border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
                         padding: "0 14px", color: "#fff", fontSize: "14px", fontWeight: 800, outline: "none", boxSizing: "border-box",
                       }}
                     />
@@ -1223,7 +1223,7 @@ export default function InventoryPage() {
                           <span style={{ color: "#ffffff", fontWeight: 800 }}>{newTotalQty} {translateUnit(purchaseItem.unit)}</span>
                         </div>
                         <div style={{ display: "flex", justifyContent: "space-between", paddingTop: "6px", borderTop: "1px dashed rgba(255,255,255,0.1)" }}>
-                          <span style={{ color: "#cca043", fontWeight: 800 }}>{t("متوسط التكلفة المرجح الجديد:", "New Weighted Average Cost:")}</span>
+                          <span style={{ color: "#d99b56", fontWeight: 800 }}>{t("متوسط التكلفة المرجح الجديد:", "New Weighted Average Cost:")}</span>
                           <span style={{ color: "#4ade80", fontWeight: 900, fontSize: "13px" }}>
                             {newAvgCost} {t("ج", "EGP")} / {translateUnit(purchaseItem.unit)}
                           </span>
@@ -1246,7 +1246,7 @@ export default function InventoryPage() {
                       placeholder="INV-..."
                       style={{
                         width: "100%", height: "40px", background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "10px",
+                        border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "10px",
                         padding: "0 12px", color: "#fff", fontSize: "12.5px", outline: "none", boxSizing: "border-box",
                       }}
                     />
@@ -1263,7 +1263,7 @@ export default function InventoryPage() {
                       placeholder={t("شركة...", "Supplier...")}
                       style={{
                         width: "100%", height: "40px", background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "10px",
+                        border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "10px",
                         padding: "0 12px", color: "#fff", fontSize: "12.5px", outline: "none", boxSizing: "border-box",
                       }}
                     />
@@ -1284,7 +1284,7 @@ export default function InventoryPage() {
                     id="recExpense"
                     checked={recordPurchaseExpense}
                     onChange={(e) => setRecordPurchaseExpense(e.target.checked)}
-                    style={{ width: "17px", height: "17px", accentColor: "#cca043", cursor: "pointer" }}
+                    style={{ width: "17px", height: "17px", accentColor: "#d99b56", cursor: "pointer" }}
                   />
                   <label htmlFor="recExpense" style={{ fontSize: "12px", color: "#f5ede4", cursor: "pointer" }}>
                     {t("تسجيل هذه الفاتورة كمصروف في تقارير الأرباح والمصروفات فوراً", "Record this purchase as an Expense in Financial Reports immediately")}
@@ -1308,7 +1308,7 @@ export default function InventoryPage() {
                     disabled={submittingPurchase || !purchaseQty || !purchasePrice}
                     style={{
                       flex: 2, height: "44px", borderRadius: "12px",
-                      background: purchaseSuccess ? "#22c55e" : "#cca043", border: "none",
+                      background: purchaseSuccess ? "#22c55e" : "#d99b56", border: "none",
                       color: "#180e06", fontSize: "13.5px", fontWeight: 900,
                       cursor: submittingPurchase ? "wait" : "pointer",
                       display: "flex", alignItems: "center", justifyContent: "center", gap: "6px",
@@ -1358,7 +1358,7 @@ export default function InventoryPage() {
               maxWidth: "840px",
               maxHeight: "90vh",
               background: "#160d05",
-              border: "1px solid rgba(204, 160, 67, 0.4)",
+              border: "1px solid rgba(217, 155, 86, 0.4)",
               borderRadius: "24px",
               display: "flex",
               flexDirection: "column",
@@ -1369,7 +1369,7 @@ export default function InventoryPage() {
               {/* Header */}
               <div style={{
                 padding: "20px 24px",
-                borderBottom: "1px solid rgba(204, 160, 67, 0.2)",
+                borderBottom: "1px solid rgba(217, 155, 86, 0.2)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -1378,8 +1378,8 @@ export default function InventoryPage() {
                 <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                   <div style={{
                     width: "42px", height: "42px", borderRadius: "12px",
-                    background: "rgba(204, 160, 67, 0.18)",
-                    display: "flex", alignItems: "center", justifyContent: "center", color: "#cca043",
+                    background: "rgba(217, 155, 86, 0.18)",
+                    display: "flex", alignItems: "center", justifyContent: "center", color: "#d99b56",
                   }}>
                     <History size={22} />
                   </div>
@@ -1409,7 +1409,7 @@ export default function InventoryPage() {
               <div style={{ flex: 1, overflowY: "auto", padding: "20px 24px", display: "flex", flexDirection: "column", gap: "12px" }}>
                 {loadingHistory ? (
                   <div style={{ textAlign: "center", padding: "60px", color: "#8a7565" }}>
-                    <Loader2 size={36} className="animate-spin" color="#cca043" style={{ margin: "0 auto 12px" }} />
+                    <Loader2 size={36} className="animate-spin" color="#d99b56" style={{ margin: "0 auto 12px" }} />
                     <p>{t("جاري تحميل الأرشيف...", "Loading archive...")}</p>
                   </div>
                 ) : historyAudits.length === 0 ? (
@@ -1433,7 +1433,7 @@ export default function InventoryPage() {
                         key={audit.id}
                         style={{
                           background: "#0d0805",
-                          border: "1px solid rgba(204, 160, 67, 0.2)",
+                          border: "1px solid rgba(217, 155, 86, 0.2)",
                           borderRadius: "16px",
                           overflow: "hidden",
                         }}
@@ -1446,7 +1446,7 @@ export default function InventoryPage() {
                             alignItems: "center",
                             justifyContent: "space-between",
                             cursor: "pointer",
-                            background: isExpanded ? "rgba(204, 160, 67, 0.08)" : "transparent",
+                            background: isExpanded ? "rgba(217, 155, 86, 0.08)" : "transparent",
                           }}
                         >
                           <div>
@@ -1467,17 +1467,17 @@ export default function InventoryPage() {
                           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
                             <div style={{ textAlign: dir === "rtl" ? "left" : "right" }}>
                               <div style={{ fontSize: "11px", color: "#8a7565" }}>{t("تكلفة الاستهلاك:", "Consumption Cost:")}</div>
-                              <div style={{ fontSize: "17px", fontWeight: 900, color: "#cca043" }}>
+                              <div style={{ fontSize: "17px", fontWeight: 900, color: "#d99b56" }}>
                                 {audit.totalCost.toLocaleString(lang === "en" ? "en-US" : "ar-EG")} {t("ج.م", "EGP")}
                               </div>
                             </div>
-                            {isExpanded ? <ChevronUp size={18} color="#cca043" /> : <ChevronDown size={18} color="#8a7565" />}
+                            {isExpanded ? <ChevronUp size={18} color="#d99b56" /> : <ChevronDown size={18} color="#8a7565" />}
                           </div>
                         </div>
 
                         {/* Expanded Item Breakdown */}
                         {isExpanded && (
-                          <div style={{ padding: "16px 20px", borderTop: "1px solid rgba(204, 160, 67, 0.15)", background: "#120a04", overflowX: "auto" }}>
+                          <div style={{ padding: "16px 20px", borderTop: "1px solid rgba(217, 155, 86, 0.15)", background: "#120a04", overflowX: "auto" }}>
                             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12.5px" }}>
                               <thead>
                                 <tr style={{ color: "#8a7565", textAlign: dir === "rtl" ? "right" : "left", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
@@ -1496,7 +1496,7 @@ export default function InventoryPage() {
                                       {item.name} <span style={{ fontSize: "10px", color: "#8a7565" }}>({translateUnit(item.unit)})</span>
                                     </td>
                                     <td style={{ padding: "8px 6px", color: "#b0957e" }}>{item.prevQty}</td>
-                                    <td style={{ padding: "8px 6px", color: "#cca043", fontWeight: 700 }}>{item.actualQty}</td>
+                                    <td style={{ padding: "8px 6px", color: "#d99b56", fontWeight: 700 }}>{item.actualQty}</td>
                                     <td style={{ padding: "8px 6px", color: item.consumedQty > 0 ? "#ef4444" : "#4ade80", fontWeight: 800 }}>
                                       {item.consumedQty > 0 ? `-${item.consumedQty}` : "0"} {translateUnit(item.unit)}
                                     </td>
@@ -1538,7 +1538,7 @@ export default function InventoryPage() {
               width: "100%",
               maxWidth: "460px",
               background: "#160d05",
-              border: "1px solid rgba(204, 160, 67, 0.35)",
+              border: "1px solid rgba(217, 155, 86, 0.35)",
               borderRadius: "24px",
               padding: "26px",
               boxShadow: "0 24px 64px rgba(0,0,0,0.8)",
@@ -1559,8 +1559,8 @@ export default function InventoryPage() {
               <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
                 <div style={{
                   width: "40px", height: "40px", borderRadius: "12px",
-                  background: "rgba(204, 160, 67, 0.15)",
-                  display: "flex", alignItems: "center", justifyContent: "center", color: "#cca043",
+                  background: "rgba(217, 155, 86, 0.15)",
+                  display: "flex", alignItems: "center", justifyContent: "center", color: "#d99b56",
                 }}>
                   <Package size={20} />
                 </div>
@@ -1586,7 +1586,7 @@ export default function InventoryPage() {
                     placeholder={t("مثلاً: نوتيلا كبير، لوتس، دقيق وافل...", "e.g., Nutella large, Lotus, Waffle flour...")}
                     style={{
                       width: "100%", height: "42px", background: "#0d0805",
-                      border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "12px",
+                      border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
                       padding: "0 14px", color: "#fff", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
                     }}
                   />
@@ -1602,7 +1602,7 @@ export default function InventoryPage() {
                       onChange={(e) => setModalItem({ ...modalItem, unit: e.target.value })}
                       style={{
                         width: "100%", height: "42px", background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "12px",
+                        border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
                         padding: "0 12px", color: "#fff", fontSize: "13px", outline: "none", boxSizing: "border-box",
                       }}
                     >
@@ -1624,7 +1624,7 @@ export default function InventoryPage() {
                       onChange={(e) => setModalItem({ ...modalItem, costPerUnit: +e.target.value })}
                       style={{
                         width: "100%", height: "42px", background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "12px",
+                        border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
                         padding: "0 12px", color: "#fff", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
                       }}
                     />
@@ -1644,7 +1644,7 @@ export default function InventoryPage() {
                       onChange={(e) => setModalItem({ ...modalItem, quantity: +e.target.value })}
                       style={{
                         width: "100%", height: "42px", background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "12px",
+                        border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
                         padding: "0 12px", color: "#fff", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
                       }}
                     />
@@ -1662,7 +1662,7 @@ export default function InventoryPage() {
                       onChange={(e) => setModalItem({ ...modalItem, minStock: +e.target.value })}
                       style={{
                         width: "100%", height: "42px", background: "#0d0805",
-                        border: "1px solid rgba(204, 160, 67, 0.25)", borderRadius: "12px",
+                        border: "1px solid rgba(217, 155, 86, 0.25)", borderRadius: "12px",
                         padding: "0 12px", color: "#fff", fontSize: "13.5px", outline: "none", boxSizing: "border-box",
                       }}
                     />
@@ -1686,7 +1686,7 @@ export default function InventoryPage() {
                     disabled={savingItem}
                     style={{
                       flex: 2, height: "44px", borderRadius: "12px",
-                      background: "#cca043", border: "none",
+                      background: "#d99b56", border: "none",
                       color: "#180e06", fontSize: "13.5px", fontWeight: 900,
                       cursor: savingItem ? "wait" : "pointer",
                       display: "flex", alignItems: "center", justifyContent: "center", gap: "6px",

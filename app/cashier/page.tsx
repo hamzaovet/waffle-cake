@@ -200,7 +200,7 @@ export default function CashierPage() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => { playSound("click"); toggleLang(); }}
-            className="px-3.5 py-1.5 rounded-xl bg-[#1a0f07] border border-[#3d1f0a] text-[#cca043] font-bold text-xs hover:border-[#cca043] transition-colors"
+            className="px-3.5 py-1.5 rounded-xl bg-[#1a0f07] border border-[#3d1f0a] text-[#d99b56] font-bold text-xs hover:border-[#d99b56] transition-colors"
           >
             {lang === "ar" ? "EN 🌐" : "ع 🌐"}
           </button>

@@ -13,13 +13,13 @@ import {
 } from "lucide-react";
 
 const C = {
-  dark:   "#0d0805",
-  card:   "#1a0f07",
-  border: "#3d1f0a",
-  gold:   "#c8860a",
-  goldWhacka: "#cca043",
-  cream:  "#f5ede4",
-  muted:  "#9c7a5e",
+  dark:   "#140c07",
+  card:   "#22140c",
+  border: "#4d2d1b",
+  gold:   "#d99b56",
+  goldWhacka: "#d99b56",
+  cream:  "#fbf5ed",
+  muted:  "#b49279",
 };
 
 export default function Navbar() {
@@ -136,7 +136,7 @@ export default function Navbar() {
             padding: 4px 0;
           }
           .whacka-nav-link:hover {
-            color: #cca043;
+            color: #d99b56;
           }
         `}</style>
 
@@ -146,7 +146,7 @@ export default function Navbar() {
           zIndex: 100,
           width: "100%",
           background: "rgba(22, 13, 5, 0.96)",
-          borderBottom: "1px solid rgba(204, 160, 67, 0.14)",
+          borderBottom: "1px solid rgba(217, 155, 86, 0.14)",
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
         }}>
@@ -179,7 +179,7 @@ export default function Navbar() {
                 width: "44px",
                 height: "44px",
                 borderRadius: "50%",
-                background: "#cca043",
+                background: "#d99b56",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -217,7 +217,7 @@ export default function Navbar() {
                 </span>
                 <span style={{
                   fontSize: lang === "en" ? "9px" : "10px",
-                  color: "#cca043",
+                  color: "#d99b56",
                   fontWeight: 700,
                   letterSpacing: lang === "en" ? "2.5px" : "2px",
                   marginTop: "3px",
@@ -282,8 +282,8 @@ export default function Navbar() {
                   alignItems: "center",
                   gap: "6px",
                   background: "transparent",
-                  border: "1px solid rgba(204, 160, 67, 0.45)",
-                  color: "#cca043",
+                  border: "1px solid rgba(217, 155, 86, 0.45)",
+                  color: "#d99b56",
                   borderRadius: "9px",
                   height: "40px",
                   padding: "0 13px",
@@ -294,15 +294,15 @@ export default function Navbar() {
                   fontFamily: "var(--font-cairo), system-ui, sans-serif",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "#cca043";
-                  e.currentTarget.style.background = "rgba(204, 160, 67, 0.1)";
+                  e.currentTarget.style.borderColor = "#d99b56";
+                  e.currentTarget.style.background = "rgba(217, 155, 86, 0.1)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(204, 160, 67, 0.45)";
+                  e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.45)";
                   e.currentTarget.style.background = "transparent";
                 }}
               >
-                <Globe size={15} color="#cca043" />
+                <Globe size={15} color="#d99b56" />
                 <span style={{ fontWeight: 800 }}>{lang === "ar" ? "EN" : "ع"}</span>
               </button>
 
@@ -315,9 +315,9 @@ export default function Navbar() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "7px",
-                  background: customer ? "rgba(204, 160, 67, 0.18)" : "transparent",
-                  border: "1px solid rgba(204, 160, 67, 0.45)",
-                  color: "#cca043",
+                  background: customer ? "rgba(217, 155, 86, 0.18)" : "transparent",
+                  border: "1px solid rgba(217, 155, 86, 0.45)",
+                  color: "#d99b56",
                   borderRadius: "9px",
                   height: "40px",
                   padding: "0 14px",
@@ -328,15 +328,15 @@ export default function Navbar() {
                   fontFamily: "var(--font-cairo), system-ui, sans-serif",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "#cca043";
-                  e.currentTarget.style.background = "rgba(204, 160, 67, 0.25)";
+                  e.currentTarget.style.borderColor = "#d99b56";
+                  e.currentTarget.style.background = "rgba(217, 155, 86, 0.25)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(204, 160, 67, 0.45)";
-                  e.currentTarget.style.background = customer ? "rgba(204, 160, 67, 0.18)" : "transparent";
+                  e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.45)";
+                  e.currentTarget.style.background = customer ? "rgba(217, 155, 86, 0.18)" : "transparent";
                 }}
               >
-                <User size={15} color="#cca043" />
+                <User size={15} color="#d99b56" />
                 <span>{customer ? customer.name.split(" ")[0] : (lang === "en" ? "Account" : "حسابي")}</span>
               </button>
 
@@ -350,8 +350,8 @@ export default function Navbar() {
                   alignItems: "center",
                   gap: "7px",
                   background: "transparent",
-                  border: "1px solid rgba(204, 160, 67, 0.45)",
-                  color: "#cca043",
+                  border: "1px solid rgba(217, 155, 86, 0.45)",
+                  color: "#d99b56",
                   borderRadius: "9px",
                   height: "40px",
                   padding: "0 15px",
@@ -363,15 +363,15 @@ export default function Navbar() {
                   fontFamily: "var(--font-cairo), system-ui, sans-serif",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "#cca043";
-                  e.currentTarget.style.background = "rgba(204, 160, 67, 0.1)";
+                  e.currentTarget.style.borderColor = "#d99b56";
+                  e.currentTarget.style.background = "rgba(217, 155, 86, 0.1)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(204, 160, 67, 0.45)";
+                  e.currentTarget.style.borderColor = "rgba(217, 155, 86, 0.45)";
                   e.currentTarget.style.background = "transparent";
                 }}
               >
-                <ShieldCheck size={15} color="#cca043" />
+                <ShieldCheck size={15} color="#d99b56" />
                 <span>{lang === "en" ? "Staff" : "دخول الموظفين"}</span>
               </Link>
 
@@ -382,14 +382,14 @@ export default function Navbar() {
                   position: "relative",
                   width: "42px",
                   height: "42px",
-                  background: "#cca043",
+                  background: "#d99b56",
                   border: "none",
                   borderRadius: "9px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
-                  boxShadow: "0 2px 8px rgba(204, 160, 67, 0.25)",
+                  boxShadow: "0 2px 8px rgba(217, 155, 86, 0.25)",
                   flexShrink: 0,
                   transition: "transform 0.15s ease",
                 }}
@@ -430,8 +430,8 @@ export default function Navbar() {
                   height: "40px",
                   borderRadius: "9px",
                   background: "rgba(255,255,255,0.06)",
-                  border: "1px solid rgba(204, 160, 67, 0.3)",
-                  color: "#cca043",
+                  border: "1px solid rgba(217, 155, 86, 0.3)",
+                  color: "#d99b56",
                   cursor: "pointer",
                 }}
               >
@@ -443,7 +443,7 @@ export default function Navbar() {
           {/* Mobile dropdown */}
           {mobileMenuOpen && (
             <div style={{
-              borderTop: "1px solid rgba(204, 160, 67, 0.15)",
+              borderTop: "1px solid rgba(217, 155, 86, 0.15)",
               background: "rgba(22, 13, 5, 0.98)",
               padding: "16px 24px",
               display: "flex",
@@ -498,9 +498,9 @@ export default function Navbar() {
                   gap: "8px",
                   padding: "11px 14px",
                   borderRadius: "10px",
-                  border: "1px solid rgba(204, 160, 67, 0.45)",
-                  background: "rgba(204, 160, 67, 0.1)",
-                  color: "#cca043",
+                  border: "1px solid rgba(217, 155, 86, 0.45)",
+                  background: "rgba(217, 155, 86, 0.1)",
+                  color: "#d99b56",
                   fontWeight: 700,
                   fontSize: "14px",
                   cursor: "pointer",
@@ -523,9 +523,9 @@ export default function Navbar() {
                   gap: "8px",
                   padding: "11px 14px",
                   borderRadius: "10px",
-                  border: "1px solid rgba(204, 160, 67, 0.45)",
-                  background: customer ? "rgba(204, 160, 67, 0.2)" : "rgba(255,255,255,0.03)",
-                  color: "#cca043",
+                  border: "1px solid rgba(217, 155, 86, 0.45)",
+                  background: customer ? "rgba(217, 155, 86, 0.2)" : "rgba(255,255,255,0.03)",
+                  color: "#d99b56",
                   fontWeight: 700,
                   fontSize: "14px",
                   cursor: "pointer",
@@ -545,8 +545,8 @@ export default function Navbar() {
                   gap: "8px",
                   padding: "12px",
                   borderRadius: "9px",
-                  border: "1px solid rgba(204, 160, 67, 0.45)",
-                  color: "#cca043",
+                  border: "1px solid rgba(217, 155, 86, 0.45)",
+                  color: "#d99b56",
                   fontWeight: 700,
                   fontSize: "14px",
                   textDecoration: "none",
@@ -599,7 +599,7 @@ export default function Navbar() {
           }}>
             <div style={{
               width: "36px", height: "36px", borderRadius: "50%",
-              background: "#cca043",
+              background: "#d99b56",
               display: "flex", alignItems: "center", justifyContent: "center",
               flexShrink: 0,
             }}>
@@ -615,9 +615,9 @@ export default function Navbar() {
                   Choco House
                 </span>
                 <span style={{
-                  fontSize: "10px", background: "rgba(204,160,67,0.18)",
-                  color: "#cca043", padding: "2px 7px", borderRadius: "100px",
-                  fontWeight: 700, border: "1px solid rgba(204,160,67,0.3)",
+                  fontSize: "10px", background: "rgba(217,155,86,0.18)",
+                  color: "#d99b56", padding: "2px 7px", borderRadius: "100px",
+                  fontWeight: 700, border: "1px solid rgba(217,155,86,0.3)",
                   fontStyle: "normal", fontFamily: "system-ui, sans-serif",
                 }}>
                   {currentUser?.role === "owner" ? "Owner"
@@ -650,7 +650,7 @@ export default function Navbar() {
                     padding: "6px 11px", borderRadius: "10px",
                     fontSize: "12px", fontWeight: 700,
                     textDecoration: "none", whiteSpace: "nowrap",
-                    background: active ? "#cca043" : "transparent",
+                    background: active ? "#d99b56" : "transparent",
                     color: active ? "#0d0805" : "#c0a080",
                   }}
                 >
@@ -675,7 +675,7 @@ export default function Navbar() {
                 textDecoration: "none",
               }}
             >
-              <Store size={12} style={{ color: "#cca043" }} />
+              <Store size={12} style={{ color: "#d99b56" }} />
               المتجر
             </Link>
 
@@ -690,7 +690,7 @@ export default function Navbar() {
                 }}>
                   <div style={{
                     width: "26px", height: "26px", borderRadius: "50%",
-                    background: "#cca043",
+                    background: "#d99b56",
                     display: "flex", alignItems: "center", justifyContent: "center",
                     color: "#0d0805", fontWeight: 900, fontSize: "12px",
                     fontFamily: "var(--font-playfair), Georgia, serif",
@@ -715,8 +715,8 @@ export default function Navbar() {
                       <span style={{
                         display: "inline-block", marginTop: "3px",
                         fontSize: "10px", padding: "2px 7px", borderRadius: "100px",
-                        background: "rgba(204,160,67,0.18)", color: "#cca043",
-                        fontWeight: 700, border: "1px solid rgba(204,160,67,0.28)",
+                        background: "rgba(217,155,86,0.18)", color: "#d99b56",
+                        fontWeight: 700, border: "1px solid rgba(217,155,86,0.28)",
                       }}>
                         {permissions.label}
                       </span>
@@ -725,9 +725,9 @@ export default function Navbar() {
                       <Link href="/users" onClick={() => { setShowUserDropdown(false); playSound("click"); }} style={{
                         display: "flex", alignItems: "center", gap: "7px",
                         padding: "8px 10px", borderRadius: "8px",
-                        fontSize: "12px", fontWeight: 700, color: "#cca043",
+                        fontSize: "12px", fontWeight: 700, color: "#d99b56",
                         textDecoration: "none", marginBottom: "6px",
-                        background: "rgba(204,160,67,0.1)",
+                        background: "rgba(217,155,86,0.1)",
                       }}>
                         <Users size={13} /> إدارة الفريق
                       </Link>
@@ -747,8 +747,8 @@ export default function Navbar() {
                             padding: "7px 10px", borderRadius: "8px",
                             fontSize: "12px", cursor: "pointer", border: "none",
                             display: "flex", alignItems: "center", justifyContent: "space-between",
-                            background: u.name === currentUser.name ? "rgba(204,160,67,0.13)" : "transparent",
-                            color: u.name === currentUser.name ? "#cca043" : "#c0a080",
+                            background: u.name === currentUser.name ? "rgba(217,155,86,0.13)" : "transparent",
+                            color: u.name === currentUser.name ? "#d99b56" : "#c0a080",
                             fontWeight: u.name === currentUser.name ? 900 : 600,
                           }}
                         >
@@ -776,7 +776,7 @@ export default function Navbar() {
             ) : (
               <Link href="/login" onClick={() => playSound("click")} style={{
                 display: "inline-flex", alignItems: "center", gap: "5px",
-                background: "#cca043", color: "#0d0805",
+                background: "#d99b56", color: "#0d0805",
                 padding: "7px 13px", borderRadius: "9px",
                 fontSize: "12px", fontWeight: 900, textDecoration: "none",
               }}>
@@ -814,7 +814,7 @@ export default function Navbar() {
                   borderRadius: "9px", fontWeight: 700,
                   fontSize: "13px", color: "#c0a080",
                   textDecoration: "none",
-                  background: pathname === l.href ? "rgba(204,160,67,0.13)" : "transparent",
+                  background: pathname === l.href ? "rgba(217,155,86,0.13)" : "transparent",
                 }}
               >
                 {l.label}

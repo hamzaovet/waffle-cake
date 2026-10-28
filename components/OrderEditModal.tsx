@@ -206,7 +206,7 @@ export default function OrderEditModal({
           maxWidth: "600px",
           maxHeight: "92vh",
           backgroundColor: "#160d05",
-          border: "1px solid rgba(204, 160, 67, 0.35)",
+          border: "1px solid rgba(217, 155, 86, 0.35)",
           borderRadius: "24px",
           display: "flex",
           flexDirection: "column",
@@ -231,11 +231,11 @@ export default function OrderEditModal({
                 width: "38px",
                 height: "38px",
                 borderRadius: "10px",
-                background: "rgba(204, 160, 67, 0.15)",
+                background: "rgba(217, 155, 86, 0.15)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: "#cca043",
+                color: "#d99b56",
               }}
             >
               <Edit3 size={20} />
@@ -321,7 +321,7 @@ export default function OrderEditModal({
           {/* Section 1: Items List & Quantity Controls */}
           <div>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
-              <span style={{ fontSize: "14px", fontWeight: 900, color: "#cca043" }}>
+              <span style={{ fontSize: "14px", fontWeight: 900, color: "#d99b56" }}>
                 أصناف الطلب ({items.length})
               </span>
               <span style={{ fontSize: "12px", color: "#8a7565" }}>
@@ -347,7 +347,7 @@ export default function OrderEditModal({
                     <div style={{ fontWeight: 800, fontSize: "13.5px", color: "#ffffff" }}>
                       {item.nameAr || item.nameEn || "صنف"}
                     </div>
-                    <div style={{ fontSize: "11.5px", color: "#cca043" }}>
+                    <div style={{ fontSize: "11.5px", color: "#d99b56" }}>
                       {item.unitPrice} ج.م للقطعة × {item.qty} = <strong>{item.unitPrice * item.qty} ج.م</strong>
                     </div>
                   </div>
@@ -380,7 +380,7 @@ export default function OrderEditModal({
                         width: "30px",
                         height: "30px",
                         borderRadius: "8px",
-                        background: "#cca043",
+                        background: "#d99b56",
                         border: "none",
                         color: "#180e06",
                         cursor: "pointer",
@@ -429,7 +429,7 @@ export default function OrderEditModal({
                   flex: 1,
                   height: "38px",
                   background: "#0d0805",
-                  border: "1px solid rgba(204, 160, 67, 0.3)",
+                  border: "1px solid rgba(217, 155, 86, 0.3)",
                   borderRadius: "10px",
                   padding: "0 10px",
                   color: "#ffffff",
@@ -448,7 +448,7 @@ export default function OrderEditModal({
                 onClick={handleAddItem}
                 disabled={!selectedProductId}
                 style={{
-                  background: selectedProductId ? "#cca043" : "rgba(255,255,255,0.08)",
+                  background: selectedProductId ? "#d99b56" : "rgba(255,255,255,0.08)",
                   color: selectedProductId ? "#180e06" : "#666",
                   border: "none",
                   borderRadius: "10px",
@@ -492,7 +492,7 @@ export default function OrderEditModal({
                   width: "100%",
                   height: "34px",
                   background: "#160d05",
-                  border: "1px solid rgba(204, 160, 67, 0.3)",
+                  border: "1px solid rgba(217, 155, 86, 0.3)",
                   borderRadius: "8px",
                   padding: "0 10px",
                   color: "#ffffff",
@@ -526,14 +526,14 @@ export default function OrderEditModal({
             </div>
 
             <div>
-              <label style={{ fontSize: "11px", color: "#cca043", display: "block", marginBottom: "4px", fontWeight: 800 }}>
+              <label style={{ fontSize: "11px", color: "#d99b56", display: "block", marginBottom: "4px", fontWeight: 800 }}>
                 الإجمالي الجديد المطلوب
               </label>
               <div
                 style={{
                   height: "34px",
-                  background: "rgba(204, 160, 67, 0.15)",
-                  border: "1px solid #cca043",
+                  background: "rgba(217, 155, 86, 0.15)",
+                  border: "1px solid #d99b56",
                   borderRadius: "8px",
                   display: "flex",
                   alignItems: "center",
@@ -626,7 +626,7 @@ export default function OrderEditModal({
             onClick={handleSave}
             disabled={saving}
             style={{
-              background: savedSuccess ? "#22c55e" : "#cca043",
+              background: savedSuccess ? "#22c55e" : "#d99b56",
               color: "#180e06",
               border: "none",
               borderRadius: "10px",
@@ -637,7 +637,7 @@ export default function OrderEditModal({
               display: "flex",
               alignItems: "center",
               gap: "8px",
-              boxShadow: "0 4px 14px rgba(204, 160, 67, 0.35)",
+              boxShadow: "0 4px 14px rgba(217, 155, 86, 0.35)",
             }}
           >
             {saving ? (

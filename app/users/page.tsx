@@ -251,7 +251,7 @@ export default function UsersTeamPage() {
             width: "48px",
             height: "48px",
             borderRadius: "50%",
-            background: "#cca043",
+            background: "#d99b56",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -303,7 +303,7 @@ export default function UsersTeamPage() {
               gap: "6px",
               padding: "8px 12px",
               borderRadius: "12px",
-              border: activeTab === "members" ? "1px solid #cca043" : "none",
+              border: activeTab === "members" ? "1px solid #d99b56" : "none",
               background: activeTab === "members" ? "#ffffff" : "transparent",
               color: activeTab === "members" ? "#180e06" : "#8a7565",
               fontSize: "13px",
@@ -313,7 +313,7 @@ export default function UsersTeamPage() {
               transition: "all 0.15s ease",
             }}
           >
-            <Users size={15} color={activeTab === "members" ? "#cca043" : "#8a7565"} />
+            <Users size={15} color={activeTab === "members" ? "#d99b56" : "#8a7565"} />
             {t("الأعضاء", "Members")}
           </button>
 
@@ -328,7 +328,7 @@ export default function UsersTeamPage() {
               gap: "6px",
               padding: "8px 12px",
               borderRadius: "12px",
-              border: activeTab === "add" ? "1px solid #cca043" : "none",
+              border: activeTab === "add" ? "1px solid #d99b56" : "none",
               background: activeTab === "add" ? "#ffffff" : "transparent",
               color: activeTab === "add" ? "#180e06" : "#8a7565",
               fontSize: "13px",
@@ -338,7 +338,7 @@ export default function UsersTeamPage() {
               transition: "all 0.15s ease",
             }}
           >
-            <UserPlus size={15} color={activeTab === "add" ? "#cca043" : "#8a7565"} />
+            <UserPlus size={15} color={activeTab === "add" ? "#d99b56" : "#8a7565"} />
             {t("إضافة أشخاص", "Add People")}
           </button>
 
@@ -418,7 +418,7 @@ export default function UsersTeamPage() {
                         width: "44px",
                         height: "25px",
                         borderRadius: "100px",
-                        background: managerCanManage ? "#cca043" : "#d1d5db",
+                        background: managerCanManage ? "#d99b56" : "#d1d5db",
                         border: "none",
                         cursor: "pointer",
                         position: "relative",
@@ -453,7 +453,7 @@ export default function UsersTeamPage() {
                         width: "44px",
                         height: "25px",
                         borderRadius: "100px",
-                        background: cashierCanManage ? "#cca043" : "#e5e7eb",
+                        background: cashierCanManage ? "#d99b56" : "#e5e7eb",
                         border: "none",
                         cursor: "pointer",
                         position: "relative",
@@ -533,7 +533,7 @@ export default function UsersTeamPage() {
                                   appearance: "none",
                                   WebkitAppearance: "none",
                                   background: "#ffffff",
-                                  border: "1.5px solid #cca043",
+                                  border: "1.5px solid #d99b56",
                                   borderRadius: "100px",
                                   padding: dir === "rtl" ? "5px 22px 5px 12px" : "5px 12px 5px 22px",
                                   fontSize: "12px",
@@ -548,7 +548,7 @@ export default function UsersTeamPage() {
                                   <option key={r.value} value={r.value}>{r.label}</option>
                                 ))}
                               </select>
-                              <ChevronDown size={11} color="#cca043" style={{
+                              <ChevronDown size={11} color="#d99b56" style={{
                                 position: "absolute",
                                 [dir === "rtl" ? "left" : "right"]: "8px",
                                 top: "50%",
@@ -772,12 +772,12 @@ export default function UsersTeamPage() {
               disabled={addSaving}
               style={{
                 width: "100%", height: "48px",
-                background: "#cca043",
+                background: "#d99b56",
                 color: "#ffffff",
                 fontWeight: 800, fontSize: "15px",
                 borderRadius: "100px",
                 border: "none", cursor: addSaving ? "not-allowed" : "pointer",
-                boxShadow: "0 4px 14px rgba(204,160,67,0.35)",
+                boxShadow: "0 4px 14px rgba(217,155,86,0.35)",
                 marginTop: "6px",
               }}
             >
@@ -830,7 +830,7 @@ export default function UsersTeamPage() {
                   dir="ltr"
                   style={{
                     width: "100%", height: "44px", borderRadius: "12px",
-                    border: "1.5px solid #cca043", padding: "0 40px 0 14px",
+                    border: "1.5px solid #d99b56", padding: "0 40px 0 14px",
                     fontSize: "14px", outline: "none", boxSizing: "border-box",
                   }}
                 />
@@ -854,7 +854,7 @@ export default function UsersTeamPage() {
                   disabled={pwdSaving}
                   style={{
                     flex: 1, height: "42px",
-                    background: "#cca043", color: "#ffffff",
+                    background: "#d99b56", color: "#ffffff",
                     fontWeight: 800, fontSize: "14px",
                     borderRadius: "100px", border: "none", cursor: "pointer",
                   }}

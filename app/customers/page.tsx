@@ -183,7 +183,7 @@ export default function CustomersPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: "7px",
-                background: "linear-gradient(135deg, #cca043, #e8a020)",
+                background: "linear-gradient(135deg, #d99b56, #e8a020)",
                 color: "#180e06",
                 border: "none",
                 padding: "10px 18px",
@@ -191,7 +191,7 @@ export default function CustomersPage() {
                 fontWeight: 900,
                 fontSize: "13.5px",
                 cursor: "pointer",
-                boxShadow: "0 4px 14px rgba(204, 160, 67, 0.35)",
+                boxShadow: "0 4px 14px rgba(217, 155, 86, 0.35)",
               }}
             >
               <Plus size={16} />
@@ -209,7 +209,7 @@ export default function CustomersPage() {
                 gap: "6px",
                 background: "rgba(255,255,255,0.05)",
                 border: "1px solid rgba(255,255,255,0.1)",
-                color: "#cca043",
+                color: "#d99b56",
                 padding: "10px 14px",
                 borderRadius: "12px",
                 fontWeight: 700,
@@ -236,7 +236,7 @@ export default function CustomersPage() {
           <div
             style={{
               background: "#160d05",
-              border: "1px solid rgba(204, 160, 67, 0.2)",
+              border: "1px solid rgba(217, 155, 86, 0.2)",
               borderRadius: "18px",
               padding: "18px 20px",
             }}
@@ -245,17 +245,17 @@ export default function CustomersPage() {
               <span style={{ fontSize: "13px", color: "#8a7565", fontWeight: 700 }}>
                 {t("إجمالي العملاء", "Total Customers")}
               </span>
-              <Users size={18} color="#cca043" />
+              <Users size={18} color="#d99b56" />
             </div>
             <div style={{ fontSize: "28px", fontWeight: 900, color: "#ffffff" }}>{totalCount}</div>
-            <div style={{ fontSize: "11.5px", color: "#cca043", marginTop: "4px" }}>عميل مسجل في قاعدة البيانات</div>
+            <div style={{ fontSize: "11.5px", color: "#d99b56", marginTop: "4px" }}>عميل مسجل في قاعدة البيانات</div>
           </div>
 
           {/* Card 2 */}
           <div
             style={{
               background: "#160d05",
-              border: "1px solid rgba(204, 160, 67, 0.2)",
+              border: "1px solid rgba(217, 155, 86, 0.2)",
               borderRadius: "18px",
               padding: "18px 20px",
             }}
@@ -276,7 +276,7 @@ export default function CustomersPage() {
           <div
             style={{
               background: "#160d05",
-              border: "1px solid rgba(204, 160, 67, 0.2)",
+              border: "1px solid rgba(217, 155, 86, 0.2)",
               borderRadius: "18px",
               padding: "18px 20px",
             }}
@@ -295,7 +295,7 @@ export default function CustomersPage() {
           <div
             style={{
               background: "#160d05",
-              border: "1px solid rgba(204, 160, 67, 0.2)",
+              border: "1px solid rgba(217, 155, 86, 0.2)",
               borderRadius: "18px",
               padding: "18px 20px",
             }}
@@ -304,9 +304,9 @@ export default function CustomersPage() {
               <span style={{ fontSize: "13px", color: "#8a7565", fontWeight: 700 }}>
                 {t("إجمالي مشتريات العملاء", "Total Customer Revenue")}
               </span>
-              <span style={{ fontSize: "16px", color: "#cca043", fontWeight: 900 }}>EGP</span>
+              <span style={{ fontSize: "16px", color: "#d99b56", fontWeight: 900 }}>EGP</span>
             </div>
-            <div style={{ fontSize: "28px", fontWeight: 900, color: "#cca043" }}>{totalRevenue.toLocaleString()} ج</div>
+            <div style={{ fontSize: "28px", fontWeight: 900, color: "#d99b56" }}>{totalRevenue.toLocaleString()} ج</div>
             <div style={{ fontSize: "11.5px", color: "#8a7565", marginTop: "4px" }}>قيمة المبيعات المحققة</div>
           </div>
         </div>
@@ -315,7 +315,7 @@ export default function CustomersPage() {
         <div
           style={{
             background: "#160d05",
-            border: "1px solid rgba(204, 160, 67, 0.2)",
+            border: "1px solid rgba(217, 155, 86, 0.2)",
             borderRadius: "16px",
             padding: "14px 18px",
             marginBottom: "20px",
@@ -342,7 +342,7 @@ export default function CustomersPage() {
                 width: "100%",
                 height: "40px",
                 background: "#0d0805",
-                border: "1px solid rgba(204, 160, 67, 0.25)",
+                border: "1px solid rgba(217, 155, 86, 0.25)",
                 borderRadius: "10px",
                 padding: "0 38px 0 14px",
                 color: "#ffffff",
@@ -367,7 +367,7 @@ export default function CustomersPage() {
                   padding: "8px 14px",
                   borderRadius: "100px",
                   border: filterType === f.id ? "none" : "1px solid rgba(255,255,255,0.08)",
-                  background: filterType === f.id ? "#cca043" : "rgba(255,255,255,0.03)",
+                  background: filterType === f.id ? "#d99b56" : "rgba(255,255,255,0.03)",
                   color: filterType === f.id ? "#180e06" : "#b0957e",
                   fontSize: "12.5px",
                   fontWeight: 800,
@@ -382,20 +382,20 @@ export default function CustomersPage() {
 
         {/* ── Customers Table / List ── */}
         {loading ? (
-          <div style={{ textAlign: "center", padding: "60px 0", color: "#cca043" }}>
+          <div style={{ textAlign: "center", padding: "60px 0", color: "#d99b56" }}>
             جاري تحميل قاعدة بيانات العملاء... 🍫
           </div>
         ) : filteredCustomers.length === 0 ? (
           <div
             style={{
               background: "#160d05",
-              border: "1px solid rgba(204, 160, 67, 0.15)",
+              border: "1px solid rgba(217, 155, 86, 0.15)",
               borderRadius: "20px",
               padding: "50px 20px",
               textAlign: "center",
             }}
           >
-            <Users size={44} color="#cca043" style={{ margin: "0 auto 12px" }} />
+            <Users size={44} color="#d99b56" style={{ margin: "0 auto 12px" }} />
             <h3 style={{ margin: 0, fontSize: "17px", color: "#ffffff", fontWeight: 800 }}>لا يوجد عملاء يطابقون البحث</h3>
             <p style={{ margin: "6px 0 0 0", color: "#8a7565", fontSize: "13px" }}>
               يمكنك إضافة عميل جديد يدوي أو انتظار طلبات العملاء عبر الموقع
@@ -405,7 +405,7 @@ export default function CustomersPage() {
           <div
             style={{
               background: "#160d05",
-              border: "1px solid rgba(204, 160, 67, 0.2)",
+              border: "1px solid rgba(217, 155, 86, 0.2)",
               borderRadius: "20px",
               overflowX: "auto",
             }}
@@ -441,11 +441,11 @@ export default function CustomersPage() {
                               width: "34px",
                               height: "34px",
                               borderRadius: "10px",
-                              background: "rgba(204, 160, 67, 0.15)",
+                              background: "rgba(217, 155, 86, 0.15)",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
-                              color: "#cca043",
+                              color: "#d99b56",
                               fontWeight: 900,
                               fontSize: "13px",
                             }}
@@ -456,7 +456,7 @@ export default function CustomersPage() {
                             <div style={{ fontWeight: 800, color: "#ffffff", fontSize: "14px" }}>
                               {cust.name}
                             </div>
-                            <div style={{ fontSize: "11px", color: cust.email ? "#cca043" : "#8a7565" }}>
+                            <div style={{ fontSize: "11px", color: cust.email ? "#d99b56" : "#8a7565" }}>
                               {cust.email || "بدون إيميل"}
                             </div>
                           </div>
@@ -535,7 +535,7 @@ export default function CustomersPage() {
 
                       {/* Orders & Spending */}
                       <td style={{ padding: "14px 18px" }}>
-                        <div style={{ fontWeight: 800, color: "#cca043" }}>
+                        <div style={{ fontWeight: 800, color: "#d99b56" }}>
                           {cust.totalOrders || 0} طلبات
                         </div>
                         <div style={{ fontSize: "11.5px", color: "#8a7565" }}>
@@ -555,9 +555,9 @@ export default function CustomersPage() {
                             onClick={() => openCustomerOrders(cust)}
                             title="عرض سجل طلبات العميل"
                             style={{
-                              background: "rgba(204, 160, 67, 0.15)",
-                              border: "1px solid rgba(204, 160, 67, 0.3)",
-                              color: "#cca043",
+                              background: "rgba(217, 155, 86, 0.15)",
+                              border: "1px solid rgba(217, 155, 86, 0.3)",
+                              color: "#d99b56",
                               padding: "6px 10px",
                               borderRadius: "8px",
                               fontSize: "11.5px",
@@ -625,7 +625,7 @@ export default function CustomersPage() {
             <div
               style={{
                 background: "#160d05",
-                border: "1px solid rgba(204, 160, 67, 0.4)",
+                border: "1px solid rgba(217, 155, 86, 0.4)",
                 borderRadius: "24px",
                 padding: "24px",
                 maxWidth: "540px",
@@ -641,7 +641,7 @@ export default function CustomersPage() {
                   <h3 style={{ margin: 0, fontSize: "17px", fontWeight: 900, color: "#ffffff" }}>
                     سجل طلبات العميل: {selectedCustomer.name}
                   </h3>
-                  <p style={{ margin: "2px 0 0 0", fontSize: "12px", color: "#cca043" }}>
+                  <p style={{ margin: "2px 0 0 0", fontSize: "12px", color: "#d99b56" }}>
                     موبايل: {selectedCustomer.phone} • {selectedCustomer.zone || "6 أكتوبر"}
                   </p>
                 </div>
@@ -655,7 +655,7 @@ export default function CustomersPage() {
 
               <div style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", gap: "10px" }}>
                 {loadingOrders ? (
-                  <div style={{ textAlign: "center", padding: "40px", color: "#cca043" }}>جاري تحميل الطلبات...</div>
+                  <div style={{ textAlign: "center", padding: "40px", color: "#d99b56" }}>جاري تحميل الطلبات...</div>
                 ) : customerOrders.length === 0 ? (
                   <div style={{ textAlign: "center", padding: "40px", color: "#8a7565" }}>لم يتم العثور على طلبات لهذا العميل</div>
                 ) : (
@@ -664,7 +664,7 @@ export default function CustomersPage() {
                       key={ord.id}
                       style={{
                         background: "rgba(255,255,255,0.03)",
-                        border: "1px solid rgba(204, 160, 67, 0.2)",
+                        border: "1px solid rgba(217, 155, 86, 0.2)",
                         borderRadius: "14px",
                         padding: "12px 16px",
                         display: "flex",
@@ -673,7 +673,7 @@ export default function CustomersPage() {
                       }}
                     >
                       <div>
-                        <div style={{ fontFamily: "monospace", fontWeight: 900, color: "#cca043", fontSize: "14px" }}>
+                        <div style={{ fontFamily: "monospace", fontWeight: 900, color: "#d99b56", fontSize: "14px" }}>
                           {ord.orderNumber}
                         </div>
                         <div style={{ fontSize: "11px", color: "#8a7565" }}>
@@ -696,8 +696,8 @@ export default function CustomersPage() {
                             fontWeight: 800,
                             padding: "2px 8px",
                             borderRadius: "100px",
-                            background: ord.status === "delivered" ? "rgba(34, 197, 94, 0.2)" : "rgba(204, 160, 67, 0.2)",
-                            color: ord.status === "delivered" ? "#4ade80" : "#cca043",
+                            background: ord.status === "delivered" ? "rgba(34, 197, 94, 0.2)" : "rgba(217, 155, 86, 0.2)",
+                            color: ord.status === "delivered" ? "#4ade80" : "#d99b56",
                           }}
                         >
                           {ord.status === "delivered" ? "تم التسليم" : ord.status}
@@ -711,7 +711,7 @@ export default function CustomersPage() {
               <div style={{ marginTop: "16px", paddingTop: "12px", borderTop: "1px solid rgba(255,255,255,0.08)", textAlign: "left" }}>
                 <button
                   onClick={() => setSelectedCustomer(null)}
-                  style={{ background: "#cca043", color: "#180e06", border: "none", padding: "8px 20px", borderRadius: "10px", fontWeight: 800, cursor: "pointer" }}
+                  style={{ background: "#d99b56", color: "#180e06", border: "none", padding: "8px 20px", borderRadius: "10px", fontWeight: 800, cursor: "pointer" }}
                 >
                   إغلاق
                 </button>
@@ -740,7 +740,7 @@ export default function CustomersPage() {
               onSubmit={handleSaveCustomer}
               style={{
                 background: "#160d05",
-                border: "1px solid rgba(204, 160, 67, 0.4)",
+                border: "1px solid rgba(217, 155, 86, 0.4)",
                 borderRadius: "24px",
                 padding: "26px",
                 maxWidth: "460px",
@@ -771,7 +771,7 @@ export default function CustomersPage() {
                     required
                     value={customerForm.name}
                     onChange={(e) => setCustomerForm({ ...customerForm, name: e.target.value })}
-                    style={{ width: "100%", height: "40px", background: "#0d0805", border: "1px solid rgba(204, 160, 67, 0.3)", borderRadius: "10px", padding: "0 12px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
+                    style={{ width: "100%", height: "40px", background: "#0d0805", border: "1px solid rgba(217, 155, 86, 0.3)", borderRadius: "10px", padding: "0 12px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
                   />
                 </div>
 
@@ -784,7 +784,7 @@ export default function CustomersPage() {
                     required
                     value={customerForm.phone}
                     onChange={(e) => setCustomerForm({ ...customerForm, phone: e.target.value })}
-                    style={{ width: "100%", height: "40px", background: "#0d0805", border: "1px solid rgba(204, 160, 67, 0.3)", borderRadius: "10px", padding: "0 12px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
+                    style={{ width: "100%", height: "40px", background: "#0d0805", border: "1px solid rgba(217, 155, 86, 0.3)", borderRadius: "10px", padding: "0 12px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
                     dir="ltr"
                   />
                 </div>
@@ -797,7 +797,7 @@ export default function CustomersPage() {
                     type="email"
                     value={customerForm.email}
                     onChange={(e) => setCustomerForm({ ...customerForm, email: e.target.value })}
-                    style={{ width: "100%", height: "40px", background: "#0d0805", border: "1px solid rgba(204, 160, 67, 0.3)", borderRadius: "10px", padding: "0 12px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
+                    style={{ width: "100%", height: "40px", background: "#0d0805", border: "1px solid rgba(217, 155, 86, 0.3)", borderRadius: "10px", padding: "0 12px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
                     dir="ltr"
                   />
                 </div>
@@ -810,7 +810,7 @@ export default function CustomersPage() {
                     type="text"
                     value={customerForm.zone}
                     onChange={(e) => setCustomerForm({ ...customerForm, zone: e.target.value })}
-                    style={{ width: "100%", height: "40px", background: "#0d0805", border: "1px solid rgba(204, 160, 67, 0.3)", borderRadius: "10px", padding: "0 12px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
+                    style={{ width: "100%", height: "40px", background: "#0d0805", border: "1px solid rgba(217, 155, 86, 0.3)", borderRadius: "10px", padding: "0 12px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
                   />
                 </div>
 
@@ -822,7 +822,7 @@ export default function CustomersPage() {
                     type="text"
                     value={customerForm.address}
                     onChange={(e) => setCustomerForm({ ...customerForm, address: e.target.value })}
-                    style={{ width: "100%", height: "40px", background: "#0d0805", border: "1px solid rgba(204, 160, 67, 0.3)", borderRadius: "10px", padding: "0 12px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
+                    style={{ width: "100%", height: "40px", background: "#0d0805", border: "1px solid rgba(217, 155, 86, 0.3)", borderRadius: "10px", padding: "0 12px", color: "#ffffff", fontSize: "13px", outline: "none", boxSizing: "border-box" }}
                   />
                 </div>
               </div>
@@ -834,7 +834,7 @@ export default function CustomersPage() {
                   style={{
                     flex: 1,
                     height: "44px",
-                    background: "linear-gradient(135deg, #cca043, #e8a020)",
+                    background: "linear-gradient(135deg, #d99b56, #e8a020)",
                     color: "#180e06",
                     fontWeight: 900,
                     fontSize: "14px",
