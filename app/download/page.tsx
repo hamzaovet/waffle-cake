@@ -338,7 +338,7 @@ export default function DownloadAppPage() {
           {/* Direct link fallback */}
           <div style={{ textAlign: "center" }}>
             <a 
-              href="https://github.com/hamzaovet/waffle-cake/releases/download/v1.0.0/waffle-cake.apk"
+              href="https://github.com/hamzaovet/waffle-cake/releases/latest/download/waffle-cake.apk"
               target="_blank"
               rel="noopener noreferrer"
               style={{

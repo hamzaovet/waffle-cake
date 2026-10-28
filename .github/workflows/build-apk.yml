@@ -74,15 +74,15 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         with:
-          tag_name: v1.0.0
-          name: "Waffle & Cake Android App v1.0.0"
+          tag_name: v1.0.1
+          name: "Waffle & Cake Android App v1.0.1"
           draft: false
           prerelease: false
           make_latest: true
           body: |
-            ## 🧇 تطبيق Waffle & Cake (وافل كيك) للأندرويد - النسخة الرسمية v1.0.0
+            ## 🧇 تطبيق Waffle & Cake (وافل كيك) للأندرويد - النسخة الرسمية v1.0.1
             
-            أهلاً بكم في تطبيق Waffle & Cake للأندرويد!
+            أهلاً بكم في تطبيق Waffle & Cake للأندرويد مع الأيقونة الرسمية الجديدة وتجربة مستخدم مخصصة!
             
             ### 📱 مميزات التطبيق:
             - تجربة استخدام سريعة ومباشرة كأبليكيشن أصيل دون الحاجة للمتصفح
