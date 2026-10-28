@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "com.chocohouse.desserts"
+    namespace "com.wafflecake.desserts"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.chocohouse.desserts"
+        applicationId "com.wafflecake.desserts"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
