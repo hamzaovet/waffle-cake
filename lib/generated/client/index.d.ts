@@ -10741,6 +10741,8 @@ export namespace Prisma {
     soundsEnabled: boolean | null
     offersEnabled: boolean | null
     specialOffers: string | null
+    whatsappOrdersEnabled: boolean | null
+    ownerWhatsapp: string | null
     updatedAt: Date | null
   }
 
@@ -10753,6 +10755,8 @@ export namespace Prisma {
     soundsEnabled: boolean | null
     offersEnabled: boolean | null
     specialOffers: string | null
+    whatsappOrdersEnabled: boolean | null
+    ownerWhatsapp: string | null
     updatedAt: Date | null
   }
 
@@ -10765,6 +10769,8 @@ export namespace Prisma {
     soundsEnabled: number
     offersEnabled: number
     specialOffers: number
+    whatsappOrdersEnabled: number
+    ownerWhatsapp: number
     updatedAt: number
     _all: number
   }
@@ -10779,6 +10785,8 @@ export namespace Prisma {
     soundsEnabled?: true
     offersEnabled?: true
     specialOffers?: true
+    whatsappOrdersEnabled?: true
+    ownerWhatsapp?: true
     updatedAt?: true
   }
 
@@ -10791,6 +10799,8 @@ export namespace Prisma {
     soundsEnabled?: true
     offersEnabled?: true
     specialOffers?: true
+    whatsappOrdersEnabled?: true
+    ownerWhatsapp?: true
     updatedAt?: true
   }
 
@@ -10803,6 +10813,8 @@ export namespace Prisma {
     soundsEnabled?: true
     offersEnabled?: true
     specialOffers?: true
+    whatsappOrdersEnabled?: true
+    ownerWhatsapp?: true
     updatedAt?: true
     _all?: true
   }
@@ -10888,6 +10900,8 @@ export namespace Prisma {
     soundsEnabled: boolean
     offersEnabled: boolean
     specialOffers: string | null
+    whatsappOrdersEnabled: boolean
+    ownerWhatsapp: string | null
     updatedAt: Date
     _count: SystemSettingsCountAggregateOutputType | null
     _min: SystemSettingsMinAggregateOutputType | null
@@ -10917,6 +10931,8 @@ export namespace Prisma {
     soundsEnabled?: boolean
     offersEnabled?: boolean
     specialOffers?: boolean
+    whatsappOrdersEnabled?: boolean
+    ownerWhatsapp?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["systemSettings"]>
 
@@ -10929,6 +10945,8 @@ export namespace Prisma {
     soundsEnabled?: boolean
     offersEnabled?: boolean
     specialOffers?: boolean
+    whatsappOrdersEnabled?: boolean
+    ownerWhatsapp?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["systemSettings"]>
 
@@ -10941,6 +10959,8 @@ export namespace Prisma {
     soundsEnabled?: boolean
     offersEnabled?: boolean
     specialOffers?: boolean
+    whatsappOrdersEnabled?: boolean
+    ownerWhatsapp?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["systemSettings"]>
 
@@ -10953,10 +10973,12 @@ export namespace Prisma {
     soundsEnabled?: boolean
     offersEnabled?: boolean
     specialOffers?: boolean
+    whatsappOrdersEnabled?: boolean
+    ownerWhatsapp?: boolean
     updatedAt?: boolean
   }
 
-  export type SystemSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "restaurantName" | "phone" | "address" | "deliveryZones" | "soundsEnabled" | "offersEnabled" | "specialOffers" | "updatedAt", ExtArgs["result"]["systemSettings"]>
+  export type SystemSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "restaurantName" | "phone" | "address" | "deliveryZones" | "soundsEnabled" | "offersEnabled" | "specialOffers" | "whatsappOrdersEnabled" | "ownerWhatsapp" | "updatedAt", ExtArgs["result"]["systemSettings"]>
 
   export type $SystemSettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "SystemSettings"
@@ -10970,6 +10992,8 @@ export namespace Prisma {
       soundsEnabled: boolean
       offersEnabled: boolean
       specialOffers: string | null
+      whatsappOrdersEnabled: boolean
+      ownerWhatsapp: string | null
       updatedAt: Date
     }, ExtArgs["result"]["systemSettings"]>
     composites: {}
@@ -11402,6 +11426,8 @@ export namespace Prisma {
     readonly soundsEnabled: FieldRef<"SystemSettings", 'Boolean'>
     readonly offersEnabled: FieldRef<"SystemSettings", 'Boolean'>
     readonly specialOffers: FieldRef<"SystemSettings", 'String'>
+    readonly whatsappOrdersEnabled: FieldRef<"SystemSettings", 'Boolean'>
+    readonly ownerWhatsapp: FieldRef<"SystemSettings", 'String'>
     readonly updatedAt: FieldRef<"SystemSettings", 'DateTime'>
   }
     
@@ -16357,6 +16383,8 @@ export namespace Prisma {
     soundsEnabled: 'soundsEnabled',
     offersEnabled: 'offersEnabled',
     specialOffers: 'specialOffers',
+    whatsappOrdersEnabled: 'whatsappOrdersEnabled',
+    ownerWhatsapp: 'ownerWhatsapp',
     updatedAt: 'updatedAt'
   };
 
@@ -17178,6 +17206,8 @@ export namespace Prisma {
     soundsEnabled?: BoolFilter<"SystemSettings"> | boolean
     offersEnabled?: BoolFilter<"SystemSettings"> | boolean
     specialOffers?: StringNullableFilter<"SystemSettings"> | string | null
+    whatsappOrdersEnabled?: BoolFilter<"SystemSettings"> | boolean
+    ownerWhatsapp?: StringNullableFilter<"SystemSettings"> | string | null
     updatedAt?: DateTimeFilter<"SystemSettings"> | Date | string
   }
 
@@ -17190,6 +17220,8 @@ export namespace Prisma {
     soundsEnabled?: SortOrder
     offersEnabled?: SortOrder
     specialOffers?: SortOrderInput | SortOrder
+    whatsappOrdersEnabled?: SortOrder
+    ownerWhatsapp?: SortOrderInput | SortOrder
     updatedAt?: SortOrder
   }
 
@@ -17205,6 +17237,8 @@ export namespace Prisma {
     soundsEnabled?: BoolFilter<"SystemSettings"> | boolean
     offersEnabled?: BoolFilter<"SystemSettings"> | boolean
     specialOffers?: StringNullableFilter<"SystemSettings"> | string | null
+    whatsappOrdersEnabled?: BoolFilter<"SystemSettings"> | boolean
+    ownerWhatsapp?: StringNullableFilter<"SystemSettings"> | string | null
     updatedAt?: DateTimeFilter<"SystemSettings"> | Date | string
   }, "id">
 
@@ -17217,6 +17251,8 @@ export namespace Prisma {
     soundsEnabled?: SortOrder
     offersEnabled?: SortOrder
     specialOffers?: SortOrderInput | SortOrder
+    whatsappOrdersEnabled?: SortOrder
+    ownerWhatsapp?: SortOrderInput | SortOrder
     updatedAt?: SortOrder
     _count?: SystemSettingsCountOrderByAggregateInput
     _max?: SystemSettingsMaxOrderByAggregateInput
@@ -17235,6 +17271,8 @@ export namespace Prisma {
     soundsEnabled?: BoolWithAggregatesFilter<"SystemSettings"> | boolean
     offersEnabled?: BoolWithAggregatesFilter<"SystemSettings"> | boolean
     specialOffers?: StringNullableWithAggregatesFilter<"SystemSettings"> | string | null
+    whatsappOrdersEnabled?: BoolWithAggregatesFilter<"SystemSettings"> | boolean
+    ownerWhatsapp?: StringNullableWithAggregatesFilter<"SystemSettings"> | string | null
     updatedAt?: DateTimeWithAggregatesFilter<"SystemSettings"> | Date | string
   }
 
@@ -18319,6 +18357,8 @@ export namespace Prisma {
     soundsEnabled?: boolean
     offersEnabled?: boolean
     specialOffers?: string | null
+    whatsappOrdersEnabled?: boolean
+    ownerWhatsapp?: string | null
     updatedAt?: Date | string
   }
 
@@ -18331,6 +18371,8 @@ export namespace Prisma {
     soundsEnabled?: boolean
     offersEnabled?: boolean
     specialOffers?: string | null
+    whatsappOrdersEnabled?: boolean
+    ownerWhatsapp?: string | null
     updatedAt?: Date | string
   }
 
@@ -18343,6 +18385,8 @@ export namespace Prisma {
     soundsEnabled?: BoolFieldUpdateOperationsInput | boolean
     offersEnabled?: BoolFieldUpdateOperationsInput | boolean
     specialOffers?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappOrdersEnabled?: BoolFieldUpdateOperationsInput | boolean
+    ownerWhatsapp?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -18355,6 +18399,8 @@ export namespace Prisma {
     soundsEnabled?: BoolFieldUpdateOperationsInput | boolean
     offersEnabled?: BoolFieldUpdateOperationsInput | boolean
     specialOffers?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappOrdersEnabled?: BoolFieldUpdateOperationsInput | boolean
+    ownerWhatsapp?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -18367,6 +18413,8 @@ export namespace Prisma {
     soundsEnabled?: boolean
     offersEnabled?: boolean
     specialOffers?: string | null
+    whatsappOrdersEnabled?: boolean
+    ownerWhatsapp?: string | null
     updatedAt?: Date | string
   }
 
@@ -18379,6 +18427,8 @@ export namespace Prisma {
     soundsEnabled?: BoolFieldUpdateOperationsInput | boolean
     offersEnabled?: BoolFieldUpdateOperationsInput | boolean
     specialOffers?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappOrdersEnabled?: BoolFieldUpdateOperationsInput | boolean
+    ownerWhatsapp?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -18391,6 +18441,8 @@ export namespace Prisma {
     soundsEnabled?: BoolFieldUpdateOperationsInput | boolean
     offersEnabled?: BoolFieldUpdateOperationsInput | boolean
     specialOffers?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsappOrdersEnabled?: BoolFieldUpdateOperationsInput | boolean
+    ownerWhatsapp?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -19325,6 +19377,8 @@ export namespace Prisma {
     soundsEnabled?: SortOrder
     offersEnabled?: SortOrder
     specialOffers?: SortOrder
+    whatsappOrdersEnabled?: SortOrder
+    ownerWhatsapp?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -19337,6 +19391,8 @@ export namespace Prisma {
     soundsEnabled?: SortOrder
     offersEnabled?: SortOrder
     specialOffers?: SortOrder
+    whatsappOrdersEnabled?: SortOrder
+    ownerWhatsapp?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -19349,6 +19405,8 @@ export namespace Prisma {
     soundsEnabled?: SortOrder
     offersEnabled?: SortOrder
     specialOffers?: SortOrder
+    whatsappOrdersEnabled?: SortOrder
+    ownerWhatsapp?: SortOrder
     updatedAt?: SortOrder
   }
 

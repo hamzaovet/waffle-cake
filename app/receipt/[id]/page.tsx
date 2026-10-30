@@ -351,15 +351,7 @@ export default function DigitalReceiptPage({ params }: { params: Promise<{ id: s
 
           <div style={{ textAlign: "center", fontSize: "11px", color: "#666", marginTop: "14px", lineHeight: 1.6 }}>
             شكراً لطلبكم من Waffle &amp; Cake 🧇🍰<br />
-            *** نسعد دائماً بخدمتكم في السادس من أكتوبر ***<br />
-            <a
-              href="https://wa.me/201018671000"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "#D4954E", textDecoration: "none", fontWeight: 800, fontSize: "11px" }}
-            >
-              تم التطوير بواسطة شركة أوركا للحلول البرمجية والخدمات السحابية 🐋 (01018671000)
-            </a>
+            *** نسعد دائماً بخدمتكم في السادس من أكتوبر ***
           </div>
         </div>
       </div>

@@ -73,7 +73,66 @@ export async function POST(req: Request) {
       console.warn("Auto-save customer error:", custErr);
     }
 
-    return NextResponse.json({ success: true, orderNumber, orderId: order.id }, { status: 201 });
+    // Check if Owner WhatsApp order alerts are enabled in Settings
+    let whatsappNotify: { enabled: boolean; targetPhone: string; waUrl: string } | null = null;
+    try {
+      const settings = await prisma.systemSettings.findUnique({ where: { id: "default" } });
+      if (settings?.whatsappOrdersEnabled) {
+        const targetPhone = settings.ownerWhatsapp || settings.phone || "01091413470";
+        const cleanTarget = targetPhone.replace(/[^0-9]/g, "");
+        const fullTarget = cleanTarget.startsWith("2") ? cleanTarget : `2${cleanTarget}`;
+
+        let parsedItems: any[] = [];
+        try {
+          parsedItems = typeof body.items === "string" ? JSON.parse(body.items) : body.items;
+        } catch {}
+
+        const itemsLines = parsedItems
+          .map((i: any) => `• ${i.nameAr || i.nameEn || "صنف"} (×${i.qty}) - ${Number(i.unitPrice || 0) * Number(i.qty || 1)} ج`)
+          .join("\n");
+
+        const paymentLabel =
+          body.paymentMethod === "cash" ? "كاش عند الاستلام 💵" :
+          body.paymentMethod === "instapay" ? "إنستاباي ⚡" :
+          body.paymentMethod === "wallet" ? "محفظة كاش 📱" : "فيزا / كارت 💳";
+
+        const origin = req.headers.get("origin") || "https://waffle-cake.vercel.app";
+        const receiptUrl = `${origin}/receipt/${order.id}`;
+
+        const waText =
+          `🔔 أوردر جديد تم تسجيله على السيستم!\n` +
+          `-------------------------------\n` +
+          `رقم الأوردر: #${orderNumber}\n` +
+          `👤 العميل: ${body.customerName}\n` +
+          `📱 الهاتف: ${body.phone}\n` +
+          `📍 العنوان: ${body.address || "استلام"} (${body.zone || "الحي الثاني"})\n` +
+          `-------------------------------\n` +
+          `📋 الأصناف المطلوبة:\n${itemsLines}\n` +
+          `-------------------------------\n` +
+          `المجموع الفرعي: ${subtotal} ج\n` +
+          `خدمة التوصيل: ${deliveryFee} ج\n` +
+          `💰 الإجمالي المطلوب تحصيله: ${total} ج.م\n` +
+          `💳 طريقة الدفع: ${paymentLabel}\n` +
+          (body.notes ? `📝 ملاحظات: ${body.notes}\n` : "") +
+          `-------------------------------\n` +
+          `🔗 رابط الفاتورة والتتبع المباشر:\n${receiptUrl}`;
+
+        whatsappNotify = {
+          enabled: true,
+          targetPhone,
+          waUrl: `https://wa.me/${fullTarget}?text=${encodeURIComponent(waText)}`,
+        };
+      }
+    } catch (waErr) {
+      console.warn("WhatsApp notification preparation error:", waErr);
+    }
+
+    return NextResponse.json({
+      success: true,
+      orderNumber,
+      orderId: order.id,
+      whatsappNotify,
+    }, { status: 201 });
   } catch (err: unknown) {
     return NextResponse.json({ error: String(err) }, { status: 500 });
   }

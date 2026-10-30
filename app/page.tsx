@@ -458,7 +458,7 @@ export default function HomePage() {
     zone: DEFAULT_ZONE.nameAr, paymentMethod: "cash", notes: "",
   });
   const [placing, setPlacing]     = useState(false);
-  const [orderResult, setOrderResult] = useState<{ orderNumber: string } | null>(null);
+  const [orderResult, setOrderResult] = useState<{ orderNumber: string; orderId?: string; whatsappNotify?: any } | null>(null);
 
   // Track
   const [trackQuery, setTrackQuery]   = useState("");
@@ -656,6 +656,9 @@ export default function HomePage() {
       const data = await res.json();
       if (res.ok && data.orderNumber) {
         setOrderResult(data);
+        if (data.whatsappNotify?.enabled && data.whatsappNotify?.waUrl) {
+          try { window.open(data.whatsappNotify.waUrl, "_blank"); } catch {}
+        }
         // Save customer profile locally for 1-click future orders
         try {
           const profile = {
@@ -2347,7 +2350,7 @@ export default function HomePage() {
             </div>
             {/* WhatsApp 100% Free Confirmation Button */}
             <a
-              href={`https://wa.me/2${storeSettings.phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(
+              href={orderResult.whatsappNotify?.waUrl || `https://wa.me/2${storeSettings.phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(
                 `مرحباً ${storeSettings.restaurantName} 🧇🍰\nأنا العميل: ${orderForm.customerName}\nقمت بطلب أوردر جديد رقم: #${orderResult.orderNumber}\nالمطلوب تحصيله: ${grandTotal} ج.م\nالعنوان: ${orderForm.address || ""} (${orderForm.zone})\nوقت التوصيل التقديري: ${currentZone.timeMinutes} دقيقة\nبرجاء التأكيد والتجهيز طازج!`
               )}`}
               target="_blank"

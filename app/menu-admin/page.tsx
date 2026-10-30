@@ -52,6 +52,24 @@ export default function MenuAdminPage() {
   const [newCatImage, setNewCatImage]             = useState("");
   const [creatingCat, setCreatingCat]             = useState(false);
   const [catError, setCatError]                   = useState("");
+  const [editingCatId, setEditingCatId]           = useState<string | null>(null);
+
+  function resetCategoryForm() {
+    setEditingCatId(null);
+    setNewCatNameAr("");
+    setNewCatNameEn("");
+    setNewCatImage("");
+    setCatError("");
+  }
+
+  function handleStartEditCategory(cat: CategoryItem) {
+    setEditingCatId(cat.id);
+    setNewCatNameAr(cat.nameAr);
+    setNewCatNameEn(cat.nameEn || "");
+    setNewCatImage(cat.image || "");
+    setCatError("");
+    playSound("click");
+  }
 
   // Inline quick-add in product modal
   const [showQuickAddCat, setShowQuickAddCat]     = useState(false);
@@ -113,16 +131,18 @@ export default function MenuAdminPage() {
     } catch {}
   }
 
-  async function handleCreateCategory(e: React.FormEvent) {
+  async function handleSaveCategory(e: React.FormEvent) {
     e.preventDefault();
     if (!newCatNameAr.trim()) return;
     setCreatingCat(true);
     setCatError("");
     try {
+      const isEditing = Boolean(editingCatId);
       const res = await fetch("/api/categories", {
-        method: "POST",
+        method: isEditing ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          id: editingCatId,
           nameAr: newCatNameAr.trim(),
           nameEn: newCatNameEn.trim(),
           image: newCatImage.trim() || null,
@@ -130,16 +150,14 @@ export default function MenuAdminPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setCatError(data.error || "تعذر إضافة القسم");
+        setCatError(data.error || (isEditing ? "تعذر تعديل القسم" : "تعذر إضافة القسم"));
         return;
       }
       playSound("success");
-      setNewCatNameAr("");
-      setNewCatNameEn("");
-      setNewCatImage("");
-      await loadCategories();
+      resetCategoryForm();
+      await Promise.all([loadCategories(), loadProducts()]);
     } catch (err: any) {
-      setCatError(err.message || "حدث خطأ أثناء الإضافة");
+      setCatError(err.message || "حدث خطأ أثناء حفظ القسم");
     } finally {
       setCreatingCat(false);
     }
@@ -812,17 +830,50 @@ export default function MenuAdminPage() {
                 </button>
               </div>
 
-              {/* Add New Category Box */}
-              <form onSubmit={handleCreateCategory} style={{
-                backgroundColor: "#FAF6EE",
-                border: "1.5px solid #DEC9B5",
-                borderRadius: "14px",
-                padding: "16px",
+              {/* Add / Edit Category Box */}
+              <form onSubmit={handleSaveCategory} style={{
+                backgroundColor: editingCatId ? "rgba(198, 135, 62, 0.08)" : "#FAF6EE",
+                border: editingCatId ? "2px solid #C6873E" : "1.5px solid #DEC9B5",
+                borderRadius: "16px",
+                padding: "18px",
                 marginBottom: "22px",
+                transition: "all 0.2s ease",
               }}>
-                <div style={{ fontSize: "13.5px", fontWeight: 900, color: "#2B170E", marginBottom: "12px", display: "flex", alignItems: "center", gap: "6px" }}>
-                  <span>➕</span>
-                  <span>{t("إضافة قسم جديد للمنيو", "Add New Menu Category")}</span>
+                <div style={{
+                  fontSize: "14px",
+                  fontWeight: 900,
+                  color: "#2B170E",
+                  marginBottom: "12px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <span>{editingCatId ? "✏️" : "➕"}</span>
+                    <span>
+                      {editingCatId
+                        ? t(`تعديل بيانات القسم: "${newCatNameAr}"`, `Edit Category: "${newCatNameAr}"`)
+                        : t("إضافة قسم جديد للمنيو", "Add New Menu Category")}
+                    </span>
+                  </div>
+
+                  {editingCatId && (
+                    <button
+                      type="button"
+                      onClick={resetCategoryForm}
+                      style={{
+                        background: "none",
+                        border: "none",
+                        color: "#DC2626",
+                        fontSize: "12px",
+                        fontWeight: 800,
+                        cursor: "pointer",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      {t("إلغاء التعديل", "Cancel Edit")}
+                    </button>
+                  )}
                 </div>
 
                 {catError && (
@@ -840,7 +891,7 @@ export default function MenuAdminPage() {
                   </div>
                 )}
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "10px" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "14px" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "11.5px", fontWeight: 800, color: "#7E5E49", marginBottom: "4px" }}>
                       {t("اسم القسم بالعربي *", "Arabic Name *")}
@@ -852,9 +903,9 @@ export default function MenuAdminPage() {
                       onChange={(e) => setNewCatNameAr(e.target.value)}
                       required
                       style={{
-                        width: "100%", height: "38px", backgroundColor: "#FFFFFF",
-                        border: "1px solid #DEC9B5", borderRadius: "8px",
-                        padding: "0 10px", fontSize: "13px", outline: "none", boxSizing: "border-box",
+                        width: "100%", height: "40px", backgroundColor: "#FFFFFF",
+                        border: "1px solid #DEC9B5", borderRadius: "10px",
+                        padding: "0 12px", fontSize: "13px", fontWeight: 700, outline: "none", boxSizing: "border-box",
                       }}
                     />
                   </div>
@@ -869,29 +920,20 @@ export default function MenuAdminPage() {
                       value={newCatNameEn}
                       onChange={(e) => setNewCatNameEn(e.target.value)}
                       style={{
-                        width: "100%", height: "38px", backgroundColor: "#FFFFFF",
-                        border: "1px solid #DEC9B5", borderRadius: "8px",
-                        padding: "0 10px", fontSize: "13px", outline: "none", boxSizing: "border-box",
+                        width: "100%", height: "40px", backgroundColor: "#FFFFFF",
+                        border: "1px solid #DEC9B5", borderRadius: "10px",
+                        padding: "0 12px", fontSize: "13px", outline: "none", boxSizing: "border-box",
                       }}
                     />
                   </div>
                 </div>
 
-                <div style={{ marginBottom: "12px" }}>
-                  <label style={{ display: "block", fontSize: "11.5px", fontWeight: 800, color: "#7E5E49", marginBottom: "4px" }}>
-                    {t("رابط صورة أو أيقونة القسم (اختياري)", "Category Image URL")}
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="https://..."
-                    dir="ltr"
+                {/* Direct Image Upload Component */}
+                <div style={{ marginBottom: "14px" }}>
+                  <ImageUploader
                     value={newCatImage}
-                    onChange={(e) => setNewCatImage(e.target.value)}
-                    style={{
-                      width: "100%", height: "38px", backgroundColor: "#FFFFFF",
-                      border: "1px solid #DEC9B5", borderRadius: "8px",
-                      padding: "0 10px", fontSize: "12.5px", outline: "none", boxSizing: "border-box",
-                    }}
+                    onChange={(url) => setNewCatImage(url)}
+                    label={t("صورة أو أيقونة القسم (رفع من الجهاز) 🖼️", "Category Image (Upload from device) 🖼️")}
                   />
                 </div>
 
@@ -900,18 +942,31 @@ export default function MenuAdminPage() {
                   disabled={creatingCat}
                   style={{
                     width: "100%",
-                    height: "40px",
+                    height: "42px",
                     background: "linear-gradient(135deg, #D4954E, #C6873E)",
                     color: "#FFFFFF",
                     fontWeight: 900,
-                    fontSize: "13px",
+                    fontSize: "13.5px",
                     border: "none",
-                    borderRadius: "8px",
+                    borderRadius: "10px",
                     cursor: "pointer",
-                    boxShadow: "0 2px 6px rgba(198,135,62,0.25)",
+                    boxShadow: "0 2px 8px rgba(198,135,62,0.25)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "6px",
                   }}
                 >
-                  {creatingCat ? t("جاري الإضافة...", "Adding...") : t("إضافة القسم وحفظه فوراً ✨", "Add Category ✨")}
+                  {creatingCat ? (
+                    <>
+                      <Loader2 size={16} className="animate-spin" />
+                      <span>{t("جاري الحفظ...", "Saving...")}</span>
+                    </>
+                  ) : editingCatId ? (
+                    t("حفظ تعديلات القسم فوراً ✨", "Save Category Changes ✨")
+                  ) : (
+                    t("إضافة القسم وحفظه فوراً ✨", "Add Category ✨")
+                  )}
                 </button>
               </form>
 
@@ -924,6 +979,7 @@ export default function MenuAdminPage() {
                 {activeCategoryList.map((catName) => {
                   const catItem = categories.find(c => c.nameAr === catName);
                   const itemCount = products.filter(p => p.category === catName).length;
+                  const isBeingEdited = catItem && editingCatId === catItem.id;
                   return (
                     <div
                       key={catItem?.id || catName}
@@ -932,17 +988,45 @@ export default function MenuAdminPage() {
                         alignItems: "center",
                         justifyContent: "space-between",
                         padding: "10px 14px",
-                        backgroundColor: "#FFFFFF",
-                        border: "1px solid #E8DAC8",
+                        backgroundColor: isBeingEdited ? "rgba(198, 135, 62, 0.12)" : "#FFFFFF",
+                        border: isBeingEdited ? "1.5px solid #C6873E" : "1px solid #E8DAC8",
                         borderRadius: "12px",
+                        transition: "all 0.15s ease",
                       }}
                     >
                       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                        <span style={{ fontSize: "16px" }}>🧇</span>
+                        {catItem?.image ? (
+                          <img
+                            src={catItem.image}
+                            alt={catName}
+                            style={{
+                              width: "36px",
+                              height: "36px",
+                              borderRadius: "8px",
+                              objectFit: "cover",
+                              border: "1px solid #E8DAC8",
+                            }}
+                          />
+                        ) : (
+                          <div style={{
+                            width: "36px",
+                            height: "36px",
+                            borderRadius: "8px",
+                            background: "#FAF6EE",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "18px",
+                          }}>
+                            🧇
+                          </div>
+                        )}
                         <div>
-                          <div style={{ fontSize: "14px", fontWeight: 800, color: "#2B170E" }}>
-                            {catName}
-                            {catItem?.nameEn && <span style={{ fontSize: "12px", color: "#8C6546", marginRight: "8px" }}>({catItem.nameEn})</span>}
+                          <div style={{ fontSize: "14px", fontWeight: 800, color: "#2B170E", display: "flex", alignItems: "center", gap: "6px" }}>
+                            <span>{catName}</span>
+                            {catItem?.nameEn && (
+                              <span style={{ fontSize: "12px", color: "#8C6546" }}>({catItem.nameEn})</span>
+                            )}
                           </div>
                           <div style={{ fontSize: "11.5px", color: "#7E5E49" }}>
                             {itemCount} {t("صنف مسجل تحت هذا القسم", "items in this category")}
@@ -950,24 +1034,53 @@ export default function MenuAdminPage() {
                         </div>
                       </div>
 
-                      {catItem?.id && (
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteCategory(catItem.id, catName)}
-                          style={{
-                            padding: "6px 12px",
-                            backgroundColor: "#FEF2F2",
-                            border: "1px solid #FCA5A5",
-                            color: "#DC2626",
-                            borderRadius: "8px",
-                            fontSize: "12px",
-                            fontWeight: 700,
-                            cursor: "pointer",
-                          }}
-                        >
-                          {t("حذف", "Delete")}
-                        </button>
-                      )}
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        {catItem && (
+                          <button
+                            type="button"
+                            onClick={() => handleStartEditCategory(catItem)}
+                            style={{
+                              padding: "6px 12px",
+                              backgroundColor: isBeingEdited ? "#C6873E" : "#FAF6EE",
+                              border: "1px solid #DEC9B5",
+                              color: isBeingEdited ? "#FFFFFF" : "#7E5E49",
+                              borderRadius: "8px",
+                              fontSize: "12px",
+                              fontWeight: 800,
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "4px",
+                            }}
+                          >
+                            <Pencil size={12} />
+                            <span>{t("تعديل", "Edit")}</span>
+                          </button>
+                        )}
+
+                        {catItem?.id && (
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteCategory(catItem.id, catName)}
+                            style={{
+                              padding: "6px 12px",
+                              backgroundColor: "#FEF2F2",
+                              border: "1px solid #FCA5A5",
+                              color: "#DC2626",
+                              borderRadius: "8px",
+                              fontSize: "12px",
+                              fontWeight: 700,
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "4px",
+                            }}
+                          >
+                            <Trash2 size={12} />
+                            <span>{t("حذف", "Delete")}</span>
+                          </button>
+                        )}
+                      </div>
                     </div>
                   );
                 })}

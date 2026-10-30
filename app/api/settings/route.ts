@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 
 let cachedSettings: any = null;
 let lastSettingsTime = 0;
-const SETTINGS_TTL_MS = 60_000; // 60 seconds
+const SETTINGS_TTL_MS = 10_000; // 10 seconds
 
 export async function GET() {
   try {
@@ -31,6 +31,8 @@ export async function GET() {
           ]),
           soundsEnabled: true,
           specialOffers: "open", // store status: open, busy, closed, disabled
+          whatsappOrdersEnabled: false,
+          ownerWhatsapp: "01091413470",
         },
       });
     }
@@ -48,16 +50,27 @@ export async function PATCH(req: Request) {
   try {
     const body = await req.json();
 
+    const updateData: any = {};
+    if (body.restaurantName !== undefined) updateData.restaurantName = body.restaurantName;
+    if (body.phone !== undefined) updateData.phone = body.phone;
+    if (body.address !== undefined) updateData.address = body.address;
+    if (body.soundsEnabled !== undefined) updateData.soundsEnabled = body.soundsEnabled;
+    if (body.specialOffers !== undefined || body.status !== undefined) {
+      updateData.specialOffers = body.specialOffers || body.status;
+    }
+    if (body.deliveryZones !== undefined) {
+      updateData.deliveryZones = typeof body.deliveryZones === "string" ? body.deliveryZones : JSON.stringify(body.deliveryZones || []);
+    }
+    if (body.whatsappOrdersEnabled !== undefined) {
+      updateData.whatsappOrdersEnabled = Boolean(body.whatsappOrdersEnabled);
+    }
+    if (body.ownerWhatsapp !== undefined) {
+      updateData.ownerWhatsapp = body.ownerWhatsapp ? String(body.ownerWhatsapp).trim() : null;
+    }
+
     const updated = await prisma.systemSettings.upsert({
       where: { id: "default" },
-      update: {
-        restaurantName: body.restaurantName,
-        phone: body.phone,
-        address: body.address,
-        soundsEnabled: body.soundsEnabled,
-        specialOffers: body.specialOffers || body.status, // use for store status
-        deliveryZones: typeof body.deliveryZones === "string" ? body.deliveryZones : JSON.stringify(body.deliveryZones || []),
-      },
+      update: updateData,
       create: {
         id: "default",
         restaurantName: body.restaurantName || "Waffle & Cake",
@@ -66,6 +79,8 @@ export async function PATCH(req: Request) {
         soundsEnabled: body.soundsEnabled ?? true,
         specialOffers: body.specialOffers || "open",
         deliveryZones: typeof body.deliveryZones === "string" ? body.deliveryZones : JSON.stringify(body.deliveryZones || []),
+        whatsappOrdersEnabled: Boolean(body.whatsappOrdersEnabled),
+        ownerWhatsapp: body.ownerWhatsapp ? String(body.ownerWhatsapp).trim() : "01091413470",
       },
     });
 

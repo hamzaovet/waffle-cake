@@ -32,6 +32,8 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
     address: "السادس من أكتوبر — الحي الأول",
     soundsEnabled: true,
     status: "open", // open, busy, closed, disabled
+    whatsappOrdersEnabled: false,
+    ownerWhatsapp: "01091413470",
   });
 
   useEffect(() => {
@@ -52,6 +54,8 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           address: data.address || "السادس من أكتوبر — الحي الأول",
           soundsEnabled: data.soundsEnabled ?? true,
           status: data.specialOffers || "open",
+          whatsappOrdersEnabled: Boolean(data.whatsappOrdersEnabled),
+          ownerWhatsapp: data.ownerWhatsapp || data.phone || "01091413470",
         });
       }
     } finally {
@@ -72,6 +76,8 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
           address: settings.address,
           soundsEnabled: settings.soundsEnabled,
           specialOffers: settings.status,
+          whatsappOrdersEnabled: settings.whatsappOrdersEnabled,
+          ownerWhatsapp: settings.ownerWhatsapp,
         }),
       });
       if (res.ok) {
@@ -345,6 +351,85 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                     style={{ width: "18px", height: "18px", accentColor: "#C6873E", cursor: "pointer" }}
                   />
                 </div>
+              </div>
+
+              {/* Section: Direct WhatsApp Order Alerts for Owner */}
+              <div style={{
+                padding: "16px",
+                borderRadius: "16px",
+                background: settings.whatsappOrdersEnabled ? "rgba(34, 197, 94, 0.08)" : "#FAF6EE",
+                border: settings.whatsappOrdersEnabled ? "1.5px solid #86EFAC" : "1px solid #E8DAC8",
+                display: "flex",
+                flexDirection: "column",
+                gap: "12px",
+                transition: "all 0.2s ease",
+              }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <div style={{
+                      width: "38px", height: "38px", borderRadius: "10px",
+                      backgroundColor: settings.whatsappOrdersEnabled ? "#22C55E" : "rgba(198, 135, 62, 0.15)",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      color: settings.whatsappOrdersEnabled ? "#FFFFFF" : "#C6873E",
+                      fontSize: "18px",
+                      flexShrink: 0,
+                    }}>
+                      💬
+                    </div>
+                    <div>
+                      <div style={{ fontSize: "13.5px", fontWeight: 900, color: "#2B170E" }}>
+                        {t("إرسال رسائل وتنبيهات الطلبات عبر واتساب لصاحب المحل", "WhatsApp Order Alerts to Owner")}
+                      </div>
+                      <div style={{ fontSize: "11px", color: "#7E5E49", marginTop: "2px" }}>
+                        {t("توجيه تفاصيل كل أوردر جديد فورياً إلى واتساب صاحب المحل (مفيد جداً في حال عدم التواجد بالفرع)", "Direct new order details instantly to owner WhatsApp (useful when away from store)")}
+                      </div>
+                    </div>
+                  </div>
+
+                  <input
+                    type="checkbox"
+                    checked={settings.whatsappOrdersEnabled}
+                    onChange={(e) => setSettings({ ...settings, whatsappOrdersEnabled: e.target.checked })}
+                    style={{ width: "20px", height: "20px", accentColor: "#22C55E", cursor: "pointer", flexShrink: 0 }}
+                  />
+                </div>
+
+                {settings.whatsappOrdersEnabled && (
+                  <div style={{
+                    paddingTop: "12px",
+                    borderTop: "1px dashed #86EFAC",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "6px",
+                  }}>
+                    <label style={{ fontSize: "12px", fontWeight: 800, color: "#15803D" }}>
+                      {t("رقم واتساب صاحب المحل / الإدارة (لتلقي رسائل الطلبات):", "Owner WhatsApp Number for Orders:")}
+                    </label>
+                    <input
+                      type="text"
+                      dir="ltr"
+                      placeholder="01091413470"
+                      value={settings.ownerWhatsapp}
+                      onChange={(e) => setSettings({ ...settings, ownerWhatsapp: e.target.value })}
+                      style={{
+                        width: "100%",
+                        height: "40px",
+                        background: "#FFFFFF",
+                        border: "1.5px solid #86EFAC",
+                        borderRadius: "10px",
+                        padding: "0 12px",
+                        color: "#166534",
+                        fontSize: "13.5px",
+                        fontWeight: 800,
+                        outline: "none",
+                        boxSizing: "border-box",
+                      }}
+                    />
+                    <span style={{ fontSize: "11px", color: "#16A34A", fontWeight: 700 }}>
+                      ✓ سيتم تجهيز رسالة تلقائية بتفاصيل كل طلب فورياً ورابط الفاتورة المباشر إلى هذا الرقم.
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Section: Mobile App & APK Download */}

@@ -116,15 +116,17 @@ model ChatMessage {
 }
 
 model SystemSettings {
-  id             String   @id @default("default")
-  restaurantName String   @default("Waffle & Cake")
-  phone          String   @default("01018671000")
-  address        String   @default("السادس من أكتوبر - الحي الأول")
-  deliveryZones  String   @default("[]") // JSON: [{name, fee}]
-  soundsEnabled  Boolean  @default(true)
-  offersEnabled  Boolean  @default(true)
-  specialOffers  String?
-  updatedAt      DateTime @updatedAt
+  id                    String   @id @default("default")
+  restaurantName        String   @default("Waffle & Cake")
+  phone                 String   @default("01018671000")
+  address               String   @default("السادس من أكتوبر - الحي الأول")
+  deliveryZones         String   @default("[]") // JSON: [{name, fee}]
+  soundsEnabled         Boolean  @default(true)
+  offersEnabled         Boolean  @default(true)
+  specialOffers         String?
+  whatsappOrdersEnabled Boolean  @default(false)
+  ownerWhatsapp         String?
+  updatedAt             DateTime @updatedAt
 }
 
 model Category {

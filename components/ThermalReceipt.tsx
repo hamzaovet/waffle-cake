@@ -232,8 +232,7 @@ export function printThermalReceipt(order: PrintableOrder) {
 
       <div class="footer-note">
         شكراً لطلبكم من Waffle &amp; Cake 🧇🍰<br/>
-        نسعد دائماً بخدمتكم في السادس من أكتوبر<br/>
-        *** برمجة وتطوير: شركة أوركا للحلول البرمجية (01018671000) ***
+        نسعد دائماً بخدمتكم في السادس من أكتوبر
       </div>
     </body>
     </html>
@@ -479,8 +478,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
 
             <div style={{ textAlign: "center", fontSize: "11px", color: "#555" }}>
               شكراً لطلبكم من Waffle &amp; Cake 🧇🍰<br/>
-              لخدمة العملاء والطلبات: 01091413470<br/>
-              برمجة وتطوير: شركة أوركا للحلول البرمجية (01018671000)
+              لخدمة العملاء والطلبات: 01091413470
             </div>
           </div>
         </div>
